@@ -534,6 +534,16 @@ function markAsSubmitted() {
   localStorage.setItem(SUBMITTED_KEY, generateFingerprint());
 }
 
+function canSubmitNow() {
+  const last = parseInt(localStorage.getItem('last_submit_time') || '0', 10);
+  const now = Date.now();
+  if (now - last < 60000) return false; // min. 60 sekund między zgłoszeniami
+  return true;
+}
+function markSubmitTime() {
+  localStorage.setItem('last_submit_time', Date.now().toString());
+}
+
 function initAntibot() {
   const a = Math.floor(Math.random() * 8) + 2;
   const b = Math.floor(Math.random() * 8) + 2;
@@ -543,12 +553,17 @@ function initAntibot() {
 }
 
 function checkSubmissionLimit() {
-  if (hasAlreadySubmitted()) {
+  if (hasAlreadySubmitted() || !canSubmitNow()) {
     const btn = document.getElementById('submitBtn');
     const msg = document.getElementById('alreadySubmitted');
     const ans = document.getElementById('antibotAnswer');
     if (btn) btn.disabled = true;
-    if (msg) msg.style.display = 'block';
+    if (msg) {
+      msg.style.display = 'block';
+      msg.textContent = hasAlreadySubmitted() 
+        ? 'Z tej przeglądarki już wysłano zgłoszenie.' 
+        : 'Poczekaj chwilę przed kolejnym zgłoszeniem.';
+    }
     if (ans) ans.disabled = true;
   }
 }
@@ -580,38 +595,47 @@ async function load() {
       .select('*')
       .order('time', { ascending: false });
     if (error) throw error;
-    if (data && data.length) {
-      nextNumber = Math.max(0, ...data.map(i => i.number || 0)) + 1;
-      return data;
+    const items = data || [];
+    if (items.length) {
+      nextNumber = Math.max(0, ...items.map(i => i.number || 0)) + 1;
     }
-    // fallback do localStorage jeśli baza pusta
-    const stored = localStorage.getItem(KEY);
-    if (stored) return JSON.parse(stored);
-    return INITIAL_DATA.slice();
+    return items;
   } catch (e) {
-    console.warn('Błąd bazy, używam localStorage', e);
+    console.warn('Baza niedostępna, localStorage', e);
     try {
       const stored = localStorage.getItem(KEY);
-      return stored ? JSON.parse(stored) : INITIAL_DATA.slice();
+      return stored ? JSON.parse(stored) : [];
     } catch {
-      return INITIAL_DATA.slice();
+      return [];
     }
   }
 }
 
-async function save(data) {
-  // zapis lokalny jako backup
-  localStorage.setItem(KEY, JSON.stringify(data));
-  // zapis do Supabase (nadpisujemy całą listę – proste podejście)
+async function saveItem(item) {
+  localStorage.setItem(KEY, JSON.stringify([...(JSON.parse(localStorage.getItem(KEY) || '[]')), item]));
   try {
-    // usuwamy stare i wstawiamy nowe (dla prostoty)
-    await supabase.from('zgloszenia').delete().neq('id', '');
-    if (data.length) {
-      const { error } = await supabase.from('zgloszenia').insert(data);
-      if (error) console.warn('Błąd zapisu do bazy', error);
-    }
+    const { error } = await supabase.from('zgloszenia').insert([item]);
+    if (error) console.warn('Błąd insert', error);
+    return !error;
   } catch (e) {
-    console.warn('Nie udało się zapisać do Supabase', e);
+    console.warn('Supabase insert failed', e);
+    return false;
+  }
+}
+
+async function updateItem(id, changes) {
+  try {
+    const { error } = await supabase.from('zgloszenia').update(changes).eq('id', id);
+    if (error) console.warn('Błąd update', error);
+  } catch (e) {
+    console.warn('Supabase update failed', e);
+  }
+  // lokalny backup
+  const local = JSON.parse(localStorage.getItem(KEY) || '[]');
+  const idx = local.findIndex(x => x.id === id);
+  if (idx >= 0) {
+    local[idx] = { ...local[idx], ...changes };
+    localStorage.setItem(KEY, JSON.stringify(local));
   }
 }
 function loadLog() {
@@ -632,8 +656,18 @@ function escapeHtml(t) {
   return String(t || '').replace(/[&<>"']/g, m => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m]));
 }
 
-function updateStats() {
-  const items = load();
+async function render() {
+  const items = await load();
+  updateStatsFrom(items);
+  if (isAdmin) {
+    renderAdmin(items);
+    renderActivity();
+  } else {
+    renderPublic(items);
+  }
+}
+
+function updateStatsFrom(items) {
   const total = items.length;
   const open = items.filter(i => i.status !== 'zamkniete').length;
   const closed = items.filter(i => i.status === 'zamkniete').length;
@@ -650,28 +684,28 @@ function updateStats() {
   if (avgEl) avgEl.textContent = avg;
 }
 
-function getFilteredSorted(isPublic) {
-  let items = load();
+function getFilteredSorted(items, isPublic) {
+  let filtered = items.slice();
   const searchEl = isPublic ? document.getElementById('searchPublic') : document.getElementById('searchAdmin');
   const sortEl = isPublic ? document.getElementById('sortPublic') : document.getElementById('sortAdmin');
   const search = (searchEl ? searchEl.value : '').toLowerCase();
   const sort = sortEl ? sortEl.value : 'newest';
   if (search) {
-    items = items.filter(i =>
+    filtered = filtered.filter(i =>
       (i.description || '').toLowerCase().includes(search) ||
       (i.location || '').toLowerCase().includes(search) ||
       (i.category || '').toLowerCase().includes(search) ||
       String(i.number || '').includes(search)
     );
   }
-  if (!isPublic && currentFilter !== 'all') items = items.filter(i => i.status === currentFilter);
-  if (sort === 'newest') items.sort((a,b) => b.time - a.time);
-  else if (sort === 'oldest') items.sort((a,b) => a.time - b.time);
+  if (!isPublic && currentFilter !== 'all') filtered = filtered.filter(i => i.status === currentFilter);
+  if (sort === 'newest') filtered.sort((a,b) => b.time - a.time);
+  else if (sort === 'oldest') filtered.sort((a,b) => a.time - b.time);
   else if (sort === 'priority') {
     const order = { wysoki: 0, normalny: 1, niski: 2 };
-    items.sort((a,b) => (order[a.priority]||1) - (order[b.priority]||1));
-  } else if (sort === 'status') items.sort((a,b) => a.status.localeCompare(b.status));
-  return items;
+    filtered.sort((a,b) => (order[a.priority]||1) - (order[b.priority]||1));
+  } else if (sort === 'status') filtered.sort((a,b) => a.status.localeCompare(b.status));
+  return filtered;
 }
 
 let map;
@@ -720,14 +754,14 @@ function updateMap(items) {
     const bounds = L.latLngBounds(withLoc.map(i => [i.lat, i.lng]));
     map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
   }
-function renderPublic() {
-  const items = getFilteredSorted(true);
-  updateMap(items);
-  if (!items.length) {
+function renderPublic(items) {
+  const filtered = getFilteredSorted(items, true);
+  updateMap(filtered);
+  if (!filtered.length) {
     publicListEl.innerHTML = '<div class="empty">Brak zgłoszeń.</div>';
     return;
   }
-  publicListEl.innerHTML = items.map(item => `
+  publicListEl.innerHTML = filtered.map(item => `
     <div class="report">
       <div class="meta">
         #${item.number || '–'} · ${new Date(item.time).toLocaleString('pl-PL')} · ${escapeHtml(item.category)}
@@ -747,13 +781,13 @@ function renderPublic() {
   `).join('');
 }
 
-function renderAdmin() {
-  const items = getFilteredSorted(false);
-  if (!items.length) {
+function renderAdmin(items) {
+  const filtered = getFilteredSorted(items, false);
+  if (!filtered.length) {
     listEl.innerHTML = '<div class="empty">Brak zgłoszeń.</div>';
     return;
   }
-  listEl.innerHTML = items.map(item => `
+  listEl.innerHTML = filtered.map(item => `
     <div class="report">
       <div class="meta">
         #${item.number || '–'} · ${new Date(item.time).toLocaleString('pl-PL')} · ${escapeHtml(item.category)}
@@ -799,25 +833,32 @@ function renderActivity() {
   }).join('');
 }
 
-function render() {
-  updateStats();
-  if (isAdmin) {
-    renderAdmin();
-    renderActivity();
-  } else {
-    renderPublic();
-  }
+function supportReport(id) {
+  supabase.from('zgloszenia').select('supports').eq('id', id).single()
+    .then(({ data }) => {
+      const supports = (data?.supports || 0) + 1;
+      updateItem(id, { supports });
+      addLog('wsparcie', { id, supports });
+      render();
+    }).catch(() => render());
 }
 
-function supportReport(id) {
-  const data = load();
-  const item = data.find(x => x.id === id);
-  if (item) {
-    item.supports = (item.supports || 0) + 1;
-    save(data);
-    addLog('wsparcie', { id, supports: item.supports });
-    render();
-  }
+function changeStatus(id, status) {
+  const changes = { status };
+  if (status === 'zamkniete') changes.closedTime = Date.now();
+  updateItem(id, changes);
+  addLog('zmiana_statusu', { id, to: status });
+  render();
+}
+function changePriority(id, priority) {
+  updateItem(id, { priority });
+  addLog('zmiana_priorytetu', { id, priority });
+  render();
+}
+function setComment(id, comment) {
+  updateItem(id, { comment });
+  addLog('komentarz', { id });
+  render();
 }
 
 // Proste geokodowanie lokalizacji (bardzo przybliżone, na potrzeby demo)
@@ -899,6 +940,7 @@ form.onsubmit = e => {
     return;
   }
   if (hasAlreadySubmitted()) { alert('Z tej przeglądarki już wysłano zgłoszenie.'); return; }
+  if (!canSubmitNow()) { alert('Poczekaj przynajmniej minutę między zgłoszeniami.'); return; }
 
   const photoInput = document.getElementById('photo');
   if (photoInput.files[0]) {
@@ -910,7 +952,7 @@ form.onsubmit = e => {
   }
 };
 
-function finishSubmit(photo) {
+async function finishSubmit(photo) {
   const location = document.getElementById('location').value.trim();
   const lat = parseFloat(document.getElementById('lat').value) || null;
   const lng = parseFloat(document.getElementById('lng').value) || null;
@@ -927,21 +969,28 @@ function finishSubmit(photo) {
     status: 'nowe',
     priority: 'normalny',
     comment: '',
-    photo: photo,
+    photo: photo || '',
     supports: 0,
     fingerprint: generateFingerprint()
   };
-  const data = load();
-  data.push(item);
-  save(data);
+
+  const ok = await saveItem(item);
   markAsSubmitted();
+  markSubmitTime();
   clearDraft();
   addLog('nowe_zgloszenie', { id: item.id, number: item.number, category: item.category });
+
   form.reset();
   document.getElementById('photoPreview').style.display = 'none';
   initAntibot();
   checkSubmissionLimit();
-  render();
+  await render();
+
+  if (ok) {
+    alert('Zgłoszenie zapisane.');
+  } else {
+    alert('Zapisano lokalnie. Problem z bazą – spróbuj później.');
+  }
 }
 
 document.querySelectorAll('.filters button').forEach(btn => {
