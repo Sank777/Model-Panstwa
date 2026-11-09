@@ -232,6 +232,7 @@
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header>
@@ -462,6 +463,10 @@ const adminPanel = document.getElementById('adminPanel');
 const themeToggle = document.getElementById('themeToggle');
 const activityLogEl = document.getElementById('activityLog');
 
+const SUPABASE_URL = 'https://ldjrinmohlomzlyeagwd.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const KEY = 'zgloszenia_zaufanie';
 const LOG_KEY = 'zgloszenia_log';
 const SUBMITTED_KEY = 'zgloszenie_wyslane_fingerprint';
@@ -568,27 +573,47 @@ function loadDraft() {
 }
 function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
 
-function load() {
+async function load() {
   try {
+    const { data, error } = await supabase
+      .from('zgloszenia')
+      .select('*')
+      .order('time', { ascending: false });
+    if (error) throw error;
+    if (data && data.length) {
+      nextNumber = Math.max(0, ...data.map(i => i.number || 0)) + 1;
+      return data;
+    }
+    // fallback do localStorage jeśli baza pusta
     const stored = localStorage.getItem(KEY);
-    if (!stored) {
-      localStorage.setItem(KEY, JSON.stringify(INITIAL_DATA));
-      if (!localStorage.getItem(LOG_KEY)) localStorage.setItem(LOG_KEY, JSON.stringify(INITIAL_LOG));
-      nextNumber = 3;
+    if (stored) return JSON.parse(stored);
+    return INITIAL_DATA.slice();
+  } catch (e) {
+    console.warn('Błąd bazy, używam localStorage', e);
+    try {
+      const stored = localStorage.getItem(KEY);
+      return stored ? JSON.parse(stored) : INITIAL_DATA.slice();
+    } catch {
       return INITIAL_DATA.slice();
     }
-    const parsed = JSON.parse(stored);
-    if (!Array.isArray(parsed)) throw new Error();
-    nextNumber = Math.max(0, ...parsed.map(i => i.number || 0)) + 1;
-    return parsed;
-  } catch {
-    localStorage.setItem(KEY, JSON.stringify(INITIAL_DATA));
-    if (!localStorage.getItem(LOG_KEY)) localStorage.setItem(LOG_KEY, JSON.stringify(INITIAL_LOG));
-    nextNumber = 3;
-    return INITIAL_DATA.slice();
   }
 }
-function save(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
+
+async function save(data) {
+  // zapis lokalny jako backup
+  localStorage.setItem(KEY, JSON.stringify(data));
+  // zapis do Supabase (nadpisujemy całą listę – proste podejście)
+  try {
+    // usuwamy stare i wstawiamy nowe (dla prostoty)
+    await supabase.from('zgloszenia').delete().neq('id', '');
+    if (data.length) {
+      const { error } = await supabase.from('zgloszenia').insert(data);
+      if (error) console.warn('Błąd zapisu do bazy', error);
+    }
+  } catch (e) {
+    console.warn('Nie udało się zapisać do Supabase', e);
+  }
+}
 function loadLog() {
   try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }
   catch { return []; }
