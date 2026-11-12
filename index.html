@@ -3,1164 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Model państwa – Testy aplikacji obywatelskich</title>
+<meta name="theme-color" content="#1e5c3a">
+<meta name="description" content="Prezentacja obywatelskiej koncepcji państwa opartego na zaufaniu, przejrzystości i współpracy.">
+<title>Model Państwa – 10 filarów zaufania</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
-  :root {
-    --bg: #f4f6f5;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --accent: #1e5c3a;
-    --accent-light: #2d7a4f;
-    --border: #e0e0e0;
-    --shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-  [data-theme="dark"] {
-    --bg: #1a1d1c;
-    --card: #242826;
-    --text: #e8e8e8;
-    --accent: #4caf7a;
-    --accent-light: #66bb8a;
-    --border: #3a3f3d;
-    --shadow: 0 2px 12px rgba(0,0,0,0.3);
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.55;
-    transition: background 0.2s, color 0.2s;
-  }
-  header {
-    background: linear-gradient(135deg, #1e5c3a 0%, #2d7a4f 100%);
-    color: white;
-    padding: 1.8rem 1rem 2.2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=400&fit=crop') center/cover;
-    opacity: 0.18;
-    z-index: 0;
-  }
-  header > * { position: relative; z-index: 1; }
-  header h1 { margin: 0; font-size: 1.7rem; font-weight: 650; letter-spacing: -0.3px; }
-  header p { margin: 0.5rem 0 0; font-size: 0.98rem; opacity: 0.92; }
+:root{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface-2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent-2:#2d7a4f;--border:#dce5de;--shadow:0 5px 20px rgba(20,45,29,.07);--danger:#a83232;--warning:#8a6500;--radius:15px}
+[data-theme="dark"]{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface-2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent-2:#82d19f;--border:#39473d;--shadow:0 5px 20px rgba(0,0,0,.2);--danger:#ff8585;--warning:#f0cb65}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:background .2s,color .2s}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid #76b9e8;outline-offset:2px}header{position:relative;overflow:hidden;background:linear-gradient(130deg,#17452d,#2d7a4f);color:#fff;padding:2.2rem 1rem 2rem;text-align:center}header:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,35,20,.75),rgba(10,35,20,.25)),url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&h=500&fit=crop') center/cover;opacity:.42}header>*{position:relative}header h1{margin:.35rem 0;font-size:clamp(1.65rem,4vw,2.35rem);letter-spacing:-.04em}header p{max-width:760px;margin:.5rem auto 0;color:#e6f2e9}.eyebrow{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:750;opacity:.85}.header-actions{position:absolute;right:1rem;top:1rem;display:flex;gap:.5rem}.header-actions button{background:#ffffff20;border:1px solid #ffffff70;color:#fff;padding:.45rem .7rem;border-radius:9px}.hero-tags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}.hero-tags span{font-size:.78rem;padding:.3rem .65rem;border:1px solid #ffffff55;border-radius:99px;background:#ffffff15}
+main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(1rem,3vw,1.4rem);margin-bottom:1rem;box-shadow:var(--shadow)}.card h2{font-size:1.18rem;margin:0 0 .65rem;letter-spacing:-.02em}.card h3{font-size:1rem;margin:.9rem 0 .4rem}.muted,.hint{color:var(--muted)}.small{font-size:.84rem}.notice{border-left:4px solid var(--warning);background:var(--surface-2);padding:.8rem 1rem;border-radius:0 10px 10px 0;margin:.8rem 0}.notice strong{display:block;margin-bottom:.2rem}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:0 0 1rem}.stat{background:var(--surface);border:1px solid var(--border);border-radius:13px;text-align:center;padding:.8rem .5rem;box-shadow:var(--shadow)}.stat strong{display:block;color:var(--accent);font-size:1.55rem;line-height:1.2}.stat span{font-size:.78rem;color:var(--muted)}.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.65rem}.pillar{background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:.85rem}.pillar strong{display:block;color:var(--accent);margin-bottom:.2rem}.toolbar,.filters,.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}.toolbar input{flex:1;min-width:160px}.field{margin:.75rem 0}.field label{display:block;font-weight:650;font-size:.9rem;margin-bottom:.3rem}.field input,.field select,.field textarea,.toolbar input,.toolbar select,.admin-control{width:100%;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:.68rem .75rem}.field textarea{min-height:105px;resize:vertical}.field input[type=file]{padding:.5rem}.field small{display:block;color:var(--muted);margin-top:.25rem}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.form-grid .field{margin:.25rem 0}.btn{border:0;border-radius:9px;padding:.68rem 1rem;background:var(--accent);color:#fff;font-weight:650}.btn:hover{background:var(--accent-2)}.btn:disabled{opacity:.55;cursor:not-allowed}.btn.secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}.btn.danger{background:var(--danger)}.btn.small-btn{padding:.4rem .65rem;font-size:.82rem}.filters button{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:99px;padding:.4rem .75rem;font-size:.82rem}.filters button.active{background:var(--accent);color:white;border-color:var(--accent)}.map{height:330px;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:.7rem;z-index:0}.report{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:10px;padding:.9rem;margin:.65rem 0;background:var(--surface)}.report-meta{font-size:.77rem;color:var(--muted);margin-bottom:.4rem}.report-desc{white-space:pre-wrap;overflow-wrap:anywhere}.report-photo{display:block;max-width:min(100%,260px);max-height:190px;object-fit:cover;border-radius:8px;margin:.6rem 0}.report-footer{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-top:.65rem}.status,.priority{display:inline-flex;align-items:center;border-radius:99px;padding:.2rem .55rem;font-size:.72rem;font-weight:750}.status.nowe{background:#e5f4e9;color:#1e5c3a}.status.w_trakcie{background:#fff1cc;color:#795800}.status.zamkniete{background:#e8ebea;color:#4e5952}[data-theme=dark] .status.nowe{background:#21452f;color:#a8e2b9}[data-theme=dark] .status.w_trakcie{background:#51421c;color:#f4d77e}[data-theme=dark] .status.zamkniete{background:#3a4540;color:#d2ddd5}.priority{background:var(--surface-2);color:var(--muted)}.priority.wysoki{color:var(--danger)}.comment{background:var(--surface-2);border-radius:8px;padding:.6rem .7rem;margin-top:.55rem;font-size:.88rem;white-space:pre-wrap}.empty{text-align:center;color:var(--muted);padding:1.3rem}.preview{max-width:140px;max-height:100px;object-fit:cover;border-radius:8px;display:none;margin-top:.5rem}.panel-heading{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}.admin-note{font-size:.78rem;color:var(--warning);font-weight:650}.activity{max-height:230px;overflow:auto}.activity div{padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.84rem}.proposal{padding:.65rem 0;border-bottom:1px solid var(--border)}.proposal:last-child{border:0}.hidden{display:none!important}.toast{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:2000;background:var(--text);color:var(--surface);padding:.75rem 1rem;border-radius:10px;box-shadow:var(--shadow);max-width:calc(100% - 2rem);text-align:center}.honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.2rem 1rem 2rem}
+@media(max-width:650px){main{padding:.8rem .7rem 2rem}.stats{gap:.45rem}.stat{padding:.7rem .25rem}.stat strong{font-size:1.3rem}.stat span{font-size:.7rem}.form-grid{grid-template-columns:1fr}.header-actions{position:relative;top:auto;right:auto;justify-content:center;margin-bottom:1rem}.map{height:280px}.toolbar select{flex:1}.card{margin-bottom:.75rem}}
 
-  .hero-images {
-    display: flex;
-    gap: 0.6rem;
-    justify-content: center;
-    margin-top: 1.2rem;
-    flex-wrap: wrap;
-  }
-  .hero-images img {
-    width: 130px;
-    height: 85px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-  }
+.pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.75rem;margin-top:1rem}.pillar-card{border:1px solid var(--border);border-radius:12px;padding:1rem;background:var(--surface-2)}.pillar-card .pillar-number{font-size:.75rem;font-weight:800;letter-spacing:.08em;color:var(--accent)}.pillar-card h3{margin:.25rem 0 .45rem;font-size:1.02rem}.pillar-card p{font-size:.88rem;margin:.35rem 0;color:var(--muted)}.pillar-card ul{padding-left:1.15rem;margin:.55rem 0;font-size:.86rem}.pillar-card li{margin:.22rem 0}.pillar-card .tag{display:inline-block;border:1px solid var(--border);border-radius:99px;padding:.15rem .48rem;font-size:.7rem;color:var(--muted);margin-top:.3rem}.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.65rem;margin:1rem 0}.process-step{display:flex;flex-direction:column;gap:.3rem;padding:.8rem;border:1px solid var(--border);border-radius:10px;background:var(--surface-2)}.process-step b{color:var(--accent)}.process-step span{font-size:.85rem;color:var(--muted)}.presentation-overlay{position:fixed;inset:0;background:rgba(8,18,12,.94);z-index:5000;display:none;align-items:center;justify-content:center;padding:1rem;color:#f4f8f5}.presentation-overlay.open{display:flex}.presentation-shell{width:min(900px,100%);max-height:92vh;display:flex;flex-direction:column;gap:1rem}.presentation-top,.presentation-bottom{display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap}.presentation-top span{color:#c1d3c6;font-size:.82rem}.presentation-slide{min-height:min(58vh,520px);overflow:auto;border:1px solid #536b5a;border-radius:18px;background:linear-gradient(145deg,#1d3c29,#14271b);padding:clamp(1.3rem,5vw,3.2rem);box-shadow:0 15px 60px #0005}.presentation-slide .slide-kicker{color:#9bd5ad;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.presentation-slide h2{font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.15;margin:.7rem 0 1rem}.presentation-slide p{font-size:clamp(1rem,2vw,1.16rem);color:#e0ebe3;max-width:760px}.presentation-slide ul{padding-left:1.25rem;color:#e0ebe3;font-size:1rem}.presentation-slide li{margin:.55rem 0}.presentation-controls{display:flex;gap:.5rem;align-items:center}.presentation-controls button,.presentation-close{border:1px solid #789080;background:#294a34;color:#fff;border-radius:9px;padding:.65rem .9rem}.presentation-controls button:disabled{opacity:.35;cursor:not-allowed}.presentation-progress{height:5px;border-radius:99px;background:#3c5143;overflow:hidden;flex:1;min-width:80px}.presentation-progress span{display:block;height:100%;width:0;background:#9bd5ad;transition:width .2s}.presentation-hint{font-size:.75rem;color:#b8c9bd}
+@media(max-width:650px){.pillar-grid{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr 1fr}.presentation-slide{min-height:62vh;padding:1.25rem}.presentation-controls button,.presentation-close{padding:.6rem .7rem}}
 
-  main { max-width: 860px; margin: 0 auto; padding: 1.4rem 1rem 2.5rem; }
-
-  .card {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 1.2rem 1.3rem;
-    margin-bottom: 1.1rem;
-    box-shadow: var(--shadow);
-  }
-  .card h2 { margin: 0 0 0.7rem; font-size: 1.2rem; }
-  .card h3 { margin: 1rem 0 0.4rem; font-size: 1.05rem; }
-  .card p, .card li { font-size: 0.95rem; }
-  .card ul { padding-left: 1.2rem; margin: 0.4rem 0; }
-
-  .pillars {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.7rem;
-    margin-top: 0.8rem;
-  }
-  .pillar {
-    background: var(--bg);
-    border-radius: 8px;
-    padding: 0.8rem;
-    border: 1px solid var(--border);
-  }
-  .pillar strong { display: block; margin-bottom: 0.3rem; color: var(--accent); }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 0.6rem;
-    margin-bottom: 1rem;
-  }
-  .stat {
-    background: var(--card);
-    border-radius: 10px;
-    padding: 0.8rem 0.5rem;
-    text-align: center;
-    box-shadow: var(--shadow);
-  }
-  .stat .num { font-size: 1.35rem; font-weight: 700; color: var(--accent); }
-  .stat .label { font-size: 0.75rem; color: #666; margin-top: 0.15rem; }
-  [data-theme="dark"] .stat .label { color: #aaa; }
-
-  label { display: block; margin: 0.7rem 0 0.25rem; font-weight: 550; font-size: 0.92rem; }
-  input, select, textarea {
-    width: 100%;
-    padding: 0.65rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font: inherit;
-    background: var(--card);
-    color: var(--text);
-  }
-  textarea { min-height: 90px; resize: vertical; }
-
-  button {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.7rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.92rem;
-    font-weight: 550;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    margin-right: 0.4rem;
-  }
-  button:hover { background: var(--accent-light); }
-  button.secondary { background: #555; }
-  button.secondary:hover { background: #444; }
-
-  .filters, .toolbar {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.8rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .filters button, .toolbar button {
-    margin: 0;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.82rem;
-    background: #eee;
-    color: #333;
-  }
-  [data-theme="dark"] .filters button,
-  [data-theme="dark"] .toolbar button { background: #333; color: #ddd; }
-  .filters button.active { background: var(--accent); color: white; }
-
-  .report {
-    border-left: 4px solid var(--accent);
-    padding: 0.85rem;
-    margin-bottom: 0.65rem;
-    background: var(--card);
-    border-radius: 0 8px 8px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  }
-  .report .meta { font-size: 0.76rem; color: #666; margin-bottom: 0.3rem; }
-  [data-theme="dark"] .report .meta { color: #aaa; }
-  .status {
-    display: inline-block;
-    padding: 0.18rem 0.5rem;
-    border-radius: 5px;
-    font-size: 0.7rem;
-    font-weight: 650;
-  }
-  .status.nowe { background: #e6f4ea; color: #1e5c3a; }
-  .status.w_trakcie { background: #fff4d6; color: #8a6d00; }
-  .status.zamkniete { background: #eee; color: #555; }
-  .priority { font-size: 0.7rem; font-weight: 650; margin-left: 0.35rem; }
-  .priority.niski { color: #666; }
-  .priority.normalny { color: #1e5c3a; }
-  .priority.wysoki { color: #c0392b; }
-  .empty { color: #777; text-align: center; padding: 1.2rem; }
-  .actions { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-top: 0.5rem; }
-  .actions button { margin: 0; }
-  .photo-preview { max-width: 110px; max-height: 75px; border-radius: 6px; margin-top: 0.35rem; }
-  .comment { font-size: 0.86rem; margin-top: 0.45rem; padding: 0.35rem 0.55rem; background: #f0f7f3; border-radius: 6px; }
-  [data-theme="dark"] .comment { background: #1e3a2a; }
-
-  .theme-toggle {
-    position: absolute;
-    top: 0.7rem;
-    right: 0.7rem;
-    background: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.4);
-    color: white;
-    padding: 0.28rem 0.65rem;
-    font-size: 0.78rem;
-    margin: 0;
-  }
-
-  footer {
-    text-align: center;
-    font-size: 0.76rem;
-    color: #888;
-    padding: 1.4rem 1rem 2rem;
-  }
-
-  .map-container {
-    height: 320px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0.6rem 0 1rem;
-    border: 1px solid var(--border);
-  }
-  .support-btn {
-    background: #eee;
-    color: #333;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.75rem;
-    margin: 0.3rem 0 0;
-  }
-  [data-theme="dark"] .support-btn { background: #333; color: #ddd; }
-    border-left: 3px solid var(--accent);
-    padding: 0.5rem 0.7rem;
-    margin: 0.5rem 0;
-    background: var(--bg);
-    border-radius: 0 6px 6px 0;
-  }
 </style>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <header>
-  <button type="button" class="theme-toggle" id="themeToggle">Ciemny</button>
-  <h1>Model państwa – testy obywatelskie</h1>
-  <p>Budujemy proste narzędzia, które sprawdzają, jak obywatel może współpracować z instytucjami w oparciu o zaufanie i przejrzystość.</p>
-  <div class="hero-images">
-    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=250&fit=crop" alt="Ulica">
-    <img src="https://cdn.pixabay.com/photo/2016/08/25/15/00/koobrzeg-1619675_640.jpg" alt="Urząd">
-    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=400&h=250&fit=crop" alt="Latarnia">
-  </div>
-  <div style="margin-top:1rem;">
-    <button type="button" id="modeToggle" class="secondary" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4);">Panel administracyjny</button>
-  </div>
+  <div class="header-actions"><button type="button" id="themeToggle" aria-label="Zmień motyw">🌙 Ciemny</button><button type="button" id="adminToggle">Panel testowy</button></div>
+  <div class="eyebrow">Laboratorium obywatelskie · wersja prezentacyjna 2.1</div>
+  <h1>Model Państwa</h1>
+  <p>Małe, sprawdzalne narzędzia współpracy obywateli z instytucjami. Przejrzystość, odpowiedzialność i prostota działania.</p>
+  <div class="hero-tags"><span>Jawny status spraw</span><span>Lokalne problemy</span><span>Historia działań</span></div>
 </header>
-
 <main>
-  <!-- O PROJEKCIE -->
-  <div class="card">
-    <h2>Co robimy</h2>
-    <p>To nie jest gotowy system państwowy. To laboratorium, w którym testujemy małe, działające elementy modelu współpracy obywatela z instytucjami.</p>
-    <p>Zakładamy, że zaufanie buduje się przez:</p>
-    <ul>
-      <li>jasne zgłoszenie problemu,</li>
-      <li>widoczny status sprawy,</li>
-      <li>możliwość sprawdzenia, co się dzieje,</li>
-      <li>prostotę – bez zbędnej biurokracji.</li>
-    </ul>
-    <p>Obecny moduł (zgłaszanie problemów) jest pierwszym testem tej idei. Działa lokalnie w przeglądarce, nic nie wysyła na zewnątrz.</p>
-  </div>
-
-  <!-- MODEL PAŃSTWA -->
-  <div class="card">
-    <h2>Otoczka modelu państwa</h2>
-    <p>Traktujemy państwo jako zestaw usług i relacji, a nie tylko urzędów. Poniżej filary, które chcemy stopniowo testować w formie prostych narzędzi:</p>
+  <section class="card">
+    <h2>O projekcie</h2>
+    <p>To prototyp – laboratorium do testowania konkretnych rozwiązań. Nie jest to oficjalny kanał zgłoszeń do urzędu i nie zastępuje procedur administracyjnych.</p>
+    <div class="notice"><strong>Ważne: tryb demonstracyjny</strong>Dane tej wersji są przechowywane wyłącznie w pamięci lokalnej tej przeglądarki. Panel testowy nie jest zabezpieczony prawdziwym logowaniem i nie powinien być używany do obsługi prawdziwych, poufnych zgłoszeń. Mapa i biblioteka Leaflet wymagają połączenia z internetem.</div>
     <div class="pillars">
-      <div class="pillar">
-        <strong>Zaufanie i przejrzystość</strong>
-        Obywatel widzi status swojej sprawy i historię zmian.
-      </div>
-      <div class="pillar">
-        <strong>Lokalność</strong>
-        Problemy i rozwiązania dotyczą konkretnego miejsca, nie abstrakcyjnego „systemu”.
-      </div>
-      <div class="pillar">
-        <strong>Proporcjonalność</strong>
-        Małe sprawy – mały nakład. Nie wszystko musi iść przez pełną procedurę.
-      </div>
-      <div class="pillar">
-        <strong>Odpowiedzialność</strong>
-        Ktoś (nawet w symulacji) odpowiada za zmianę statusu i komentarz.
-      </div>
-      <div class="pillar">
-        <strong>Samopomoc i współpraca</strong>
-        Obywatele mogą widzieć problemy innych i ewentualnie je wspierać.
-      </div>
-      <div class="pillar">
-        <strong>Dane w rękach użytkownika</strong>
-        Na razie wszystko zostaje w przeglądarce – zero centralnej bazy.
-      </div>
+      <div class="pillar"><strong>Zaufanie i przejrzystość</strong><span class="small">Obywatel widzi status i odpowiedź dotyczącą sprawy.</span></div>
+      <div class="pillar"><strong>Lokalność</strong><span class="small">Problem można przypisać do punktu na mapie.</span></div>
+      <div class="pillar"><strong>Proporcjonalność</strong><span class="small">Proste zgłoszenie bez zbędnych formalności.</span></div>
+      <div class="pillar"><strong>Odpowiedzialność</strong><span class="small">Zmiany statusu są zapisywane w historii prototypu.</span></div>
+      <div class="pillar"><strong>Współpraca</strong><span class="small">Możliwość poparcia sprawy w ramach demonstracji.</span></div>
+      <div class="pillar"><strong>Dane użytkownika</strong><span class="small">Eksport i import kopii danych pozostają pod kontrolą użytkownika.</span></div>
     </div>
-  </div>
+  </section>
 
-  <!-- TEST APLIKACJI: ZGŁOSZENIA -->
-  <div class="card">
-    <h2>Test aplikacji: Zgłaszanie problemów</h2>
-    <p>To działający prototyp. Możesz zgłosić sprawę, zobaczyć listę i (w panelu admina) zmienić status, dodać komentarz, ustawić priorytet.</p>
-  </div>
 
-  <!-- PANEL PUBLICZNY -->
-  <div id="publicPanel">
-    <div class="stats">
-      <div class="stat"><div class="num" id="pub-total">0</div><div class="label">Wszystkie</div></div>
-      <div class="stat"><div class="num" id="pub-open">0</div><div class="label">Otwarte</div></div>
-      <div class="stat"><div class="num" id="pub-closed">0</div><div class="label">Zamknięte</div></div>
+  <section class="card vision-intro" id="wizja-panstwa">
+    <div class="eyebrow" style="color:var(--accent)">Prezentacja idei · 10 filarów</div>
+    <h2 style="font-size:1.55rem">Państwo, któremu można ufać</h2>
+    <p>Propozycja modelu, w którym instytucje są przewidywalne, prawo zrozumiałe, finanse przejrzyste, a obywatel traktowany jak partner. Nie chodzi o stworzenie państwa idealnego na papierze, lecz o stopniowe poprawianie konkretnych mechanizmów.</p>
+    <div class="notice"><strong>Technologia ma pomagać, nie wykluczać</strong>Kontakt cyfrowy może oszczędzać czas, ale nie powinien być jedyną drogą. Telefon, osobista wizyta, papierowy wniosek i pomoc pracownika powinny pozostać dostępne dla osób, które ich potrzebują.</div>
+    <div class="actions"><button class="btn" type="button" id="startPresentation">▶ Uruchom pokaz slajdów</button><a class="btn secondary" href="#filary-modelu" style="text-decoration:none">Zobacz 10 filarów ↓</a></div>
+  </section>
+
+  <section class="card" id="filary-modelu">
+    <div class="panel-heading"><div><div class="eyebrow" style="color:var(--accent)">Główna konstrukcja projektu</div><h2 style="font-size:1.45rem">Model Państwa – 10 filarów</h2></div><span class="small muted">Kolejność bazowa projektu</span></div>
+    <p class="muted">Każdy filar opisuje obszar, który można analizować, testować i stopniowo ulepszać. Poniższe rozwiązania są propozycjami do dyskusji, a nie opisem obecnie obowiązującego prawa. Każde rozwiązanie wymaga osobnej oceny prawnej, finansowej i organizacyjnej; kwestie konstytucyjne oddzielamy od propozycji zmian.</p>
+    <div id="pillarCards" class="pillar-grid"></div>
+  </section>
+
+  <section class="card" id="jak-wprowadzac-zmiany">
+    <h2>Jak wprowadzać zmiany, żeby nie tworzyć kolejnego chaosu?</h2>
+    <p>Reforma nie powinna zaczynać się od samego ogłoszenia nowego przepisu. Najpierw trzeba sprawdzić problem, przygotować rozwiązanie i ocenić jego skutki.</p>
+    <div class="process-grid">
+      <div class="process-step"><b>1. Diagnoza</b><span>Ustalenie, jaki problem naprawdę występuje i kogo dotyczy.</span></div>
+      <div class="process-step"><b>2. Projekt</b><span>Przygotowanie kilku wariantów i sprawdzenie kosztów, ryzyk oraz zgodności z prawem.</span></div>
+      <div class="process-step"><b>3. Konsultacje</b><span>Rozmowa z obywatelami, samorządami, ekspertami i pracownikami instytucji.</span></div>
+      <div class="process-step"><b>4. Pilotaż</b><span>Test rozwiązania w ograniczonej skali, jeśli charakter reformy na to pozwala.</span></div>
+      <div class="process-step"><b>5. Wdrożenie</b><span>Jasne zasady, odpowiedzialność, harmonogram i przygotowanie pracowników.</span></div>
+      <div class="process-step"><b>6. Kontrola efektów</b><span>Publiczne mierniki, informacja o kosztach, błędach i osiągniętych rezultatach.</span></div>
+      <div class="process-step"><b>7. Korekta</b><span>Poprawienie lub wycofanie rozwiązania, jeśli nie działa tak, jak zakładano.</span></div>
     </div>
+    <div class="notice"><strong>Zasada przekrojowa Modelu Państwa</strong>Najpierw poprawiamy sposób przygotowywania, oceniania, testowania, wdrażania i kontrolowania reform. Dopiero potem wprowadzamy duże zmiany. Państwo powinno umieć uczyć się na własnych błędach.</div>
+  </section>
 
-    <div class="card">
+  <section class="card" id="zaufanie-w-praktyce">
+    <h2>Jak wygląda zaufanie w praktyce?</h2>
+    <div class="pillars">
+      <div class="pillar"><strong>Obywatel zna zasady</strong><span class="small">Procedury są zrozumiałe, terminy przewidywalne, a wymagania jasno opisane.</span></div>
+      <div class="pillar"><strong>Urząd odpowiada</strong><span class="small">Wiadomo, kto prowadzi sprawę, na jakim jest etapie i co będzie dalej.</span></div>
+      <div class="pillar"><strong>Decyzje można sprawdzić</strong><span class="small">Istnieje uzasadnienie, ślad zmian i możliwość odwołania lub kontroli.</span></div>
+      <div class="pillar"><strong>Państwo mówi prawdę</strong><span class="small">Oddziela dane, fakty, szacunki, opinie i niepewność. Nie ukrywa problemów.</span></div>
+      <div class="pillar"><strong>Pomoc jest dostępna</strong><span class="small">Cyfrowo, telefonicznie i osobiście – zależnie od potrzeb człowieka.</span></div>
+      <div class="pillar"><strong>Instytucje współpracują</strong><span class="small">Obywatel nie powinien być posłańcem między urzędami, gdy mogą wymienić informacje zgodnie z prawem.</span></div>
+    </div>
+  </section>
+
+  <section aria-label="Statystyki zgłoszeń" class="stats">
+    <div class="stat"><strong id="statTotal">0</strong><span>Wszystkie</span></div>
+    <div class="stat"><strong id="statOpen">0</strong><span>Otwarte</span></div>
+    <div class="stat"><strong id="statClosed">0</strong><span>Zamknięte</span></div>
+  </section>
+
+  <section id="publicPanel">
+    <section class="card">
       <h2>Nowe zgłoszenie</h2>
-      <form id="form">
-        <label>Kategoria</label>
-        <select id="category" required>
-          <option value="">Wybierz...</option>
-          <option>Drogi i infrastruktura</option>
-          <option>Oświetlenie</option>
-          <option>Śmieci / czystość</option>
-          <option>Bezpieczeństwo</option>
-          <option>Urząd / administracja</option>
-          <option>Inne</option>
-        </select>
-        <label>Opis problemu</label>
-        <textarea id="description" placeholder="Opisz krótko, co nie działa lub wymaga uwagi..." required></textarea>
-        <label>Lokalizacja (opcjonalnie)</label>
-        <input type="text" id="location" placeholder="ulica, okolica lub kliknij na mapie...">
-        <input type="hidden" id="lat">
-        <input type="hidden" id="lng">
-        <p style="font-size:0.82rem; color:#666; margin:0.3rem 0 0;">Kliknij na mapie poniżej, żeby zaznaczyć dokładną lokalizację.</p>
-        <label>Zdjęcie (opcjonalnie, max ~1 MB)</label>
-        <input type="file" id="photo" accept="image/*">
-        <img id="photoPreview" class="photo-preview" style="display:none;">
-
-        <div style="position:absolute; left:-9999px; top:-9999px;">
-          <input type="text" id="website" name="website" autocomplete="off" tabindex="-1">
+      <form id="reportForm">
+        <div class="form-grid">
+          <div class="field"><label for="category">Kategoria *</label><select id="category" required><option value="">Wybierz kategorię</option><option>Drogi i infrastruktura</option><option>Oświetlenie</option><option>Śmieci / czystość</option><option>Bezpieczeństwo</option><option>Urząd / administracja</option><option>Zieleń i środowisko</option><option>Inne</option></select></div>
+          <div class="field"><label for="location">Lokalizacja (opcjonalnie)</label><input id="location" maxlength="160" placeholder="np. ulica, okolica"></div>
         </div>
-
-        <label>Potwierdź, że nie jesteś botem: <span id="antibotQuestion"></span></label>
-        <input type="number" id="antibotAnswer" required placeholder="Wpisz wynik">
-
-        <button type="submit" id="submitBtn">Wyślij zgłoszenie</button>
-        <div id="alreadySubmitted" style="display:none; margin-top:0.7rem; color:#8a6d00; font-size:0.88rem;">
-          Z tej przeglądarki już wysłano zgłoszenie.
-        </div>
+        <div class="field"><label for="description">Opis problemu *</label><textarea id="description" maxlength="2000" required placeholder="Opisz krótko, co wymaga uwagi..."></textarea><small>Maksymalnie 2000 znaków.</small></div>
+        <div class="field"><label for="photo">Zdjęcie (opcjonalnie)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG lub WebP, maksymalnie 1 MB. Zdjęcie jest przechowywane lokalnie w tej przeglądarce.</small><img id="photoPreview" class="preview" alt="Podgląd zdjęcia"></div>
+        <div class="field"><label>Lokalizacja na mapie (opcjonalnie)</label><p class="hint small">Kliknij mapę, aby wskazać punkt. Możesz też przeciągnąć pinezkę. Nie wyznaczamy lokalizacji automatycznie ani losowo.</p><div id="pickMap" class="map" aria-label="Mapa wyboru lokalizacji"></div><input type="hidden" id="lat"><input type="hidden" id="lng"><button type="button" class="btn secondary small-btn" id="clearLocation">Usuń pinezkę</button></div>
+        <div class="honeypot" aria-hidden="true"><label for="website">Nie wypełniaj tego pola</label><input id="website" tabindex="-1" autocomplete="off"></div>
+        <button class="btn" id="submitBtn" type="submit">Dodaj zgłoszenie</button>
       </form>
-    </div>
+    </section>
+    <section class="card"><h2>Mapa zgłoszeń</h2><p class="hint small">Pinezki pojawiają się wyłącznie przy zgłoszeniach z ręcznie wskazaną lokalizacją.</p><div id="reportsMap" class="map"></div></section>
+    <section class="card"><div class="panel-heading"><h2>Lista zgłoszeń</h2><span class="small muted" id="publicCount"></span></div><div class="toolbar"><input type="search" id="publicSearch" placeholder="Szukaj w zgłoszeniach..." aria-label="Szukaj zgłoszeń"><select id="publicSort" aria-label="Sortuj zgłoszenia"><option value="newest">Najnowsze</option><option value="oldest">Najstarsze</option></select></div><div id="publicList" aria-live="polite"></div></section>
+  </section>
 
-    <div class="card">
-      <h2>Mapa zgłoszeń</h2>
-      <p style="margin:0 0 0.5rem; font-size:0.9rem;">Lokalizacja przybliżona (jeśli podano). Kliknij pinezkę, żeby zobaczyć szczegóły.</p>
-      <div id="map" class="map-container"></div>
-    </div>
+  <section id="adminPanel" class="hidden">
+    <section class="card"><div class="panel-heading"><h2>Obsługa zgłoszeń</h2><span class="admin-note">Tryb demonstracyjny – bez autoryzacji</span></div><p class="hint small">Zmiany są widoczne w tej przeglądarce. Wdrożenie produkcyjne wymaga logowania i kontroli uprawnień po stronie serwera.</p>
+      <div class="toolbar"><input type="search" id="adminSearch" placeholder="Szukaj..." aria-label="Szukaj w panelu"><select id="adminSort" aria-label="Sortuj panel"><option value="newest">Najnowsze</option><option value="oldest">Najstarsze</option><option value="priority">Priorytet</option><option value="status">Status</option></select></div>
+      <div class="filters" id="filters"><button type="button" class="active" data-filter="all">Wszystkie</button><button type="button" data-filter="nowe">Nowe</button><button type="button" data-filter="w_trakcie">W trakcie</button><button type="button" data-filter="zamkniete">Zamknięte</button></div>
+      <div id="adminList" aria-live="polite"></div>
+      <div class="actions"><button class="btn secondary" id="exportJson" type="button">Eksportuj JSON</button><button class="btn secondary" id="exportCsv" type="button">Eksportuj CSV</button><button class="btn secondary" id="importBtn" type="button">Importuj JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden><button class="btn secondary" id="resetDemo" type="button">Przywróć przykładowe dane</button><button class="btn danger" id="clearAll" type="button">Usuń wszystkie dane</button></div>
+    </section>
+    <section class="card"><h2>Historia aktywności</h2><div id="activityLog" class="activity"></div></section>
+  </section>
 
-    <div class="card">
-      <h2>Lista zgłoszeń</h2>
-      <div class="toolbar">
-        <input type="search" id="searchPublic" placeholder="Szukaj..." style="flex:1; min-width:160px; margin:0;">
-        <select id="sortPublic" style="width:auto; margin:0;">
-          <option value="newest">Najnowsze</option>
-          <option value="oldest">Najstarsze</option>
-          <option value="status">Według statusu</option>
-        </select>
-      </div>
-      <div id="publicList"></div>
-    </div>
-  </div>
-
-  <!-- PANEL ADMINISTRACYJNY -->
-  <div id="adminPanel" style="display:none;">
-    <div class="stats">
-      <div class="stat"><div class="num" id="stat-total">0</div><div class="label">Wszystkie</div></div>
-      <div class="stat"><div class="num" id="stat-open">0</div><div class="label">Otwarte</div></div>
-      <div class="stat"><div class="num" id="stat-closed">0</div><div class="label">Zamknięte</div></div>
-      <div class="stat"><div class="num" id="stat-avg">–</div><div class="label">Śr. czas (dni)</div></div>
-    </div>
-
-    <div class="card">
-      <h2>Obsługa zgłoszeń (test admina)</h2>
-      <div class="toolbar">
-        <input type="search" id="searchAdmin" placeholder="Szukaj..." style="flex:1; min-width:150px; margin:0;">
-        <select id="sortAdmin" style="width:auto; margin:0;">
-          <option value="newest">Najnowsze</option>
-          <option value="oldest">Najstarsze</option>
-          <option value="priority">Priorytet</option>
-          <option value="status">Status</option>
-        </select>
-      </div>
-      <div class="filters">
-        <button type="button" class="active" data-filter="all">Wszystkie</button>
-        <button type="button" data-filter="nowe">Nowe</button>
-        <button type="button" data-filter="w_trakcie">W trakcie</button>
-        <button type="button" data-filter="zamkniete">Zamknięte</button>
-      </div>
-      <div id="list"></div>
-      <div class="actions">
-        <button type="button" id="export" class="secondary">Eksportuj JSON</button>
-        <button type="button" id="exportCsv" class="secondary">Eksportuj CSV</button>
-        <button type="button" id="import" class="secondary">Importuj</button>
-        <button type="button" id="resetLimit" class="secondary" style="background:#8a6d00;">Reset limitu</button>
-        <button type="button" id="restoreData" class="secondary" style="background:#1e5c3a;">Przywróć stare</button>
-        <input type="file" id="importFile" accept=".json" style="display:none;">
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Ostatnia aktywność</h2>
-      <div id="activityLog" style="font-size:0.84rem; max-height:200px; overflow:auto;"></div>
-    </div>
-  </div>
-
-  <!-- PROPOZYCJE -->
-  <div class="card">
-    <h2>Co jeszcze możemy dodać w ramach tego modelu</h2>
-    <div class="proposal">
-      <strong>Mapa zgłoszeń</strong> – prosta mapa (OpenStreetMap) z pinezkami problemów. Lokalność staje się widoczna.
-    </div>
-    <div class="proposal">
-      <strong>Głosowanie / wsparcie sprawy</strong> – obywatel może oznaczyć „też mnie to dotyczy”. Buduje priorytet społeczny bez biurokracji.
-    </div>
-    <div class="proposal">
-      <strong>Proste budżetowanie obywatelskie (mini)</strong> – lista pomysłów i głosowanie na 1–2 z nich w ramach małego, fikcyjnego budżetu lokalnego.
-    </div>
-    <div class="proposal">
-      <strong>Kalendarz interwencji</strong> – kiedy coś ma być zrobione (np. „oświetlenie – planowane do 15.12”).
-    </div>
-    <div class="proposal">
-      <strong>Anonimowe opinie o jakości obsługi</strong> – po zamknięciu sprawy krótka ocena (1–5) + komentarz. Mierzy zaufanie.
-    </div>
-    <div class="proposal">
-      <strong>Moduł „sąsiedzki”</strong> – lista lokalnych inicjatyw (sprzątanie, wspólny zakup, wymiana narzędzi) – samopomoc zamiast czekania na urząd.
-    </div>
-    <div class="proposal">
-      <strong>Prosty rejestr decyzji</strong> – kto (w roli admina) i kiedy zmienił status, z obowiązkowym komentarzem przy zamknięciu.
-    </div>
-    <div class="proposal">
-      <strong>Eksport raportu okresowego</strong> – podsumowanie miesiąca (ile spraw, ile zamkniętych, średni czas) do PDF/CSV.
-    </div>
-  </div>
+  <section class="card"><h2>Możliwe kolejne moduły</h2>
+    <div class="proposal"><strong>Głosowanie i poparcie</strong> – sprawdzanie, które problemy dotyczą większej liczby mieszkańców.</div>
+    <div class="proposal"><strong>Budżetowanie obywatelskie</strong> – zgłaszanie i porównywanie lokalnych pomysłów w ramach określonego budżetu.</div>
+    <div class="proposal"><strong>Kalendarz realizacji</strong> – planowane terminy, opóźnienia i przyczyny zmian.</div>
+    <div class="proposal"><strong>Ocena jakości obsługi</strong> – informacja zwrotna po zakończeniu sprawy.</div>
+    <div class="proposal"><strong>Publiczny rejestr decyzji</strong> – kto, kiedy i na jakiej podstawie zmienił status sprawy.</div>
+  </section>
 </main>
-
-<footer>
-  Wszystko działa lokalnie w przeglądarce. Dane nie opuszczają Twojego urządzenia.<br>
-  Projekt w fazie testów – model państwa jako zestaw małych, sprawdzalnych narzędzi.<br>
-  <span style="font-size:0.72rem; opacity:0.75;">Strona utrzymywana dzięki wsparciu. W przyszłości może pojawić się tu dyskretna informacja o sposobie wsparcia.</span>
-</footer>
-
+<footer>Model Państwa · prezentacja i prototyp 2.1<br>Wersja demonstracyjna. Nie jest oficjalnym systemem administracji publicznej.</footer>
+<div id="presentation" class="presentation-overlay" role="dialog" aria-modal="true" aria-label="Pokaz slajdów Model Państwa" aria-hidden="true">
+  <div class="presentation-shell">
+    <div class="presentation-top"><span id="slideCounter">Slajd 1 z 14</span><button type="button" class="presentation-close" id="closePresentation" aria-label="Zamknij pokaz">✕ Zamknij</button></div>
+    <article class="presentation-slide" id="slideContent" tabindex="-1"></article>
+    <div class="presentation-bottom"><div class="presentation-controls"><button type="button" id="prevSlide">← Wstecz</button><button type="button" id="nextSlide">Dalej →</button></div><div class="presentation-progress" aria-label="Postęp prezentacji"><span id="slideProgress"></span></div><span class="presentation-hint">Możesz używać klawiszy ← → i Escape</span></div>
+  </div>
+</div>
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
-const form = document.getElementById('form');
-const listEl = document.getElementById('list');
-const publicListEl = document.getElementById('publicList');
-const exportBtn = document.getElementById('export');
-const exportCsvBtn = document.getElementById('exportCsv');
-const importBtn = document.getElementById('import');
-const importFile = document.getElementById('importFile');
-const resetLimitBtn = document.getElementById('resetLimit');
-const restoreDataBtn = document.getElementById('restoreData');
-const modeToggle = document.getElementById('modeToggle');
-const publicPanel = document.getElementById('publicPanel');
-const adminPanel = document.getElementById('adminPanel');
-const themeToggle = document.getElementById('themeToggle');
-const activityLogEl = document.getElementById('activityLog');
+'use strict';
 
-const SUPABASE_URL = 'https://ldjrinmohlomzlyeagwd.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-const KEY = 'zgloszenia_zaufanie';
-const LOG_KEY = 'zgloszenia_log';
-const SUBMITTED_KEY = 'zgloszenie_wyslane_fingerprint';
-const DRAFT_KEY = 'zgloszenie_szkic';
-const THEME_KEY = 'zgloszenia_theme';
-let currentFilter = 'all';
-let isAdmin = false;
-let antibotCorrect = 0;
-let nextNumber = 1;
-
-const INITIAL_DATA = [
-  {
-    id: "mw8zym91fj3z",
-    number: 1,
-    time: 1794212775973,
-    category: "Oświetlenie",
-    description: "Brak latarni",
-    location: "Rzeszowska",
-    lat: 50.0412,
-    lng: 21.9991,
-    status: "w_trakcie",
-    priority: "normalny",
-    comment: "",
-    photo: "",
-    supports: 2
-  },
-  {
-    id: "mw902f2kvv5n",
-    number: 2,
-    time: 1794212953297,
-    category: "Drogi i infrastruktura",
-    description: "Brak chodnika",
-    location: "Starowiejska 66",
-    lat: 50.0375,
-    lng: 22.0045,
-    status: "zamkniete",
-    priority: "niski",
-    comment: "Chodnik wykonany.",
-    photo: "",
-    supports: 5
-  }
+// Model danych: w tej wersji jedynym źródłem prawdy jest localStorage.
+const STORAGE = Object.freeze({ reports: 'model_panstwa_v2_reports', log: 'model_panstwa_v2_log', theme: 'model_panstwa_v2_theme', votes: 'model_panstwa_v2_votes', draft: 'model_panstwa_v2_draft' });
+const $ = id => document.getElementById(id);
+const state = { reports: [], log: [], filter: 'all', admin: false, pickMap: null, reportsMap: null, pickMarker: null, markers: null, photoData: '' };
+const DEMO_REPORTS = [
+  { id:'demo-001', number:1, createdAt:'2026-11-09T09:30:00.000Z', category:'Oświetlenie', description:'Przykładowe zgłoszenie – brak działającej latarni.', location:'Przykładowa lokalizacja', lat:null, lng:null, status:'w_trakcie', priority:'normalny', comment:'Zgłoszenie przyjęte do sprawdzenia.', closedAt:null, photo:'', supports:2 },
+  { id:'demo-002', number:2, createdAt:'2026-11-10T12:15:00.000Z', category:'Drogi i infrastruktura', description:'Przykładowe zgłoszenie – uszkodzona nawierzchnia chodnika.', location:'', lat:null, lng:null, status:'nowe', priority:'wysoki', comment:'', closedAt:null, photo:'', supports:0 }
 ];
 
-const INITIAL_LOG = [
-  { time: 1794212775974, action: "nowe_zgloszenie", details: { id: "mw8zym91fj3z", number: 1, category: "Oświetlenie" } },
-  { time: 1794212779450, action: "zmiana_statusu", details: { id: "mw8zym91fj3z", from: "nowe", to: "w_trakcie" } },
-  { time: 1794212953304, action: "nowe_zgloszenie", details: { id: "mw902f2kvv5n", number: 2, category: "Drogi i infrastruktura" } },
-  { time: 1794212955055, action: "zmiana_statusu", details: { id: "mw902f2kvv5n", from: "nowe", to: "zamkniete" } }
+function safeRead(key, fallback) { try { const raw = localStorage.getItem(key); return raw === null ? fallback : JSON.parse(raw); } catch (error) { console.warn('Nie udało się odczytać danych:', key, error); return fallback; } }
+function saveAll() { try { localStorage.setItem(STORAGE.reports, JSON.stringify(state.reports)); localStorage.setItem(STORAGE.log, JSON.stringify(state.log.slice(-500))); return true; } catch (error) { console.error('Nie udało się zapisać danych lokalnych:', error); notify('Brak miejsca lub dostępu do pamięci przeglądarki. Wyeksportuj kopię danych.'); return false; } }
+function escapeHTML(value) { return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
+function notify(message) { const toast = $('toast'); toast.textContent = message; toast.classList.remove('hidden'); clearTimeout(notify.timer); notify.timer = setTimeout(() => toast.classList.add('hidden'), 3000); }
+function addLog(action, details = {}) { state.log.push({ id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random(), time: new Date().toISOString(), action, details }); state.log = state.log.slice(-500); return saveAll(); }
+function statusName(status) { return ({ nowe:'Nowe', w_trakcie:'W trakcie', zamkniete:'Zamknięte' })[status] || 'Nieznany'; }
+function formatDate(value) { const date = new Date(value); return Number.isNaN(date.getTime()) ? 'Nieznana data' : date.toLocaleString('pl-PL'); }
+function validCoordinates(lat, lng) { return Number.isFinite(lat) && Number.isFinite(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180; }
+function persistDraft() { const draft = { category:$('category').value, description:$('description').value, location:$('location').value }; try { localStorage.setItem(STORAGE.draft, JSON.stringify(draft)); } catch {} }
+function restoreDraft() { const draft = safeRead(STORAGE.draft, null); if (!draft) return; $('category').value = draft.category || ''; $('description').value = draft.description || ''; $('location').value = draft.location || ''; }
+function clearDraft() { try { localStorage.removeItem(STORAGE.draft); } catch (error) { console.warn('Nie udało się usunąć szkicu:', error); } }
+
+function initData() {
+  const stored = safeRead(STORAGE.reports, null);
+  const legacy = Array.isArray(stored) ? null : safeRead('zgloszenia_zaufanie', null);
+  if (Array.isArray(stored)) {
+    state.reports = stored.map(normalizeReport).filter(item => item.description.trim());
+  } else if (Array.isArray(legacy)) {
+    // Jednorazowa migracja zgłoszeń z poprzedniej wersji strony.
+    state.reports = legacy.map(normalizeReport).filter(item => item.description.trim());
+  } else {
+    state.reports = DEMO_REPORTS.map(item => ({...item}));
+  }
+  state.log = safeRead(STORAGE.log, null);
+  if (!Array.isArray(state.log)) {
+    const legacyLog = safeRead('zgloszenia_log', []);
+    state.log = Array.isArray(legacyLog) ? legacyLog.slice(-500).map(entry => ({
+      id: String(entry.id || `${entry.time || Date.now()}-${Math.random()}`),
+      time: typeof entry.time === 'number' ? new Date(entry.time).toISOString() : (entry.time || new Date().toISOString()),
+      action: String(entry.action || 'Aktywność'),
+      details: entry.details && typeof entry.details === 'object' ? entry.details : {}
+    })) : [];
+  }
+  if (!Array.isArray(stored)) {
+    state.log.push({ id:'seed', time:new Date().toISOString(), action: legacy ? 'Przeniesiono dane z poprzedniej wersji' : 'Inicjalizacja prototypu', details:{count:state.reports.length} });
+    saveAll();
+  }
+}
+function isValidReport(item) { return item && typeof item.id === 'string' && typeof item.description === 'string' && ['nowe','w_trakcie','zamkniete'].includes(item.status) && Number.isFinite(Number(item.time ?? Date.parse(item.createdAt))); }
+function normalizeReport(item, index) {
+  const createdAt = item.createdAt || (Number.isFinite(Number(item.time)) ? new Date(Number(item.time)).toISOString() : new Date().toISOString());
+  const lat = item.lat === null || item.lat === '' || item.lat === undefined ? null : Number(item.lat);
+  const lng = item.lng === null || item.lng === '' || item.lng === undefined ? null : Number(item.lng);
+  return { id:String(item.id || `import-${Date.now()}-${index}`), number:Number.isFinite(Number(item.number)) ? Number(item.number) : index + 1, createdAt, category:String(item.category || 'Inne').slice(0,100), description:String(item.description || '').slice(0,2000), location:String(item.location || '').slice(0,160), lat:validCoordinates(lat,lng) ? lat : null, lng:validCoordinates(lat,lng) ? lng : null, status:['nowe','w_trakcie','zamkniete'].includes(item.status) ? item.status : 'nowe', priority:['niski','normalny','wysoki'].includes(item.priority) ? item.priority : 'normalny', comment:String(item.comment || '').slice(0,1000), closedAt:item.closedAt || item.closedTime || null, photo:typeof item.photo === 'string' && /^data:image\/(jpeg|png|webp);base64,/i.test(item.photo) && item.photo.length < 1500000 ? item.photo : '', supports:Math.max(0,Math.floor(Number(item.supports) || 0)) };
+}
+function nextNumber() { return state.reports.reduce((max, item) => Math.max(max, Number(item.number) || 0), 0) + 1; }
+function filteredReports(admin = false) {
+  const query = (admin ? $('adminSearch').value : $('publicSearch').value).trim().toLocaleLowerCase('pl');
+  const sort = admin ? $('adminSort').value : $('publicSort').value;
+  let rows = state.reports.filter(item => (!admin || state.filter === 'all' || item.status === state.filter) && (!query || [item.description,item.location,item.category,String(item.number)].some(value => String(value || '').toLocaleLowerCase('pl').includes(query))));
+  const priorityOrder = { wysoki:0, normalny:1, niski:2 };
+  rows.sort((a,b) => sort === 'oldest' ? Date.parse(a.createdAt)-Date.parse(b.createdAt) : sort === 'priority' ? priorityOrder[a.priority]-priorityOrder[b.priority] : sort === 'status' ? a.status.localeCompare(b.status) : Date.parse(b.createdAt)-Date.parse(a.createdAt));
+  return rows;
+}
+function renderStats() { const total=state.reports.length, closed=state.reports.filter(x=>x.status==='zamkniete').length; $('statTotal').textContent=total; $('statOpen').textContent=total-closed; $('statClosed').textContent=closed; }
+function reportMarkup(item, admin = false) {
+  const photo = item.photo ? `<img class="report-photo" src="${item.photo}" alt="Zdjęcie do zgłoszenia ${item.number}" loading="lazy">` : '';
+  const comment = item.comment ? `<div class="comment"><strong>Odpowiedź:</strong> ${escapeHTML(item.comment)}</div>` : '';
+  const location = item.location ? ` · ${escapeHTML(item.location)}` : '';
+  const adminControls = admin ? `<div class="form-grid" style="margin-top:.7rem"><div class="field"><label for="status-${escapeHTML(item.id)}">Status</label><select class="admin-control" id="status-${escapeHTML(item.id)}" data-action="status" data-id="${escapeHTML(item.id)}"><option value="nowe" ${item.status==='nowe'?'selected':''}>Nowe</option><option value="w_trakcie" ${item.status==='w_trakcie'?'selected':''}>W trakcie</option><option value="zamkniete" ${item.status==='zamkniete'?'selected':''}>Zamknięte</option></select></div><div class="field"><label for="priority-${escapeHTML(item.id)}">Priorytet</label><select class="admin-control" id="priority-${escapeHTML(item.id)}" data-action="priority" data-id="${escapeHTML(item.id)}"><option value="niski" ${item.priority==='niski'?'selected':''}>Niski</option><option value="normalny" ${item.priority==='normalny'?'selected':''}>Normalny</option><option value="wysoki" ${item.priority==='wysoki'?'selected':''}>Wysoki</option></select></div></div><div class="field"><label for="comment-${escapeHTML(item.id)}">Odpowiedź / komentarz</label><textarea class="admin-control" id="comment-${escapeHTML(item.id)}" data-action="comment" data-id="${escapeHTML(item.id)}" maxlength="1000" rows="2">${escapeHTML(item.comment)}</textarea><button class="btn secondary small-btn" type="button" data-action="save-comment" data-id="${escapeHTML(item.id)}">Zapisz komentarz</button></div>` : `<button class="btn secondary small-btn" type="button" data-action="support" data-id="${escapeHTML(item.id)}">Wspieram (${item.supports || 0})</button>`;
+  return `<article class="report"><div class="report-meta">#${Number(item.number)||'–'} · ${formatDate(item.createdAt)} · ${escapeHTML(item.category)}${location}</div><div class="report-desc">${escapeHTML(item.description)}</div>${photo}${comment}<div class="report-footer"><span class="status ${item.status}">${statusName(item.status)}</span><span class="priority ${item.priority}">Priorytet: ${escapeHTML(item.priority)}</span>${adminControls}</div></article>`;
+}
+function renderPublic() { const rows=filteredReports(false); $('publicCount').textContent=`${rows.length} z ${state.reports.length}`; $('publicList').innerHTML=rows.length?rows.map(item=>reportMarkup(item,false)).join(''):'<div class="empty">Brak zgłoszeń pasujących do wyszukiwania.</div>'; updateReportsMap(rows); }
+function renderAdmin() { const rows=filteredReports(true); $('adminList').innerHTML=rows.length?rows.map(item=>reportMarkup(item,true)).join(''):'<div class="empty">Brak zgłoszeń w tym widoku.</div>'; renderActivity(); }
+function renderActivity() { const entries=state.log.slice(-35).reverse(); $('activityLog').innerHTML=entries.length?entries.map(entry=>`<div><strong>${formatDate(entry.time)}</strong> – ${escapeHTML(entry.action)}${entry.details?.number ? ` (#${Number(entry.details.number)})` : ''}${entry.details?.status ? `: ${escapeHTML(statusName(entry.details.status))}` : ''}</div>`).join(''):'<div class="empty">Brak aktywności.</div>'; }
+function render() { renderStats(); renderPublic(); if(state.admin) renderAdmin(); }
+
+function initMaps() {
+  if (!window.L) { $('pickMap').innerHTML='<div class="empty">Nie udało się załadować mapy. Formularz nadal może działać bez lokalizacji.</div>'; $('reportsMap').innerHTML='<div class="empty">Mapa niedostępna – lista zgłoszeń działa normalnie.</div>'; return; }
+  state.pickMap=L.map('pickMap').setView([50.04,22.0],11); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(state.pickMap);
+  state.pickMap.on('click', event => setPickedLocation(event.latlng.lat,event.latlng.lng));
+  state.reportsMap=L.map('reportsMap').setView([50.04,22.0],11); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(state.reportsMap); state.markers=L.layerGroup().addTo(state.reportsMap);
+  setTimeout(()=>{state.pickMap.invalidateSize();state.reportsMap.invalidateSize();},150);
+}
+function setPickedLocation(lat,lng) { if(!validCoordinates(lat,lng)) return; $('lat').value=lat; $('lng').value=lng; $('location').value=$('location').value.trim() || `${lat.toFixed(5)}, ${lng.toFixed(5)}`; if(state.pickMarker) state.pickMap.removeLayer(state.pickMarker); state.pickMarker=L.marker([lat,lng],{draggable:true}).addTo(state.pickMap).bindPopup('Wybrana lokalizacja – możesz przesunąć pinezkę.').openPopup(); state.pickMarker.on('dragend',event=>{const point=event.target.getLatLng();$('lat').value=point.lat;$('lng').value=point.lng;}); persistDraft(); }
+function clearPickedLocation() { $('lat').value=''; $('lng').value=''; if(state.pickMarker){state.pickMap.removeLayer(state.pickMarker);state.pickMarker=null;} }
+function updateReportsMap(rows) { if(!state.reportsMap || !state.markers) return; state.markers.clearLayers(); const located=rows.filter(item=>validCoordinates(Number(item.lat),Number(item.lng))); located.forEach(item=>L.marker([item.lat,item.lng]).addTo(state.markers).bindPopup(`<strong>#${Number(item.number)||'–'} ${escapeHTML(item.category)}</strong><br>${escapeHTML(item.description.slice(0,180))}<br><small>${escapeHTML(item.location)}</small><br><span>${statusName(item.status)}</span>`)); if(located.length===1) state.reportsMap.setView([located[0].lat,located[0].lng],14); else if(located.length>1) state.reportsMap.fitBounds(L.latLngBounds(located.map(item=>[item.lat,item.lng])),{padding:[25,25],maxZoom:15}); }
+
+async function readPhoto(file) { if(!file) return ''; const allowed=['image/jpeg','image/png','image/webp']; if(!allowed.includes(file.type)) throw new Error('Dozwolone formaty zdjęć: JPG, PNG i WebP.'); if(file.size>1024*1024) throw new Error('Zdjęcie przekracza limit 1 MB.'); return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('Nie udało się odczytać zdjęcia.'));reader.readAsDataURL(file);}); }
+async function submitReport(event) { event.preventDefault(); if($('website').value) return; const category=$('category').value, description=$('description').value.trim(); if(!category || !description){notify('Uzupełnij kategorię i opis.');return;} const button=$('submitBtn'); button.disabled=true; try { const photo=await readPhoto($('photo').files[0]); const lat=$('lat').value===''?null:Number($('lat').value), lng=$('lng').value===''?null:Number($('lng').value); const report={id:crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`,number:nextNumber(),createdAt:new Date().toISOString(),category,description,location:$('location').value.trim().slice(0,160),lat:validCoordinates(lat,lng)?lat:null,lng:validCoordinates(lat,lng)?lng:null,status:'nowe',priority:'normalny',comment:'',closedAt:null,photo,supports:0}; state.reports.unshift(report); const persisted=addLog('Dodano nowe zgłoszenie',{number:report.number}); $('reportForm').reset(); $('photoPreview').style.display='none';state.photoData='';clearPickedLocation();clearDraft();render();notify(persisted?'Zgłoszenie zapisane w tej przeglądarce.':'Zgłoszenie dodane tylko do czasu zamknięcia tej karty. Zwolnij miejsce i wyeksportuj dane.'); } catch(error){notify(error.message || 'Nie udało się dodać zgłoszenia.');} finally{button.disabled=false;} }
+function findReport(id) { return state.reports.find(item=>item.id===id); }
+function handleReportAction(event) { const control=event.target.closest('[data-action]'); if(!control) return; const {action,id}=control.dataset; const item=findReport(id); if(!item) return;
+  if(action==='support'){const storedVotes=safeRead(STORAGE.votes,[]);const votes=Array.isArray(storedVotes)?storedVotes:[];if(votes.includes(id)){notify('Z tej przeglądarki oddano już poparcie dla tej sprawy.');return;}votes.push(id);try{localStorage.setItem(STORAGE.votes,JSON.stringify(votes));}catch(error){notify('Nie można zapisać poparcia w tej przeglądarce.');return;}item.supports=(item.supports||0)+1;addLog('Poparto zgłoszenie',{number:item.number});render();notify('Dziękujemy za poparcie.');}
+  if(action==='status'){const previous=item.status;item.status=control.value;if(item.status==='zamkniete'&&!item.closedAt)item.closedAt=new Date().toISOString();if(item.status!=='zamkniete')item.closedAt=null;addLog(`Zmieniono status: ${statusName(previous)} → ${statusName(item.status)}`,{number:item.number,status:item.status});render();}
+  if(action==='priority'){item.priority=control.value;addLog(`Zmieniono priorytet: ${item.priority}`,{number:item.number});render();}
+  if(action==='save-comment'){const field=$(`comment-${CSS.escape(id)}`);if(!field)return;item.comment=field.value.trim().slice(0,1000);addLog('Zapisano odpowiedź',{number:item.number});render();notify('Zapisano komentarz.');}
+}
+function download(content,filename,mime) { const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download=filename;document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000); }
+function exportJSON(){const payload={formatVersion:2,exportedAt:new Date().toISOString(),reports:state.reports,activity:state.log};download(JSON.stringify(payload,null,2),`model-panstwa-kopia-${new Date().toISOString().slice(0,10)}.json`,'application/json');addLog('Wyeksportowano kopię danych',{count:state.reports.length});}
+function csvCell(value){let text=String(value??'');if(/^[\s]*[=+@\-]/.test(text))text="'"+text;return `"${text.replace(/"/g,'""')}"`;}
+function exportCSV(){const headers=['Numer','Data','Kategoria','Opis','Lokalizacja','Status','Priorytet','Odpowiedź','Poparcia'];const rows=state.reports.map(item=>[item.number,formatDate(item.createdAt),item.category,item.description,item.location,statusName(item.status),item.priority,item.comment,item.supports].map(csvCell).join(';'));download('\uFEFF'+[headers.map(csvCell).join(';'),...rows].join('\r\n'),`model-panstwa-zgloszenia-${new Date().toISOString().slice(0,10)}.csv`,'text/csv;charset=utf-8');addLog('Wyeksportowano CSV',{count:state.reports.length});}
+async function importJSON(file){if(!file)return;if(file.size>5*1024*1024){notify('Plik jest za duży (maksymalnie 5 MB).');return;}try{const parsed=JSON.parse(await file.text());const source=Array.isArray(parsed)?parsed:(Array.isArray(parsed.reports)?parsed.reports:parsed.zgloszenia);if(!Array.isArray(source))throw new Error('Nie znaleziono listy zgłoszeń w pliku.');if(source.length>2000)throw new Error('Plik zawiera zbyt dużo zgłoszeń.');const normalized=source.map(normalizeReport).filter(item=>item.description.trim());if(!confirm(`Zaimportować ${normalized.length} zgłoszeń? Obecna lista zostanie zastąpiona.`))return;state.reports=normalized;const importedLog=Array.isArray(parsed.activity)?parsed.activity:(Array.isArray(parsed.log)?parsed.log:[]);state.log=importedLog.slice(-500).map(entry=>({id:String(entry.id||`${entry.time||Date.now()}-${Math.random()}`),time:typeof entry.time==='number'?new Date(entry.time).toISOString():(entry.time||new Date().toISOString()),action:String(entry.action||'Aktywność'),details:entry.details&&typeof entry.details==='object'?entry.details:{}}));addLog('Zaimportowano kopię danych',{count:normalized.length});render();notify('Import zakończony.');}catch(error){notify(`Błąd importu: ${error.message}`);}finally{$('importFile').value='';}}
+function toggleAdmin(){state.admin=!state.admin;$('publicPanel').classList.toggle('hidden',state.admin);$('adminPanel').classList.toggle('hidden',!state.admin);$('adminToggle').textContent=state.admin?'Widok publiczny':'Panel testowy';if(state.admin)renderAdmin();else renderPublic();if(state.pickMap)setTimeout(()=>state.pickMap.invalidateSize(),100);if(state.reportsMap)setTimeout(()=>state.reportsMap.invalidateSize(),100);}
+function setTheme(theme){document.documentElement.dataset.theme=theme==='dark'?'dark':'light';try{localStorage.setItem(STORAGE.theme,theme);}catch(error){console.warn('Nie udało się zapisać motywu:',error);}$('themeToggle').textContent=theme==='dark'?'☀️ Jasny':'🌙 Ciemny';}
+
+
+const PILLARS = [
+ {n:1,title:'Fundament państwa',lead:'Stabilne i uczciwe instytucje, które działają niezależnie od bieżącego sporu politycznego.',points:['Przejrzystość decyzji i finansów publicznych oraz odpowiedzialność osób pełniących funkcje publiczne.','Niezależne instytucje, profesjonalna służba cywilna i ograniczanie partyjnego wpływu na ich codzienną pracę.','Skuteczne mechanizmy kontroli, jawność działań i ciągłość najważniejszych kierunków państwa.','Rozliczanie obietnic i możliwość sprawdzania postępów; rozwijanie usług obywatelskich, np. w mObywatelu.','Rozwój konsultacji i udziału obywateli; nowe mechanizmy referendalne lub odwoławcze wymagają osobnej analizy prawnej i konstytucyjnej.','Obowiązkowe badanie konfliktu interesów przy przydzielaniu spraw i podejmowaniu decyzji.'],example:'Przykład: publiczna karta ważnej decyzji – kto ją przygotował, na jakiej podstawie, jakie były koszty i jak można ją skontrolować.'},
+ {n:2,title:'Gospodarka i rozwój',lead:'Gospodarka, która daje pracę, rozwija krajowe kompetencje i jest odporna na zewnętrzne wstrząsy.',points:['Stabilne, zrozumiałe podatki i mniej niepotrzebnych barier dla przedsiębiorczości.','Rozwój przemysłu, innowacji, technologii i krajowych łańcuchów dostaw.','Inwestycje w infrastrukturę, logistykę i połączenia transportowe, w tym znaczenie korytarzy takich jak Via Carpatia.','Bezpieczeństwo energetyczne: rozwój magazynowania energii, sieci, technologii wodorowych i zielonego wodoru tam, gdzie ma to uzasadnienie.','Przewidywalne zasady inwestowania i ocena efektów publicznego wsparcia.'],example:'Przykład: ocena strategicznych inwestycji nie tylko przez koszt budowy, ale też miejsca pracy, odporność dostaw i długoterminową wartość.'},
+ {n:3,title:'System prawny',lead:'Prawo ma być zrozumiałe, stabilne i możliwe do stosowania bez niepotrzebnej biurokracji.',points:['Ograniczanie nadmiaru przepisów i sprzecznych obowiązków.','Prostszy język ustaw, formularzy i komunikatów urzędowych.','Ocena skutków nowych regulacji przed ich przyjęciem oraz sprawdzanie, czy osiągają cel.','Przegląd przepisów, które są martwe, dublują inne regulacje lub generują nieproporcjonalne koszty.','Jasne procedury, terminy i uzasadnienia decyzji; ochrona prawa do odwołania.'],example:'Przykład: obywatel otrzymuje krótkie wyjaśnienie, co urząd rozstrzygnął, dlaczego i jakie ma dalsze możliwości.'},
+ {n:4,title:'Bezpieczeństwo i odporność państwa',lead:'Przygotowanie na kryzysy, zakłócenia dostaw, zagrożenia infrastruktury i sytuacje nadzwyczajne.',points:['Rozpoznawanie zależności od strategicznych surowców, szlaków transportowych i dostaw energii.','Plany ciągłości działania dla infrastruktury krytycznej, logistyki, łączności i usług publicznych.','Współpraca państwa, samorządów, służb, przedsiębiorstw i mieszkańców w przygotowaniu kryzysowym.','Czytelne instrukcje dla ludności, ćwiczenia i edukacja bez niepotrzebnego wzbudzania strachu.','Rozważenie etapowego, dobrowolnego wsparcia certyfikowanego wyposażenia ochronnego dla gospodarstw domowych, z jasnymi kryteriami.'],example:'Przykład: lokalny plan działania na wypadek długiej przerwy w dostawie prądu – z punktami informacji i pomocą dla osób potrzebujących.'},
+ {n:5,title:'System emerytalny',lead:'System, którego zasady są czytelne, przewidywalne i możliwe do planowania przez całe życie zawodowe.',points:['Przejrzysta informacja o składkach, uprawnieniach i prognozowanej wysokości świadczenia.','Regularna ocena długoterminowej stabilności finansowej systemu.','Ograniczanie nagłych zmian reguł, które odbierają obywatelom możliwość planowania.','Uwzględnianie zmian demograficznych, długości życia i sytuacji różnych grup zawodowych.','Czytelne porównanie skutków proponowanych zmian przed ich wprowadzeniem.'],example:'Przykład: zrozumiały, aktualizowany podgląd prognozy emerytalnej wraz z wyjaśnieniem, od czego zależą jej warianty.'},
+ {n:6,title:'Kapitał ludzki',lead:'Edukacja i rozwój umiejętności, które pomagają ludziom podejmować samodzielne decyzje.',points:['Praktyczna edukacja finansowa: budżet domowy, kredyt, odsetki, oszczędzanie i ryzyko.','Symulacje decyzji życiowych i ekonomicznych, aby można było bezpiecznie uczyć się na przykładach.','Umiejętności codzienne: rozumienie umów, podstawy prawa, pierwsza pomoc i korzystanie z usług publicznych.','Wspieranie kompetencji cyfrowych, technicznych i zawodowych przez całe życie.','Lepsze powiązanie kształcenia z realnymi potrzebami gospodarki, bez rezygnacji z szerokiego rozwoju człowieka.'],example:'Przykład: szkolna symulacja kredytu mieszkaniowego pokazująca ratę, całkowity koszt, ryzyko stóp procentowych i skutki opóźnień.'},
+ {n:7,title:'Zarządzanie strategiczne państwa',lead:'Państwo powinno planować na lata, a nie wyłącznie do następnych wyborów.',points:['Długoterminowe cele państwa z miernikami i publicznym harmonogramem.','Koordynacja działań ministerstw, samorządów i instytucji odpowiedzialnych za wspólne cele.','Ciągłość strategicznych projektów przy zmianie rządu, z możliwością ich jawnej korekty.','Regularne raporty z postępów, kosztów, opóźnień i ryzyk.','Wykorzystywanie analiz, scenariuszy i ocen niezależnych ekspertów.'],example:'Przykład: publiczna tablica strategicznych inwestycji – cel, etap, budżet, termin, wykonawca i uzasadnienie zmian.'},
+ {n:8,title:'Odporność informacyjna społeczeństwa',lead:'Obywatele powinni umieć odróżniać fakty od opinii, manipulacji i niepotwierdzonych twierdzeń.',points:['Edukacja medialna: sprawdzanie źródeł, dat, kontekstu i oryginalnych dokumentów.','Wyjaśnianie, jak działają algorytmy, emocjonalne nagłówki i mechanizmy dezinformacji.','Ostrożne udostępnianie treści, szczególnie gdy dotyczą poważnych oskarżeń lub kryzysów.','Rozpoznawanie materiałów syntetycznych i fałszywych nagrań oraz sprawdzanie ich pochodzenia.','System publicznej weryfikacji dużych afer i wydarzeń politycznych (propozycja 8.11): uporządkowana oś czasu, dokumenty i źródła pierwotne, z rozdzieleniem faktów potwierdzonych, twierdzeń stron i hipotez.'],example:'Przykład: jedna publiczna karta sprawy z chronologią, linkami do dokumentów i wyraźnym oznaczeniem tego, co potwierdzono, a co nadal jest sporne.'},
+ {n:9,title:'Demografia i stabilność społeczna',lead:'Warunki do zakładania rodzin, bezpiecznego życia, pracy i godnego starzenia się.',points:['Dostępność mieszkań i przewidywalne warunki najmu oraz budowania.','Stabilność zatrudnienia, godzenie pracy z opieką i wsparcie rodzin.','Dostęp do opieki zdrowotnej, opieki nad dziećmi i osobami starszymi.','Integracja społeczna i odpowiedzialna, kontrolowana polityka migracyjna.','Rozwiązania ograniczające wykluczenie i samotność oraz wspierające aktywność seniorów.'],example:'Przykład: lokalna mapa dostępności żłobków, opieki senioralnej, transportu i usług zdrowotnych – do planowania brakujących usług.'},
+ {n:10,title:'System finansów państwa',lead:'Publiczne pieniądze powinny być możliwe do prześledzenia od planu do końcowego rozliczenia.',points:['Czytelne przedstawianie dochodów, wydatków, zobowiązań i kosztów obsługi długu.','Publiczny rejestr inwestycji: koszt planowany i końcowy, umowa, wykonawca, zakres, zmiany ceny, uzasadnienie i odbiór.','Rejestr majątku i umów publicznych oraz spójne raportowanie zobowiązań.','Wykrywanie braków, duplikatów i niezgodności w danych oraz skuteczna kontrola.','Rozwijanie narzędzi jawności, takich jak portal inwestycji publicznych i rozwiązania cyfrowe wspierające rozliczalność.'],example:'Przykład: mieszkaniec sprawdza, ile kosztował remont drogi, kto go wykonał, co zmieniono w umowie i czy prace odebrano.'}
 ];
+const SLIDES = [
+ {kicker:'Model Państwa · prezentacja',title:'Państwo, któremu można ufać',body:'To propozycja sposobu organizacji państwa, w którym instytucje są przewidywalne, decyzje zrozumiałe, a obywatel traktowany jak partner.',bullets:['10 powiązanych filarów','Konkretne mechanizmy zamiast samych haseł','Stopniowe testowanie i poprawianie rozwiązań']},
+ {kicker:'Punkt wyjścia',title:'Zaufanie buduje się działaniem',body:'Zaufania nie da się zadekretować. Powstaje wtedy, gdy obywatel widzi uczciwe zasady, odpowiedzialność, sprawną obsługę i możliwość sprawdzenia decyzji.',bullets:['Państwo wyjaśnia swoje decyzje','Obywatel zna swoje prawa i obowiązki','Instytucje przyznają się do błędów i je naprawiają']},
+ ...PILLARS.map(p=>({kicker:`Filar ${p.n} z 10`,title:p.title,body:p.lead,bullets:p.points.slice(0,5),example:p.example})),
+ {kicker:'Wspólna zasada',title:'Najpierw sprawdzamy, potem wdrażamy',body:'Każda większa reforma powinna przejść przez diagnozę, projekt, konsultacje, pilotaż – gdy to możliwe – wdrożenie, pomiar efektów i korektę.',bullets:['Mierzymy skutki, nie tylko liczbę przyjętych przepisów','Pokazujemy koszty i odpowiedzialność','Poprawiamy rozwiązania, które nie działają']},
+ {kicker:'Zakończenie',title:'Technologia ma służyć człowiekowi',body:'Nowe narzędzia mogą ułatwiać kontakt z państwem, ale nie mogą wykluczać tych, którzy nie chcą lub nie mogą korzystać z Internetu.',bullets:['Cyfrowo – dla wygody','Telefonicznie i osobiście – dla dostępności','Zawsze z szacunkiem, pomocą i jasnymi zasadami']}
+];
+function renderPillars(){const root=$('pillarCards');if(!root)return;root.innerHTML=PILLARS.map(p=>`<article class="pillar-card"><div class="pillar-number">FILAR ${p.n.toString().padStart(2,'0')}</div><h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.lead)}</p><ul>${p.points.slice(0,5).map(point=>`<li>${escapeHTML(point)}</li>`).join('')}</ul><span class="tag">Przykład: ${escapeHTML(p.example.replace(/^Przykład:\s*/,''))}</span></article>`).join('');}
+let slideIndex=0;let presentationPreviousFocus=null;
+function renderSlide(){const slide=SLIDES[slideIndex];$('slideContent').innerHTML=`<div class="slide-kicker">${escapeHTML(slide.kicker)}</div><h2>${escapeHTML(slide.title)}</h2><p>${escapeHTML(slide.body)}</p>${slide.bullets?.length?`<ul>${slide.bullets.map(item=>`<li>${escapeHTML(item)}</li>`).join('')}</ul>`:''}${slide.example?`<p><strong>Przykład:</strong> ${escapeHTML(slide.example.replace(/^Przykład:\s*/,''))}</p>`:''}`;$('slideCounter').textContent=`Slajd ${slideIndex+1} z ${SLIDES.length}`;$('slideProgress').style.width=`${(slideIndex+1)/SLIDES.length*100}%`;$('prevSlide').disabled=slideIndex===0;$('nextSlide').textContent=slideIndex===SLIDES.length-1?'Zakończ ✓':'Dalej →';}
+function openPresentation(){presentationPreviousFocus=document.activeElement;slideIndex=0;renderSlide();$('presentation').classList.add('open');$('presentation').setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('slideContent').focus();}
+function closePresentation(){ $('presentation').classList.remove('open');$('presentation').setAttribute('aria-hidden','true');document.body.style.overflow='';if(presentationPreviousFocus?.focus)presentationPreviousFocus.focus();}
+function moveSlide(direction){if(slideIndex+direction>=SLIDES.length){closePresentation();return;}slideIndex=Math.max(0,Math.min(SLIDES.length-1,slideIndex+direction));renderSlide();$('slideContent').focus();}
+$('startPresentation').addEventListener('click',openPresentation);$('closePresentation').addEventListener('click',closePresentation);$('prevSlide').addEventListener('click',()=>moveSlide(-1));$('nextSlide').addEventListener('click',()=>moveSlide(1));$('presentation').addEventListener('click',event=>{if(event.target===$('presentation'))closePresentation();});document.addEventListener('keydown',event=>{if(!$('presentation').classList.contains('open'))return;if(event.key==='Escape'){closePresentation();event.preventDefault();}else if(event.key==='ArrowRight'){moveSlide(1);event.preventDefault();}else if(event.key==='ArrowLeft'){moveSlide(-1);event.preventDefault();}});
 
-function generateFingerprint() {
-  const data = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, screen.colorDepth, new Date().getTimezoneOffset(), navigator.platform].join('|');
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) - hash) + data.charCodeAt(i);
-    hash |= 0;
-  }
-  return 'fp_' + Math.abs(hash).toString(36);
-}
+$('reportForm').addEventListener('submit',submitReport);
+['category','description','location'].forEach(id=>$(id).addEventListener('input',persistDraft));
+$('photo').addEventListener('change',async event=>{try{const data=await readPhoto(event.target.files[0]);$('photoPreview').src=data;$('photoPreview').style.display=data?'block':'none';}catch(error){event.target.value='';$('photoPreview').style.display='none';notify(error.message);}});
+$('clearLocation').addEventListener('click',()=>{clearPickedLocation();persistDraft();notify('Usunięto pinezkę.');});
+$('location').addEventListener('input',()=>{if($('lat').value!==''||$('lng').value!=='')clearPickedLocation();persistDraft();});
+$('adminToggle').addEventListener('click',toggleAdmin);
+$('themeToggle').addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+$('publicList').addEventListener('click',handleReportAction);$('adminList').addEventListener('click',handleReportAction);$('adminList').addEventListener('change',event=>{if(event.target.matches('[data-action="status"],[data-action="priority"]'))handleReportAction(event);});
+$('filters').addEventListener('click',event=>{const button=event.target.closest('[data-filter]');if(!button)return;state.filter=button.dataset.filter;document.querySelectorAll('#filters button').forEach(node=>node.classList.toggle('active',node===button));renderAdmin();});
+['publicSearch','publicSort'].forEach(id=>$(id).addEventListener('input',renderPublic));['adminSearch','adminSort'].forEach(id=>$(id).addEventListener('input',renderAdmin));
+$('exportJson').addEventListener('click',exportJSON);$('exportCsv').addEventListener('click',exportCSV);$('importBtn').addEventListener('click',()=>$('importFile').click());$('importFile').addEventListener('change',event=>importJSON(event.target.files[0]));
+$('resetDemo').addEventListener('click',()=>{if(!confirm('Przywrócić dwa przykładowe zgłoszenia? Obecne dane zostaną zastąpione.'))return;state.reports=DEMO_REPORTS.map(item=>({...item}));state.log=[];saveAll();addLog('Przywrócono przykładowe dane');render();notify('Przywrócono dane demonstracyjne.');});
+$('clearAll').addEventListener('click',()=>{if(!confirm('Usunąć wszystkie zgłoszenia i historię z tej przeglądarki? Tej operacji nie można cofnąć bez kopii zapasowej.'))return;state.reports=[];state.log=[];saveAll();render();notify('Dane zostały usunięte.');});
+window.addEventListener('storage',event=>{if(event.key===STORAGE.reports||event.key===STORAGE.log){state.reports=safeRead(STORAGE.reports,[]);state.log=safeRead(STORAGE.log,[]);render();}});
 
-function hasAlreadySubmitted() {
-  return localStorage.getItem(SUBMITTED_KEY) === generateFingerprint();
-}
-function markAsSubmitted() {
-  localStorage.setItem(SUBMITTED_KEY, generateFingerprint());
-}
-
-function canSubmitNow() {
-  const last = parseInt(localStorage.getItem('last_submit_time') || '0', 10);
-  const now = Date.now();
-  if (now - last < 60000) return false; // min. 60 sekund między zgłoszeniami
-  return true;
-}
-function markSubmitTime() {
-  localStorage.setItem('last_submit_time', Date.now().toString());
-}
-
-function initAntibot() {
-  const a = Math.floor(Math.random() * 8) + 2;
-  const b = Math.floor(Math.random() * 8) + 2;
-  antibotCorrect = a + b;
-  const qEl = document.getElementById('antibotQuestion');
-  if (qEl) qEl.textContent = a + ' + ' + b + ' = ?';
-}
-
-function checkSubmissionLimit() {
-  if (hasAlreadySubmitted() || !canSubmitNow()) {
-    const btn = document.getElementById('submitBtn');
-    const msg = document.getElementById('alreadySubmitted');
-    const ans = document.getElementById('antibotAnswer');
-    if (btn) btn.disabled = true;
-    if (msg) {
-      msg.style.display = 'block';
-      msg.textContent = hasAlreadySubmitted() 
-        ? 'Z tej przeglądarki już wysłano zgłoszenie.' 
-        : 'Poczekaj chwilę przed kolejnym zgłoszeniem.';
-    }
-    if (ans) ans.disabled = true;
-  }
-}
-
-function saveDraft() {
-  const draft = {
-    category: document.getElementById('category').value,
-    description: document.getElementById('description').value,
-    location: document.getElementById('location').value
-  };
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-}
-function loadDraft() {
-  try {
-    const raw = localStorage.getItem(DRAFT_KEY);
-    if (!raw) return;
-    const draft = JSON.parse(raw);
-    if (draft.category) document.getElementById('category').value = draft.category;
-    if (draft.description) document.getElementById('description').value = draft.description;
-    if (draft.location) document.getElementById('location').value = draft.location;
-  } catch {}
-}
-function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
-
-async function load() {
-  try {
-    const { data, error } = await supabase
-      .from('zgloszenia')
-      .select('*')
-      .order('time', { ascending: false });
-    if (error) throw error;
-    const items = data || [];
-    if (items.length) {
-      nextNumber = Math.max(0, ...items.map(i => i.number || 0)) + 1;
-    }
-    return items;
-  } catch (e) {
-    console.warn('Baza niedostępna, localStorage', e);
-    try {
-      const stored = localStorage.getItem(KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  }
-}
-
-async function saveItem(item) {
-  localStorage.setItem(KEY, JSON.stringify([...(JSON.parse(localStorage.getItem(KEY) || '[]')), item]));
-  try {
-    const { error } = await supabase.from('zgloszenia').insert([item]);
-    if (error) console.warn('Błąd insert', error);
-    return !error;
-  } catch (e) {
-    console.warn('Supabase insert failed', e);
-    return false;
-  }
-}
-
-async function updateItem(id, changes) {
-  try {
-    const { error } = await supabase.from('zgloszenia').update(changes).eq('id', id);
-    if (error) console.warn('Błąd update', error);
-  } catch (e) {
-    console.warn('Supabase update failed', e);
-  }
-  // lokalny backup
-  const local = JSON.parse(localStorage.getItem(KEY) || '[]');
-  const idx = local.findIndex(x => x.id === id);
-  if (idx >= 0) {
-    local[idx] = { ...local[idx], ...changes };
-    localStorage.setItem(KEY, JSON.stringify(local));
-  }
-}
-function loadLog() {
-  try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; }
-  catch { return []; }
-}
-function addLog(action, details) {
-  const log = loadLog();
-  log.push({ time: Date.now(), action, details });
-  if (log.length > 300) log.splice(0, log.length - 300);
-  localStorage.setItem(LOG_KEY, JSON.stringify(log));
-}
-
-function statusLabel(s) {
-  return { nowe: 'Nowe', w_trakcie: 'W trakcie', zamkniete: 'Zamknięte' }[s] || s;
-}
-function escapeHtml(t) {
-  return String(t || '').replace(/[&<>"']/g, m => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m]));
-}
-
-async function render() {
-  const items = await load();
-  updateStatsFrom(items);
-  if (isAdmin) {
-    renderAdmin(items);
-    renderActivity();
-  } else {
-    renderPublic(items);
-  }
-}
-
-function updateStatsFrom(items) {
-  const total = items.length;
-  const open = items.filter(i => i.status !== 'zamkniete').length;
-  const closed = items.filter(i => i.status === 'zamkniete').length;
-  const closedItems = items.filter(i => i.status === 'zamkniete' && i.closedTime);
-  let avg = '–';
-  if (closedItems.length) {
-    const days = closedItems.reduce((sum, i) => sum + (i.closedTime - i.time) / 86400000, 0) / closedItems.length;
-    avg = days.toFixed(1);
-  }
-  ['pub-total','stat-total'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = total; });
-  ['pub-open','stat-open'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = open; });
-  ['pub-closed','stat-closed'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = closed; });
-  const avgEl = document.getElementById('stat-avg');
-  if (avgEl) avgEl.textContent = avg;
-}
-
-function getFilteredSorted(items, isPublic) {
-  let filtered = items.slice();
-  const searchEl = isPublic ? document.getElementById('searchPublic') : document.getElementById('searchAdmin');
-  const sortEl = isPublic ? document.getElementById('sortPublic') : document.getElementById('sortAdmin');
-  const search = (searchEl ? searchEl.value : '').toLowerCase();
-  const sort = sortEl ? sortEl.value : 'newest';
-  if (search) {
-    filtered = filtered.filter(i =>
-      (i.description || '').toLowerCase().includes(search) ||
-      (i.location || '').toLowerCase().includes(search) ||
-      (i.category || '').toLowerCase().includes(search) ||
-      String(i.number || '').includes(search)
-    );
-  }
-  if (!isPublic && currentFilter !== 'all') filtered = filtered.filter(i => i.status === currentFilter);
-  if (sort === 'newest') filtered.sort((a,b) => b.time - a.time);
-  else if (sort === 'oldest') filtered.sort((a,b) => a.time - b.time);
-  else if (sort === 'priority') {
-    const order = { wysoki: 0, normalny: 1, niski: 2 };
-    filtered.sort((a,b) => (order[a.priority]||1) - (order[b.priority]||1));
-  } else if (sort === 'status') filtered.sort((a,b) => a.status.localeCompare(b.status));
-  return filtered;
-}
-
-let map;
-let markersLayer;
-
-function initMap() {
-  if (map) return;
-  map = L.map('map').setView([50.04, 22.00], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
-  markersLayer = L.layerGroup().addTo(map);
-
-  let clickMarker = null;
-  map.on('click', function(e) {
-    if (clickMarker) map.removeLayer(clickMarker);
-    clickMarker = L.marker(e.latlng, { draggable: true }).addTo(map);
-    clickMarker.bindPopup('Wybrana lokalizacja<br><small>Możesz przeciągnąć pinezkę</small>').openPopup();
-
-    document.getElementById('location').value = e.latlng.lat.toFixed(5) + ', ' + e.latlng.lng.toFixed(5);
-    document.getElementById('lat').value = e.latlng.lat;
-    document.getElementById('lng').value = e.latlng.lng;
-
-    clickMarker.on('dragend', function() {
-      const pos = clickMarker.getLatLng();
-      document.getElementById('location').value = pos.lat.toFixed(5) + ', ' + pos.lng.toFixed(5);
-      document.getElementById('lat').value = pos.lat;
-      document.getElementById('lng').value = pos.lng;
-    });
-  });
-}
-
-function updateMap(items) {
-  if (!map) initMap();
-  markersLayer.clearLayers();
-  const withLoc = items.filter(i => i.lat && i.lng);
-  withLoc.forEach(item => {
-    const marker = L.marker([item.lat, item.lng]).addTo(markersLayer);
-    marker.bindPopup(`
-      <strong>#${item.number || ''} ${escapeHtml(item.category)}</strong><br>
-      ${escapeHtml(item.description).slice(0, 80)}<br>
-      <small>${escapeHtml(item.location || '')}</small>
-    `);
-  });
-  if (withLoc.length) {
-    const bounds = L.latLngBounds(withLoc.map(i => [i.lat, i.lng]));
-    map.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
-  }
-function renderPublic(items) {
-  const filtered = getFilteredSorted(items, true);
-  updateMap(filtered);
-  if (!filtered.length) {
-    publicListEl.innerHTML = '<div class="empty">Brak zgłoszeń.</div>';
-    return;
-  }
-  publicListEl.innerHTML = filtered.map(item => `
-    <div class="report">
-      <div class="meta">
-        #${item.number || '–'} · ${new Date(item.time).toLocaleString('pl-PL')} · ${escapeHtml(item.category)}
-        ${item.location ? ' · ' + escapeHtml(item.location) : ''}
-        <span class="priority ${item.priority || 'normalny'}">${item.priority || 'normalny'}</span>
-      </div>
-      <div>${escapeHtml(item.description)}</div>
-      ${item.photo ? `<img src="${item.photo}" class="photo-preview" alt="zdjęcie">` : ''}
-      ${item.comment ? `<div class="comment"><strong>Odpowiedź:</strong> ${escapeHtml(item.comment)}</div>` : ''}
-      <div style="margin-top:0.45rem;">
-        <span class="status ${item.status}">${statusLabel(item.status)}</span>
-        <button type="button" class="support-btn" onclick="supportReport('${item.id}')">
-          Wspieram (${item.supports || 0})
-        </button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderAdmin(items) {
-  const filtered = getFilteredSorted(items, false);
-  if (!filtered.length) {
-    listEl.innerHTML = '<div class="empty">Brak zgłoszeń.</div>';
-    return;
-  }
-  listEl.innerHTML = filtered.map(item => `
-    <div class="report">
-      <div class="meta">
-        #${item.number || '–'} · ${new Date(item.time).toLocaleString('pl-PL')} · ${escapeHtml(item.category)}
-        ${item.location ? ' · ' + escapeHtml(item.location) : ''}
-      </div>
-      <div>${escapeHtml(item.description)}</div>
-      ${item.photo ? `<img src="${item.photo}" class="photo-preview" alt="zdjęcie">` : ''}
-      <div style="margin-top:0.5rem;">
-        <span class="status ${item.status}">${statusLabel(item.status)}</span>
-        <select onchange="changeStatus('${item.id}', this.value)" style="margin-left:0.35rem; width:auto; font-size:0.8rem; padding:0.22rem;">
-          <option value="nowe" ${item.status==='nowe'?'selected':''}>Nowe</option>
-          <option value="w_trakcie" ${item.status==='w_trakcie'?'selected':''}>W trakcie</option>
-          <option value="zamkniete" ${item.status==='zamkniete'?'selected':''}>Zamknięte</option>
-        </select>
-        <select onchange="changePriority('${item.id}', this.value)" style="margin-left:0.35rem; width:auto; font-size:0.8rem; padding:0.22rem;">
-          <option value="niski" ${item.priority==='niski'?'selected':''}>Niski</option>
-          <option value="normalny" ${(item.priority||'normalny')==='normalny'?'selected':''}>Normalny</option>
-          <option value="wysoki" ${item.priority==='wysoki'?'selected':''}>Wysoki</option>
-        </select>
-      </div>
-      <div style="margin-top:0.45rem;">
-        <input type="text" placeholder="Komentarz / odpowiedź..." value="${escapeHtml(item.comment || '')}" 
-               onchange="setComment('${item.id}', this.value)" style="font-size:0.86rem; padding:0.38rem;">
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderActivity() {
-  const log = loadLog().slice(-20).reverse();
-  if (!log.length) {
-    activityLogEl.innerHTML = '<div class="empty">Brak aktywności.</div>';
-    return;
-  }
-  activityLogEl.innerHTML = log.map(entry => {
-    const t = new Date(entry.time).toLocaleString('pl-PL');
-    let txt = entry.action;
-    if (entry.action === 'nowe_zgloszenie') txt = `Nowe zgłoszenie #${entry.details.number || ''} (${entry.details.category})`;
-    else if (entry.action === 'zmiana_statusu') txt = `Status zmieniony: ${entry.details.from} → ${entry.details.to}`;
-    else if (entry.action === 'zmiana_priorytetu') txt = `Priorytet zmieniony`;
-    else if (entry.action === 'komentarz') txt = `Dodano komentarz`;
-    return `<div style="margin-bottom:0.3rem;"><strong>${t}</strong> – ${escapeHtml(txt)}</div>`;
-  }).join('');
-}
-
-function supportReport(id) {
-  supabase.from('zgloszenia').select('supports').eq('id', id).single()
-    .then(({ data }) => {
-      const supports = (data?.supports || 0) + 1;
-      updateItem(id, { supports });
-      addLog('wsparcie', { id, supports });
-      render();
-    }).catch(() => render());
-}
-
-function changeStatus(id, status) {
-  const changes = { status };
-  if (status === 'zamkniete') changes.closedTime = Date.now();
-  updateItem(id, changes);
-  addLog('zmiana_statusu', { id, to: status });
-  render();
-}
-function changePriority(id, priority) {
-  updateItem(id, { priority });
-  addLog('zmiana_priorytetu', { id, priority });
-  render();
-}
-function setComment(id, comment) {
-  updateItem(id, { comment });
-  addLog('komentarz', { id });
-  render();
-}
-
-// Proste geokodowanie lokalizacji (bardzo przybliżone, na potrzeby demo)
-function roughGeocode(location) {
-  if (!location) return null;
-  const loc = location.toLowerCase();
-  if (loc.includes('rzeszow') || loc.includes('rzeszowska')) return { lat: 50.0412, lng: 21.9991 };
-  if (loc.includes('starowiejska')) return { lat: 50.0375, lng: 22.0045 };
-  // losowy punkt w okolicy jeśli nie rozpoznano
-  return { lat: 50.04 + (Math.random() - 0.5) * 0.03, lng: 22.00 + (Math.random() - 0.5) * 0.04 };
-}
-  const data = load();
-  const item = data.find(x => x.id === id);
-  if (item) {
-    const old = item.status;
-    item.status = status;
-    if (status === 'zamkniete' && !item.closedTime) item.closedTime = Date.now();
-    save(data);
-    addLog('zmiana_statusu', { id, from: old, to: status });
-    render();
-  }
-}
-function changePriority(id, priority) {
-  const data = load();
-  const item = data.find(x => x.id === id);
-  if (item) {
-    item.priority = priority;
-    save(data);
-    addLog('zmiana_priorytetu', { id, priority });
-    render();
-  }
-}
-function setComment(id, comment) {
-  const data = load();
-  const item = data.find(x => x.id === id);
-  if (item) {
-    item.comment = comment;
-    save(data);
-    addLog('komentarz', { id });
-    render();
-  }
-}
-
-modeToggle.onclick = () => {
-  isAdmin = !isAdmin;
-  if (isAdmin) {
-    publicPanel.style.display = 'none';
-    adminPanel.style.display = 'block';
-    modeToggle.textContent = 'Widok publiczny';
-  } else {
-    publicPanel.style.display = 'block';
-    adminPanel.style.display = 'none';
-    modeToggle.textContent = 'Panel administracyjny';
-  }
-  render();
-};
-
-document.getElementById('photo').onchange = function(e) {
-  const file = e.target.files[0];
-  const preview = document.getElementById('photoPreview');
-  if (!file) { preview.style.display = 'none'; return; }
-  if (file.size > 1200000) { alert('Zdjęcie za duże (max ~1 MB)'); e.target.value = ''; return; }
-  const reader = new FileReader();
-  reader.onload = ev => {
-    preview.src = ev.target.result;
-    preview.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-};
-
-form.onsubmit = e => {
-  e.preventDefault();
-  if (document.getElementById('website').value) { alert('Wykryto automatyczne wypełnienie.'); return; }
-  const answer = parseInt(document.getElementById('antibotAnswer').value, 10);
-  if (answer !== antibotCorrect) {
-    alert('Nieprawidłowa odpowiedź antybotowa.');
-    initAntibot();
-    document.getElementById('antibotAnswer').value = '';
-    return;
-  }
-  if (hasAlreadySubmitted()) { alert('Z tej przeglądarki już wysłano zgłoszenie.'); return; }
-  if (!canSubmitNow()) { alert('Poczekaj przynajmniej minutę między zgłoszeniami.'); return; }
-
-  const photoInput = document.getElementById('photo');
-  if (photoInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = ev => finishSubmit(ev.target.result);
-    reader.readAsDataURL(photoInput.files[0]);
-  } else {
-    finishSubmit('');
-  }
-};
-
-async function finishSubmit(photo) {
-  const location = document.getElementById('location').value.trim();
-  const lat = parseFloat(document.getElementById('lat').value) || null;
-  const lng = parseFloat(document.getElementById('lng').value) || null;
-  const geo = (lat && lng) ? { lat, lng } : roughGeocode(location);
-  const item = {
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-    number: nextNumber++,
-    time: Date.now(),
-    category: document.getElementById('category').value,
-    description: document.getElementById('description').value.trim(),
-    location: location,
-    lat: geo ? geo.lat : null,
-    lng: geo ? geo.lng : null,
-    status: 'nowe',
-    priority: 'normalny',
-    comment: '',
-    photo: photo || '',
-    supports: 0,
-    fingerprint: generateFingerprint()
-  };
-
-  const ok = await saveItem(item);
-  markAsSubmitted();
-  markSubmitTime();
-  clearDraft();
-  addLog('nowe_zgloszenie', { id: item.id, number: item.number, category: item.category });
-
-  form.reset();
-  document.getElementById('photoPreview').style.display = 'none';
-  initAntibot();
-  checkSubmissionLimit();
-  await render();
-
-  if (ok) {
-    alert('Zgłoszenie zapisane.');
-  } else {
-    alert('Zapisano lokalnie. Problem z bazą – spróbuj później.');
-  }
-}
-
-document.querySelectorAll('.filters button').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    render();
-  };
-});
-
-['searchPublic','searchAdmin','sortPublic','sortAdmin'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('input', render);
-    el.addEventListener('change', render);
-  }
-});
-
-function downloadFile(content, filename, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1500);
-}
-
-exportBtn.onclick = function() {
-  const payload = { exported: new Date().toISOString(), zgloszenia: load(), log: loadLog() };
-  const json = JSON.stringify(payload, null, 2);
-  downloadFile(json, 'zgloszenia-' + new Date().toISOString().slice(0,10) + '.json', 'application/json');
-  showExportModal(json);
-  addLog('eksport', { count: payload.zgloszenia.length });
-};
-
-exportCsvBtn.onclick = function() {
-  const items = load();
-  const headers = ['Numer','Data','Kategoria','Opis','Lokalizacja','Status','Priorytet','Komentarz'];
-  const rows = items.map(i => [
-    i.number || '',
-    new Date(i.time).toLocaleString('pl-PL'),
-    i.category || '',
-    '"' + (i.description || '').replace(/"/g, '""') + '"',
-    i.location || '',
-    i.status || '',
-    i.priority || '',
-    '"' + (i.comment || '').replace(/"/g, '""') + '"'
-  ].join(','));
-  const csv = [headers.join(','), ...rows].join('\n');
-  downloadFile(csv, 'zgloszenia-' + new Date().toISOString().slice(0,10) + '.csv', 'text/csv;charset=utf-8');
-};
-
-importBtn.onclick = () => importFile.click();
-importFile.onchange = function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev) {
-    try {
-      const data = JSON.parse(ev.target.result);
-      if (data.zgloszenia && Array.isArray(data.zgloszenia)) {
-        save(data.zgloszenia);
-        if (data.log) localStorage.setItem(LOG_KEY, JSON.stringify(data.log));
-        addLog('import', { count: data.zgloszenia.length });
-        render();
-        alert('Zaimportowano ' + data.zgloszenia.length + ' zgłoszeń.');
-      } else alert('Nieprawidłowy format pliku.');
-    } catch { alert('Błąd odczytu pliku.'); }
-  };
-  reader.readAsText(file);
-  importFile.value = '';
-};
-
-if (resetLimitBtn) {
-  resetLimitBtn.onclick = () => {
-    if (confirm('Zresetować limit zgłoszeń z tej przeglądarki?')) {
-      localStorage.removeItem(SUBMITTED_KEY);
-      const btn = document.getElementById('submitBtn');
-      const msg = document.getElementById('alreadySubmitted');
-      const ans = document.getElementById('antibotAnswer');
-      if (btn) btn.disabled = false;
-      if (msg) msg.style.display = 'none';
-      if (ans) ans.disabled = false;
-      initAntibot();
-      alert('Limit zresetowany.');
-      render();
-    }
-  };
-}
-
-if (restoreDataBtn) {
-  restoreDataBtn.onclick = () => {
-    if (confirm('Przywrócić oryginalne dwa zgłoszenia?')) {
-      localStorage.setItem(KEY, JSON.stringify(INITIAL_DATA));
-      localStorage.setItem(LOG_KEY, JSON.stringify(INITIAL_LOG));
-      alert('Przywrócono stare zgłoszenia.');
-      render();
-    }
-  };
-}
-
-function showExportModal(json) {
-  let modal = document.getElementById('exportModal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'exportModal';
-    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;';
-    modal.innerHTML = `
-      <div style="background:var(--card);color:var(--text);border-radius:12px;padding:1.1rem;max-width:92vw;max-height:82vh;overflow:auto;width:500px;">
-        <h3 style="margin:0 0 0.5rem;">Dane do eksportu</h3>
-        <textarea id="exportText" readonly style="width:100%;height:220px;font-family:monospace;font-size:0.76rem;"></textarea>
-        <div style="margin-top:0.6rem;">
-          <button type="button" id="copyBtn">Kopiuj</button>
-          <button type="button" id="closeModal" class="secondary">Zamknij</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-    document.getElementById('copyBtn').onclick = () => {
-      document.getElementById('exportText').select();
-      document.execCommand('copy');
-      alert('Skopiowano');
-    };
-  }
-  document.getElementById('exportText').value = json;
-  modal.style.display = 'flex';
-}
-
-themeToggle.onclick = () => {
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-  if (dark) {
-    document.documentElement.removeAttribute('data-theme');
-    themeToggle.textContent = 'Ciemny';
-    localStorage.setItem(THEME_KEY, 'light');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeToggle.textContent = 'Jasny';
-    localStorage.setItem(THEME_KEY, 'dark');
-  }
-};
-
-if (localStorage.getItem(THEME_KEY) === 'dark') {
-  document.documentElement.setAttribute('data-theme', 'dark');
-  themeToggle.textContent = 'Jasny';
-}
-
-render();
-initAntibot();
-checkSubmissionLimit();
-loadDraft();
-initMap();
-
-setTimeout(() => {
-  if (!document.getElementById('antibotQuestion').textContent) initAntibot();
-}, 100);
-
-['category', 'description', 'location'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('input', saveDraft);
-    el.addEventListener('change', saveDraft);
-  }
-});
-window.addEventListener('beforeunload', saveDraft);
-window.addEventListener('pagehide', saveDraft);
+renderPillars();initData();restoreDraft();let savedTheme='light';try{savedTheme=localStorage.getItem(STORAGE.theme)||'light';}catch(error){console.warn('Pamięć przeglądarki jest niedostępna:',error);}setTheme(savedTheme);render();initMaps();
 </script>
 </body>
 </html>
