@@ -17,3 +17,35 @@ button,input,select,textarea{max-width:100%}
 button,a,input,select,textarea{touch-action:manipulation}
 :focus-visible{outline:3px solid #76b9e8!important;outline-offset:3px}
 img,svg,video,iframe{max-width:100%}
+
+
+/* FINALNA, WSPÓLNA NAWIGACJA — jedna reguła dla wszystkich podstron */
+body > .mp-nav{
+  position:relative!important;top:auto!important;z-index:20!important;
+  display:flex!important;flex-flow:row nowrap!important;align-items:center!important;
+  justify-content:flex-start!important;gap:.5rem!important;
+  width:100%!important;max-width:none!important;min-height:58px;
+  margin:0!important;padding:.65rem max(1rem,calc((100% - 1180px)/2))!important;
+  overflow-x:auto!important;overflow-y:hidden!important;
+  background:var(--mp-surface)!important;color:var(--mp-text)!important;
+  border:0!important;border-bottom:1px solid var(--mp-border)!important;
+  border-radius:0!important;box-shadow:0 4px 16px #00000012!important;
+  scrollbar-width:thin;overscroll-behavior-x:contain;
+}
+body > .mp-nav a{
+  display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;
+  min-height:36px;padding:.45rem .75rem!important;margin:0!important;
+  border:1px solid var(--mp-border)!important;border-radius:999px!important;
+  background:var(--mp-surface2)!important;color:var(--mp-accent)!important;
+  font-size:.82rem!important;font-weight:700!important;line-height:1.2!important;
+  text-decoration:none!important;white-space:nowrap!important;
+}
+body > .mp-nav a[aria-current="page"]{
+  background:var(--mp-accent)!important;color:#fff!important;
+  border-color:var(--mp-accent)!important;
+}
+body > .mp-nav a:hover{filter:brightness(1.12)}
+@media(max-width:650px){
+  body > .mp-nav{justify-content:flex-start!important;padding:.6rem .7rem!important}
+  body > .mp-nav a{font-size:.78rem!important;padding:.42rem .65rem!important}
+}
