@@ -94,23 +94,93 @@ async function showSignedIn(user){
  else { $("adminArea").classList.add("hidden"); }
  await loadMyReports(user.id);
 }
-$("accountForm").addEventListener("submit",async e=>{
- e.preventDefault();const {data,error}=await supabase.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
- if(error){msg("accountState","Logowanie nie powiodło się: "+error.message,"error");return;}
- msg("accountState","Zalogowano.");await showSignedIn(data.user);
+// Wspólna blokada zapobiega równoległym żądaniom z przycisków konta.
+let authBusy = false;
+const AUTH_COOLDOWN_MS = 60 * 1000;
+function authCooldownRemaining(action) {
+  try {
+    const until = Number(sessionStorage.getItem("auth_cooldown_" + action) || 0);
+    return Math.max(0, until - Date.now());
+  } catch (_) { return 0; }
+}
+function setAuthCooldown(action) {
+  try { sessionStorage.setItem("auth_cooldown_" + action, String(Date.now() + AUTH_COOLDOWN_MS)); } catch (_) {}
+}
+async function runAuthAction(buttonIds, action, work) {
+  if (authBusy) return;
+  const remaining = action ? authCooldownRemaining(action) : 0;
+  if (remaining > 0) {
+    msg("accountState", "Odczekaj " + Math.ceil(remaining / 1000) + " s przed ponowną próbą. To dodatkowa blokada w tej przeglądarce; limity serwera Supabase działają niezależnie.", "error");
+    return;
+  }
+  authBusy = true;
+  const buttons = buttonIds.map(id => $(id));
+  const originalLabels = buttons.map(button => button.textContent);
+  buttons.forEach(button => { button.disabled = true; button.textContent = "Przetwarzam…"; });
+  try {
+    await work();
+    if (action) setAuthCooldown(action);
+  } catch (error) {
+    msg("accountState", "Wystąpił błąd. Spróbuj ponownie później.", "error");
+  } finally {
+    buttons.forEach((button, index) => { button.disabled = false; button.textContent = originalLabels[index]; });
+    authBusy = false;
+  }
+}
+$("accountForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  await runAuthAction(["signInBtn", "signUpBtn", "resetPasswordBtn"], null, async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+    if (error) {
+      msg("accountState", "Logowanie nie powiodło się. Sprawdź dane i spróbuj ponownie.", "error");
+      return;
+    }
+    msg("accountState", "Zalogowano.");
+    await showSignedIn(data.user);
+  });
 });
-$("signUpBtn").addEventListener("click",async()=>{
- const email=$("email").value.trim(),password=$("password").value;
- if(!email||password.length<8){msg("accountState","Podaj e-mail i hasło o długości co najmniej 8 znaków.","error");return;}
- const {data,error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:"https://sank777.github.io/Model-Panstwa/prototyp.html"}});
- if(error){msg("accountState","Nie udało się utworzyć konta: "+error.message,"error");return;}
- if(data.session){msg("accountState","Konto utworzone. Jesteś zalogowany.");await showSignedIn(data.user);}
- else msg("accountState","Konto utworzone. Sprawdź pocztę i potwierdź adres e-mail, a następnie zaloguj się.");
+$("signUpBtn").addEventListener("click", async () => {
+  await runAuthAction(["signInBtn", "signUpBtn", "resetPasswordBtn"], "signup", async () => {
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    if (!email || password.length < 8) {
+      msg("accountState", "Podaj e-mail i hasło o długości co najmniej 8 znaków.", "error");
+      return;
+    }
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: "https://sank777.github.io/Model-Panstwa/prototyp.html" }
+    });
+    if (error) {
+      msg("accountState", "Nie udało się przetworzyć rejestracji. Spróbuj ponownie później.", "error");
+      return;
+    }
+    if (data.session && data.user) {
+      msg("accountState", "Konto zostało utworzone i zalogowano użytkownika.");
+      await showSignedIn(data.user);
+    } else {
+      msg("accountState", "Jeśli rejestracja pod tym adresem jest możliwa, otrzymasz wiadomość z dalszymi instrukcjami. Sprawdź pocztę. Ze względów bezpieczeństwa nie ujawniamy, czy adres jest już przypisany do konta.");
+    }
+  });
 });
-$("resetPasswordBtn").addEventListener("click",async()=>{
- const email=$("email").value.trim();if(!email){msg("accountState","Najpierw wpisz adres e-mail.","error");return;}
- const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:"https://sank777.github.io/Model-Panstwa/prototyp.html"});
- msg("accountState",error?"Nie udało się wysłać linku: "+error.message:"Jeśli konto istnieje, wysłaliśmy link do zmiany hasła.",error?"error":"ok");
+$("resetPasswordBtn").addEventListener("click", async () => {
+  await runAuthAction(["signInBtn", "signUpBtn", "resetPasswordBtn"], "reset", async () => {
+    const email = $("email").value.trim();
+    if (!email) {
+      msg("accountState", "Najpierw wpisz adres e-mail.", "error");
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "https://sank777.github.io/Model-Panstwa/prototyp.html"
+    });
+    msg("accountState", error
+      ? "Nie udało się przetworzyć żądania. Spróbuj ponownie później."
+      : "Jeśli konto istnieje, wysłaliśmy wiadomość z instrukcjami zmiany hasła.", error ? "error" : "ok");
+  });
 });
 $("logoutBtn").addEventListener("click",async()=>{await supabase.auth.signOut();$("adminArea").classList.add("hidden");$("accountForm").classList.remove("hidden");$("userAccountArea").classList.add("hidden");$("adminList").innerHTML="";msg("accountState","Wylogowano.");});
 $("userLogoutBtn").addEventListener("click",async()=>{
