@@ -27,7 +27,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
 </head>
 <body>
 <header>
-  <div class="header-actions"><button type="button" id="themeToggle" aria-label="Zmień motyw">🌙 Ciemny</button><a class="header-link" href="system-zgloszen.html">System zgłoszeń</a></div>
+  <div class="header-actions"><button type="button" id="themeToggle" aria-label="Zmień motyw">🌙 Ciemny</button><a class="header-link" href="prototyp.html">Prototyp zgłoszeń</a></div>
   <div class="eyebrow">Laboratorium obywatelskie · wersja prezentacyjna</div>
   <h1>Model Państwa</h1>
   <p>Małe, sprawdzalne narzędzia współpracy obywateli z instytucjami. Przejrzystość, odpowiedzialność i prostota działania.</p>
@@ -40,7 +40,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
   <a href="filary.html">10 filarów</a>
   <a href="reformy.html">Jak zmieniać państwo</a>
   <a href="zasady.html">Zasady projektowe</a>
-  <a href="system-zgloszen.html">System zgłoszeń</a>
+  <a href="prototyp.html">Prototyp zgłoszeń</a>
 </nav>
 
 <main>
@@ -342,6 +342,6 @@ window.addEventListener('storage',event=>{if(event.key===STORAGE.reports||event.
 
 renderPillars();initData();restoreDraft();let savedTheme='light';try{savedTheme=localStorage.getItem(STORAGE.theme)||'light';}catch(error){console.warn('Pamięć przeglądarki jest niedostępna:',error);}setTheme(savedTheme);render();initMaps();
 </script>
-<nav class="site-nav" aria-label="Nawigacja dolna"><a href="index.html" aria-current="page">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="system-zgloszen.html">System zgłoszeń</a></nav>
+<nav class="site-nav" aria-label="Nawigacja dolna"><a href="index.html" aria-current="page">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html">Prototyp zgłoszeń</a></nav>
 </body>
 </html>
