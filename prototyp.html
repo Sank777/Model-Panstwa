@@ -112,6 +112,7 @@ $("resetPasswordBtn").addEventListener("click",async()=>{
  const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:"https://sank777.github.io/Model-Panstwa/prototyp.html"});
  msg("accountState",error?"Nie udało się wysłać linku: "+error.message:"Jeśli konto istnieje, wysłaliśmy link do zmiany hasła.",error?"error":"ok");
 });
+$("logoutBtn").addEventListener("click",async()=>{await supabase.auth.signOut();$("adminArea").classList.add("hidden");$("accountForm").classList.remove("hidden");$("userAccountArea").classList.add("hidden");$("adminList").innerHTML="";msg("accountState","Wylogowano.");});
 $("userLogoutBtn").addEventListener("click",async()=>{
  await supabase.auth.signOut();$("accountForm").classList.remove("hidden");$("userAccountArea").classList.add("hidden");$("adminArea").classList.add("hidden");$("adminList").innerHTML="";msg("accountState","Wylogowano.");
 });
