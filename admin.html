@@ -91,6 +91,7 @@ async function verify(){
  const res=await fetch(URL+"/functions/v1/admin-manage-reports?analytics=1&days=1",{headers:{apikey:KEY,Authorization:"Bearer "+session.access_token}});
  if(!res.ok){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(res.status===403?"Konto nie ma roli administratora.":"Nie udało się potwierdzić uprawnień. Spróbuj ponownie.");return;}
  $("login").classList.add("hidden");$("hub").classList.remove("hidden");status("Dostęp administratora potwierdzony przez serwer.");
+ await loadCases();
 }
 $("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}
 const CASE_API=URL+"/functions/v1/admin-case-records";
