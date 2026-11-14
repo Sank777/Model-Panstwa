@@ -345,5 +345,21 @@ window.addEventListener('storage',event=>{if(event.key===STORAGE.reports||event.
 
 renderPillars();initData();restoreDraft();let savedTheme='light';try{savedTheme=localStorage.getItem(STORAGE.theme)||'light';}catch(error){console.warn('Pamięć przeglądarki jest niedostępna:',error);}setTheme(savedTheme);render();initMaps();
 </script>
+
+<script>
+(() => {
+  const endpoint = "https://ldjrinmohlomzlyeagwd.supabase.co/functions/v1/track-visit";
+  const path = window.location.pathname || "/";
+  fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": "sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR"
+    },
+    body: JSON.stringify({ path }),
+    keepalive: true
+  }).catch(() => {});
+})();
+</script>
 </body>
 </html>
