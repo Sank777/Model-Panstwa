@@ -3,7 +3,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Publiczny rejestr inwestycji publicznych — koszty, dokumenty, umowy, zmiany i kontrole.">
 <meta name="theme-color" content="#151b17"><title>Inwestycje publiczne · Model Państwa</title>
-<script>document.documentElement.dataset.theme="dark";</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <style>
 :root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent2:#82d19f;--border:#39473d;--warning:#f0cb65}
 [data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent2:#2d7a4f;--border:#dce5de;--warning:#8a6500}
@@ -25,7 +25,8 @@ main{width:min(1180px,100% - 2rem);margin:1.2rem auto 3rem}.grid{display:grid;gr
 .investment-flow i{font-style:normal;color:var(--accent);font-size:1.2rem}
 @media(max-width:760px){.hero-layout{grid-template-columns:1fr}.investment-art{max-width:420px;margin:auto}.investment-flow{overflow-x:auto;justify-content:flex-start}.investment-flow div{min-width:112px}.investment-flow i{flex:0 0 auto}}
 
-</style></head>
+</style><link rel="stylesheet" href="assets/site.css">
+</head>
 <body>
 <div class="top"><div class="brand">MODEL <span>PAŃSTWA</span> / rejestr publiczny</div><button class="theme" id="themeToggle" type="button">☀️ Zmień motyw</button></div>
 <header class="hero"><div class="hero-inner"><div class="eyebrow">Jawność wydatków · źródła · historia zmian</div><div class="hero-layout"><div><h1>Inwestycje publiczne</h1><p>Obserwuj, skąd pochodzą pieniądze, kto podjął decyzję, z kim podpisano umowę, jak zmieniały się koszty i co ostatecznie zostało wykonane. Każda opublikowana wartość powinna prowadzić do dokumentu źródłowego.</p></div><svg class="investment-art" viewBox="0 0 460 270" role="img" aria-label="Schemat inwestycji publicznej: plan, umowa, realizacja i kontrola"><defs><linearGradient id="roadGlow" x1="0" x2="1"><stop stop-color="#a7e8bb"/><stop offset="1" stop-color="#e9ca72"/></linearGradient></defs><path d="M25 210L130 160L225 180L330 95L430 45" fill="none" stroke="url(#roadGlow)" stroke-width="12" stroke-linecap="round"/><path d="M25 210L130 160L225 180L330 95L430 45" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-dasharray="5 9"/><g fill="#173b27" stroke="#b9e3c5" stroke-width="3"><circle cx="25" cy="210" r="13"/><circle cx="130" cy="160" r="13"/><circle cx="225" cy="180" r="13"/><circle cx="330" cy="95" r="13"/><circle cx="430" cy="45" r="13"/></g><g fill="#fff" font-size="13" font-weight="700"><text x="12" y="244">PLAN</text><text x="100" y="133">UMOWA</text><text x="192" y="215">WYKONANIE</text><text x="298" y="68">ODBIÓR</text><text x="390" y="20">KONTROLA</text></g><path d="M25 260H430" stroke="#ffffff" stroke-opacity=".22"/></svg></div></header>
@@ -104,4 +105,5 @@ async function load(){
 $("search").addEventListener("input",render);$("stageFilter").addEventListener("change",render);
 $("themeToggle").addEventListener("click",()=>{const light=document.documentElement.dataset.theme==="light";document.documentElement.dataset.theme=light?"dark":"light";$("themeToggle").textContent=light?"☀️ Zmień motyw":"🌙 Zmień motyw";});
 load();
-</script></body></html>
+</script><script src="assets/site.js" defer></script>
+</body></html>

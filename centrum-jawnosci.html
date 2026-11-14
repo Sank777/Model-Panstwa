@@ -6,7 +6,7 @@
 <meta name="description" content="Centrum Jawności Państwa — publiczny podgląd inwestycji, decyzji, kontroli i historii spraw.">
 <meta name="theme-color" content="#151b17">
 <title>Centrum Jawności Państwa · Model Państwa</title>
-<script>document.documentElement.dataset.theme="dark";</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <style>
 :root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent2:#82d19f;--border:#39473d;--warning:#f0cb65;--danger:#ff8585;--shadow:0 8px 28px #0003}
 [data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent2:#2d7a4f;--border:#dce5de;--warning:#8a6500;--danger:#a83232;--shadow:0 8px 24px #1c352015}
@@ -55,6 +55,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem 1rem 
 @media(max-width:520px){.snapshot-values{gap:.35rem}.snapshot-values>div{padding:.55rem .4rem}.snapshot-values strong{font-size:1.05rem}.snapshot-values span,.snapshot-values em{font-size:.67rem}.hero-art{width:260px;right:-85px;opacity:.28}}
 
 </style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="topbar"><div class="brand">MODEL <span>PAŃSTWA</span> <span style="color:var(--muted);font-weight:500">/ laboratorium obywatelskie</span></div><button class="theme" id="themeToggle" type="button">☀️ Zmień motyw</button></div>
@@ -364,4 +365,5 @@ calculateCost();calculateExecution();calculateUnit();
 
 function filterCases(){const q=$("caseSearch").value.trim().toLocaleLowerCase("pl");const f=$("caseFilter").value;document.querySelectorAll(".case-card").forEach(card=>{const matchText=(card.dataset.search+" "+card.innerText).toLocaleLowerCase("pl").includes(q);const statuses=card.dataset.status.split(" ");const matchStatus=f==="all"||statuses.includes(f);card.hidden=!(matchText&&matchStatus);});}
 </script>
+<script src="assets/site.js" defer></script>
 </body></html>

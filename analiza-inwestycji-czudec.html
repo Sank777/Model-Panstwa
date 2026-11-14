@@ -5,7 +5,7 @@
 <meta name="description" content="Dwa studia przypadku inwestycji Gminy Czudec — dokumenty, decyzje, finansowanie, umowy i wykonanie.">
 <meta name="theme-color" content="#151b17">
 <title>Analiza inwestycji Gminy Czudec · Model Państwa</title>
-<script>document.documentElement.dataset.theme="dark";</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <style>
 :root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent2:#82d19f;--border:#39473d;--warning:#f0cb65;--shadow:0 8px 28px #0003}
 [data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent2:#2d7a4f;--border:#dce5de;--warning:#8a6500;--shadow:0 8px 24px #1c352015}
@@ -20,6 +20,7 @@ main{width:min(1180px,100% - 2rem);margin:1.2rem auto 3rem}.panel{background:var
 .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}.source-list{padding-left:1.2rem}.source-list li{margin:.45rem 0}.footer{border-top:1px solid var(--border);padding:1.2rem;text-align:center;color:var(--muted);font-size:.82rem}
 @media(max-width:760px){.money-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two-col{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow div{display:grid;grid-template-columns:35px 1fr;gap:.15rem .6rem;text-align:left;align-items:center}.flow span{grid-row:span 2;margin:0}.metrics{grid-template-columns:1fr}.hero h1{font-size:2.2rem}}
 </style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="top"><a class="brand" href="index.html" style="text-decoration:none;color:inherit">MODEL <span>PAŃSTWA</span></a><button class="theme" id="themeToggle" type="button">Zmień motyw</button></div>
@@ -72,4 +73,5 @@ const themeToggle=document.getElementById("themeToggle");
 function setTheme(){const light=document.documentElement.dataset.theme==="light";themeToggle.textContent=light?"🌙 Włącz ciemny motyw":"☀️ Włącz jasny motyw";}
 setTheme();themeToggle.addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";setTheme();});
 </script>
+<script src="assets/site.js" defer></script>
 </body></html>
