@@ -115,7 +115,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
           <div class="field"><label for="location">Lokalizacja (opcjonalnie)</label><input id="location" maxlength="160" placeholder="np. ulica, okolica"></div>
         </div>
         <div class="field"><label for="description">Opis problemu *</label><textarea id="description" maxlength="2000" required placeholder="Opisz krótko, co wymaga uwagi..."></textarea><small>Maksymalnie 2000 znaków.</small></div>
-        <div class="field"><label for="photo">Zdjęcie (opcjonalnie)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG lub WebP, maksymalnie 1 MB. Przesyłanie zdjęć zostanie dodane w kolejnym etapie.</small><img id="photoPreview" class="preview" alt="Podgląd zdjęcia"></div>
+        <div class="field"><label for="photo">Zdjęcie (opcjonalnie)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>Dodaj jedno zdjęcie JPG, PNG lub WebP. Maksymalny rozmiar: 5 MB.</small><img id="photoPreview" class="preview" alt="Podgląd zdjęcia"></div>
         <div class="field"><label>Lokalizacja na mapie (opcjonalnie)</label><p class="hint small">Kliknij mapę, aby wskazać punkt. Możesz też przeciągnąć pinezkę. Nie wyznaczamy lokalizacji automatycznie ani losowo.</p><div id="pickMap" class="map" aria-label="Mapa wyboru lokalizacji"></div><input type="hidden" id="lat"><input type="hidden" id="lng"><button type="button" class="btn secondary small-btn" id="clearLocation">Usuń pinezkę</button></div>
         <div class="honeypot" aria-hidden="true"><label for="website">Nie wypełniaj tego pola</label><input id="website" tabindex="-1" autocomplete="off"></div>
         <button class="btn" id="submitBtn" type="submit">Dodaj zgłoszenie</button>
@@ -255,18 +255,21 @@ async function submitReport(event) {
   try {
     const lat = $('lat').value === '' ? null : Number($('lat').value);
     const lng = $('lng').value === '' ? null : Number($('lng').value);
-    const payload = {
-      category,
-      description,
-      location: $('location').value.trim().slice(0, 160),
-      lat: validCoordinates(lat, lng) ? lat : null,
-      lng: validCoordinates(lat, lng) ? lng : null,
-      website: ''
-    };
+    const photo = $('photo').files[0] || null;
+    if (photo && photo.size > 5 * 1024 * 1024) throw new Error('Zdjęcie może mieć maksymalnie 5 MB.');
+    if (photo && !['image/jpeg', 'image/png', 'image/webp'].includes(photo.type)) throw new Error('Dozwolone formaty zdjęć: JPG, PNG lub WebP.');
+    const payload = new FormData();
+    payload.append('category', category);
+    payload.append('description', description);
+    payload.append('location', $('location').value.trim().slice(0, 160));
+    payload.append('lat', validCoordinates(lat, lng) ? String(lat) : '');
+    payload.append('lng', validCoordinates(lat, lng) ? String(lng) : '');
+    payload.append('website', '');
+    if (photo) payload.append('photo', photo);
     const response = await fetch(`${SUPABASE_URL}/functions/v1/submit-report`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
-      body: JSON.stringify(payload)
+      headers: { 'apikey': SUPABASE_KEY },
+      body: payload
     });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.accepted !== true) throw new Error(result.error || 'Nie udało się wysłać zgłoszenia.');
