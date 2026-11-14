@@ -110,9 +110,17 @@ function loadTurnstile() {
       script.onload = () => window.turnstile ? resolve() : reject(new Error("Nie udało się uruchomić zabezpieczenia CAPTCHA."));
       script.onerror = () => reject(new Error("Nie udało się załadować zabezpieczenia CAPTCHA."));
       document.head.appendChild(script);
-    });
+    }).catch(error => { turnstileLoadPromise = null; throw error; });
   }
   return turnstileLoadPromise;
+}
+function settleTurnstilePending(kind, value) {
+  if (!turnstilePending) return;
+  const pending = turnstilePending;
+  turnstilePending = null;
+  clearTimeout(pending.timer);
+  if (kind === "resolve") pending.resolve(value);
+  else pending.reject(value);
 }
 async function getCaptchaToken() {
   await loadTurnstile();
@@ -121,24 +129,17 @@ async function getCaptchaToken() {
       sitekey: TURNSTILE_SITEKEY,
       size: "invisible",
       execution: "execute",
-      callback: token => {
-        if (turnstilePending) { const resolve = turnstilePending.resolve; turnstilePending = null; resolve(token); }
-      },
-      "error-callback": () => {
-        if (turnstilePending) { const reject = turnstilePending.reject; turnstilePending = null; reject(new Error("Weryfikacja CAPTCHA nie powiodła się. Spróbuj ponownie.")); }
-      },
-      "expired-callback": () => {
-        if (turnstilePending) { const reject = turnstilePending.reject; turnstilePending = null; reject(new Error("Token CAPTCHA wygasł. Spróbuj ponownie.")); }
-      },
-      "timeout-callback": () => {
-        if (turnstilePending) { const reject = turnstilePending.reject; turnstilePending = null; reject(new Error("Przekroczono czas weryfikacji CAPTCHA.")); }
-      }
+      callback: token => settleTurnstilePending("resolve", token),
+      "error-callback": () => settleTurnstilePending("reject", new Error("Weryfikacja CAPTCHA nie powiodła się. Sprawdź połączenie lub domenę widgetu i spróbuj ponownie.")),
+      "expired-callback": () => settleTurnstilePending("reject", new Error("Token CAPTCHA wygasł. Spróbuj ponownie.")),
+      "timeout-callback": () => settleTurnstilePending("reject", new Error("Weryfikacja CAPTCHA przekroczyła limit czasu. Spróbuj ponownie."))
     });
   }
-  return new Promise((resolve, reject) => {
-    turnstilePending = { resolve, reject };
+  return await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => settleTurnstilePending("reject", new Error("Weryfikacja CAPTCHA trwała zbyt długo (30 s). Operacja została przerwana.")), 30000);
+    turnstilePending = { resolve, reject, timer };
     try { window.turnstile.execute(turnstileWidgetId); }
-    catch (error) { turnstilePending = null; reject(error); }
+    catch (error) { settleTurnstilePending("reject", new Error("Nie można uruchomić CAPTCHA: " + (error?.message || "błąd widgetu"))); }
   });
 }
 function resetTurnstile() {
@@ -147,9 +148,13 @@ function resetTurnstile() {
   }
 }
 async function withCaptcha(authRequest) {
-  const captchaToken = await getCaptchaToken();
-  try { return await authRequest(captchaToken); }
-  finally { resetTurnstile(); }
+  try {
+    const captchaToken = await getCaptchaToken();
+    return await authRequest(captchaToken);
+  } finally {
+    if (turnstilePending) settleTurnstilePending("reject", new Error("Weryfikacja CAPTCHA została przerwana."));
+    resetTurnstile();
+  }
 }
 
 // Wspólna blokada zapobiega równoległym żądaniom z przycisków konta.
