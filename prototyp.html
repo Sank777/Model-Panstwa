@@ -118,8 +118,8 @@ async function runAuthAction(buttonIds, action, work) {
   const originalLabels = buttons.map(button => button.textContent);
   buttons.forEach(button => { button.disabled = true; button.textContent = "Przetwarzam…"; });
   try {
-    await work();
-    if (action) setAuthCooldown(action);
+    const attempted = await work();
+    if (action && attempted !== false) setAuthCooldown(action);
   } catch (error) {
     msg("accountState", "Wystąpił błąd. Spróbuj ponownie później.", "error");
   } finally {
@@ -148,7 +148,7 @@ $("signUpBtn").addEventListener("click", async () => {
     const password = $("password").value;
     if (!email || password.length < 8) {
       msg("accountState", "Podaj e-mail i hasło o długości co najmniej 8 znaków.", "error");
-      return;
+      return false;
     }
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -157,7 +157,7 @@ $("signUpBtn").addEventListener("click", async () => {
     });
     if (error) {
       msg("accountState", "Nie udało się przetworzyć rejestracji. Spróbuj ponownie później.", "error");
-      return;
+      return true;
     }
     if (data.session && data.user) {
       msg("accountState", "Konto zostało utworzone i zalogowano użytkownika.");
@@ -165,6 +165,7 @@ $("signUpBtn").addEventListener("click", async () => {
     } else {
       msg("accountState", "Jeśli rejestracja pod tym adresem jest możliwa, otrzymasz wiadomość z dalszymi instrukcjami. Sprawdź pocztę. Ze względów bezpieczeństwa nie ujawniamy, czy adres jest już przypisany do konta.");
     }
+    return true;
   });
 });
 $("resetPasswordBtn").addEventListener("click", async () => {
@@ -172,7 +173,7 @@ $("resetPasswordBtn").addEventListener("click", async () => {
     const email = $("email").value.trim();
     if (!email) {
       msg("accountState", "Najpierw wpisz adres e-mail.", "error");
-      return;
+      return false;
     }
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: "https://sank777.github.io/Model-Panstwa/prototyp.html"
@@ -180,6 +181,7 @@ $("resetPasswordBtn").addEventListener("click", async () => {
     msg("accountState", error
       ? "Nie udało się przetworzyć żądania. Spróbuj ponownie później."
       : "Jeśli konto istnieje, wysłaliśmy wiadomość z instrukcjami zmiany hasła.", error ? "error" : "ok");
+    return true;
   });
 });
 $("logoutBtn").addEventListener("click",async()=>{await supabase.auth.signOut();$("adminArea").classList.add("hidden");$("accountForm").classList.remove("hidden");$("userAccountArea").classList.add("hidden");$("adminList").innerHTML="";msg("accountState","Wylogowano.");});
