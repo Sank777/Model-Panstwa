@@ -25,7 +25,7 @@
 <main>
 <section class="card" id="accountAccess"><h2>Konto użytkownika</h2>
 <p class="muted">Utwórz konto, aby śledzić swoje zgłoszenia. Możesz też wysłać zgłoszenie anonimowo.</p>
-<form id="accountForm"><div id="turnstile-container" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden"></div><div class="grid"><div class="field"><label for="email">Adres e-mail</label><input id="email" type="email" autocomplete="email" required></div><div class="field"><label for="password">Hasło</label><input id="password" type="password" minlength="8" autocomplete="current-password" required></div></div>
+<form id="accountForm"><div id="turnstile-container" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden"></div><div class="grid"><div class="field"><label for="email">Adres e-mail</label><input id="email" type="email" autocomplete="email" required></div><div class="field"><label for="password">Hasło</label><input id="password" type="password" minlength="8" autocomplete="current-password" required aria-describedby="passwordHelp"><small id="passwordHelp" class="muted">Hasło musi mieć co najmniej 8 znaków. Przy tworzeniu konta użyj nowego, nieużywanego wcześniej hasła.</small></div></div>
 <div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn" id="signInBtn" type="submit">Zaloguj się</button><button class="btn secondary" id="signUpBtn" type="button">Utwórz konto</button><button class="btn secondary" id="resetPasswordBtn" type="button">Resetuj hasło</button></div></form>
 <div id="accountState" class="message hidden" role="status" aria-live="polite"></div>
 <div id="userAccountArea" class="hidden"><div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between"><strong id="accountEmail"></strong><button class="btn secondary" id="userLogoutBtn" type="button">Wyloguj</button></div><h3>Moje zgłoszenia</h3><div id="myReports"><p class="muted">Ładowanie…</p></div></div>
@@ -220,8 +220,9 @@ $("signUpBtn").addEventListener("click", async () => {
       options: { emailRedirectTo: "https://sank777.github.io/Model-Panstwa/prototyp.html", captchaToken }
     }));
     if (error) {
-      msg("accountState", "Nie udało się przetworzyć rejestracji. Spróbuj ponownie później.", "error");
-      return true;
+      const safeMessage = error.message || "Nie udało się utworzyć konta.";
+      msg("accountState", safeMessage, "error");
+      return false;
     }
     if (data.session && data.user) {
       msg("accountState", "Konto zostało utworzone i zalogowano użytkownika.");
