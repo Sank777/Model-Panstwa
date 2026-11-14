@@ -105,31 +105,31 @@ alter table public.public_registry_controls enable row level security;
 revoke all on table public.public_registry_projects, public.public_registry_budget_versions,
   public.public_registry_events, public.public_registry_controls from anon, authenticated;
 grant select on table public.public_registry_projects, public.public_registry_budget_versions,
-  public.public_registry_events, public.public_registry_controls to anon, authenticated;
+  public.public_registry_events, public.public_registry_controls to anon;
 grant select, insert, update, delete on table public.public_registry_projects,
   public.public_registry_budget_versions, public.public_registry_events,
   public.public_registry_controls to service_role;
 
 drop policy if exists public_registry_projects_read_published on public.public_registry_projects;
 create policy public_registry_projects_read_published on public.public_registry_projects
-  for select to anon, authenticated using (publication_status = 'published');
+  for select to anon using (publication_status = 'published');
 drop policy if exists public_registry_budget_read_published on public.public_registry_budget_versions;
 create policy public_registry_budget_read_published on public.public_registry_budget_versions
-  for select to anon, authenticated using (
+  for select to anon using (
     publication_status = 'published' and verification_status = 'verified'
     and exists (select 1 from public.public_registry_projects p
       where p.id = project_id and p.publication_status = 'published')
   );
 drop policy if exists public_registry_events_read_published on public.public_registry_events;
 create policy public_registry_events_read_published on public.public_registry_events
-  for select to anon, authenticated using (
+  for select to anon using (
     publication_status = 'published'
     and exists (select 1 from public.public_registry_projects p
       where p.id = project_id and p.publication_status = 'published')
   );
 drop policy if exists public_registry_controls_read_published on public.public_registry_controls;
 create policy public_registry_controls_read_published on public.public_registry_controls
-  for select to anon, authenticated using (
+  for select to anon using (
     publication_status = 'published'
     and exists (select 1 from public.public_registry_projects p
       where p.id = project_id and p.publication_status = 'published')
@@ -139,7 +139,7 @@ create policy public_registry_controls_read_published on public.public_registry_
 revoke all on table public.investment_projects, public.investment_budget_versions,
   public.investment_reviews, public.investment_audit_events from anon, authenticated;
 grant select on table public.investment_projects, public.investment_budget_versions,
-  public.investment_reviews to anon, authenticated;
+  public.investment_reviews to anon;
 
 drop policy if exists investment_projects_insert_own on public.investment_projects;
 drop policy if exists investment_projects_owner_update_draft on public.investment_projects;
@@ -151,17 +151,17 @@ drop policy if exists investment_reviews_admin_update on public.investment_revie
 
 drop policy if exists investment_projects_read_published_or_owner on public.investment_projects;
 create policy investment_projects_read_published_only on public.investment_projects
-  for select to anon, authenticated using (publication_status = 'published');
+  for select to anon using (publication_status = 'published');
 drop policy if exists investment_budget_read_published_or_owner on public.investment_budget_versions;
 create policy investment_budget_read_verified_only on public.investment_budget_versions
-  for select to anon, authenticated using (
+  for select to anon using (
     verification_status = 'verified'
     and exists (select 1 from public.investment_projects p
       where p.id = project_id and p.publication_status = 'published')
   );
 drop policy if exists investment_reviews_read_public_or_owner on public.investment_reviews;
 create policy investment_reviews_read_public_only on public.investment_reviews
-  for select to anon, authenticated using (
+  for select to anon using (
     result <> 'open'
     and exists (select 1 from public.investment_projects p
       where p.id = project_id and p.publication_status = 'published')
