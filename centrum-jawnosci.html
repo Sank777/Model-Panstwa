@@ -29,16 +29,81 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem 1rem 
 .tab-panel input{display:block;width:100%;padding:.62rem .7rem;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);font:inherit}
 .tab-panel input:focus{outline:3px solid #76b9e866;border-color:var(--accent)}
 .tab-panel .tile .status-box{margin:.8rem 0 0}
+
+.budget-snapshot{display:grid;grid-template-columns:1.05fr .95fr;gap:1.2rem;align-items:center;margin:1.4rem 0;padding:clamp(1rem,3vw,2rem);border:1px solid var(--border);border-radius:22px;background:linear-gradient(135deg,var(--surface),#203a2a);box-shadow:var(--shadow)}
+.snapshot-copy h2,.system-map h2{font-size:clamp(1.35rem,3vw,2rem);line-height:1.12;letter-spacing:-.035em;margin:.45rem 0 .65rem}
+.snapshot-copy>p{color:var(--muted);max-width:650px}
+.snapshot-values{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:1rem 0}
+.snapshot-values>div{background:#ffffff0c;border:1px solid #ffffff20;border-radius:13px;padding:.7rem}
+.snapshot-values span,.snapshot-values em{display:block;font-size:.76rem;color:#c4d4c8;font-style:normal}
+.snapshot-values strong{display:block;font-size:clamp(1.2rem,2.4vw,1.8rem);line-height:1.3;color:#fff;white-space:nowrap}
+.snapshot-values small{font-size:.72rem;font-weight:500}
+.snapshot-values em{color:#9de0b1;margin-top:.25rem;font-weight:750}
+.snapshot-note{font-size:.77rem!important}
+.snapshot-chart{padding:.7rem;background:#ffffff08;border:1px solid #ffffff1a;border-radius:17px}
+.snapshot-chart svg{width:100%;height:auto;display:block;color:var(--text)}
+.chart-legend{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;font-size:.75rem;color:var(--muted)}
+.chart-legend span{display:flex;align-items:center;gap:.35rem}
+.chart-legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.legend-green{background:#72d69a}.legend-blue{background:#69b8df}.legend-gold{background:#e8c46b}
+.system-map{margin:1.4rem 0 1.7rem;padding:clamp(1rem,3vw,1.6rem);border:1px solid var(--border);border-radius:20px;background:var(--surface)}
+.system-map p{color:var(--muted);max-width:780px}
+.system-map svg{display:block;width:100%;height:auto;margin-top:1rem}
+.hero-art{width:min(420px,45vw);height:auto;border:0;border-radius:0;opacity:.55;bottom:0;right:4%}
+.hero-art svg{width:100%;height:auto}
+@media(max-width:780px){.budget-snapshot{grid-template-columns:1fr}.snapshot-chart{max-width:620px;margin:auto;width:100%}.system-map svg{min-width:690px}.system-map{overflow:hidden}}
+@media(max-width:520px){.snapshot-values{gap:.35rem}.snapshot-values>div{padding:.55rem .4rem}.snapshot-values strong{font-size:1.05rem}.snapshot-values span,.snapshot-values em{font-size:.67rem}.hero-art{width:260px;right:-85px;opacity:.28}}
+
 </style>
 </head>
 <body>
 <div class="topbar"><div class="brand">MODEL <span>PAŃSTWA</span> <span style="color:var(--muted);font-weight:500">/ laboratorium obywatelskie</span></div><button class="theme" id="themeToggle" type="button">☀️ Zmień motyw</button></div>
-<header class="hero"><div class="hero-art" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow">Przejrzystość · odpowiedzialność · pamięć instytucji</div><h1>Centrum Jawności Państwa</h1><p>Jedno miejsce, w którym można prześledzić publiczne pieniądze, inwestycje i decyzje — od pierwszego dokumentu do wyniku kontroli i konsekwencji.</p><div class="hero-bottom"><span class="hero-chip">Publiczny podgląd bez logowania</span><span class="hero-chip">Źródła i chronologia</span><span class="hero-chip">Oddzielenie faktów od zarzutów</span></div></div></header>
+<header class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 420 260" role="presentation"><defs><linearGradient id="heroLine" x1="0" x2="1"><stop stop-color="#a7e8bb"/><stop offset="1" stop-color="#fff"/></linearGradient></defs><path d="M20 220H400M20 170H400M20 120H400M20 70H400" stroke="#ffffff" stroke-opacity=".16" stroke-dasharray="4 8"/><path d="M20 190 C75 165 90 182 130 130 S205 145 245 92 S320 108 400 28" fill="none" stroke="url(#heroLine)" stroke-width="5" stroke-linecap="round"/><path d="M20 190 C75 165 90 182 130 130 S205 145 245 92 S320 108 400 28V240H20Z" fill="#b6f0c8" fill-opacity=".12"/><circle cx="130" cy="130" r="7" fill="#fff"/><circle cx="245" cy="92" r="7" fill="#fff"/><circle cx="400" cy="28" r="7" fill="#fff"/></svg></div><div class="hero-inner"><div class="eyebrow">Przejrzystość · odpowiedzialność · pamięć instytucji</div><h1>Centrum Jawności Państwa</h1><p>Jedno miejsce, w którym można prześledzić publiczne pieniądze, inwestycje i decyzje — od pierwszego dokumentu do wyniku kontroli i konsekwencji.</p><div class="hero-bottom"><span class="hero-chip">Publiczny podgląd bez logowania</span><span class="hero-chip">Źródła i chronologia</span><span class="hero-chip">Oddzielenie faktów od zarzutów</span></div></div></header>
 <nav aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="inwestycje.html">Budżety inwestycji</a><a href="centrum-jawnosci.html" aria-current="page">Centrum jawności</a></nav>
 <main>
 <section class="intro">
  <div class="panel"><div class="kicker">Po co ta podstrona?</div><h2>Nie prosimy obywatela, żeby nam uwierzył. Dajemy mu możliwość sprawdzenia.</h2><p class="muted">Każdy obywatel może swobodnie oglądać publiczne dane, dokumenty, historię decyzji i postęp inwestycji. To publiczny system obserwacji: bez kont, logowania, profili użytkowników, formularzy i głosowania. Dane demonstracyjne są wyraźnie oznaczone.</p><div class="read-only"><div class="symbol">👁️</div><div><strong>Tryb obserwatora</strong><div class="small muted">Nie ma kont ani panelu użytkownika. System niczego nie przyjmuje od obywatela i nie pozwala mu zmieniać danych. Pokazuje źródła instytucjonalne, dokumenty i obliczenia, które każdy może samodzielnie odtworzyć.</div></div></div></div>
- <div class="panel"><h2>Co można tu sprawdzić?</h2><div class="metrics"><div class="metric"><strong>2</strong><span>gałęzie systemu</span></div><div class="metric"><strong>3</strong><span>studia przypadku</span></div><div class="metric"><strong>0</strong><span>publicznych wpisów inwestycji w bazie na dzień audytu</span></div></div><p class="small muted" style="margin:.8rem 0 0">Liczby opisują wyłącznie zawartość tej makiety i stan sprawdzonej bazy, nie całość zjawisk w Polsce.</p></div>
+ <div class="panel"><h2>Co można tu sprawdzić?</h2><div class="metrics"><div class="metric"><strong>6</strong><span>modułów Centrum</span></div><div class="metric"><strong>3</strong><span>studia przypadku</span></div><div class="metric"><strong>0</strong><span>publicznych wpisów inwestycji w bazie na dzień audytu</span></div></div><p class="small muted" style="margin:.8rem 0 0">Liczby opisują wyłącznie zawartość tej makiety i stan sprawdzonej bazy, nie całość zjawisk w Polsce.</p></div>
+</section>
+
+
+<section class="budget-snapshot" aria-labelledby="snapshot-title">
+ <div class="snapshot-copy">
+  <div class="kicker">Migawka danych urzędowych · 2026</div>
+  <h2 id="snapshot-title">Budżet państwa — liczby zamiast haseł</h2>
+  <p>Wykonanie od stycznia do września 2026 r. według Ministerstwa Finansów. Każdy wskaźnik pokazuje część planu rocznego zrealizowaną w tym okresie.</p>
+  <div class="snapshot-values">
+   <div><span>Dochody</span><strong>438,8 <small>mld zł</small></strong><em>67,8% planu</em></div>
+   <div><span>Wydatki</span><strong>611,0 <small>mld zł</small></strong><em>66,5% planu</em></div>
+   <div><span>Deficyt</span><strong>172,2 <small>mld zł</small></strong><em>63,4% planu</em></div>
+  </div>
+  <p class="snapshot-note">Stan danych: I–IX 2026 · publikacja MF: 5 listopada 2026 r. To wykonanie budżetu państwa, nie skonsolidowane wydatki całego sektora finansów publicznych.</p>
+  <a class="btn primary" href="https://www.gov.pl/web/finanse/sprawozdania-miesieczne-2026" target="_blank" rel="noopener">Otwórz źródło i pliki MF ↗</a>
+ </div>
+ <div class="snapshot-chart">
+  <svg viewBox="0 0 560 330" role="img" aria-labelledby="budget-chart-title budget-chart-desc">
+   <title id="budget-chart-title">Wykonanie budżetu państwa do września 2026 roku</title>
+   <desc id="budget-chart-desc">Dochody 67,8 procent planu, wydatki 66,5 procent, deficyt 63,4 procent.</desc>
+   <g fill="currentColor" opacity=".6" font-size="15"><text x="16" y="50">Dochody</text><text x="16" y="145">Wydatki</text><text x="16" y="240">Deficyt</text></g>
+   <g fill="#ffffff" opacity=".12"><rect x="16" y="65" width="520" height="28" rx="14"/><rect x="16" y="160" width="520" height="28" rx="14"/><rect x="16" y="255" width="520" height="28" rx="14"/></g>
+   <rect x="16" y="65" width="352.56" height="28" rx="14" fill="#72d69a"/>
+   <rect x="16" y="160" width="345.8" height="28" rx="14" fill="#69b8df"/>
+   <rect x="16" y="255" width="329.68" height="28" rx="14" fill="#e8c46b"/>
+   <g fill="currentColor" font-size="17" font-weight="700" text-anchor="end"><text x="536" y="52">67,8%</text><text x="536" y="147">66,5%</text><text x="536" y="242">63,4%</text></g>
+   <g fill="currentColor" opacity=".5" font-size="12"><text x="16" y="315">0%</text><text x="536" y="315" text-anchor="end">100% planu rocznego</text></g>
+  </svg>
+  <div class="chart-legend"><span><i class="legend-green"></i>Dochody</span><span><i class="legend-blue"></i>Wydatki</span><span><i class="legend-gold"></i>Deficyt</span></div>
+ </div>
+</section>
+<section class="system-map" aria-labelledby="system-map-title">
+ <div><div class="kicker">Architektura jawności</div><h2 id="system-map-title">Od dokumentu do samodzielnej kontroli</h2><p>Strona nie tworzy własnej wersji prawdy. Porządkuje dokumenty instytucji, opisuje ich zakres i pozwala obywatelowi odtworzyć obliczenia.</p></div>
+ <svg viewBox="0 0 1000 190" role="img" aria-label="Schemat przepływu: źródła urzędowe, porządkowanie danych, weryfikacja, publiczny podgląd">
+  <defs><marker id="arrowHead" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#79c995"/></marker></defs>
+  <g fill="none" stroke="#79c995" stroke-width="3" marker-end="url(#arrowHead)"><path d="M210 88H270"/><path d="M455 88H515"/><path d="M700 88H760"/></g>
+  <g fill="#202923" stroke="#4d6956" stroke-width="2"><rect x="10" y="25" width="200" height="126" rx="18"/><rect x="270" y="25" width="185" height="126" rx="18"/><rect x="515" y="25" width="185" height="126" rx="18"/><rect x="760" y="25" width="220" height="126" rx="18"/></g>
+  <g fill="#b9e3c5" font-size="13" font-weight="700" text-anchor="middle"><text x="110" y="62">01 · ŹRÓDŁA</text><text x="362" y="62">02 · PORZĄDEK</text><text x="607" y="62">03 · WERYFIKACJA</text><text x="870" y="62">04 · OBYWATEL</text></g>
+  <g fill="#edf3ee" font-size="15" text-anchor="middle"><text x="110" y="91">MF · GUS · Sejm</text><text x="110" y="114">NIK · BIP · UZP</text><text x="362" y="91">Okres · jednostka</text><text x="362" y="114">Dokument · wersja</text><text x="607" y="91">Źródło · suma</text><text x="607" y="114">Status · ślad zmian</text><text x="870" y="91">Podgląd bez konta</text><text x="870" y="114">Własne obliczenia</text></g>
+ </svg>
 </section>
 
 <div class="tabs" role="tablist" aria-label="Obszary Centrum Jawności">
@@ -79,7 +144,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem 1rem 
  <div class="toolbar"><input id="caseSearch" type="search" placeholder="Szukaj sprawy, instytucji lub słowa…"><select id="caseFilter" aria-label="Filtruj sprawy"><option value="all">Wszystkie statusy</option><option value="final">Prawomocne rozstrzygnięcia w głównym wątku</option><option value="ongoing">Postępowania / wątki trwające</option></select></div>
  <div class="case-grid" id="caseGrid">
   <article class="case-card" data-status="final ongoing" data-search="amber gold piramida finansowa prokuratura sąd klienci państwo"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag final">Główny proces karny prawomocny</span><span class="tag pending">Wątki poboczne</span></div><h3>Amber Gold</h3><p>Obietnice wysokich zysków, utrata środków przez tysiące klientów, wieloletnie postępowania i pytania o reakcję instytucji.</p><p><strong>Skala wskazana w materiale PAP:</strong> prawie 19 tys. klientów, straty ok. 851 mln zł.</p><div class="case-footer"><button class="btn primary" data-open-case="amber">Otwórz pełną oś czasu →</button></div></div></article>
-  <article class="case-card" data-status="ongoing" data-search="getback obligacje rynek finansowy knf idea bank prokuratura biegli"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag pending">Wiele postępowań</span></div><h3>GetBack</h3><p>Upadek spółki windykacyjnej, straty obligatariuszy, liczne wątki sprzedaży obligacji, zarządzania i nadzoru.</p><p><strong>Skala:</strong> ponad 9 tys. obligatariuszy; kolejne akty oskarżenia w 2026 r.</p><div class="case-footer"><button class="btn primary" data-open-case="getback">Otwórz pełną oś czasu →</button></div></div></article>
+  <article class="case-card" data-status="ongoing" data-search="getback obligacje rynek finansowy knf idea bank prokuratura biegli"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag pending">Wiele postępowań</span></div><h3>GetBack</h3><p>Upadek spółki windykacyjnej, straty obligatariuszy, liczne wątki sprzedaży obligacji, zarządzania i nadzoru.</p><p><strong>Stan udokumentowany:</strong> 16. akt oskarżenia w śledztwie GetBack skierowano do sądu 20.08.2026 r.; osobne wątki obejmują różne szkody i grupy oskarżonych.</p><div class="case-footer"><button class="btn primary" data-open-case="getback">Otwórz pełną oś czasu →</button></div></div></article>
   <article class="case-card" data-status="final ongoing" data-search="skok wołomin kredyty wyłudzenia pranie pieniędzy knf sąd"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag pending">Główny proces trwa</span><span class="tag final">Wyroki w wątkach</span></div><h3>SKOK Wołomin</h3><p>Wieloletni mechanizm wyłudzeń kredytów, wątki prania pieniędzy, działania nadzorcze i odrębne procesy karne.</p><p><strong>Skala:</strong> prokuratura szacowała wyłudzenia w głównym wątku na ponad 3 mld zł.</p><div class="case-footer"><button class="btn primary" data-open-case="skok">Otwórz pełną oś czasu →</button></div></div></article>
  </div>
 
@@ -224,8 +289,8 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem 1rem 
   <div class="notice"><strong>Ważne rozróżnienie testów</strong>Sprawdziliśmy dokumentację oficjalnych interfejsów i dostępność przykładowego endpointu Sejmu. Pozostałe pozycje mają potwierdzoną dokumentację lub publiczne repozytoria, ale wymagają osobnych testów integracyjnych na danych produkcyjnych. Nie oznaczamy ich jako działających połączeń, dopóki nie przejdą testu.</div>
   <div class="grid">
    <div class="tile"><div class="kicker">Finanse państwa</div><h3>Ministerstwo Finansów</h3><p><span class="tag">Pliki urzędowe</span> Sprawozdania miesięczne budżetu państwa oraz szeregi czasowe. Dla samorządów: pliki Rb-27S, Rb-28S, Rb-NDS, Rb-Z i portal FinanseJST.</p><p><b>Integracja:</b> pobieranie plików, kontrola okresu i wersji, walidacja sum, import do tabel faktów. Dane JST są odrębnym zbiorem od budżetu państwa.</p><a href="https://www.gov.pl/web/finanse/sprawozdania-miesieczne-2026" target="_blank" rel="noopener">Budżet państwa ↗</a><br><a href="https://www.gov.pl/web/finanse/bazy-danych9" target="_blank" rel="noopener">Bazy danych JST ↗</a><br><a href="https://finansejst.mf.gov.pl/" target="_blank" rel="noopener">FinanseJST ↗</a></div>
-   <div class="tile"><div class="kicker">Zamówienia publiczne</div><h3>e-Zamówienia / UZP</h3><p><span class="tag">Publiczne API BZP</span> Ogłoszenia i statystyki. Oficjalna dokumentacja wskazuje limit 30 zapytań na minutę z jednego IP od 6.10.2026.</p><p><b>Integracja:</b> kolejka pobierania, stronicowanie, cache i respektowanie 429/403. Nie odpytujemy API z każdej przeglądarki użytkownika.</p><a href="https://ezamowienia.gov.pl/pl/integracja/" target="_blank" rel="noopener">Dokumentacja API i limity ↗</a></div>
-   <div class="tile"><div class="kicker">Statystyka i samorządy</div><h3>GUS / Bank Danych Lokalnych</h3><p><span class="tag">REST API · JSON/XML</span> Dane o ludności, gospodarce, środowisku i jednostkach terytorialnych. API ma limity dla użytkownika anonimowego: 5 zapytań/s, 100/15 min, 1000/12 h i 10 000/7 dni.</p><p><b>Integracja:</b> słowniki TERYT, identyfikator gminy, rok/okres, jednostka miary i wersja cechy. Porównania muszą zachowywać definicje wskaźników.</p><a href="https://api.stat.gov.pl/Home/BdlApi" target="_blank" rel="noopener">Dokumentacja API BDL ↗</a></div>
+   <div class="tile"><div class="kicker">Zamówienia publiczne</div><h3>e-Zamówienia / UZP</h3><p><span class="tag">Publiczne API BZP</span> Ogłoszenia i statystyki. Oficjalna dokumentacja wskazuje limit 30 zapytań na minutę z jednego IP od 6.10.2026.</p><p><b>Integracja:</b> kolejka pobierania, stronicowanie, cache i respektowanie limitu 30 zapytań/min/IP. Od 11.01.2027 produkcyjne PageSize ma wynosić maksymalnie 100; to zaplanowana zmiana, nie bieżący limit.</p><a href="https://ezamowienia.gov.pl/pl/integracja/" target="_blank" rel="noopener">Dokumentacja API i limity ↗</a></div>
+   <div class="tile"><div class="kicker">Statystyka i samorządy</div><h3>GUS / Bank Danych Lokalnych</h3><p><span class="tag">REST API · JSON/XML</span> Dane o ludności, gospodarce, środowisku i jednostkach terytorialnych. Oficjalne limity anonimowe: 5 zapytań/s, 100/15 min, 1000/12 h i 10 000/7 dni.5 min, 1000/12 h i 10 000/7 dni.</p><p><b>Integracja:</b> słowniki TERYT, identyfikator gminy, rok/okres, jednostka miary i wersja cechy. Porównania muszą zachowywać definicje wskaźników.</p><a href="https://api.stat.gov.pl/Home/BdlApi" target="_blank" rel="noopener">Dokumentacja API BDL ↗</a></div>
    <div class="tile"><div class="kicker">Legislacja i decyzje</div><h3>Sejm RP / ELI</h3><p><span class="tag">API publiczne · endpoint sprawdzony</span> API udostępnia posłów, głosowania, druki, interpelacje, komisje i akty prawne. Przykładowy endpoint kadencji 10 zwrócił poprawną odpowiedź JSON.</p><p><b>Integracja:</b> kadencja + numer druku jako identyfikator, wersje dokumentów, historia etapów i głosowania.</p><a href="https://api.sejm.gov.pl/sejm.html" target="_blank" rel="noopener">Dokumentacja Sejm API ↗</a><br><a href="https://api.sejm.gov.pl/sejm/term10" target="_blank" rel="noopener">Przykładowy endpoint kadencji 10 ↗</a></div>
    <div class="tile"><div class="kicker">Kontrola finansów samorządowych</div><h3>Regionalne Izby Obrachunkowe</h3><p><span class="tag">BIP / dokumenty</span> Opinie o budżetach i WPF, uchwały kolegium, wyniki kontroli i wystąpienia pokontrolne. To kluczowy partner do sprawdzania finansów gmin i powiatów.</p><p><b>Integracja:</b> na start rejestr dokumentów BIP z ręczną walidacją; automatyzacja dopiero po sprawdzeniu struktury i dostępności poszczególnych BIP-ów.</p><a href="https://bip.rzeszow.rio.gov.pl/616/status-prawny.html" target="_blank" rel="noopener">RIO Rzeszów — zakres kompetencji ↗</a></div>
    <div class="tile"><div class="kicker">Kontrola państwowa</div><h3>Najwyższa Izba Kontroli</h3><p><span class="tag">BIP / raporty</span> Informacje o wynikach kontroli, wystąpienia i wnioski. W sprawdzonych materiałach nie potwierdziliśmy stabilnego, publicznego API do pełnego pobierania raportów.</p><p><b>Integracja:</b> indeksowanie oficjalnych stron i dokumentów, zachowanie numeru kontroli, jednostki kontrolowanej, daty i statusu zastrzeżeń.</p><a href="https://bip.nik.gov.pl/" target="_blank" rel="noopener">BIP NIK ↗</a></div>
