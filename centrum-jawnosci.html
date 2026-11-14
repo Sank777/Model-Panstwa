@@ -6,7 +6,7 @@
 <meta name="description" content="Centrum Jawności Państwa — publiczny podgląd inwestycji, decyzji, kontroli i historii spraw.">
 <meta name="theme-color" content="#151b17">
 <title>Centrum Jawności Państwa · Model Państwa</title>
-<script>document.documentElement.dataset.theme="dark";</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <style>
 :root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent2:#82d19f;--border:#39473d;--warning:#f0cb65;--danger:#ff8585;--shadow:0 8px 28px #0003}
 [data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent2:#2d7a4f;--border:#dce5de;--warning:#8a6500;--danger:#a83232;--shadow:0 8px 24px #1c352015}
