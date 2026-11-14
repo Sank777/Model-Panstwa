@@ -29,7 +29,24 @@
 <article class="tile"><h2>3. Dane i dokumenty</h2><p>Przygotowanie i weryfikacja źródeł przed publikacją. W tym prototypie zapisy rejestru wymagają kontrolowanego backendu; nie udostępniamy formularza zapisu w przeglądarce.</p><span class="muted">Panel redakcyjny — kolejny etap wdrożenia</span></article>
 <article class="tile"><h2>4. Bezpieczeństwo i audyt</h2><p>Uprawnienia, dziennik zmian i kontrola publikacji. Starsze systemy pozostają zachowane; ich funkcje nie są przenoszone ani kasowane automatycznie.</p><span class="muted">Wymaga osobnego modułu administracyjnego</span></article>
 </div>
-<section class="card" id="caseDesk">
+<section class="card hidden" id="accessDesk">
+<h2>6. Podział administratorów i uprawnienia</h2>
+<p class="muted">Ten panel widzi wyłącznie administrator główny. Administratorzy modułowi otrzymują dostęp tylko do przypisanych obszarów.</p>
+<div id="accessUsers" class="grid"></div>
+<form id="accessForm" class="tile">
+<h3>Przypisz administratora modułu</h3>
+<label class="row">Konto użytkownika<select id="accessUser" required><option value="">Wybierz konto</option></select></label>
+<div class="row"><span>Moduły</span>
+<label><input type="checkbox" name="adminModule" value="reports"> Zgłoszenia obywatelskie</label>
+<label><input type="checkbox" name="adminModule" value="case_history"> Historia spraw i weryfikacja</label>
+<label><input type="checkbox" name="adminModule" value="investment_registry"> Rejestr inwestycji</label>
+<label><input type="checkbox" name="adminModule" value="site_content"> Treści strony</label>
+<label><input type="checkbox" name="adminModule" value="security_audit"> Bezpieczeństwo i audyt</label></div>
+<button type="submit">Zapisz uprawnienia</button>
+<button type="button" id="removeModules">Usuń uprawnienia modułowe</button>
+</form>
+<p class="muted small">Rola głównego administratora nie jest nadawana tym formularzem. Istniejące konto administratora głównego zachowuje dotychczasowe uprawnienia.</p>
+</section>\n<section class="card" id="caseDesk">
 <h2>5. Historia spraw i potwierdzanie sytuacji</h2>
 <p class="muted">Prywatny widok administratora. Dane zgłaszających, świadków i osób potwierdzających nie trafiają do publicznego rejestru.</p>
 <div class="row"><label for="caseSelect">Wybierz sprawę</label><select id="caseSelect"><option value="">Ładowanie spraw…</option></select></div>
@@ -83,7 +100,7 @@ const URL="https://ldjrinmohlomzlyeagwd.supabase.co";
 const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
 const db=createClient(URL,KEY);
 const $=id=>document.getElementById(id);
-const CASE_API=URL+"/functions/v1/admin-case-records";
+const CASE_API=URL+"/functions/v1/admin-case-records";\nconst ACCESS_API=URL+"/functions/v1/admin-access-management";\nlet accessState={is_main_admin:false,modules:[]};
 let selectedCase="";
 function status(s){$("status").textContent=s;}
 async function caseRequest(path="",options={}){
@@ -159,15 +176,32 @@ function submitRecord(form,kind,payload){
 async function verify(){
  const {data:{session}}=await db.auth.getSession();
  if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
- const res=await fetch(URL+"/functions/v1/admin-manage-reports?analytics=1&days=1",{headers:{apikey:KEY,Authorization:"Bearer "+session.access_token}});
- if(!res.ok){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(res.status===403?"Konto nie ma roli administratora.":"Nie udało się potwierdzić uprawnień. Spróbuj ponownie.");return;}
- $("login").classList.add("hidden");$("hub").classList.remove("hidden");status("Dostęp administratora potwierdzony przez serwer.");
- await loadCases();
+ try{
+  const res=await fetch(ACCESS_API,{headers:{apikey:KEY,Authorization:"Bearer "+session.access_token}});
+  const access=await res.json();
+  if(!res.ok)throw new Error(access.error||"Brak uprawnień administratora.");
+  accessState=access;
+  $("login").classList.add("hidden");$("hub").classList.remove("hidden");
+  $("accessDesk").classList.toggle("hidden",!access.is_main_admin);
+  $("caseDesk").classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("case_history"));
+  const cards=[...$("hub").querySelectorAll(".tile")];
+  const reportsCard=cards.find(x=>x.textContent.includes("Zgłoszenia obywatelskie"));
+  if(reportsCard)reportsCard.classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("reports"));
+  status(access.is_main_admin?"Dostęp administratora głównego potwierdzony.":"Dostęp administratora modułowego potwierdzony.");
+  if(access.is_main_admin)await loadAccessUsers(access.users||[]);
+  if(access.is_main_admin||access.modules.includes("case_history"))await loadCases();
+ }catch(e){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(e.message);}
 }
 $("theme").addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
 $("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}await verify();});
 $("logout").addEventListener("click",async()=>{await db.auth.signOut();selectedCase="";await verify();});
-$("caseSelect").addEventListener("change",e=>showCase(e.target.value));
+
+async function accessRequest(options={}){const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");const r=await fetch(ACCESS_API,{...options,headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json"}});const d=await r.json();if(!r.ok)throw new Error(d.error||"Błąd uprawnień");return d;}
+async function loadAccessUsers(users){const select=$("accessUser"),root=$("accessUsers");select.replaceChildren(new Option("Wybierz konto",""));root.replaceChildren();for(const u of users){const label=(u.email||u.id)+" · "+(u.role||"użytkownik");select.add(new Option(label,u.id));const card=document.createElement("article");card.className="tile";addText(card,"strong",label);addText(card,"p",u.modules?.length?"Moduły: "+u.modules.join(", "):"Brak uprawnień modułowych");root.appendChild(card);}}
+$("accessUser").addEventListener("change",()=>{const u=accessState.users?.find(x=>x.id===$("accessUser").value);document.querySelectorAll('input[name="adminModule"]').forEach(x=>x.checked=!!u?.modules?.includes(x.value));});
+$("accessForm").addEventListener("submit",async e=>{e.preventDefault();try{const modules=[...document.querySelectorAll('input[name="adminModule"]:checked')].map(x=>x.value);await accessRequest({method:"PATCH",body:JSON.stringify({user_id:$("accessUser").value,modules})});status("Zapisano uprawnienia modułowe. Użytkownik musi odświeżyć sesję.");const d=await accessRequest();accessState=d;await loadAccessUsers(d.users||[]);}catch(err){status(err.message);}});
+$("removeModules").addEventListener("click",async()=>{try{const id=$("accessUser").value;if(!id)throw new Error("Wybierz konto.");await accessRequest({method:"PATCH",body:JSON.stringify({user_id:id,modules:[]})});status("Usunięto uprawnienia modułowe.");const d=await accessRequest();accessState=d;await loadAccessUsers(d.users||[]);}catch(err){status(err.message);}});
+\n$("caseSelect").addEventListener("change",e=>showCase(e.target.value));
 submitRecord($("participantForm"),"participant",()=>({participant_role:$("participantRole").value,display_name:$("participantName").value,organization:$("participantOrg").value,role_description:$("participantDescription").value,contact_reference:$("participantContact").value,verification_status:$("participantStatus").value,verification_method:$("participantMethod").value,privacy_basis:$("participantBasis").value,notes:$("participantNotes").value}));
 submitRecord($("historyForm"),"history",()=>({entry_type:$("historyType").value,evidence_class:$("historyClass").value,title:$("historyTitle").value,details:$("historyDetails").value,source_title:$("historySource").value,source_url:$("historyUrl").value,verification_note:$("historyVerify").value,public_summary:$("historyPublic").value}));
 submitRecord($("evidenceForm"),"evidence",()=>({evidence_type:$("evidenceType").value,evidence_class:$("evidenceClass").value,title:$("evidenceTitle").value,source_url:$("evidenceUrl").value,issuer:$("evidenceIssuer").value,redaction_note:$("evidenceRedaction").value}));
