@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#151b17">
+<title>Panel administracyjny · Model Państwa</title>
+<style>
+:root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#82d19f;--border:#39473d}
+[data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--border:#dce5de}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:960px;margin:2rem auto;padding:0 1rem}.top{padding:1rem;background:var(--surface);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin:1rem 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.tile{background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:1rem}.tile h2{font-size:1.15rem}.muted,small{color:var(--muted)}a,button{color:var(--accent)}a{font-weight:700}input,button{font:inherit;padding:.65rem;border-radius:9px;border:1px solid var(--border);background:var(--surface2)}button{cursor:pointer}.row{display:grid;gap:.5rem;margin:.7rem 0}.hidden{display:none!important}.status{padding:.8rem;border-radius:10px;background:var(--surface2);margin:.8rem 0}
+</style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+</head>
+<body>
+<div class="top"><strong>MODEL PAŃSTWA · ADMINISTRACJA</strong><button id="theme" type="button">Zmień motyw</button></div>
+<main>
+<section class="card">
+<h1>Centrum administracyjne</h1>
+<p class="muted">Oddzielne wejście do narzędzi administracyjnych. Dostęp do panelu jest potwierdzany przez Supabase Auth oraz rolę administratora po stronie serwera.</p>
+<div id="login">
+<h2>Logowanie administratora</h2>
+<form id="loginForm"><label class="row">E-mail<input id="email" type="email" autocomplete="username" required></label><label class="row">Hasło<input id="password" type="password" autocomplete="current-password" required></label><button type="submit">Zaloguj i sprawdź uprawnienia</button></form>
+</div>
+<div id="status" class="status" role="status" aria-live="polite">Zaloguj się, aby sprawdzić uprawnienia.</div>
+<div id="hub" class="hidden">
+<div class="grid">
+<article class="tile"><h2>1. Zgłoszenia obywatelskie</h2><p>Moderacja, statusy, priorytety, komentarze i statystyki — zachowany dotychczasowy panel.</p><a href="prototyp.html#accountAccess">Otwórz dotychczasowy panel zgłoszeń ↗</a></article>
+<article class="tile"><h2>2. Rejestr inwestycji</h2><p>Publiczny, anonimowy podgląd opublikowanych projektów, budżetów i osi czasu. Bez edycji dla obywateli.</p><a href="inwestycje.html">Otwórz rejestr inwestycji ↗</a></article>
+<article class="tile"><h2>3. Dane i dokumenty</h2><p>Przygotowanie i weryfikacja źródeł przed publikacją. W tym prototypie zapisy rejestru wymagają kontrolowanego backendu; nie udostępniamy formularza zapisu w przeglądarce.</p><span class="muted">Panel redakcyjny — kolejny etap wdrożenia</span></article>
+<article class="tile"><h2>4. Bezpieczeństwo i audyt</h2><p>Uprawnienia, dziennik zmian i kontrola publikacji. Starsze systemy pozostają zachowane; ich funkcje nie są przenoszone ani kasowane automatycznie.</p><span class="muted">Wymaga osobnego modułu administracyjnego</span></article>
+</div>
+<p><button id="logout" type="button">Wyloguj</button></p>
+</div>
+</section>
+</main>
+<script type="module">
+import{createClient}from"https://esm.sh/@supabase/supabase-js@2";
+const URL="https://ldjrinmohlomzlyeagwd.supabase.co";
+const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
+const db=createClient(URL,KEY);
+const $=id=>document.getElementById(id);
+$("theme").addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
+function status(s){$("status").textContent=s;}
+async function verify(){
+ const {data:{session}}=await db.auth.getSession();
+ if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
+ const res=await fetch(URL+"/functions/v1/admin-manage-reports?analytics=1&days=1",{headers:{apikey:KEY,Authorization:"Bearer "+session.access_token}});
+ if(!res.ok){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(res.status===403?"Konto nie ma roli administratora.":"Nie udało się potwierdzić uprawnień. Spróbuj ponownie.");return;}
+ $("login").classList.add("hidden");$("hub").classList.remove("hidden");status("Dostęp administratora potwierdzony przez serwer.");
+}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}await verify();});
+$("logout").addEventListener("click",async()=>{await db.auth.signOut();await verify();});
+await verify();
+</script>
+</body></html>
