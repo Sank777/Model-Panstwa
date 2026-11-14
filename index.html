@@ -343,7 +343,7 @@ $('resetDemo').addEventListener('click',()=>{if(!confirm('Przywrócić dwa przyk
 $('clearAll').addEventListener('click',()=>{if(!confirm('Usunąć wszystkie zgłoszenia i historię z tej przeglądarki? Tej operacji nie można cofnąć bez kopii zapasowej.'))return;state.reports=[];state.log=[];saveAll();render();notify('Dane zostały usunięte.');});
 window.addEventListener('storage',event=>{if(event.key===STORAGE.reports||event.key===STORAGE.log){state.reports=safeRead(STORAGE.reports,[]);state.log=safeRead(STORAGE.log,[]);render();}});
 
-renderPillars();initData();restoreDraft();let savedTheme='light';try{savedTheme=localStorage.getItem(STORAGE.theme)||'light';}catch(error){console.warn('Pamięć przeglądarki jest niedostępna:',error);}setTheme(savedTheme);render();initMaps();
+renderPillars();initData();restoreDraft();let savedTheme='dark';try{savedTheme=localStorage.getItem(STORAGE.theme)||'light';}catch(error){console.warn('Pamięć przeglądarki jest niedostępna:',error);}setTheme(savedTheme);render();initMaps();
 </script>
 
 <script>
