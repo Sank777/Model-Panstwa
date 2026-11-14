@@ -44,7 +44,8 @@
 <button type="button" id="removeModules">Usuń uprawnienia modułowe</button>
 </form>
 <p class="muted small">Rola głównego administratora nie jest nadawana tym formularzem. Istniejące konto administratora głównego zachowuje dotychczasowe uprawnienia.</p>
-</section>\n<section class="card" id="caseDesk">
+</section>
+<section class="card" id="caseDesk">
 <h2>5. Historia spraw i potwierdzanie sytuacji</h2>
 <p class="muted">Prywatny widok administratora. Dane zgłaszających, świadków i osób potwierdzających nie trafiają do publicznego rejestru.</p>
 <div class="row"><label for="caseSelect">Wybierz sprawę</label><select id="caseSelect"><option value="">Ładowanie spraw…</option></select></div>
@@ -98,7 +99,9 @@ const URL="https://ldjrinmohlomzlyeagwd.supabase.co";
 const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
 const db=createClient(URL,KEY);
 const $=id=>document.getElementById(id);
-const CASE_API=URL+"/functions/v1/admin-case-records";\nconst ACCESS_API=URL+"/functions/v1/admin-access-management";\nlet accessState={is_main_admin:false,modules:[]};
+const CASE_API=URL+"/functions/v1/admin-case-records";
+const ACCESS_API=URL+"/functions/v1/admin-access-management";
+let accessState={is_main_admin:false,modules:[]};
 let selectedCase="";
 function status(s){$("status").textContent=s;}
 async function caseRequest(path="",options={}){
@@ -201,7 +204,8 @@ async function loadAccessUsers(users){const select=$("accessUser"),root=$("acces
 $("accessUser").addEventListener("change",()=>{const u=accessState.users?.find(x=>x.id===$("accessUser").value);document.querySelectorAll('input[name="adminModule"]').forEach(x=>x.checked=!!u?.modules?.includes(x.value));});
 $("accessForm").addEventListener("submit",async e=>{e.preventDefault();try{const modules=[...document.querySelectorAll('input[name="adminModule"]:checked')].map(x=>x.value);await accessRequest({method:"PATCH",body:JSON.stringify({user_id:$("accessUser").value,modules})});status("Zapisano uprawnienia modułowe. Użytkownik musi odświeżyć sesję.");const d=await accessRequest();accessState=d;await loadAccessUsers(d.users||[]);}catch(err){status(err.message);}});
 $("removeModules").addEventListener("click",async()=>{try{const id=$("accessUser").value;if(!id)throw new Error("Wybierz konto.");await accessRequest({method:"PATCH",body:JSON.stringify({user_id:id,modules:[]})});status("Usunięto uprawnienia modułowe.");const d=await accessRequest();accessState=d;await loadAccessUsers(d.users||[]);}catch(err){status(err.message);}});
-\n$("caseSelect").addEventListener("change",e=>showCase(e.target.value));
+
+$("caseSelect").addEventListener("change",e=>showCase(e.target.value));
 submitRecord($("participantForm"),"participant",()=>({participant_role:$("participantRole").value,display_name:$("participantName").value,organization:$("participantOrg").value,role_description:$("participantDescription").value,contact_reference:$("participantContact").value,verification_status:$("participantStatus").value,verification_method:$("participantMethod").value,privacy_basis:$("participantBasis").value,notes:$("participantNotes").value}));
 submitRecord($("historyForm"),"history",()=>({entry_type:$("historyType").value,evidence_class:$("historyClass").value,title:$("historyTitle").value,details:$("historyDetails").value,source_title:$("historySource").value,source_url:$("historyUrl").value,verification_note:$("historyVerify").value,public_summary:$("historyPublic").value}));
 submitRecord($("evidenceForm"),"evidence",()=>({evidence_type:$("evidenceType").value,evidence_class:$("evidenceClass").value,title:$("evidenceTitle").value,source_url:$("evidenceUrl").value,issuer:$("evidenceIssuer").value,redaction_note:$("evidenceRedaction").value}));
