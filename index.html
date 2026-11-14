@@ -43,7 +43,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
   <a href="zasady.html">Zasady projektowe</a>
   <a href="prototyp.html">Prototyp zgłoszeń</a>
   <a href="inwestycje.html">Budżety inwestycji</a>
-</nav>
+<a href="centrum-jawnosci.html">Centrum jawności</a><a href="analiza-inwestycji-czudec.html">Analiza inwestycji Czudec</a><a href="admin.html">Panel administracyjny</a></nav>
 
 <main>
   <section class="card">
@@ -299,7 +299,6 @@ function exportJSON(){const payload={formatVersion:2,exportedAt:new Date().toISO
 function csvCell(value){let text=String(value??'');if(/^[\s]*[=+@\-]/.test(text))text="'"+text;return `"${text.replace(/"/g,'""')}"`;}
 function exportCSV(){const headers=['Numer','Data','Kategoria','Opis','Lokalizacja','Status','Priorytet','Odpowiedź','Poparcia'];const rows=state.reports.map(item=>[item.number,formatDate(item.createdAt),item.category,item.description,item.location,statusName(item.status),item.priority,item.comment,item.supports].map(csvCell).join(';'));download('\uFEFF'+[headers.map(csvCell).join(';'),...rows].join('\r\n'),`model-panstwa-zgloszenia-${new Date().toISOString().slice(0,10)}.csv`,'text/csv;charset=utf-8');addLog('Wyeksportowano CSV',{count:state.reports.length});}
 async function importJSON(file){if(!file)return;if(file.size>5*1024*1024){notify('Plik jest za duży (maksymalnie 5 MB).');return;}try{const parsed=JSON.parse(await file.text());const source=Array.isArray(parsed)?parsed:(Array.isArray(parsed.reports)?parsed.reports:parsed.zgloszenia);if(!Array.isArray(source))throw new Error('Nie znaleziono listy zgłoszeń w pliku.');if(source.length>2000)throw new Error('Plik zawiera zbyt dużo zgłoszeń.');const normalized=source.map(normalizeReport).filter(item=>item.description.trim());if(!confirm(`Zaimportować ${normalized.length} zgłoszeń? Obecna lista zostanie zastąpiona.`))return;state.reports=normalized;const importedLog=Array.isArray(parsed.activity)?parsed.activity:(Array.isArray(parsed.log)?parsed.log:[]);state.log=importedLog.slice(-500).map(entry=>({id:String(entry.id||`${entry.time||Date.now()}-${Math.random()}`),time:typeof entry.time==='number'?new Date(entry.time).toISOString():(entry.time||new Date().toISOString()),action:String(entry.action||'Aktywność'),details:entry.details&&typeof entry.details==='object'?entry.details:{}}));addLog('Zaimportowano kopię danych',{count:normalized.length});render();notify('Import zakończony.');}catch(error){notify(`Błąd importu: ${error.message}`);}finally{$('importFile').value='';}}
-function toggleAdmin(){window.location.href='admin.html';}
 function setTheme(theme){document.documentElement.dataset.theme=theme==='dark'?'dark':'light';try{localStorage.setItem(STORAGE.theme,theme);}catch(error){console.warn('Nie udało się zapisać motywu:',error);}$('themeToggle').textContent=theme==='dark'?'☀️ Jasny':'🌙 Ciemny';}
 
 
@@ -335,7 +334,6 @@ $('reportForm').addEventListener('submit',submitReport);
 $('photo').addEventListener('change',async event=>{try{const data=await readPhoto(event.target.files[0]);$('photoPreview').src=data;$('photoPreview').style.display=data?'block':'none';}catch(error){event.target.value='';$('photoPreview').style.display='none';notify(error.message);}});
 $('clearLocation').addEventListener('click',()=>{clearPickedLocation();persistDraft();notify('Usunięto pinezkę.');});
 $('location').addEventListener('input',()=>{if($('lat').value!==''||$('lng').value!=='')clearPickedLocation();persistDraft();});
-$('adminToggle').addEventListener('click',toggleAdmin);
 $('themeToggle').addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
 $('publicList').addEventListener('click',handleReportAction);$('adminList').addEventListener('click',handleReportAction);$('adminList').addEventListener('change',event=>{if(event.target.matches('[data-action="status"],[data-action="priority"]'))handleReportAction(event);});
 $('filters').addEventListener('click',event=>{const button=event.target.closest('[data-filter]');if(!button)return;state.filter=button.dataset.filter;document.querySelectorAll('#filters button').forEach(node=>node.classList.toggle('active',node===button));renderAdmin();});

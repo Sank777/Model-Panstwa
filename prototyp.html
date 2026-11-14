@@ -21,7 +21,7 @@
 <body>
 <button type="button" class="global-theme-toggle" id="globalThemeToggle" aria-label="Zmień motyw">☀️ Jasny</button>
 <header><div>LABORATORIUM OBYWATELSKIE</div><h1>System zgłoszeń</h1><p>Dodawanie problemów, publiczny podgląd zatwierdzonych spraw i osobna obsługa administracyjna.</p></header>
-<nav class="nav" aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html" aria-current="page">Prototyp zgłoszeń</a><a href="inwestycje.html">Budżety inwestycji</a></nav>
+<nav class="nav" aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html" aria-current="page">Prototyp zgłoszeń</a><a href="inwestycje.html">Budżety inwestycji</a><a href="centrum-jawnosci.html">Centrum jawności</a><a href="admin.html">Panel administracyjny</a></nav>
 <main>
 <section class="card" id="accountAccess"><h2>Konto użytkownika</h2>
 <p class="muted">Utwórz konto, aby śledzić swoje zgłoszenia. Możesz też wysłać zgłoszenie anonimowo.</p>
@@ -98,7 +98,7 @@ async function showSignedIn(user){
  $("accountEmail").textContent=user.email||"Zalogowany użytkownik";
  await loadUserProfile(user.id);
  await loadCompetences(user.id);
- if(user.app_metadata?.role==="admin"){ $("adminArea").classList.remove("hidden"); await loadAdmin(); await loadAnalytics(); }
+ const appRole=user.app_metadata?.role;const adminModules=Array.isArray(user.app_metadata?.admin_modules)?user.app_metadata.admin_modules:[];if(appRole==="admin"||(appRole==="site_admin"&&adminModules.includes("reports"))){ $("adminArea").classList.remove("hidden"); await loadAdmin(); await loadAnalytics(); }
  else { $("adminArea").classList.add("hidden"); }
  await loadMyReports(user.id);
 }
