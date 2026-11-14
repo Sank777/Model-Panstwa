@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Centrum Jawności Państwa — publiczny podgląd inwestycji, decyzji, kontroli i historii spraw.">
+<meta name="theme-color" content="#151b17">
+<title>Centrum Jawności Państwa · Model Państwa</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<style>
+:root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--accent2:#82d19f;--border:#39473d;--warning:#f0cb65;--danger:#ff8585;--shadow:0 8px 28px #0003}
+[data-theme=light]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--accent2:#2d7a4f;--border:#dce5de;--warning:#8a6500;--danger:#a83232;--shadow:0 8px 24px #1c352015}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.58 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent2)}button,input,select{font:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #76b9e8;outline-offset:3px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.65rem max(1rem,calc((100% - 1180px)/2));background:var(--surface);border-bottom:1px solid var(--border)}.brand{font-weight:800;letter-spacing:.02em}.brand span{color:var(--accent)}.theme{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:99px;padding:.42rem .75rem;cursor:pointer}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 20%,#3b865b 0,transparent 34%),linear-gradient(125deg,#102b1c,#1d5534 60%,#173b27);color:#fff;padding:clamp(2.2rem,6vw,5rem) 1rem 2.5rem}.hero-inner{max-width:1180px;margin:auto}.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#b9e3c5}.hero h1{font-size:clamp(2.1rem,5.4vw,4.3rem);line-height:1.02;letter-spacing:-.045em;max-width:850px;margin:.7rem 0 1rem}.hero p{font-size:clamp(1rem,2vw,1.2rem);max-width:760px;color:#e1efe5;margin:0}.hero-bottom{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}.hero-chip{border:1px solid #ffffff42;background:#ffffff12;padding:.4rem .72rem;border-radius:99px;font-size:.8rem}.hero-art{position:absolute;right:5%;bottom:-90px;width:300px;height:300px;border:1px solid #ffffff20;border-radius:50%;opacity:.65}.hero-art:before,.hero-art:after{content:"";position:absolute;inset:28px;border:1px solid #ffffff24;border-radius:50%}.hero-art:after{inset:70px}
+nav{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;padding:.8rem 1rem;background:var(--surface);border-bottom:1px solid var(--border)}nav a{padding:.45rem .72rem;border:1px solid var(--border);border-radius:99px;text-decoration:none;font-size:.84rem;font-weight:650;color:var(--accent)}nav a[aria-current=page]{background:var(--surface2);border-color:var(--accent)}
+main{width:min(1180px,100% - 2rem);margin:1.2rem auto 3rem}.intro{display:grid;grid-template-columns:1.5fr 1fr;gap:1rem;align-items:stretch}.panel,.card{background:var(--surface);border:1px solid var(--border);border-radius:17px;padding:clamp(1rem,2.5vw,1.5rem);box-shadow:var(--shadow);margin-bottom:1rem}.panel h2,.card h2{margin:0 0 .5rem;font-size:1.18rem;letter-spacing:-.02em}.muted{color:var(--muted)}.small{font-size:.82rem}.read-only{display:flex;gap:.75rem;align-items:flex-start;background:var(--surface2);border:1px solid var(--border);padding:1rem;border-radius:13px}.read-only .symbol{font-size:1.35rem}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.metric{background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:.85rem}.metric strong{display:block;font-size:1.55rem;line-height:1.2;color:var(--accent)}.metric span{font-size:.76rem;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin:1.7rem 0 .8rem}.section-head h2{font-size:clamp(1.35rem,3vw,1.85rem);margin:0;letter-spacing:-.03em}.section-head p{margin:.25rem 0 0;color:var(--muted);max-width:720px}.tabs{display:flex;gap:.45rem;flex-wrap:wrap;margin:1rem 0}.tab{border:1px solid var(--border);background:var(--surface2);color:var(--text);padding:.55rem .9rem;border-radius:99px;font-weight:700;cursor:pointer}.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.notice{border-left:4px solid var(--warning);background:var(--surface2);padding:.85rem 1rem;border-radius:0 11px 11px 0;margin:.8rem 0}.notice strong{display:block;margin-bottom:.2rem}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.tile{border:1px solid var(--border);border-radius:14px;padding:1rem;background:var(--surface2)}.tile h3{margin:.3rem 0;font-size:1.02rem}.tile p{margin:.35rem 0;color:var(--muted);font-size:.88rem}.kicker{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}.toolbar input,.toolbar select{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:.65rem .75rem;min-width:180px;flex:1}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:9px;padding:.55rem .8rem;background:var(--surface2);color:var(--text);font-weight:700;text-decoration:none;cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn:hover{filter:brightness(1.08)}
+.project{border:1px solid var(--border);border-radius:15px;padding:1rem;background:var(--surface);margin:.75rem 0}.project-top{display:flex;justify-content:space-between;gap:.8rem;align-items:flex-start;flex-wrap:wrap}.project h3{margin:.15rem 0 .35rem;font-size:1.1rem}.tag{display:inline-block;padding:.2rem .55rem;border:1px solid var(--border);border-radius:99px;font-size:.72rem;font-weight:750;color:var(--muted)}.tag.demo{color:var(--warning);border-color:var(--warning)}.tag.final{color:var(--accent);border-color:var(--accent)}.tag.pending{color:var(--warning);border-color:var(--warning)}.money-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.8rem 0}.money{background:var(--surface2);border-radius:10px;padding:.65rem}.money span{display:block;color:var(--muted);font-size:.72rem}.money strong{font-size:.98rem}.project-details{border-top:1px solid var(--border);margin-top:.8rem;padding-top:.7rem}.project-details summary{cursor:pointer;color:var(--accent);font-weight:750}.project-details p{margin:.55rem 0}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}.case-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:15px;background:var(--surface);overflow:hidden}.case-band{height:7px;background:linear-gradient(90deg,#34764b,#8bc99b)}.case-content{padding:1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}.case-content h3{margin:0;font-size:1.13rem}.case-content p{margin:0;color:var(--muted);font-size:.88rem}.case-meta{display:flex;gap:.4rem;flex-wrap:wrap}.case-footer{margin-top:auto;padding-top:.6rem}.case-detail{display:none;border:1px solid var(--border);border-radius:15px;padding:clamp(1rem,3vw,1.5rem);margin:1rem 0;background:var(--surface)}.case-detail.open{display:block}.case-detail h3{margin:.1rem 0 .6rem;font-size:1.35rem}.case-detail h4{margin:1.2rem 0 .4rem}.timeline{border-left:2px solid var(--border);margin:1rem 0 1rem .45rem;padding-left:1.1rem}.event{position:relative;padding:0 0 1rem}.event:before{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--accent);left:-1.48rem;top:.4rem;border:2px solid var(--surface)}.event time{font-size:.76rem;color:var(--accent);font-weight:800}.event p{margin:.2rem 0;color:var(--muted)}.status-box{border:1px solid var(--border);background:var(--surface2);padding:.9rem;border-radius:12px;margin:.8rem 0}.source-list{padding-left:1.15rem}.source-list li{margin:.4rem 0}.source-list a{overflow-wrap:anywhere}.distinction{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.8rem 0}.distinction div{padding:.7rem;background:var(--surface2);border-radius:10px;font-size:.82rem}.distinction b{display:block;margin-bottom:.2rem}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.87rem}th,td{text-align:left;padding:.7rem;border-bottom:1px solid var(--border);vertical-align:top}th{color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:1.5rem 1rem 2.5rem}
+@media(max-width:850px){.intro{grid-template-columns:1fr}.grid,.case-grid{grid-template-columns:1fr 1fr}.hero-art{right:-90px}.money-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){main{width:calc(100% - 1rem);margin:.7rem auto 2rem}.grid,.case-grid{grid-template-columns:1fr}.metrics{gap:.4rem}.metric{padding:.65rem .5rem}.metric strong{font-size:1.25rem}.metric span{font-size:.68rem}.money-grid{grid-template-columns:1fr 1fr}.distinction{grid-template-columns:1fr}.topbar{padding:.6rem .8rem}.hero{padding:2.1rem 1rem}.hero-art{opacity:.25}.toolbar input,.toolbar select{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="brand">MODEL <span>PAŃSTWA</span> <span style="color:var(--muted);font-weight:500">/ laboratorium obywatelskie</span></div><button class="theme" id="themeToggle" type="button">☀️ Zmień motyw</button></div>
+<header class="hero"><div class="hero-art" aria-hidden="true"></div><div class="hero-inner"><div class="eyebrow">Przejrzystość · odpowiedzialność · pamięć instytucji</div><h1>Centrum Jawności Państwa</h1><p>Jedno miejsce, w którym można prześledzić publiczne pieniądze, inwestycje i decyzje — od pierwszego dokumentu do wyniku kontroli i konsekwencji.</p><div class="hero-bottom"><span class="hero-chip">Publiczny podgląd bez logowania</span><span class="hero-chip">Źródła i chronologia</span><span class="hero-chip">Oddzielenie faktów od zarzutów</span></div></div></header>
+<nav aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="prototyp.html">Zgłoszenia</a><a href="inwestycje.html">Budżety inwestycji</a><a href="centrum-jawnosci.html" aria-current="page">Centrum jawności</a></nav>
+<main>
+<section class="intro">
+ <div class="panel"><div class="kicker">Po co ta podstrona?</div><h2>Nie prosimy obywatela, żeby nam uwierzył. Dajemy mu możliwość sprawdzenia.</h2><p class="muted">Gość może swobodnie oglądać publiczne dane, dokumenty, historię decyzji i postęp inwestycji. W tym prototypie nie ma dodawania, edytowania ani głosowania. Dane demonstracyjne są wyraźnie oznaczone.</p><div class="read-only"><div class="symbol">👁️</div><div><strong>Tryb obserwatora</strong><div class="small muted">Publiczne przeglądanie jest otwarte. Zmiana danych wymaga odrębnego uwierzytelnienia, uprawnień i rejestrowania każdej operacji.</div></div></div></div>
+ <div class="panel"><h2>Co można tu sprawdzić?</h2><div class="metrics"><div class="metric"><strong>2</strong><span>gałęzie systemu</span></div><div class="metric"><strong>3</strong><span>studia przypadku</span></div><div class="metric"><strong>0</strong><span>publicznych wpisów inwestycji w bazie na dzień audytu</span></div></div><p class="small muted" style="margin:.8rem 0 0">Liczby opisują wyłącznie zawartość tej makiety i stan sprawdzonej bazy, nie całość zjawisk w Polsce.</p></div>
+</section>
+
+<div class="tabs" role="tablist" aria-label="Obszary Centrum Jawności">
+ <button class="tab active" role="tab" aria-selected="true" data-tab="investments">🏗️ Inwestycje publiczne</button>
+ <button class="tab" role="tab" aria-selected="false" data-tab="cases">📚 Historia spraw publicznych</button>
+ <button class="tab" role="tab" aria-selected="false" data-tab="method">⚖️ Jak czytać dane</button>
+</div>
+
+<section id="panel-investments" class="tab-panel">
+ <div class="section-head"><div><div class="kicker">Gałąź 01</div><h2>Inwestycje publiczne</h2><p>Nie tylko kwota na tablicy. Pełna droga pieniędzy: plan, decyzja, finansowanie, umowa, aneksy, wykonanie i kontrola.</p></div><a class="btn" href="inwestycje.html">Otwórz moduł budżetów ↗</a></div>
+ <div class="notice"><strong>Stan połączenia z bazą</strong>W projekcie istnieją tabele inwestycji, wersji budżetu, ocen i zdarzeń audytowych. Podczas ostatniego odczytu nie było w nich jeszcze opublikowanych rekordów. Poniższy projekt jest więc makietą sposobu prezentacji — nie udaje danych pobranych z urzędu.</div>
+ <article class="project">
+  <div class="project-top"><div><div class="kicker">Karta demonstracyjna · nie jest prawdziwą inwestycją</div><h3>Przebudowa drogi lokalnej — przykład śledzenia kosztów</h3><div class="small muted">Przykładowa jednostka: samorząd · przykładowa lokalizacja: powiat</div></div><span class="tag demo">DANE SYMULOWANE</span></div>
+  <p class="muted">Ta karta pokazuje, jak obywatel mógłby porównać kolejne wersje budżetu. Wartości są wymyślone wyłącznie do prezentacji interfejsu.</p>
+  <div class="money-grid"><div class="money"><span>Szacunek początkowy</span><strong>4,80 mln zł</strong></div><div class="money"><span>Budżet zatwierdzony</span><strong>5,10 mln zł</strong></div><div class="money"><span>Wartość umowy</span><strong>4,92 mln zł</strong></div><div class="money"><span>Aneksy</span><strong>+0,42 mln zł</strong></div></div>
+  <div class="project-details"><strong>Przykładowy przebieg</strong><div class="timeline">
+   <div class="event"><time>STYCZEŃ · PLAN</time><p>Szacunek kosztów: 4,80 mln zł. Źródło: przykładowy kosztorys.</p></div>
+   <div class="event"><time>MARZEC · DECYZJA</time><p>Uchwała o zabezpieczeniu 5,10 mln zł. W systemie należałoby podpiąć numer uchwały i dokument.</p></div>
+   <div class="event"><time>MAJ · UMOWA</time><p>Umowa z wykonawcą: 4,92 mln zł. Należałoby pokazać postępowanie i umowę.</p></div>
+   <div class="event"><time>WRZESIEŃ · ZMIANA</time><p>Aneks: +0,42 mln zł. System wymaga uzasadnienia, podstawy prawnej i wskazania osoby zatwierdzającej.</p></div>
+   <div class="event"><time>PO ZAKOŃCZENIU · ROZLICZENIE</time><p>Koszt rzeczywisty pozostaje nieuzupełniony w tej makiecie. Nie wolno wyliczać go z samej wartości umowy.</p></div>
+  </div></div>
+  <div class="notice"><strong>Co powinno być widoczne?</strong>Każda kwota ma swój rodzaj, datę, dokument źródłowy, zakres i status weryfikacji. Aneks nie nadpisuje poprzedniej wartości — tworzy nowy element historii.</div>
+ </article>
+ <div class="grid">
+  <div class="tile"><div class="kicker">01 · Decyzja</div><h3>Kto i na jakiej podstawie?</h3><p>Organ, data, numer uchwały lub decyzji, uzasadnienie, głosowanie i dokument źródłowy.</p></div>
+  <div class="tile"><div class="kicker">02 · Pieniądze</div><h3>Skąd i dokąd?</h3><p>Budżet, dotacja, środki UE, umowa, wykonawca, faktury i rzeczywiste płatności — z rozróżnieniem planu od wykonania.</p></div>
+  <div class="tile"><div class="kicker">03 · Wynik</div><h3>Co faktycznie powstało?</h3><p>Postęp rzeczowy, terminy, odbiory, opóźnienia, kontrole, usterki i końcowe rozliczenie.</p></div>
+ </div>
+</section>
+
+<section id="panel-cases" class="tab-panel" hidden>
+ <div class="section-head"><div><div class="kicker">Gałąź 02</div><h2>Historia spraw publicznych</h2><p>Przykładowe polskie sprawy pokazane jako kompletne ścieżki: mechanizm, ostrzeżenia, reakcja instytucji, postępowania, rozstrzygnięcia i to, co pozostało nierozliczone.</p></div></div>
+ <div class="notice"><strong>Ważne rozróżnienie</strong>Określenie „afera” jest nazwą potoczną sprawy, a nie kwalifikacją prawną wszystkich osób z nią kojarzonych. Zarzut prokuratury nie jest wyrokiem. Odpowiedzialność konkretnej osoby opisujemy wyłącznie zgodnie z dokumentami i aktualnym statusem postępowania.</div>
+ <div class="toolbar"><input id="caseSearch" type="search" placeholder="Szukaj sprawy, instytucji lub słowa…"><select id="caseFilter" aria-label="Filtruj sprawy"><option value="all">Wszystkie statusy</option><option value="final">Prawomocne rozstrzygnięcia w głównym wątku</option><option value="ongoing">Postępowania / wątki trwające</option></select></div>
+ <div class="case-grid" id="caseGrid">
+  <article class="case-card" data-status="final ongoing" data-search="amber gold piramida finansowa prokuratura sąd klienci państwo"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag final">Główny proces karny prawomocny</span><span class="tag pending">Wątki poboczne</span></div><h3>Amber Gold</h3><p>Obietnice wysokich zysków, utrata środków przez tysiące klientów, wieloletnie postępowania i pytania o reakcję instytucji.</p><p><strong>Skala wskazana w materiale PAP:</strong> prawie 19 tys. klientów, straty ok. 851 mln zł.</p><div class="case-footer"><button class="btn primary" data-open-case="amber">Otwórz pełną oś czasu →</button></div></div></article>
+  <article class="case-card" data-status="ongoing" data-search="getback obligacje rynek finansowy knf idea bank prokuratura biegli"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag pending">Wiele postępowań</span></div><h3>GetBack</h3><p>Upadek spółki windykacyjnej, straty obligatariuszy, liczne wątki sprzedaży obligacji, zarządzania i nadzoru.</p><p><strong>Skala:</strong> ponad 9 tys. obligatariuszy; kolejne akty oskarżenia w 2026 r.</p><div class="case-footer"><button class="btn primary" data-open-case="getback">Otwórz pełną oś czasu →</button></div></div></article>
+  <article class="case-card" data-status="final ongoing" data-search="skok wołomin kredyty wyłudzenia pranie pieniędzy knf sąd"><div class="case-band"></div><div class="case-content"><div class="case-meta"><span class="tag pending">Główny proces trwa</span><span class="tag final">Wyroki w wątkach</span></div><h3>SKOK Wołomin</h3><p>Wieloletni mechanizm wyłudzeń kredytów, wątki prania pieniędzy, działania nadzorcze i odrębne procesy karne.</p><p><strong>Skala:</strong> prokuratura szacowała wyłudzenia w głównym wątku na ponad 3 mld zł.</p><div class="case-footer"><button class="btn primary" data-open-case="skok">Otwórz pełną oś czasu →</button></div></div></article>
+ </div>
+
+ <article class="case-detail" id="detail-amber">
+  <div class="case-meta"><span class="tag final">Prawomocny wyrok głównych twórców</span><span class="tag pending">Istnieją odrębne wątki</span></div><h3>Amber Gold — od ostrzeżeń do wyroków i dalszych rozliczeń</h3>
+  <p class="muted">Główna oś sprawy dotyczy działalności spółki w latach 2009–2012. Poniższa chronologia rozdziela ustalenia o działalności spółki od odpowiedzialności poszczególnych osób i odrębnych postępowań.</p>
+  <div class="metrics"><div class="metric"><strong>~19 tys.</strong><span>klientów według PAP</span></div><div class="metric"><strong>~851 mln zł</strong><span>strat wskazywanych w sprawie</span></div><div class="metric"><strong>15 / 11,5</strong><span>lat więzienia — główni oskarżeni</span></div></div>
+  <h4>Oś czasu</h4><div class="timeline">
+   <div class="event"><time>2009</time><p>Rozpoczęcie działalności Amber Gold. Klientom oferowano lokowanie środków w złoto i inne kruszce oraz wysokie oprocentowanie.</p></div>
+   <div class="event"><time>2009–2010</time><p>Według późniejszych opisów sprawy do instytucji trafiały sygnały i zawiadomienia dotyczące działalności spółki. W systemie docelowym każdy sygnał powinien mieć datę wpływu, adresata, numer sprawy i dokument odpowiedzi.</p></div>
+   <div class="event"><time>13 SIERPNIA 2012</time><p>Spółka ogłosiła likwidację; klienci nie odzyskali powierzonych środków i obiecanych odsetek.</p></div>
+   <div class="event"><time>SIERPIEŃ 2012</time><p>Marcinowi P. przedstawiono pierwszy zarzut — według materiału PAP.</p></div>
+   <div class="event"><time>2019</time><p>Sąd Okręgowy w Gdańsku skazał Marcina P. na 15 lat więzienia, a Katarzynę P. na 12,5 roku.</p></div>
+   <div class="event"><time>30 MAJA 2022</time><p>Sąd Apelacyjny w Gdańsku utrzymał karę 15 lat dla Marcina P. i obniżył karę Katarzyny P. do 11 lat i 6 miesięcy. Wyrok był prawomocny.</p></div>
+   <div class="event"><time>PAŹDZIERNIK 2024</time><p>Sąd Najwyższy oddalił kasację obrony Marcina P. — według PAP.</p></div>
+   <div class="event"><time>29 SIERPNIA 2025</time><p>Sąd Apelacyjny w Warszawie zmienił wyrok w sprawie cywilnego pozwu grupowego klientów przeciw Skarbowi Państwa i oddalił powództwo. To odrębne postępowanie; nie zmienia prawomocnych wyroków karnych twórców spółki.</p></div>
+   <div class="event"><time>19 PAŹDZIERNIKA 2026</time><p>Radio Gdańsk informowało o odroczeniu odrębnego procesu dotyczącego byłej teściowej prezesa Amber Gold, oskarżonej o pranie pieniędzy. To nie jest ponowne otwarcie głównego procesu karnego twórców spółki.</p></div>
+  </div>
+  <h4>Kto poniósł konsekwencje?</h4><div class="status-box"><strong>Marcin P. i Katarzyna P.</strong><p class="muted">Prawomocne kary pozbawienia wolności: odpowiednio 15 lat oraz 11 lat i 6 miesięcy. Nie przenosimy tych ustaleń na inne osoby ani instytucje bez odrębnego rozstrzygnięcia.</p></div>
+  <div class="status-box"><strong>Odpowiedzialność Skarbu Państwa — odrębny spór cywilny</strong><p class="muted">Sąd Apelacyjny w Warszawie 29 sierpnia 2025 r. oddalił powództwo grupowe klientów przeciw Skarbowi Państwa. To rozstrzygnięcie nie oznacza, że wszystkie decyzje instytucji w latach 2009–2012 były idealne; oznacza, że w tej sprawie sąd nie stwierdził podstaw odpowiedzialności odszkodowawczej Skarbu Państwa.</p></div>
+  <h4>Źródła</h4><ul class="source-list">
+   <li><a href="https://www.pap.pl/aktualnosci/historia-piramidy-finansowej-amber-gold-niemal-19-tys-oszukanych-klientow-na-prawie-851" target="_blank" rel="noopener">PAP — historia Amber Gold, skala strat i wyroki</a></li>
+   <li><a href="https://www.pap.pl/aktualnosci/news%2C1226327%2Cprawomocny-wyrok-dla-tworcow-amber-gold.html" target="_blank" rel="noopener">PAP — prawomocny wyrok z 30 maja 2022 r.</a></li>
+   <li><a href="https://waw.sa.gov.pl/komunikat-w-sprawie-vi-aca-139222%2Cnew%2Cmg%2C271%2C303.html%2C860" target="_blank" rel="noopener">Sąd Apelacyjny w Warszawie — komunikat o pozwie grupowym</a></li>
+   <li><a href="https://radiogdansk.pl/wiadomosci/trojmiasto/2026/10/19/wraca-sprawa-amber-gold-proces-odroczony/" target="_blank" rel="noopener">Radio Gdańsk — odrębny wątek procesowy, 19 października 2026 r.</a></li>
+  </ul>
+ </article>
+
+ <article class="case-detail" id="detail-getback">
+  <div class="case-meta"><span class="tag pending">Wiele odrębnych postępowań</span><span class="tag">Stan sprawdzony do 14.11.2026</span></div><h3>GetBack — wielowątkowa sprawa rynku finansowego</h3>
+  <p class="muted">W tej sprawie nie ma jednego procesu obejmującego wszystkie wątki. Trzeba osobno śledzić zarządzanie spółką, sprzedaż obligacji, działania pośredników, nadzór i postępowania restrukturyzacyjne.</p>
+  <div class="metrics"><div class="metric"><strong>9 tys.+</strong><span>obligatariuszy według PB</span></div><div class="metric"><strong>2,5 mld zł</strong><span>wartość zainwestowanych środków opisana przez PB</span></div><div class="metric"><strong>16</strong><span>akt oskarżenia w jednym z zestawień prokuratury, sierpień 2026</span></div></div>
+  <h4>Oś czasu i postępowania</h4><div class="timeline">
+   <div class="event"><time>2016–2017</time><p>Okres części działań zarządczych i transakcji, które później stały się przedmiotem odrębnych postępowań.</p></div>
+   <div class="event"><time>POCZĄTEK 2018</time><p>Ujawnienie problemów z płynnością i niewypłacalności GetBack. Według Pulsu Biznesu ponad 9 tys. obligatariuszy zainwestowało ok. 2,5 mld zł; układ przewidywał odzyskanie około 25% tej kwoty.</p></div>
+   <div class="event"><time>2018–2025</time><p>Wiele śledztw i aktów oskarżenia dotyczących m.in. zarządzania spółką, oferowania obligacji, działania na szkodę klientów i nadzoru. W lipcu 2025 r. Prokuratura Krajowa informowała o 27 śledztwach i 10 aktach oskarżenia obejmujących 107 osób w ówczesnym stanie sprawy.</p></div>
+   <div class="event"><time>4 LUTEGO 2026</time><p>Prokuratura skierowała akt oskarżenia przeciwko 8 osobom w wątku umów, które miały wyrządzić GetBack szkodę przekraczającą 40 mln zł. To zarzuty objęte aktem oskarżenia, a nie prawomocne ustalenie winy.</p></div>
+   <div class="event"><time>3 LIPCA 2026</time><p>Skierowano akt oskarżenia przeciwko 15 byłym pracownikom Idea Banku. Prokuratura opisała ponad 450 pokrzywdzonych klientów i szkodę przekraczającą 48 mln zł w tym wątku.</p></div>
+   <div class="event"><time>20 SIERPNIA 2026</time><p>Skierowano 16. akt oskarżenia w śledztwie Prokuratury Regionalnej w Warszawie — przeciwko dwóm przedstawicielom większościowego akcjonariusza. Zarzut dotyczy szkody nie mniejszej niż 1,3 mld zł. Wobec byłego prezesa, którego miejsce pobytu miało być nieustalone, śledztwo zawieszono do czasu przeprowadzenia czynności.</p></div>
+   <div class="event"><time>11 LISTOPADA 2026</time><p>Puls Biznesu podał, że Sąd Okręgowy w Warszawie zwrócił prokuraturze ten akt oskarżenia do uzupełnienia istotnych braków postępowania przygotowawczego. Wątpliwości dotyczyły bezstronności biegłych i konieczności uzyskania opinii o wysokości ewentualnej szkody.</p></div>
+  </div>
+  <h4>Co zostało rozstrzygnięte, a co nie?</h4><div class="status-box"><strong>Rozstrzygnięcia cząstkowe</strong><p class="muted">W poszczególnych wątkach zapadały decyzje i wyroki, ale nie oznacza to zakończenia całej sprawy GetBack. Każdy wyrok musi być przypisany do konkretnej osoby, czynu i sygnatury.</p></div>
+  <div class="status-box"><strong>Główny wątek szkody ponad 1,3 mld zł</strong><p class="muted">Na dzień 14 listopada 2026 r. dostępny materiał wskazuje na akt oskarżenia, a następnie zwrot sprawy do uzupełnienia. Nie przedstawiamy zarzutów jako winy stwierdzonej przez sąd.</p></div>
+  <div class="status-box"><strong>Konsekwencje dla inwestorów</strong><p class="muted">Puls Biznesu opisywał układ przewidujący około 25% zainwestowanej kwoty dla obligatariuszy. To informacja o warunkach układu, nie gwarancja, że każdy poszkodowany otrzymał taką samą kwotę.</p></div>
+  <h4>Źródła</h4><ul class="source-list">
+   <li><a href="https://www.gov.pl/web/prokuratura-krajowa/komunikat-w-sprawie-postepowan-dot-tzw-afery-getback" target="_blank" rel="noopener">Prokuratura Krajowa — stan postępowań, 8 lipca 2025 r.</a></li>
+   <li><a href="https://www.gov.pl/web/pr-warszawa/kolejny-akt-oskarzenia-przeciwko-bylym-czlonkom-zarzadu-getback-sa--szkoda-przekraczajaca-40-milionow-zl" target="_blank" rel="noopener">Prokuratura Regionalna w Warszawie — akt oskarżenia, 10 lutego 2026 r.</a></li>
+   <li><a href="https://www.gov.pl/web/pr-warszawa/12-akt-oskarzenia-w-tzw-sprawie-getback" target="_blank" rel="noopener">Prokuratura Regionalna w Warszawie — 12. akt oskarżenia, 3 lipca 2026 r.</a></li>
+   <li><a href="https://www.gov.pl/web/pr-warszawa/akt-oskarzenia-w-sprawie-wyrzadzenia-getback-sa-szkody-w-wysokosci-ponad-13-miliarda-zlotych" target="_blank" rel="noopener">Prokuratura Regionalna w Warszawie — akt oskarżenia dotyczący szkody ponad 1,3 mld zł, 20 sierpnia 2026 r.</a></li>
+   <li><a href="https://www.pb.pl/getback-zwrot-aktu-oskarzenia-wobec-ludzi-abrisu-sad-zwatpil-w-bezstronnosc-bieglych-prokuratury-1270250" target="_blank" rel="noopener">Puls Biznesu — zwrot aktu oskarżenia, 11 listopada 2026 r.</a></li>
+  </ul>
+ </article>
+
+ <article class="case-detail" id="detail-skok">
+  <div class="case-meta"><span class="tag pending">Główny proces w toku</span><span class="tag final">Wyroki w odrębnych wątkach</span></div><h3>SKOK Wołomin — mechanizm wyłudzeń i wielość postępowań</h3>
+  <p class="muted">Ta sprawa pokazuje, dlaczego system musi rozdzielać główny proces, poboczne procesy, prawomocne wyroki i ustalenia prokuratury. Nie wolno łączyć ich w jeden zbiorczy „wyrok afery”.</p>
+  <div class="metrics"><div class="metric"><strong>3 mld zł+</strong><span>szacunek wyłudzeń w głównym wątku według prokuratury</span></div><div class="metric"><strong>60+</strong><span>oskarżonych w głównym procesie na starcie</span></div><div class="metric"><strong>14 lat</strong><span>wyrok nieprawomocny w odrębnym wątku</span></div></div>
+  <h4>Oś czasu i rozdzielenie wątków</h4><div class="timeline">
+   <div class="event"><time>2006–2014</time><p>Według opisu aktu oskarżenia główny proceder miał obejmować ten okres. Prokuratura opisywała mechanizm oparty m.in. na pożyczkach udzielanych na podstawie nierzetelnych lub fałszywych dokumentów.</p></div>
+   <div class="event"><time>2014</time><p>Wątek nadzorczy i napaść na byłego wiceszefa KNF Wojciecha Kwaśniaka stały się odrębnym obszarem postępowań. W prototypie nie łączymy samej napaści z odpowiedzialnością za wszystkie straty SKOK.</p></div>
+   <div class="event"><time>GRUDZIEŃ 2023</time><p>Prokuratura skierowała do sądu obszerny akt oskarżenia w głównym wątku, po wieloletnim gromadzeniu materiału dowodowego.</p></div>
+   <div class="event"><time>1 GRUDNIA 2025</time><p>Rozpoczął się główny proces przed Sądem Okręgowym Warszawa-Praga. PAP informowała o ponad 60 oskarżonych i szacowanej przez prokuraturę kwocie wyłudzeń przekraczającej 3 mld zł.</p></div>
+   <div class="event"><time>22 GRUDNIA 2025</time><p>W odrębnym procesie dotyczącym prania pieniędzy sąd uznał Piotra Polaszczyka za winnego 225 z 227 zarzucanych czynów, wymierzył 14 lat więzienia, grzywnę i obowiązek częściowego naprawienia szkody w kwocie 34 714 920 zł. Wyrok był nieprawomocny według komunikatu prokuratury z 30 grudnia 2025 r.</p></div>
+   <div class="event"><time>30 GRUDNIA 2025</time><p>Prokuratura potwierdziła, że wyrok 14 lat w wątku prania pieniędzy nie jest prawomocny.</p></div>
+  </div>
+  <h4>Konsekwencje — co można powiedzieć precyzyjnie?</h4><div class="status-box"><strong>Piotr Polaszczyk — wątek prania pieniędzy</strong><p class="muted">Sąd I instancji wymierzył 14 lat pozbawienia wolności, grzywnę oraz częściowy obowiązek naprawienia szkody na rzecz syndyka. Według oficjalnego komunikatu prokuratury z 30 grudnia 2025 r. wyrok nie był prawomocny. Nie opisujemy go jako ostatecznego.</p></div>
+  <div class="status-box"><strong>Główny proces dotyczący wyłudzeń</strong><p class="muted">W dostępnych źródłach potwierdzono rozpoczęcie procesu w grudniu 2025 r. W prototypie nie wpisujemy końcowego rozstrzygnięcia, którego nie potwierdziliśmy. Status wymaga aktualizacji na podstawie nowszych komunikatów sądu lub prokuratury.</p></div>
+  <h4>Źródła</h4><ul class="source-list">
+   <li><a href="https://www.pap.pl/aktualnosci/ruszyl-glowny-proces-ws-skok-wolomin" target="_blank" rel="noopener">PAP — początek głównego procesu, 1 grudnia 2025 r.</a></li>
+   <li><a href="https://www.gov.pl/web/po-gorzow-wielkopolski/informacja-o-wyroku-dotyczacego-piotra-polaszczyka-w-sprawie-skok-wolomin" target="_blank" rel="noopener">Prokuratura Okręgowa w Gorzowie Wlkp. — wyrok i jego nieprawomocny status, 30 grudnia 2025 r.</a></li>
+   <li><a href="https://www.pap.pl/aktualnosci/afera-skok-wolomin-jest-wyrok-ws-wyprania-ok-350-mln-zl" target="_blank" rel="noopener">PAP — wyrok w wątku prania ok. 350 mln zł, 22 grudnia 2025 r.</a></li>
+  </ul>
+ </article>
+ <div class="notice"><strong>Zakres pierwszego prototypu</strong>Trzy studia przypadku pokazują różne stany: prawomocne rozstrzygnięcie głównej sprawy, wielowątkowe postępowania z nowymi decyzjami procesowymi oraz sprawę z nieprawomocnym wyrokiem w jednym z wątków. To lepszy test systemu niż trzy historie zakończone w identyczny sposób.</div>
+</section>
+
+<section id="panel-method" class="tab-panel" hidden>
+ <div class="section-head"><div><div class="kicker">Zasady wiarygodności</div><h2>Jak czytać historię publicznej sprawy?</h2><p>Każda informacja musi mówić, czym jest, kto ją ustalił, kiedy i na jakim etapie prawnym się znajduje.</p></div></div>
+ <div class="distinction">
+  <div><b>Fakt udokumentowany</b>Potwierdzony dokumentem, datą lub oficjalnym komunikatem.</div>
+  <div><b>Twierdzenie / zarzut</b>Stanowisko strony lub prokuratury; nie jest wyrokiem.</div>
+  <div><b>Rozstrzygnięcie</b>Decyzja sądu lub organu, z oznaczeniem prawomocności.</div>
+ </div>
+ <div class="table-wrap"><table><thead><tr><th>Pole w profilu</th><th>Co musi zawierać</th><th>Dlaczego</th></tr></thead><tbody>
+ <tr><td>Decyzja</td><td>Organ, osoba pełniąca funkcję, data, numer i podstawa prawna</td><td>Możliwość odtworzenia, kto i kiedy działał</td></tr>
+ <tr><td>Źródło</td><td>Dokument pierwotny, link, data publikacji i data pozyskania</td><td>Możliwość samodzielnej weryfikacji</td></tr>
+ <tr><td>Status prawny</td><td>Postępowanie, akt oskarżenia, wyrok I instancji, prawomocny wyrok, umorzenie, uchylenie</td><td>Brak fałszywego utożsamiania zarzutu z winą</td></tr>
+ <tr><td>Konsekwencje</td><td>Kara, grzywna, naprawienie szkody, zakaz, dymisja lub brak potwierdzonej sankcji</td><td>Oddzielenie odpowiedzialności karnej, cywilnej, politycznej i administracyjnej</td></tr>
+ <tr><td>Brak działania</td><td>Co nie zostało wykonane, przez kogo, na jakiej podstawie to wiemy</td><td>Nie przypisujemy winy przez samo milczenie źródeł</td></tr>
+ <tr><td>Korekta historii</td><td>Poprzednia treść, nowa treść, powód korekty, autor i data</td><td>Historia nie może być po cichu przepisywana</td></tr>
+ </tbody></table></div>
+ <div class="notice"><strong>Zasada ochrony człowieka</strong>System nie wydaje wyroków, nie tworzy czarnych list i nie ocenia winy na podstawie opinii. Pokazuje udokumentowane działania, rozstrzygnięcia i statusy. Osoba, której dotyczy wpis, musi mieć możliwość przedstawienia stanowiska i wskazania błędu w danych.</div>
+ <div class="grid">
+  <div class="tile"><h3>Historia nie jest nadpisywana</h3><p>Korekta tworzy nowy wpis w rejestrze zmian. Widać, co zmieniono, kiedy i dlaczego.</p></div>
+  <div class="tile"><h3>Brak sankcji też jest informacją</h3><p>Można pokazać, że nie znaleziono potwierdzenia zastosowania konsekwencji — ale nie wolno z tego automatycznie wywodzić bezprawia.</p></div>
+  <div class="tile"><h3>Prawo do sprostowania</h3><p>Wpisy mają procedurę zgłoszenia błędu i odpowiedzi. Spór o treść jest widoczny, nie ukrywany.</p></div>
+ </div>
+</section>
+</main>
+<footer>Model Państwa · Centrum Jawności Państwa · prototyp prezentacyjny · dane i statusy wymagają okresowej aktualizacji</footer>
+<script>
+const $=id=>document.getElementById(id);
+const themeToggle=$("themeToggle");
+function setTheme(){const light=document.documentElement.dataset.theme==="light";themeToggle.textContent=light?"🌙 Włącz ciemny motyw":"☀️ Włącz jasny motyw";}
+setTheme();themeToggle.addEventListener("click",()=>{const next=document.documentElement.dataset.theme==="light"?"dark":"light";document.documentElement.dataset.theme=next;try{localStorage.setItem("model_panstwa_v2_theme",next)}catch(e){}setTheme();});
+document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(b=>{b.classList.toggle("active",b===btn);b.setAttribute("aria-selected",b===btn?"true":"false")});document.querySelectorAll(".tab-panel").forEach(p=>p.hidden=p.id!=="panel-"+btn.dataset.tab);}));
+function openCase(name){document.querySelectorAll(".case-detail").forEach(el=>el.classList.remove("open"));const detail=$("detail-"+name);if(detail){detail.classList.add("open");detail.scrollIntoView({behavior:"smooth",block:"start"});}}
+document.querySelectorAll("[data-open-case]").forEach(btn=>btn.addEventListener("click",()=>openCase(btn.dataset.openCase)));
+$("caseSearch").addEventListener("input",filterCases);$("caseFilter").addEventListener("change",filterCases);
+function filterCases(){const q=$("caseSearch").value.trim().toLocaleLowerCase("pl");const f=$("caseFilter").value;document.querySelectorAll(".case-card").forEach(card=>{const matchText=(card.dataset.search+" "+card.innerText).toLocaleLowerCase("pl").includes(q);const statuses=card.dataset.status.split(" ");const matchStatus=f==="all"||statuses.includes(f);card.hidden=!(matchText&&matchStatus);});}
+</script>
+</body></html>
