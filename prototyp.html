@@ -117,7 +117,7 @@ function loadTurnstile() {
 async function getCaptchaToken() {
   await loadTurnstile();
   if (turnstileWidgetId === null) {
-    turnstileWidgetId = window.turnstile.render("turnstile-container", {
+    turnstileWidgetId = window.turnstile.render("#turnstile-container", {
       sitekey: TURNSTILE_SITEKEY,
       size: "invisible",
       execution: "execute",
