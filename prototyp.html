@@ -184,7 +184,7 @@ async function runAuthAction(buttonIds, action, work) {
     const attempted = await work();
     if (action && attempted !== false) setAuthCooldown(action);
   } catch (error) {
-    msg("accountState", "Wystąpił błąd. Spróbuj ponownie później.", "error");
+    msg("accountState", error?.message || "Operacja nie powiodła się. Spróbuj ponownie później.", "error");
   } finally {
     buttons.forEach((button, index) => { button.disabled = false; button.textContent = originalLabels[index]; });
     authBusy = false;
