@@ -98,7 +98,7 @@ async function showSignedIn(user){
  $("accountEmail").textContent=user.email||"Zalogowany użytkownik";
  await loadUserProfile(user.id);
  await loadCompetences(user.id);
- if(user.app_metadata?.role==="admin"){ $("adminArea").classList.remove("hidden"); await loadAdmin(); await loadAnalytics(); }
+ const appRole=user.app_metadata?.role;const adminModules=Array.isArray(user.app_metadata?.admin_modules)?user.app_metadata.admin_modules:[];if(appRole==="admin"||(appRole==="site_admin"&&adminModules.includes("reports"))){ $("adminArea").classList.remove("hidden"); await loadAdmin(); await loadAnalytics(); }
  else { $("adminArea").classList.add("hidden"); }
  await loadMyReports(user.id);
 }
