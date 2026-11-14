@@ -1,5 +1,5 @@
 (() => {
- const links=[["index.html","Start"],["model.html","Idea"],["filary.html","10 filarów"],["reformy.html","Reformy"],["zasady.html","Zasady"],["inwestycje.html","Inwestycje"],["odpowiedzialnosc.html","Odpowiedzialność"],["centrum-jawnosci.html","Centrum jawności"],["analiza-inwestycji-czudec.html","Analiza Czudca"],["prototyp.html","Laboratorium"]];
+ const links=[["index.html","Strona główna"],["model.html","Nasza koncepcja"],["filary.html","10 filarów"],["reformy.html","Reformy"],["zasady.html","Zasady"],["inwestycje.html","Inwestycje"],["odpowiedzialnosc.html","Odpowiedzialność"],["centrum-jawnosci.html","Centrum jawności"],["analiza-inwestycji-czudec.html","Analiza Czudca"],["prototyp.html","Zgłoszenia"],["admin.html","Panel administratora"]];
  const path=(location.pathname.split("/").pop()||"index.html").toLowerCase();
  let nav=document.querySelector("nav");
  if(!nav){nav=document.createElement("nav");const h=document.querySelector("header,.hero,.topbar,.top");(h?.parentNode||document.body).insertBefore(nav,h?.nextSibling||null);}
