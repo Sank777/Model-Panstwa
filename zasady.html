@@ -10,4 +10,20 @@
 <div class="tile"><b>Dostępność</b><p>Technologia nie może być jedyną drogą kontaktu z państwem.</p></div>
 <div class="tile"><b>Rozwój etapami</b><p>Najpierw prototyp i opinie, później dopiero rozbudowa oparta na realnych potrzebach.</p></div>
 </div></section>
-<section class="card"><h2>Oddzielamy trzy poziomy</h2><ol><li><b>Idea:</b> kierunek i problem, który chcemy rozwiązać.</li><li><b>Propozycja mechanizmu:</b> konkretny sposób działania, który można ocenić.</li><li><b>Wdrożenie:</b> rozwiązanie sprawdzone pod względem prawa, kosztów, bezpieczeństwa i wykonalności.</li></ol><p class="muted">Nie przedstawiamy pomysłu jako gotowej reformy, dopóki nie przejdzie odpowiedniej analizy.</p></section></main><footer>Model Państwa · obywatelska propozycja do dyskusji i dalszego rozwijania</footer></body></html>
+<section class="card"><h2>Oddzielamy trzy poziomy</h2><ol><li><b>Idea:</b> kierunek i problem, który chcemy rozwiązać.</li><li><b>Propozycja mechanizmu:</b> konkretny sposób działania, który można ocenić.</li><li><b>Wdrożenie:</b> rozwiązanie sprawdzone pod względem prawa, kosztów, bezpieczeństwa i wykonalności.</li></ol><p class="muted">Nie przedstawiamy pomysłu jako gotowej reformy, dopóki nie przejdzie odpowiedniej analizy.</p></section></main><footer>Model Państwa · obywatelska propozycja do dyskusji i dalszego rozwijania</footer>
+<script>
+(() => {
+  const endpoint = "https://ldjrinmohlomzlyeagwd.supabase.co/functions/v1/track-visit";
+  const path = window.location.pathname || "/";
+  fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": "sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR"
+    },
+    body: JSON.stringify({ path }),
+    keepalive: true
+  }).catch(() => {});
+})();
+</script>
+</body></html>
