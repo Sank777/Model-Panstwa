@@ -47,7 +47,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
   <section class="card">
     <h2>O projekcie</h2>
     <p>To prototyp – laboratorium do testowania konkretnych rozwiązań. Nie jest to oficjalny kanał zgłoszeń do urzędu i nie zastępuje procedur administracyjnych.</p>
-    <div class="notice"><strong>Ważne: tryb demonstracyjny</strong>Dane tej wersji są przechowywane wyłącznie w pamięci lokalnej tej przeglądarki. Panel testowy nie jest zabezpieczony prawdziwym logowaniem i nie powinien być używany do obsługi prawdziwych, poufnych zgłoszeń. Mapa i biblioteka Leaflet wymagają połączenia z internetem.</div>
+    <div class="notice"><strong>Ważne: tryb demonstracyjny</strong>Zgłoszenia są wysyłane do bazy i przed publikacją oczekują na moderację. Nie wpisuj danych wrażliwych ani danych osobowych innych osób. Zdjęcia nie są jeszcze przesyłane.</div>
     <div class="pillars">
       <div class="pillar"><strong>Zaufanie i przejrzystość</strong><span class="small">Obywatel widzi status i odpowiedź dotyczącą sprawy.</span></div>
       <div class="pillar"><strong>Lokalność</strong><span class="small">Problem można przypisać do punktu na mapie.</span></div>
@@ -115,7 +115,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
           <div class="field"><label for="location">Lokalizacja (opcjonalnie)</label><input id="location" maxlength="160" placeholder="np. ulica, okolica"></div>
         </div>
         <div class="field"><label for="description">Opis problemu *</label><textarea id="description" maxlength="2000" required placeholder="Opisz krótko, co wymaga uwagi..."></textarea><small>Maksymalnie 2000 znaków.</small></div>
-        <div class="field"><label for="photo">Zdjęcie (opcjonalnie)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG lub WebP, maksymalnie 1 MB. Zdjęcie jest przechowywane lokalnie w tej przeglądarce.</small><img id="photoPreview" class="preview" alt="Podgląd zdjęcia"></div>
+        <div class="field"><label for="photo">Zdjęcie (opcjonalnie)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>JPG, PNG lub WebP, maksymalnie 1 MB. Przesyłanie zdjęć zostanie dodane w kolejnym etapie.</small><img id="photoPreview" class="preview" alt="Podgląd zdjęcia"></div>
         <div class="field"><label>Lokalizacja na mapie (opcjonalnie)</label><p class="hint small">Kliknij mapę, aby wskazać punkt. Możesz też przeciągnąć pinezkę. Nie wyznaczamy lokalizacji automatycznie ani losowo.</p><div id="pickMap" class="map" aria-label="Mapa wyboru lokalizacji"></div><input type="hidden" id="lat"><input type="hidden" id="lng"><button type="button" class="btn secondary small-btn" id="clearLocation">Usuń pinezkę</button></div>
         <div class="honeypot" aria-hidden="true"><label for="website">Nie wypełniaj tego pola</label><input id="website" tabindex="-1" autocomplete="off"></div>
         <button class="btn" id="submitBtn" type="submit">Dodaj zgłoszenie</button>
@@ -126,7 +126,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
   </section>
 
   <section id="adminPanel" class="hidden">
-    <section class="card"><div class="panel-heading"><h2>Obsługa zgłoszeń</h2><span class="admin-note">Tryb demonstracyjny – bez autoryzacji</span></div><p class="hint small">Zmiany są widoczne w tej przeglądarce. Wdrożenie produkcyjne wymaga logowania i kontroli uprawnień po stronie serwera.</p>
+    <section class="card"><div class="panel-heading"><h2>Obsługa zgłoszeń</h2><span class="admin-note">Panel administracyjny przeniesiono do osobnej strony</span></div><p class="hint small">Zmiany są widoczne w tej przeglądarce. Panel administracyjny wymaga konta z rolą administratora.</p>
       <div class="toolbar"><input type="search" id="adminSearch" placeholder="Szukaj..." aria-label="Szukaj w panelu"><select id="adminSort" aria-label="Sortuj panel"><option value="newest">Najnowsze</option><option value="oldest">Najstarsze</option><option value="priority">Priorytet</option><option value="status">Status</option></select></div>
       <div class="filters" id="filters"><button type="button" class="active" data-filter="all">Wszystkie</button><button type="button" data-filter="nowe">Nowe</button><button type="button" data-filter="w_trakcie">W trakcie</button><button type="button" data-filter="zamkniete">Zamknięte</button></div>
       <div id="adminList" aria-live="polite"></div>
@@ -157,6 +157,8 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
 'use strict';
 
 // Model danych: w tej wersji jedynym źródłem prawdy jest localStorage.
+const SUPABASE_URL = 'https://ldjrinmohlomzlyeagwd.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR';
 const STORAGE = Object.freeze({ reports: 'model_panstwa_v2_reports', log: 'model_panstwa_v2_log', theme: 'model_panstwa_v2_theme', votes: 'model_panstwa_v2_votes', draft: 'model_panstwa_v2_draft' });
 const $ = id => document.getElementById(id);
 const state = { reports: [], log: [], filter: 'all', admin: false, pickMap: null, reportsMap: null, pickMarker: null, markers: null, photoData: '' };
@@ -177,32 +179,30 @@ function persistDraft() { const draft = { category:$('category').value, descript
 function restoreDraft() { const draft = safeRead(STORAGE.draft, null); if (!draft) return; $('category').value = draft.category || ''; $('description').value = draft.description || ''; $('location').value = draft.location || ''; }
 function clearDraft() { try { localStorage.removeItem(STORAGE.draft); } catch (error) { console.warn('Nie udało się usunąć szkicu:', error); } }
 
-function initData() {
-  const stored = safeRead(STORAGE.reports, null);
-  const legacy = Array.isArray(stored) ? null : safeRead('zgloszenia_zaufanie', null);
-  if (Array.isArray(stored)) {
-    state.reports = stored.map(normalizeReport).filter(item => item.description.trim());
-  } else if (Array.isArray(legacy)) {
-    // Jednorazowa migracja zgłoszeń z poprzedniej wersji strony.
-    state.reports = legacy.map(normalizeReport).filter(item => item.description.trim());
-  } else {
-    state.reports = DEMO_REPORTS.map(item => ({...item}));
-  }
-  state.log = safeRead(STORAGE.log, null);
-  if (!Array.isArray(state.log)) {
-    const legacyLog = safeRead('zgloszenia_log', []);
-    state.log = Array.isArray(legacyLog) ? legacyLog.slice(-500).map(entry => ({
-      id: String(entry.id || `${entry.time || Date.now()}-${Math.random()}`),
-      time: typeof entry.time === 'number' ? new Date(entry.time).toISOString() : (entry.time || new Date().toISOString()),
-      action: String(entry.action || 'Aktywność'),
-      details: entry.details && typeof entry.details === 'object' ? entry.details : {}
-    })) : [];
-  }
-  if (!Array.isArray(stored)) {
-    state.log.push({ id:'seed', time:new Date().toISOString(), action: legacy ? 'Przeniesiono dane z poprzedniej wersji' : 'Inicjalizacja prototypu', details:{count:state.reports.length} });
-    saveAll();
+async function initData() {
+  state.reports = [];
+  state.log = [];
+  await loadPublicReports();
+}
+async function loadPublicReports() {
+  try {
+    const url = `${SUPABASE_URL}/rest/v1/zgloszenia?select=id,number,time,created_at,category,description,location,lat,lng,status,priority,comment,photo,supports,moderation_status&moderation_status=eq.zatwierdzone&order=created_at.desc&limit=500`;
+    const response = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } });
+    if (!response.ok) throw new Error('Nie udało się pobrać zgłoszeń publicznych.');
+    const rows = await response.json();
+    state.reports = rows.map(row => normalizeReport({
+      id: row.id, number: row.number, time: row.time, createdAt: row.created_at,
+      category: row.category, description: row.description, location: row.location,
+      lat: row.lat, lng: row.lng, status: row.status, priority: row.priority,
+      comment: row.comment, photo: row.photo, supports: row.supports
+    })).filter(item => item.description.trim());
+    render();
+  } catch (error) {
+    console.error(error);
+    notify('Nie można połączyć się z bazą zgłoszeń. Spróbuj odświeżyć stronę.');
   }
 }
+
 function isValidReport(item) { return item && typeof item.id === 'string' && typeof item.description === 'string' && ['nowe','w_trakcie','zamkniete'].includes(item.status) && Number.isFinite(Number(item.time ?? Date.parse(item.createdAt))); }
 function normalizeReport(item, index) {
   const createdAt = item.createdAt || (Number.isFinite(Number(item.time)) ? new Date(Number(item.time)).toISOString() : new Date().toISOString());
@@ -244,7 +244,44 @@ function clearPickedLocation() { $('lat').value=''; $('lng').value=''; if(state.
 function updateReportsMap(rows) { if(!state.reportsMap || !state.markers) return; state.markers.clearLayers(); const located=rows.filter(item=>validCoordinates(Number(item.lat),Number(item.lng))); located.forEach(item=>L.marker([item.lat,item.lng]).addTo(state.markers).bindPopup(`<strong>#${Number(item.number)||'–'} ${escapeHTML(item.category)}</strong><br>${escapeHTML(item.description.slice(0,180))}<br><small>${escapeHTML(item.location)}</small><br><span>${statusName(item.status)}</span>`)); if(located.length===1) state.reportsMap.setView([located[0].lat,located[0].lng],14); else if(located.length>1) state.reportsMap.fitBounds(L.latLngBounds(located.map(item=>[item.lat,item.lng])),{padding:[25,25],maxZoom:15}); }
 
 async function readPhoto(file) { if(!file) return ''; const allowed=['image/jpeg','image/png','image/webp']; if(!allowed.includes(file.type)) throw new Error('Dozwolone formaty zdjęć: JPG, PNG i WebP.'); if(file.size>1024*1024) throw new Error('Zdjęcie przekracza limit 1 MB.'); return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('Nie udało się odczytać zdjęcia.'));reader.readAsDataURL(file);}); }
-async function submitReport(event) { event.preventDefault(); if($('website').value) return; const category=$('category').value, description=$('description').value.trim(); if(!category || !description){notify('Uzupełnij kategorię i opis.');return;} const button=$('submitBtn'); button.disabled=true; try { const photo=await readPhoto($('photo').files[0]); const lat=$('lat').value===''?null:Number($('lat').value), lng=$('lng').value===''?null:Number($('lng').value); const report={id:crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`,number:nextNumber(),createdAt:new Date().toISOString(),category,description,location:$('location').value.trim().slice(0,160),lat:validCoordinates(lat,lng)?lat:null,lng:validCoordinates(lat,lng)?lng:null,status:'nowe',priority:'normalny',comment:'',closedAt:null,photo,supports:0}; state.reports.unshift(report); const persisted=addLog('Dodano nowe zgłoszenie',{number:report.number}); $('reportForm').reset(); $('photoPreview').style.display='none';state.photoData='';clearPickedLocation();clearDraft();render();notify(persisted?'Zgłoszenie zapisane w tej przeglądarce.':'Zgłoszenie dodane tylko do czasu zamknięcia tej karty. Zwolnij miejsce i wyeksportuj dane.'); } catch(error){notify(error.message || 'Nie udało się dodać zgłoszenia.');} finally{button.disabled=false;} }
+async function submitReport(event) {
+  event.preventDefault();
+  if ($('website').value) return;
+  const category = $('category').value;
+  const description = $('description').value.trim();
+  if (!category || !description) { notify('Uzupełnij kategorię i opis.'); return; }
+  const button = $('submitBtn');
+  button.disabled = true;
+  try {
+    const lat = $('lat').value === '' ? null : Number($('lat').value);
+    const lng = $('lng').value === '' ? null : Number($('lng').value);
+    const payload = {
+      category,
+      description,
+      location: $('location').value.trim().slice(0, 160),
+      lat: validCoordinates(lat, lng) ? lat : null,
+      lng: validCoordinates(lat, lng) ? lng : null,
+      website: ''
+    };
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/submit-report`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.accepted !== true) throw new Error(result.error || 'Nie udało się wysłać zgłoszenia.');
+    $('reportForm').reset();
+    $('photoPreview').style.display = 'none';
+    clearPickedLocation();
+    clearDraft();
+    await loadPublicReports();
+    notify('Zgłoszenie wysłane. Oczekuje na moderację.');
+  } catch (error) {
+    notify(error.message || 'Błąd połączenia z serwerem.');
+  } finally {
+    button.disabled = false;
+  }
+}
 function findReport(id) { return state.reports.find(item=>item.id===id); }
 function handleReportAction(event) { const control=event.target.closest('[data-action]'); if(!control) return; const {action,id}=control.dataset; const item=findReport(id); if(!item) return;
   if(action==='support'){const storedVotes=safeRead(STORAGE.votes,[]);const votes=Array.isArray(storedVotes)?storedVotes:[];if(votes.includes(id)){notify('Z tej przeglądarki oddano już poparcie dla tej sprawy.');return;}votes.push(id);try{localStorage.setItem(STORAGE.votes,JSON.stringify(votes));}catch(error){notify('Nie można zapisać poparcia w tej przeglądarce.');return;}item.supports=(item.supports||0)+1;addLog('Poparto zgłoszenie',{number:item.number});render();notify('Dziękujemy za poparcie.');}
@@ -257,7 +294,7 @@ function exportJSON(){const payload={formatVersion:2,exportedAt:new Date().toISO
 function csvCell(value){let text=String(value??'');if(/^[\s]*[=+@\-]/.test(text))text="'"+text;return `"${text.replace(/"/g,'""')}"`;}
 function exportCSV(){const headers=['Numer','Data','Kategoria','Opis','Lokalizacja','Status','Priorytet','Odpowiedź','Poparcia'];const rows=state.reports.map(item=>[item.number,formatDate(item.createdAt),item.category,item.description,item.location,statusName(item.status),item.priority,item.comment,item.supports].map(csvCell).join(';'));download('\uFEFF'+[headers.map(csvCell).join(';'),...rows].join('\r\n'),`model-panstwa-zgloszenia-${new Date().toISOString().slice(0,10)}.csv`,'text/csv;charset=utf-8');addLog('Wyeksportowano CSV',{count:state.reports.length});}
 async function importJSON(file){if(!file)return;if(file.size>5*1024*1024){notify('Plik jest za duży (maksymalnie 5 MB).');return;}try{const parsed=JSON.parse(await file.text());const source=Array.isArray(parsed)?parsed:(Array.isArray(parsed.reports)?parsed.reports:parsed.zgloszenia);if(!Array.isArray(source))throw new Error('Nie znaleziono listy zgłoszeń w pliku.');if(source.length>2000)throw new Error('Plik zawiera zbyt dużo zgłoszeń.');const normalized=source.map(normalizeReport).filter(item=>item.description.trim());if(!confirm(`Zaimportować ${normalized.length} zgłoszeń? Obecna lista zostanie zastąpiona.`))return;state.reports=normalized;const importedLog=Array.isArray(parsed.activity)?parsed.activity:(Array.isArray(parsed.log)?parsed.log:[]);state.log=importedLog.slice(-500).map(entry=>({id:String(entry.id||`${entry.time||Date.now()}-${Math.random()}`),time:typeof entry.time==='number'?new Date(entry.time).toISOString():(entry.time||new Date().toISOString()),action:String(entry.action||'Aktywność'),details:entry.details&&typeof entry.details==='object'?entry.details:{}}));addLog('Zaimportowano kopię danych',{count:normalized.length});render();notify('Import zakończony.');}catch(error){notify(`Błąd importu: ${error.message}`);}finally{$('importFile').value='';}}
-function toggleAdmin(){state.admin=!state.admin;$('publicPanel').classList.toggle('hidden',state.admin);$('adminPanel').classList.toggle('hidden',!state.admin);$('adminToggle').textContent=state.admin?'Widok publiczny':'Panel testowy';if(state.admin)renderAdmin();else renderPublic();if(state.pickMap)setTimeout(()=>state.pickMap.invalidateSize(),100);if(state.reportsMap)setTimeout(()=>state.reportsMap.invalidateSize(),100);}
+function toggleAdmin(){window.location.href='admin.html';}
 function setTheme(theme){document.documentElement.dataset.theme=theme==='dark'?'dark':'light';try{localStorage.setItem(STORAGE.theme,theme);}catch(error){console.warn('Nie udało się zapisać motywu:',error);}$('themeToggle').textContent=theme==='dark'?'☀️ Jasny':'🌙 Ciemny';}
 
 
