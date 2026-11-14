@@ -7,7 +7,7 @@
 [data-theme="light"]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--border:#d8e1da;--shadow:0 8px 24px #1c352015}
 .global-theme-toggle{position:fixed;right:1rem;top:1rem;z-index:3000;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text);padding:.55rem .85rem;font:600 .85rem system-ui;box-shadow:0 3px 14px #0003;cursor:pointer}
 </style><script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v=20261115-3">
 </head><body>
 <button type="button" class="global-theme-toggle" id="globalThemeToggle" aria-label="Zmień motyw">☀️ Jasny</button><header><div class="eyebrow">IDEA I ZAŁOŻENIA</div><h1>Nasze myślenie o państwie</h1><p>Dlaczego powstał Model Państwa i jakie zasady powinny łączyć wszystkie proponowane rozwiązania.</p></header><nav class="site-nav" aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html" aria-current="page">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html">Prototyp zgłoszeń</a><a href="centrum-jawnosci.html">Centrum jawności</a></nav><main><section class="card"><div class="kicker">Punkt wyjścia</div><h2>Nie gotowy program polityczny, lecz sposób myślenia o państwie</h2>
 <p>Model Państwa to obywatelska koncepcja uporządkowania najważniejszych obszarów działania państwa. Łączy instytucje, gospodarkę, prawo, bezpieczeństwo, edukację, demografię i finanse w jeden system wzajemnie zależnych elementów.</p>
@@ -38,5 +38,5 @@
 })();
 </script>
 <script>const themeButton=document.getElementById("globalThemeToggle");function setSiteTheme(theme){document.documentElement.dataset.theme=theme;themeButton.textContent=theme==="dark"?"☀️ Jasny":"🌙 Ciemny";try{localStorage.setItem("model_panstwa_v2_theme",theme)}catch(e){}}setSiteTheme(document.documentElement.dataset.theme||"dark");themeButton.addEventListener("click",()=>setSiteTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));</script>
-<script src="assets/site.js" defer></script>
+<script src="assets/site.js?v=20261115-3" defer></script>
 </body></html>
