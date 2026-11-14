@@ -7,11 +7,12 @@
     ["centrum-jawnosci.html", "Jawność decyzji"],
     ["odpowiedzialnosc.html", "Historia spraw"],
     ["inwestycje.html", "Inwestycje publiczne"],
-    ["analiza-inwestycji-czudec.html", "Analiza Czudca"],
+    ["studium-inwestycji.html", "Studium inwestycji"],
     ["model.html", "Nasza koncepcja"],
     ["filary.html", "10 filarów"],
     ["reformy.html", "Reformy"],
     ["zasady.html", "Zasady projektowe"],
+    ["informacje-prawne.html", "Informacje prawne"],
     ["admin.html", "Panel administratora"]
   ];
   const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
