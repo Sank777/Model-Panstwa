@@ -39,9 +39,7 @@
 <div class="row"><span>Moduły</span>
 <label><input type="checkbox" name="adminModule" value="reports"> Zgłoszenia obywatelskie</label>
 <label><input type="checkbox" name="adminModule" value="case_history"> Historia spraw i weryfikacja</label>
-<label><input type="checkbox" name="adminModule" value="investment_registry"> Rejestr inwestycji</label>
-<label><input type="checkbox" name="adminModule" value="site_content"> Treści strony</label>
-<label><input type="checkbox" name="adminModule" value="security_audit"> Bezpieczeństwo i audyt</label></div>
+<p class="muted small">Pozostałe moduły (inwestycje, treści strony i audyt) dołączymy po przygotowaniu ich własnych paneli i testów uprawnień.</p></div>
 <button type="submit">Zapisz uprawnienia</button>
 <button type="button" id="removeModules">Usuń uprawnienia modułowe</button>
 </form>
@@ -183,6 +181,8 @@ async function verify(){
   accessState=access;
   $("login").classList.add("hidden");$("hub").classList.remove("hidden");
   $("accessDesk").classList.toggle("hidden",!access.is_main_admin);
+  const hubTiles=[...$("hub").querySelectorAll(":scope > .grid > .tile")];
+  hubTiles.forEach(tile=>{const label=tile.textContent;let allowed=access.is_main_admin;if(label.includes("Zgłoszenia obywatelskie"))allowed=access.is_main_admin||access.modules.includes("reports");else if(label.includes("Rejestr inwestycji")||label.includes("Dane i dokumenty")||label.includes("Bezpieczeństwo i audyt"))allowed=access.is_main_admin;tile.classList.toggle("hidden",!allowed);});
   $("caseDesk").classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("case_history"));
   const cards=[...$("hub").querySelectorAll(".tile")];
   const reportsCard=cards.find(x=>x.textContent.includes("Zgłoszenia obywatelskie"));
