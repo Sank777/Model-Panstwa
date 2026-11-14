@@ -30,13 +30,20 @@
     }
     nav.appendChild(link);
   });
-  // Brand strip (if present) is always followed by the menu; otherwise the
-  // page masthead/hero is followed by the menu. Never select an inner section.
-  const brandBar = document.querySelector("body > .top, body > .topbar");
-  const masthead = document.querySelector("body > header");
-  const anchor = brandBar || masthead;
-  if (anchor) anchor.insertAdjacentElement("afterend", nav);
-  else document.body.insertBefore(nav, document.body.firstChild);
+  // Every page uses the same top sequence: brand strip -> global menu -> page hero.
+  let brandBar = document.querySelector("body > .top, body > .topbar");
+  if (!brandBar) {
+    brandBar = document.createElement("div");
+    brandBar.className = "mp-brandbar";
+    const brand = document.createElement("a");
+    brand.href = "index.html";
+    brand.className = "mp-brand";
+    brand.textContent = "MODEL PAŃSTWA";
+    brandBar.appendChild(brand);
+    document.body.insertBefore(brandBar, document.body.firstChild);
+  }
+  brandBar.classList.add("mp-brandbar");
+  brandBar.insertAdjacentElement("afterend", nav);
 
   const themeKey = "model_panstwa_v2_theme";
   let theme = "dark";
