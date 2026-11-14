@@ -23,7 +23,7 @@ main{width:min(1180px,100% - 2rem);margin:1.2rem auto 3rem}.grid{display:grid;gr
 <div class="grid"><div class="metric"><strong id="projectCount">—</strong><span>opublikowane inwestycje</span></div><div class="metric"><strong id="budgetCount">—</strong><span>zweryfikowane wersje budżetów</span></div><div class="metric"><strong id="reviewCount">—</strong><span>opublikowane wyniki kontroli</span></div></div></section>
 <div class="notice"><strong>Jak powstaje wpis?</strong>Podstawą są dokumenty publiczne: uchwały, budżety, BIP, ogłoszenia i wyniki zamówień, umowy, aneksy, sprawozdania, protokoły odbioru oraz wyniki kontroli. System nie uznaje wpisu za fakt tylko dlatego, że ktoś go przesłał. W tej wersji nie ma obywatelskiego dodawania danych.</div>
 <section><div class="kicker">Rejestr</div><h2>Opublikowane inwestycje</h2><p class="muted">Wyszukuj po nazwie, instytucji lub lokalizacji. Otwórz kartę, aby zobaczyć zweryfikowane wersje budżetu i wyniki kontroli.</p>
-<div class="toolbar"><input id="search" type="search" placeholder="Szukaj inwestycji…"><select id="stageFilter" aria-label="Filtruj według etapu"><option value="">Wszystkie etapy</option><option value="planowanie">Planowanie</option><option value="przygotowanie">Przygotowanie</option><option value="realizacja">Realizacja</option><option value="zakończona">Zakończona</option></select></div>
+<div class="toolbar"><input id="search" type="search" placeholder="Szukaj inwestycji…"><select id="stageFilter" aria-label="Filtruj według etapu"><option value="">Wszystkie etapy</option><option value="planning">Planowanie</option><option value="preparation">Przygotowanie</option><option value="procurement">Zamówienie</option><option value="in_progress">Realizacja</option><option value="completed">Zakończona</option><option value="suspended">Wstrzymana</option><option value="cancelled">Anulowana</option></select></div>
 <div id="status" class="small muted" role="status" aria-live="polite">Łączenie z publicznym rejestrem…</div><div id="projects"><div class="empty">Pobieranie publicznych rekordów…</div></div></section>
 <section class="panel"><h2>Źródła do samodzielnej kontroli</h2><div class="grid">
 <div class="tile"><h3>Ministerstwo Finansów</h3><p class="small muted">Budżety, wykonanie i finanse JST.</p><a href="https://www.gov.pl/web/finanse/szeregi-czasowe--finanse-publiczne" target="_blank" rel="noopener">Dane MF ↗</a></div>
@@ -45,35 +45,42 @@ const db=createClient(SUPABASE_URL,SUPABASE_PUBLIC_KEY);
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
 const pln=v=>new Intl.NumberFormat("pl-PL",{style:"currency",currency:"PLN",maximumFractionDigits:2}).format(Number(v)||0);
-let projects=[],budgets=[],reviews=[];
-function stageLabel(s){return ({planowanie:"Planowanie",przygotowanie:"Przygotowanie",realizacja:"Realizacja",zakończona:"Zakończona"})[s]||s||"Etap nieustalony";}
+let projects=[],budgets=[],events=[],controls=[];
+function stageLabel(s){return ({planning:"Planowanie",preparation:"Przygotowanie",procurement:"Postępowanie zakupowe",in_progress:"Realizacja",completed:"Zakończona",suspended:"Wstrzymana",cancelled:"Anulowana",unknown:"Etap nieustalony"})[s]||"Etap nieustalony";}
 function render(){
  const q=$("search").value.trim().toLocaleLowerCase("pl"),stage=$("stageFilter").value;
  const visible=projects.filter(p=>(!stage||p.project_stage===stage)&&[p.title,p.public_body,p.location,p.description].join(" ").toLocaleLowerCase("pl").includes(q));
- if(!visible.length){$("projects").innerHTML="<div class='empty'><strong>Brak opublikowanych inwestycji spełniających kryteria.</strong><p class='muted small'>Nie wypełniamy pustych miejsc danymi przykładowymi. Gdy pojawią się zweryfikowane rekordy z dokumentami źródłowymi, zostaną pokazane tutaj.</p></div>";}
- else {
+ if(!visible.length){
+  $("projects").innerHTML="<div class='empty'><strong>Brak opublikowanych inwestycji spełniających kryteria.</strong><p class='muted small'>Nie wypełniamy pustych miejsc danymi przykładowymi. Gdy instytucje opublikują dokumenty, zweryfikowane rekordy pojawią się tutaj.</p></div>";
+ }else{
   $("projects").innerHTML=visible.map(p=>{
-   const bs=budgets.filter(b=>b.project_id===p.id),rs=reviews.filter(r=>r.project_id===p.id);
-   const budgetHtml=bs.length?bs.map(b=>"<div class='version'><div class='meta'><span class='tag'>Wersja "+esc(b.version_no)+"</span><span class='tag'>"+esc(b.budget_kind)+"</span><span class='tag'>Zweryfikowano</span></div><p><strong>"+pln(b.amount)+"</strong> · "+esc(b.currency)+"</p><p class='small muted'>"+esc(b.scope_note)+"</p><p class='small muted'>Źródło: "+esc(b.source_title)+" · data: "+esc(b.source_date||"brak daty")+"</p>"+(b.source_url?"<a href='"+esc(b.source_url)+"' target='_blank' rel='noopener'>Otwórz dokument źródłowy ↗</a>":"<span class='small muted'>Brak publicznego odnośnika do źródła.</span>")+"</div>").join(""):"<p class='muted small'>Brak opublikowanych, zweryfikowanych wersji budżetu.</p>";
-   const reviewHtml=rs.length?rs.map(r=>"<div class='version'><span class='tag'>"+esc(r.review_type)+"</span><span class='tag'>"+esc(r.result)+"</span><p>"+esc(r.finding)+"</p>"+(r.evidence_url?"<a href='"+esc(r.evidence_url)+"' target='_blank' rel='noopener'>Dokument kontroli ↗</a>":"")+"</div>").join(""):"<p class='muted small'>Brak opublikowanego wyniku kontroli w rejestrze.</p>";
-   return "<article class='project'><div class='meta'><span class='tag'>"+esc(stageLabel(p.project_stage))+"</span><span class='tag'>Publikacja zweryfikowana</span></div><h3>"+esc(p.title)+"</h3><p class='muted small'>"+esc(p.public_body)+" · "+esc(p.location||"Lokalizacja niepodana")+"</p><p>"+esc(p.description)+"</p><details><summary>Wersje budżetu i źródła ("+bs.length+")</summary>"+budgetHtml+"</details><details><summary>Wyniki kontroli ("+rs.length+")</summary>"+reviewHtml+"</details><p class='small muted'>Aktualizacja rekordu: "+esc(new Date(p.updated_at).toLocaleDateString("pl-PL"))+"</p></article>";
+   const bs=budgets.filter(b=>b.project_id===p.id),es=events.filter(e=>e.project_id===p.id),cs=controls.filter(x=>x.project_id===p.id);
+   const budgetHtml=bs.length?bs.map(b=>"<div class='version'><div class='meta'><span class='tag'>Wersja "+esc(b.version_no)+"</span><span class='tag'>"+esc(budgetLabel(b.budget_kind))+"</span><span class='tag'>Zweryfikowano</span></div><p><strong>"+pln(b.amount)+"</strong> · "+esc(b.currency)+"</p><p class='small muted'>"+esc(b.scope_note)+"</p><p class='small muted'>Źródło: "+esc(b.source_title)+" · data: "+esc(b.source_date||"brak daty")+"</p><a href='"+esc(b.source_url)+"' target='_blank' rel='noopener'>Otwórz dokument źródłowy ↗</a></div>").join(""):"<p class='muted small'>Brak opublikowanych, zweryfikowanych wersji budżetu.</p>";
+   const eventHtml=es.length?es.map(e=>"<div class='version'><span class='tag'>"+esc(eventLabel(e.event_type))+"</span><p><strong>"+esc(e.title)+"</strong> · "+esc(e.event_date)+"</p><p>"+esc(e.description)+"</p><p class='small muted'>"+esc(e.institution||"Instytucja niepodana")+(e.official_person_name?" · "+esc(e.official_person_name):"")+(e.official_role?" · "+esc(e.official_role):"")+"</p><a href='"+esc(e.source_url)+"' target='_blank' rel='noopener'>"+esc(e.source_document_title)+" ↗</a></div>").join(""):"<p class='muted small'>Brak opublikowanych zdarzeń w osi czasu.</p>";
+   const controlHtml=cs.length?cs.map(x=>"<div class='version'><span class='tag'>"+esc(x.control_type)+"</span><span class='tag'>"+esc(outcomeLabel(x.outcome))+"</span><p><strong>"+esc(x.control_body)+"</strong> · "+esc(x.control_date)+"</p><p>"+esc(x.finding)+"</p><p class='small muted'>Konsekwencje: "+esc(consequenceLabel(x.consequence_status))+(x.consequence_description?" · "+esc(x.consequence_description):"")+"</p><a href='"+esc(x.source_url)+"' target='_blank' rel='noopener'>"+esc(x.source_document_title)+" ↗</a></div>").join(""):"<p class='muted small'>Brak opublikowanych wyników kontroli w rejestrze. To nie jest dowód, że kontroli nie było.</p>";
+   return "<article class='project'><div class='meta'><span class='tag'>"+esc(stageLabel(p.project_stage))+"</span><span class='tag'>Źródło: "+esc(p.official_source)+"</span></div><h3>"+esc(p.title)+"</h3><p class='muted small'>"+esc(p.public_body)+" · "+esc(p.location||"Lokalizacja niepodana")+"</p><p>"+esc(p.description)+"</p><p class='small muted'>Dokument podstawowy: "+esc(p.source_document_title)+" · "+esc(p.source_document_date||"data niepodana")+" · dane aktualne na: "+esc(new Date(p.data_as_of).toLocaleDateString("pl-PL"))+"</p><a href='"+esc(p.source_url)+"' target='_blank' rel='noopener'>Otwórz dokument instytucji ↗</a><details><summary>Budżet i kolejne wersje ("+bs.length+")</summary>"+budgetHtml+"</details><details><summary>Historia decyzji i zdarzeń ("+es.length+")</summary>"+eventHtml+"</details><details><summary>Kontrole i konsekwencje ("+cs.length+")</summary>"+controlHtml+"</details></article>";
   }).join("");
  }
  $("status").textContent="Wyświetlono "+visible.length+" z "+projects.length+" opublikowanych inwestycji.";
 }
+function budgetLabel(s){return ({estimate:"Szacunek",approved:"Budżet zatwierdzony",contract:"Umowa",amendment:"Aneks",actual:"Koszt rzeczywisty",paid:"Płatności"})[s]||s;}
+function eventLabel(s){return ({decision:"Decyzja",funding:"Finansowanie",procurement:"Zamówienie",contract:"Umowa",amendment:"Aneks",payment:"Płatność",milestone:"Etap",acceptance:"Odbiór",audit:"Kontrola",appeal:"Odwołanie",correction:"Korekta",other:"Zdarzenie"})[s]||s;}
+function outcomeLabel(s){return ({no_irregularity:"Nie stwierdzono nieprawidłowości",irregularity_found:"Stwierdzono nieprawidłowości",partly_confirmed:"Potwierdzono częściowo",insufficient_data:"Brak wystarczających danych",proceeding_pending:"Postępowanie w toku",other:"Inny wynik"})[s]||s;}
+function consequenceLabel(s){return ({applied:"Zastosowano",partly_applied:"Zastosowano częściowo",not_applied:"Nie zastosowano",not_established:"Nie ustalono",not_applicable:"Nie dotyczy",pending:"W toku"})[s]||s;}
 async function load(){
  try{
-  const p=await db.from("investment_projects").select("id,title,public_body,location,description,project_stage,publication_status,updated_at").eq("publication_status","published").order("updated_at",{ascending:false});
+  const p=await db.from("public_registry_projects").select("id,official_source,title,public_body,location,description,project_stage,source_document_title,source_url,source_document_date,data_as_of,updated_at").eq("publication_status","published").order("updated_at",{ascending:false});
   if(p.error)throw p.error;projects=p.data||[];
   const ids=projects.map(x=>x.id);
   if(ids.length){
-   const [b,r]=await Promise.all([
-    db.from("investment_budget_versions").select("id,project_id,version_no,budget_kind,amount,currency,scope_note,source_title,source_url,source_date,verification_status,verified_at").in("project_id",ids).eq("verification_status","verified").order("version_no",{ascending:true}),
-    db.from("investment_reviews").select("project_id,review_type,finding,evidence_url,result,created_at").in("project_id",ids).neq("result","open").order("created_at",{ascending:false})
+   const [b,e,k]=await Promise.all([
+    db.from("public_registry_budget_versions").select("id,project_id,version_no,budget_kind,amount,currency,scope_note,source_title,source_url,source_date").in("project_id",ids).eq("publication_status","published").eq("verification_status","verified").order("version_no",{ascending:true}),
+    db.from("public_registry_events").select("id,project_id,event_date,event_type,title,description,institution,official_person_name,official_role,source_document_title,source_url").in("project_id",ids).eq("publication_status","published").order("event_date",{ascending:true}),
+    db.from("public_registry_controls").select("id,project_id,control_date,control_body,control_type,finding,outcome,consequence_status,consequence_description,source_document_title,source_url").in("project_id",ids).eq("publication_status","published").order("control_date",{ascending:true})
    ]);
-   if(b.error)throw b.error;if(r.error)throw r.error;budgets=b.data||[];reviews=r.data||[];
+   if(b.error)throw b.error;if(e.error)throw e.error;if(k.error)throw k.error;budgets=b.data||[];events=e.data||[];controls=k.data||[];
   }
-  $("projectCount").textContent=String(projects.length);$("budgetCount").textContent=String(budgets.length);$("reviewCount").textContent=String(reviews.length);render();
+  $("projectCount").textContent=String(projects.length);$("budgetCount").textContent=String(budgets.length);$("reviewCount").textContent=String(controls.length);render();
  }catch(err){
   console.error("Publiczny odczyt rejestru nie powiódł się:",err);
   $("status").textContent="Nie udało się pobrać rejestru. Możesz nadal korzystać z oficjalnych źródeł poniżej.";
