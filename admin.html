@@ -83,8 +83,79 @@ const URL="https://ldjrinmohlomzlyeagwd.supabase.co";
 const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
 const db=createClient(URL,KEY);
 const $=id=>document.getElementById(id);
-$("theme").addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
+const CASE_API=URL+"/functions/v1/admin-case-records";
+let selectedCase="";
 function status(s){$("status").textContent=s;}
+async function caseRequest(path="",options={}){
+ const {data:{session}}=await db.auth.getSession();
+ if(!session)throw new Error("Sesja wygasła");
+ const response=await fetch(CASE_API+path,{...options,headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json",...(options.headers||{})}});
+ const data=await response.json();
+ if(!response.ok)throw new Error(data.error||"Błąd operacji");
+ return data;
+}
+function addText(parent,tag,value){const el=document.createElement(tag);el.textContent=value??"";parent.appendChild(el);return el;}
+async function loadCases(){
+ try{
+  const data=await caseRequest();
+  const select=$("caseSelect");select.replaceChildren(new Option("Wybierz sprawę",""));
+  for(const item of data.cases||[]){const label="#"+(item.number??item.id)+" · "+(item.category||"Sprawa")+" · "+(item.location||"bez lokalizacji");select.add(new Option(label,item.id));}
+  if(!data.cases?.length)status("Brak zgłoszeń w rejestrze.");
+ }catch(e){status("Nie udało się pobrać listy spraw: "+e.message);}
+}
+async function showCase(id){
+ selectedCase=id;
+ if(!id){$("caseDetail").textContent="Wybierz sprawę.";return;}
+ try{
+  const d=await caseRequest("?case_id="+encodeURIComponent(id));
+  const box=$("caseDetail");box.replaceChildren();
+  addText(box,"h3","Sprawa #"+(d.case.number??d.case.id));
+  addText(box,"p","Kategoria: "+(d.case.category||"—")+" · Lokalizacja: "+(d.case.location||"—"));
+  addText(box,"p","Status: "+(d.case.status||"—")+" · Moderacja: "+(d.case.moderation_status||"—"));
+  addText(box,"p","Opis: "+(d.case.description||"—"));
+  addText(box,"h3","Osoby i podmioty");
+  for(const p of d.participants){
+   const item=document.createElement("div");item.className="tile";
+   addText(item,"strong",(p.display_name||"Nie podano nazwy")+" · "+p.participant_role);
+   addText(item,"p","Instytucja: "+(p.organization||"—")+" | status: "+p.verification_status);
+   addText(item,"p","Rola / metoda: "+(p.role_description||p.verification_method||"—"));
+   if(p.contact_reference)addText(item,"p","Kontakt (prywatny): "+p.contact_reference);
+   if(p.notes)addText(item,"p","Notatka: "+p.notes);
+   if(["unverified","disputed"].includes(p.verification_status)){
+    const select=document.createElement("select");
+    for(const [v,l] of [["identity_checked","Tożsamość sprawdzona"],["authority_checked","Uprawnienia sprawdzone"],["source_confirmed","Źródło potwierdzone"],["disputed","Sporny"],["unverified","Niezweryfikowany"]])select.add(new Option(l,v));
+    const method=document.createElement("input");method.placeholder="Metoda weryfikacji";
+    const btn=document.createElement("button");btn.type="button";btn.textContent="Zapisz weryfikację";
+    btn.onclick=async()=>{try{await caseRequest("",{method:"PATCH",body:JSON.stringify({case_id:id,id:p.id,verification_status:select.value,verification_method:method.value})});await showCase(id);}catch(e){status(e.message);}};
+    item.append(select,method,btn);
+   }
+   box.appendChild(item);
+  }
+  addText(box,"h3","Chronologia");
+  for(const h of d.history){
+   const item=document.createElement("div");item.className="tile";
+   addText(item,"strong",new Date(h.occurred_at).toLocaleString("pl-PL")+" · "+h.title);
+   addText(item,"p",h.details);addText(item,"small","Klasyfikacja: "+h.evidence_class+" · status: "+h.publication_status);
+   if(h.source_url){const a=document.createElement("a");a.href=h.source_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=h.source_title||"Źródło";item.appendChild(a);}
+   box.appendChild(item);
+  }
+  addText(box,"h3","Dokumenty i materiały");
+  for(const e of d.evidence){
+   const item=document.createElement("div");item.className="tile";addText(item,"strong",e.title);
+   addText(item,"p",e.evidence_type+" · "+e.evidence_class+" · "+e.verification_status);
+   if(e.source_url){const a=document.createElement("a");a.href=e.source_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Otwórz źródło";item.appendChild(a);}
+   box.appendChild(item);
+  }
+ }catch(e){$("caseDetail").textContent="Błąd odczytu sprawy: "+e.message;}
+}
+function submitRecord(form,kind,payload){
+ form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!selectedCase){status("Najpierw wybierz sprawę.");return;}
+  try{await caseRequest("",{method:"POST",body:JSON.stringify({case_id:selectedCase,kind,...payload()})});form.reset();status("Zapisano wpis w prywatnym rejestrze.");await showCase(selectedCase);}
+  catch(err){status("Nie zapisano: "+err.message);}
+ });
+}
 async function verify(){
  const {data:{session}}=await db.auth.getSession();
  if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
@@ -93,25 +164,13 @@ async function verify(){
  $("login").classList.add("hidden");$("hub").classList.remove("hidden");status("Dostęp administratora potwierdzony przez serwer.");
  await loadCases();
 }
-$("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}
-const CASE_API=URL+"/functions/v1/admin-case-records";
-let selectedCase="";
-async function caseRequest(path="",options={}){const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");const response=await fetch(CASE_API+path,{...options,headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json",...(options.headers||{})}});const data=await response.json();if(!response.ok)throw new Error(data.error||"Błąd operacji");return data;}
-function addText(parent,tag,value){const el=document.createElement(tag);el.textContent=value??"";parent.appendChild(el);return el;}
-async function loadCases(){try{const data=await caseRequest();const select=$("caseSelect");select.replaceChildren(new Option("Wybierz sprawę",""));for(const item of data.cases||[]){const label="#"+(item.number??item.id)+" · "+(item.category||"Sprawa")+" · "+(item.location||"bez lokalizacji");select.add(new Option(label,item.id));}if(!data.cases?.length)status("Brak zgłoszeń w rejestrze.");}catch(e){status("Nie udało się pobrać listy spraw: "+e.message);}}
-async function showCase(id){selectedCase=id;if(!id){$("caseDetail").textContent="Wybierz sprawę.";return;}try{const d=await caseRequest("?case_id="+encodeURIComponent(id));const box=$("caseDetail");box.replaceChildren();addText(box,"h3","Sprawa #"+(d.case.number??d.case.id));addText(box,"p","Kategoria: "+(d.case.category||"—")+" · Lokalizacja: "+(d.case.location||"—"));addText(box,"p","Status: "+(d.case.status||"—")+" · Moderacja: "+(d.case.moderation_status||"—"));addText(box,"p","Opis: "+(d.case.description||"—"));addText(box,"h3","Osoby i podmioty");for(const p of d.participants){const item=document.createElement("div");item.className="tile";addText(item,"strong",(p.display_name||"Nie podano nazwy")+" · "+p.participant_role);addText(item,"p","Instytucja: "+(p.organization||"—")+" | status: "+p.verification_status);addText(item,"p","Rola / metoda: "+(p.role_description||p.verification_method||"—"));if(p.contact_reference)addText(item,"p","Kontakt (prywatny): "+p.contact_reference);if(p.notes)addText(item,"p","Notatka: "+p.notes);if(["unverified","disputed"].includes(p.verification_status)){const select=document.createElement("select");for(const [v,l] of [["identity_checked","Tożsamość sprawdzona"],["authority_checked","Uprawnienia sprawdzone"],["source_confirmed","Źródło potwierdzone"],["disputed","Sporny"],["unverified","Niezweryfikowany"]])select.add(new Option(l,v));const method=document.createElement("input");method.placeholder="Metoda weryfikacji";const btn=document.createElement("button");btn.textContent="Zapisz weryfikację";btn.onclick=async()=>{try{await caseRequest("",{method:"PATCH",body:JSON.stringify({case_id:id,id:p.id,verification_status:select.value,verification_method:method.value})});await showCase(id);}catch(e){status(e.message);}};item.append(select,method,btn);}box.appendChild(item);}
-addText(box,"h3","Chronologia");for(const h of d.history){const item=document.createElement("div");item.className="tile";addText(item,"strong",new Date(h.occurred_at).toLocaleString("pl-PL")+" · "+h.title);addText(item,"p",h.details);addText(item,"small","Klasyfikacja: "+h.evidence_class+" · status: "+h.publication_status);if(h.source_url){const a=document.createElement("a");a.href=h.source_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=h.source_title||"Źródło";item.appendChild(a);}box.appendChild(item);}
-addText(box,"h3","Dokumenty i materiały");for(const e of d.evidence){const item=document.createElement("div");item.className="tile";addText(item,"strong",e.title);addText(item,"p",e.evidence_type+" · "+e.evidence_class+" · "+e.verification_status);if(e.source_url){const a=document.createElement("a");a.href=e.source_url;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Otwórz źródło";item.appendChild(a);}box.appendChild(item);}
-}catch(e){$("caseDetail").textContent="Błąd odczytu sprawy: "+e.message;}}
+$("theme").addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}await verify();});
+$("logout").addEventListener("click",async()=>{await db.auth.signOut();selectedCase="";await verify();});
 $("caseSelect").addEventListener("change",e=>showCase(e.target.value));
-async function submitRecord(form,kind,payload){form.addEventListener("submit",async e=>{e.preventDefault();if(!selectedCase){status("Najpierw wybierz sprawę.");return;}try{await caseRequest("",{method:"POST",body:JSON.stringify({case_id:selectedCase,kind,...payload()})});form.reset();status("Zapisano wpis w prywatnym rejestrze.");await showCase(selectedCase);}catch(err){status("Nie zapisano: "+err.message);}});}
 submitRecord($("participantForm"),"participant",()=>({participant_role:$("participantRole").value,display_name:$("participantName").value,organization:$("participantOrg").value,role_description:$("participantDescription").value,contact_reference:$("participantContact").value,verification_status:$("participantStatus").value,verification_method:$("participantMethod").value,privacy_basis:$("participantBasis").value,notes:$("participantNotes").value}));
 submitRecord($("historyForm"),"history",()=>({entry_type:$("historyType").value,evidence_class:$("historyClass").value,title:$("historyTitle").value,details:$("historyDetails").value,source_title:$("historySource").value,source_url:$("historyUrl").value,verification_note:$("historyVerify").value,public_summary:$("historyPublic").value}));
 submitRecord($("evidenceForm"),"evidence",()=>({evidence_type:$("evidenceType").value,evidence_class:$("evidenceClass").value,title:$("evidenceTitle").value,source_url:$("evidenceUrl").value,issuer:$("evidenceIssuer").value,redaction_note:$("evidenceRedaction").value}));
-
-await verify();
-if(!$('hub').classList.contains('hidden')) await loadCases();});
-$("logout").addEventListener("click",async()=>{await db.auth.signOut();await verify();});
 await verify();
 </script>
 </body></html>
