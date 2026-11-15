@@ -31,8 +31,8 @@ security definer
 set search_path = ''
 as $$
 begin
-  if p_limit < 1 or p_limit > 20 then
-    raise exception 'p_limit must be between 1 and 20';
+  if p_limit is null or p_limit < 1 or p_limit > 20 then
+    raise exception 'p_limit must be an integer between 1 and 20';
   end if;
 
   update public.storage_cleanup_queue q
