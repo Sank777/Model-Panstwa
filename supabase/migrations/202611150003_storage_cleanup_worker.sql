@@ -35,6 +35,13 @@ begin
     raise exception 'p_limit must be between 1 and 20';
   end if;
 
+  update public.storage_cleanup_queue q
+  set status = 'dead', locked_at = null,
+      last_error = coalesce(q.last_error, 'Retry limit reached after expired worker lease')
+  where q.status = 'processing'
+    and q.locked_at < now() - interval '10 minutes'
+    and q.attempts >= 8;
+
   return query
   with candidates as (
     select q.id
