@@ -125,7 +125,7 @@
     if (tile.dataset.visualState === "loaded" || tile.dataset.visualState === "loading") return Promise.resolve();
     tile.dataset.visualState = "loading";
     tile.style.setProperty("--tile-accent",recipe.accent || "#39a9ef");
-    return load(recipe.asset).then(() => {
+    return load(recipe.asset).then(async source => {
       let layer = directChild(tile,"visual-engine-tile-image");
       if (!layer) {
         layer = document.createElement("div");
