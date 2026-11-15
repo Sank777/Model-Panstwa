@@ -4,7 +4,7 @@
   /* Leon Visual Engine 5.4
      Deterministic recipe renderer: all visual decisions are fixed in this manifest.
      No random values, external image API, runtime image generation or user data. */
-  const VERSION = "5.5.0";
+  const VERSION = "5.6.0";
   const ROOT = new URL("./menu/", document.currentScript.src);
   const hero = document.querySelector(".hero-banner");
   const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
@@ -12,7 +12,7 @@
   /* Recipe = immutable source + focal point + accent + fixed treatment.
      Values are deliberately explicit so the same input always produces the same scene. */
   const ROM = window.LeonVisualROM;
-  if (!ROM || ROM.version !== "1.0.0") {
+  if (!ROM || ROM.version !== "1.1.0") {
     throw new Error("visual-rom-missing-or-incompatible");
   }
   const RECIPES = ROM.tiles;
