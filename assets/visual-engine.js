@@ -57,9 +57,16 @@
     stage.className="visual-engine-tile-image";
     stage.setAttribute("aria-hidden","true");
     const img=document.createElement("img");
+    img.className="visual-sprite-crop";
     img.alt=""; img.draggable=false; img.decoding="async"; img.loading="lazy";
     img.referrerPolicy="no-referrer";
-    img.style.cssText="position:absolute;display:block;width:500%;height:200%;max-width:none;left:"+(-recipe.column*100)+"%;top:"+(-recipe.row*100)+"%;object-fit:fill;margin:0;padding:0;border:0;";
+    img.style.cssText="position:absolute;display:block;max-width:none;object-fit:fill;margin:0;padding:0;border:0;";
+    img.style.setProperty("inset","auto","important");
+    img.style.setProperty("width","500%","important");
+    img.style.setProperty("height","200%","important");
+    img.style.setProperty("left",(-recipe.column*100)+"%","important");
+    img.style.setProperty("top",(-recipe.row*100)+"%","important");
+    img.style.setProperty("object-fit","fill","important");
     img.addEventListener("load",()=>{
       tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");
       state.tiles.loaded++;state.tiles.pending=Math.max(0,state.tiles.pending-1);
