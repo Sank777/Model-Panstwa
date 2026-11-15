@@ -1,4 +1,4 @@
-/* Leon Visual Engine 5.4 — one deterministic style layer; loaded after site.css */
+/* Leon Visual Engine 5.6 — one deterministic style layer; loaded after site.css */
 .hero-banner{
   position:relative!important;isolation:isolate!important;overflow:hidden!important;
   background:#071a2d!important;background-image:none!important;
@@ -18,7 +18,9 @@
 }
 .hero-banner:after{display:none!important}
 .hero-banner>.hero-copy{position:relative!important;z-index:2!important}
-.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
+.hero-banner>.hero-map{display:block!important;z-index:2!important;left:7%!important;top:12%!important;width:13%!important;height:72%!important;color:transparent!important;opacity:1!important}
+.hero-banner>.hero-map:before{width:100%!important;height:100%!important;margin:0!important;border:0!important;border-radius:0!important;transform:none!important;clip-path:polygon(17% 5%,31% 0,42% 9%,57% 5%,70% 15%,87% 18%,91% 34%,82% 47%,88% 61%,75% 72%,70% 91%,53% 96%,39% 85%,25% 91%,14% 75%,5% 58%,12% 43%,4% 27%)!important;background:radial-gradient(circle at 20% 30%,#fff 0 2px,transparent 3px),radial-gradient(circle at 48% 18%,#fff 0 2px,transparent 3px),radial-gradient(circle at 68% 44%,#fff 0 2px,transparent 3px),radial-gradient(circle at 32% 70%,#fff 0 2px,transparent 3px),linear-gradient(135deg,rgba(69,174,255,.22),rgba(20,85,150,.08))!important;outline:1px solid #bceaff;filter:drop-shadow(0 0 9px #59baff)!important}
+.hero-banner>.hero-flag{display:block!important;z-index:2!important;right:7%!important;top:12%!important;width:12%!important;height:95px!important}
 .hero-banner.visual-image-error{background-image:linear-gradient(120deg,#0b2745,#142e49)!important}
 
 .pillar-tile{
