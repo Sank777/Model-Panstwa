@@ -208,7 +208,7 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
 <script>
 'use strict';
 
-// Model danych: w tej wersji jedynym źródłem prawdy jest localStorage.
+// Publiczne zgłoszenia są pobierane z Supabase; localStorage przechowuje wyłącznie ustawienia i szkice.
 const SUPABASE_URL = 'https://ldjrinmohlomzlyeagwd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR';
 const STORAGE = Object.freeze({ reports: 'model_panstwa_v2_reports', log: 'model_panstwa_v2_log', theme: 'model_panstwa_v2_theme', votes: 'model_panstwa_v2_votes', draft: 'model_panstwa_v2_draft' });
@@ -238,14 +238,16 @@ async function initData() {
 }
 async function loadPublicReports() {
   try {
-    const url = `${SUPABASE_URL}/rest/v1/zgloszenia?select=id,number,time,created_at,category,description,location,lat,lng,status,priority,comment,photo,supports,moderation_status&moderation_status=eq.zatwierdzone&order=created_at.desc&limit=500`;
+    // Pobieramy wyłącznie kolumny jawnie udostępnione roli anon przez RLS/GRANT.
+    // ID wewnętrzne, współrzędne i priorytet pozostają niedostępne publicznie.
+    const url = `${SUPABASE_URL}/rest/v1/zgloszenia?select=number,created_at,category,description,location,status,comment,photo,supports,moderation_status&moderation_status=eq.zatwierdzone&order=created_at.desc&limit=500`;
     const response = await fetch(url, { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } });
-    if (!response.ok) throw new Error('Nie udało się pobrać zgłoszeń publicznych.');
+    if (!response.ok) throw new Error(`Nie udało się pobrać zgłoszeń publicznych (HTTP ${response.status}).`);
     const rows = await response.json();
-    state.reports = rows.map(row => normalizeReport({
-      id: row.id, number: row.number, time: row.time, createdAt: row.created_at,
+    state.reports = rows.map((row, index) => normalizeReport({
+      id: `public-${row.number ?? index}`, number: row.number, createdAt: row.created_at,
       category: row.category, description: row.description, location: row.location,
-      lat: row.lat, lng: row.lng, status: row.status, priority: row.priority,
+      lat: null, lng: null, status: row.status, priority: 'normalny',
       comment: row.comment, photo: row.photo, supports: row.supports
     })).filter(item => item.description.trim());
     render();
