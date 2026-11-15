@@ -10,6 +10,8 @@ on:
       - "supabase/functions/submit-report/**"
       - "supabase/functions/admin-manage-reports/**"
       - "supabase/functions/storage-cleanup-worker/**"
+      - "supabase/functions/generate-visual/**"
+      - "admin.html"
       - "supabase/migrations/**"
       - ".github/workflows/security-tests.yml"
 
@@ -27,4 +29,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Test security helpers
-        run: deno test --no-check supabase/functions/submit-report/auth.test.ts supabase/functions/submit-report/image_sanitize.test.ts supabase/functions/admin-manage-reports/storage-path.test.ts supabase/functions/storage-cleanup-worker/worker.test.ts
+        run: deno test --no-check supabase/functions/submit-report/auth.test.ts supabase/functions/submit-report/image_sanitize.test.ts supabase/functions/admin-manage-reports/storage-path.test.ts supabase/functions/storage-cleanup-worker/worker.test.ts supabase/functions/generate-visual/visual-engine.test.ts
