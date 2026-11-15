@@ -4,7 +4,7 @@
   /* Leon Visual Engine 5.1
      Deterministic recipe renderer: all visual decisions are fixed in this manifest.
      No random values, external image API, runtime image generation or user data. */
-  const VERSION = "5.2.0";
+  const VERSION = "5.3.0";
   const ROOT = new URL("./menu/", document.currentScript.src);
   const hero = document.querySelector(".hero-banner");
   const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
@@ -105,7 +105,7 @@
       return;
     }
     tile.dataset.visualLoaded = "1";
-    tile.dataset.visualRecipe = "5.2";
+    tile.dataset.visualRecipe = "5.3";
     tile.style.setProperty("--tile-accent", recipe.accent);
     tile.style.setProperty("--tile-focal", recipe.focal);
     tile.style.setProperty("--tile-shade-opacity", recipe.shade === "strong" ? "0.58" : "0.38");
@@ -143,6 +143,16 @@
     },
     getRecipes() {
       return Object.keys(RECIPES);
+    },
+    renderRecipe(host, recipe, options) {
+      const core = window.LeonVisualRecipeCore;
+      if (!core) throw new Error("recipe-core-missing");
+      const opts = options || {};
+      return core.renderRecipe(host, recipe, { ...opts, baseURL: opts.baseURL || new URL("./", document.currentScript ? document.currentScript.src : location.href) });
+    },
+    recipeFingerprint(recipe) {
+      if (!window.LeonVisualRecipeCore) throw new Error("recipe-core-missing");
+      return window.LeonVisualRecipeCore.fingerprint(window.LeonVisualRecipeCore.validateRecipe(recipe));
     }
   });
 })();
