@@ -104,7 +104,7 @@ Deno.serve(async (req: Request) => {
         return json({ error: "Could not load private visual library" }, 503);
       }
       for (const item of data ?? []) {
-        if (!item.name || !/^\d{4}-\d{2}-\d{2}T[\dT-]+-[0-9a-f-]{36}\.webp$/i.test(item.name)) continue;
+        if (!item.name || !/^\d{4}-\d{2}-\d{2}T[\dTZ-]+-[0-9a-f-]{36}\.webp$/i.test(item.name)) continue;
         all.push({
           id: prefix + "/" + item.name, pillar_id: String(id),
           created_at: item.created_at ?? null,
