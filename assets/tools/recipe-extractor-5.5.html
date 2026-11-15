@@ -49,7 +49,7 @@ function analyze(data,w,h){
  for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step){
   const i=(y*w+x)*4,p=[data[i],data[i+1],data[i+2]],l=lum(p);
   sums=sums.map((v,k)=>v+p[k]);count++;if(l>.72)bright++;if(l<.18)dark++;
-  const q=p.map(v=>Math.round(v/32)*32),key=q.join(",");
+  const q=p.map(v=>Math.min(255,Math.round(v/32)*32)),key=q.join(",");
   bins.set(key,(bins.get(key)||0)+1);
  }
  for(let gy=0;gy<rows;gy++)for(let gx=0;gx<cols;gx++){
