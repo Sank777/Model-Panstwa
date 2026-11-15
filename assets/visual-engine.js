@@ -1,7 +1,8 @@
 /* Leon Visual Engine 6.4 — one image and one text layer per tile. */
 (() => {
   "use strict";
-  const VERSION="6.4.0",script=document.currentScript;
+  if(window.ModelPanstwaVisualEngine&&window.ModelPanstwaVisualEngine.version)return;
+  const VERSION="6.5.0",script=document.currentScript;
   const ROOT=new URL("./menu/",script&&script.src?script.src:location.href);
   const ROM=window.LeonVisualROM,hero=document.querySelector(".hero-banner");
   const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
@@ -24,8 +25,8 @@
     tile.querySelectorAll(".visual-engine-tile-image,.tile-icon,.tile-copy").forEach(n=>n.remove());
     try{
       addImage(tile,recipe.asset,"visual-engine-tile-image",false,()=>{tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");state.loaded++;},()=>{tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key);});
-      const icon=document.createElement("span");icon.className="tile-icon";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon;
-      const copy=document.createElement("span");copy.className="tile-copy";
+      const icon=document.createElement("span");icon.className="tile-icon";icon.dataset.leonTileLabel="true";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon;
+      const copy=document.createElement("span");copy.className="tile-copy";copy.dataset.leonTileLabel="true";
       const small=document.createElement("small");small.textContent="Filar "+key.slice(7);
       const strong=document.createElement("strong");strong.textContent=recipe.title;
       const em=document.createElement("em");em.textContent=recipe.subtitle;
