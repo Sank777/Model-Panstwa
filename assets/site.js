@@ -2,8 +2,8 @@
   "use strict";
   const LINKS = [
     ["index.html", "Strona główna"],
-    ["inwestycje.html", "01 · Jawność wydatków"],
-    ["centrum-jawnosci.html", "02 · Jawność decyzji"],
+    ["inwestycje.html", "Jawność wydatków"],
+    ["centrum-jawnosci.html", "Jawność decyzji"],
     ["prototyp.html", "Zgłoszenia obywatelskie"],
     ["moduly.html", "Architektura systemu"],
     ["model.html", "Nasza koncepcja"],
@@ -28,20 +28,29 @@
     }
     nav.appendChild(link);
   });
-  // Every page uses the same top sequence: brand strip -> global menu -> page hero.
-  let brandBar = document.querySelector("body > .top, body > .topbar");
-  if (!brandBar) {
-    brandBar = document.createElement("div");
-    brandBar.className = "mp-brandbar";
-    const brand = document.createElement("a");
-    brand.href = "index.html";
-    brand.className = "mp-brand";
-    brand.textContent = "MODEL PAŃSTWA";
-    brandBar.appendChild(brand);
-    document.body.insertBefore(brandBar, document.body.firstChild);
+  // Homepage: keep the main title first and place the single global menu directly below it.
+  // Other pages retain the shared brand strip -> menu -> page content sequence.
+  if (current === "index.html") {
+    const pageHeader = document.querySelector("body > header");
+    const redundantBrand = document.querySelector("body > .mp-brandbar");
+    if (redundantBrand) redundantBrand.remove();
+    if (pageHeader) pageHeader.insertAdjacentElement("afterend", nav);
+    else document.body.insertBefore(nav, document.body.firstChild);
+  } else {
+    let brandBar = document.querySelector("body > .top, body > .topbar, body > .mp-brandbar");
+    if (!brandBar) {
+      brandBar = document.createElement("div");
+      brandBar.className = "mp-brandbar";
+      const brand = document.createElement("a");
+      brand.href = "index.html";
+      brand.className = "mp-brand";
+      brand.textContent = "MODEL PAŃSTWA";
+      brandBar.appendChild(brand);
+      document.body.insertBefore(brandBar, document.body.firstChild);
+    }
+    brandBar.classList.add("mp-brandbar");
+    brandBar.insertAdjacentElement("afterend", nav);
   }
-  brandBar.classList.add("mp-brandbar");
-  brandBar.insertAdjacentElement("afterend", nav);
 
   const themeKey = "model_panstwa_v2_theme";
   let theme = "dark";
