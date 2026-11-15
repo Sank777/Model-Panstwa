@@ -1,4 +1,4 @@
-/* Leon Visual ROM 1.6 — verified assets stored in /assets/menu/. */
+/* Leon Visual ROM 1.7 — verified assets stored in /assets/menu/. */
 (() => {
   "use strict";
   const data = [
