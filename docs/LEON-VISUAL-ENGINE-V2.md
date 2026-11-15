@@ -13,7 +13,7 @@ Silnik ma odtwarzać stały język wizualny strony, a nie losować nowy styl prz
 - Prompt ma wersję; zmiana reguł wymaga podniesienia wersji i porównania wyników.
 
 ## Architektura V2
-1. Panel administratora (do wykonania w osobnym etapie) wysyła tylko identyfikator filaru i opcjonalną krótką notatkę.
+1. Panel administratora w `admin.html` wysyła tylko identyfikator filaru i opcjonalną krótką notatkę; sekcja jest widoczna wyłącznie dla administratora głównego.
 2. Supabase Edge Function weryfikuje token przez Auth i sprawdza role w nieedytowalnym `app_metadata`.
 3. Dostęp ma administrator główny albo administrator z modułem `visual-assets`.
 4. Serwer składa prompt z niezmiennych reguł i jednej z 10 zamkniętych scen.
@@ -37,11 +37,11 @@ Silnik ma odtwarzać stały język wizualny strony, a nie losować nowy styl prz
 
 ## Etapy ewolucji
 - V2: bezpieczne generowanie wersji roboczych i stałe prompty.
-- V2.1: panel administratora: wybór filaru, notatka, podgląd, ponowienie, akceptacja/odrzucenie.
+- V2.1: biblioteka wersji roboczych, ponawianie generacji, akceptacja/odrzucenie i porównanie wariantów.
 - V2.2: wzorzec referencyjny i tryb edycji istniejącego obrazu; zatwierdzony obraz bazowy jest stałą referencją.
 - V2.3: porównanie 1:1 w tych samych proporcjach, test miniatury, kontrola kontrastu i kadrowania.
 - V3: biblioteka zatwierdzonych wersji, publikacja przez atomową zmianę manifestu, rollback do poprzedniej wersji.
 - V4: automatyczne testy wizualne desktop/mobile i budżet transferu WebP/AVIF.
 
 ## Status
-Kod backendu V2 i dokumentacja są przygotowane w osobnej gałęzi. Nie są wdrożone. Do uruchomienia potrzebny jest sekret `OPENAI_API_KEY` w Supabase. Panel i proces akceptacji są kolejnymi etapami; aktywne kafelki pozostają nietknięte.
+Kod backendu V2, podstawowy panel administratora i dokumentacja są przygotowane w osobnej gałęzi. Nie są wdrożone. Do uruchomienia potrzebny jest sekret `OPENAI_API_KEY` w Supabase. Biblioteka wersji, akceptacja i publikacja pozostają kolejnymi etapami; aktywne kafelki pozostają nietknięte.
