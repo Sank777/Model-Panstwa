@@ -72,7 +72,7 @@ code{overflow-wrap:anywhere}
    }
    if(passed!==10)throw new Error("Zaliczone segmenty: "+passed+"/10");
    const layout=document.createElement("style");
-   layout.textContent=".test-tile{position:relative;width:304px;aspect-ratio:304 / 179;overflow:hidden}.test-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;object-position:50% 50%}";
+   layout.textContent=".test-tile{position:relative;box-sizing:border-box;width:304px;aspect-ratio:304 / 179;overflow:hidden;padding:0!important;border:0!important}.test-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;object-position:50% 50%}";
    document.head.append(layout);
    for(const figure of results.querySelectorAll("figure")){
     figure.classList.add("test-tile");
