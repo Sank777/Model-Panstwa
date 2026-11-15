@@ -1,27 +1,27 @@
 (() => {
   "use strict";
 
-  /* Visual Engine v3 — stabilne ścieżki GitHub Pages, widoczne warstwy i diagnostyka. */
-  const ROOT = "/Model-Panstwa/assets/menu/";
+  /* Leon Visual Engine v4.2 — lokalne sceny SVG, lazy loading i bezpieczny fallback. */
+  const ROOT = new URL("./menu/", document.currentScript.src).href;
   const doc = document;
   const hero = doc.querySelector(".hero-banner");
   const tiles = [...doc.querySelectorAll(".pillar-tile")];
 
   const images = {
-    "pillar-1": "architektura-systemu.jpg",
-    "pillar-2": "nasza-koncepcja.svg",
-    "pillar-3": "informacje-prawne.svg",
-    "pillar-4": "zgloszenia-obywatelskie.svg",
-    "pillar-5": "jawnosc-wydatkow.jpg",
-    "pillar-6": "dziesiec-filarow.svg",
-    "pillar-7": "reformy.svg",
-    "pillar-8": "jawnosc-decyzji.svg",
-    "pillar-9": "strona-glowna.svg",
-    "pillar-10": "zasady-projektowe.svg"
+    "pillar-1": "leon-filar-01-fundament.svg",
+    "pillar-2": "leon-filar-02-gospodarka.svg",
+    "pillar-3": "leon-filar-03-prawo.svg",
+    "pillar-4": "leon-filar-04-bezpieczenstwo.svg",
+    "pillar-5": "leon-filar-05-emerytury.svg",
+    "pillar-6": "leon-filar-06-kapital-ludzki.svg",
+    "pillar-7": "leon-filar-07-strategia.svg",
+    "pillar-8": "leon-filar-08-informacje.svg",
+    "pillar-9": "leon-filar-09-demografia.svg",
+    "pillar-10": "leon-filar-10-finanse.svg"
   };
 
   const status = {
-    version: "3.0.0",
+    version: "4.2.0",
     hero: "waiting",
     tiles: { total: tiles.length, loaded: 0, failed: 0, pending: 0 },
     errors: []
