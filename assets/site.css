@@ -215,3 +215,15 @@ body > .mp-nav a[aria-current="page"],body > .site-nav a[aria-current="page"],bo
 }
 @media(prefers-reduced-motion:reduce){body > .mp-nav a,body > .site-nav a,body > .nav a,body > .site-menu a{transition:none!important}}
 @supports not ((backdrop-filter:blur(8px)) or (-webkit-backdrop-filter:blur(8px))){body > .mp-nav a,body > .site-nav a,body > .nav a,body > .site-menu a{background-color:rgba(255,255,255,.16)!important}}
+
+/* ROZDZIAŁ IV — komplet ilustracji menu (lokalne, lekkie SVG) */
+.mp-nav a[href="index.html"],.mp-nav a[href="centrum-jawnosci.html"],.mp-nav a[href="prototyp.html"],.mp-nav a[href="model.html"],.mp-nav a[href="filary.html"],.mp-nav a[href="reformy.html"],.mp-nav a[href="zasady.html"],.mp-nav a[href="informacje-prawne.html"]{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.78)!important;border:1px solid rgba(255,255,255,.38)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 5px 16px rgba(0,0,0,.2)!important}
+.mp-nav a[href="index.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/strona-glowna.svg")!important}
+.mp-nav a[href="centrum-jawnosci.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/jawnosc-decyzji.svg")!important}
+.mp-nav a[href="prototyp.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/zgloszenia-obywatelskie.svg")!important}
+.mp-nav a[href="model.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/nasza-koncepcja.svg")!important}
+.mp-nav a[href="filary.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/dziesiec-filarow.svg")!important}
+.mp-nav a[href="reformy.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/reformy.svg")!important}
+.mp-nav a[href="zasady.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/zasady-projektowe.svg")!important}
+.mp-nav a[href="informacje-prawne.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/informacje-prawne.svg")!important}
+.mp-nav a[href="index.html"]::before,.mp-nav a[href="centrum-jawnosci.html"]::before,.mp-nav a[href="prototyp.html"]::before,.mp-nav a[href="model.html"]::before,.mp-nav a[href="filary.html"]::before,.mp-nav a[href="reformy.html"]::before,.mp-nav a[href="zasady.html"]::before,.mp-nav a[href="informacje-prawne.html"]::before{content:none!important;display:none!important}
