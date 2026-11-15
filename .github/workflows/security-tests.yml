@@ -3,11 +3,13 @@ name: Security tests
 on:
   push:
     branches:
-      - security/database-hardening-2026-11
+      - security/storage-cleanup-worker-2026-11
   pull_request:
     paths:
       - "supabase/functions/submit-report/**"
       - "supabase/functions/admin-manage-reports/**"
+      - "supabase/functions/storage-cleanup-worker/**"
+      - "supabase/migrations/**"
       - ".github/workflows/security-tests.yml"
 
 permissions:
@@ -23,5 +25,5 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: Test Bearer header parser
-        run: deno test --no-check supabase/functions/submit-report/auth.test.ts supabase/functions/admin-manage-reports/storage-path.test.ts
+      - name: Test security helpers
+        run: deno test --no-check supabase/functions/submit-report/auth.test.ts supabase/functions/admin-manage-reports/storage-path.test.ts supabase/functions/storage-cleanup-worker/worker.test.ts
