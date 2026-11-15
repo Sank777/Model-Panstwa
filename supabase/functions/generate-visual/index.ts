@@ -10,7 +10,7 @@ const WINDOW_MS = 24 * 60 * 60 * 1000;
 const cors = {
   "Access-Control-Allow-Origin": ORIGIN,
   "Access-Control-Allow-Headers": "authorization, apikey, x-client-info, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
   "Vary": "Origin",
 };
 type Scene = { title: string; scene: string; accent: string };
@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
   const origin = req.headers.get("origin");
   if (origin && origin !== ORIGIN) return json({ error: "Forbidden origin" }, 403);
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
-  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
+  if (!["GET", "POST", "DELETE"].includes(req.method)) return json({ error: "Method not allowed" }, 405);
 
   const token = req.headers.get("authorization")?.match(/^Bearer\s+(.+)$/i)?.[1];
   if (!token) return json({ error: "Authentication required" }, 401);
@@ -90,6 +90,69 @@ Deno.serve(async (req: Request) => {
   if (detail.length > 500) return json({ error: "scene_detail must be at most 500 characters" }, 400);
 
   const admin = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
+
+  // V3: prywatna biblioteka wersji roboczych. Lista nigdy nie ujawnia ścieżek bez podpisanego URL.
+  if (req.method === "GET") {
+    const all: Array<{ id: string; created_at: string | null; size: number | null; pillar_id: string }> = [];
+    for (let id = 1; id <= 10; id++) {
+      const prefix = "drafts/pillar-" + id;
+      const { data, error } = await admin.storage.from(BUCKET).list(prefix, {
+        limit: 8, sortBy: { column: "created_at", order: "desc" },
+      });
+      if (error) {
+        console.error("Visual library read failed:", error.message);
+        return json({ error: "Could not load private visual library" }, 503);
+      }
+      for (const item of data ?? []) {
+        if (!item.name || !/^\d{4}-\d{2}-\d{2}T[\dT-]+-[0-9a-f-]{36}\.webp$/i.test(item.name)) continue;
+        all.push({
+          id: prefix + "/" + item.name, pillar_id: String(id),
+          created_at: item.created_at ?? null,
+          size: typeof item.metadata?.size === "number" ? item.metadata.size : null,
+        });
+      }
+    }
+    all.sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""));
+    const objects = all.slice(0, 30);
+    const signed = objects.length
+      ? await admin.storage.from(BUCKET).createSignedUrls(objects.map(x => x.id), 900)
+      : { data: [], error: null };
+    if (signed.error) return json({ error: "Could not create private preview links" }, 503);
+    return json({
+      ok: true, drafts: objects.map((item, index) => ({
+        ...item, preview_url: signed.data?.[index]?.signedUrl ?? null,
+      })).filter(item => item.preview_url),
+      expires_in: 900,
+    });
+  }
+
+  if (req.method === "DELETE") {
+    const rawDelete = await req.text();
+    if (rawDelete.length > MAX_REQUEST_BYTES) return json({ error: "Request too large" }, 413);
+    let deleteBody: Record<string, unknown>;
+    try {
+      deleteBody = JSON.parse(rawDelete);
+      if (!deleteBody || typeof deleteBody !== "object" || Array.isArray(deleteBody)) throw new Error();
+    } catch {
+      return json({ error: "Invalid JSON" }, 400);
+    }
+    const path = typeof deleteBody.path === "string" ? deleteBody.path : "";
+    if (!/^drafts\/pillar-(?:[1-9]|10)\/[^/]{1,180}\.webp$/i.test(path)) {
+      return json({ error: "Only managed draft WebP files can be deleted" }, 400);
+    }
+    const { error: removeError } = await admin.storage.from(BUCKET).remove([path]);
+    if (removeError) {
+      console.error("Visual draft deletion failed:", removeError.message);
+      return json({ error: "Could not delete visual draft" }, 503);
+    }
+    const { error: auditError } = await admin.from("admin_audit_log").insert({
+      actor_user_id: user.id, action: "visual.delete", target_type: "visual_asset",
+      target_id: path, after_data: { status: "deleted" },
+    });
+    if (auditError) console.error("Visual deletion audit failed:", auditError.message);
+    return json({ ok: true, deleted: true });
+  }
+
   const since = new Date(Date.now() - WINDOW_MS).toISOString();
   const { count, error: countError } = await admin.from("admin_audit_log")
     .select("id", { count: "exact", head: true })
