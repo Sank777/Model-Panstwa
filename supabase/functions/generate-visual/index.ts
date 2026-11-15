@@ -105,16 +105,22 @@ Deno.serve(async (req: Request) => {
   }
 
   const requestId = crypto.randomUUID();
+  let auditInitialized = false;
   const audit = async (status: string, extra: Record<string, unknown> = {}) => {
-    const { error } = await admin.from("admin_audit_log").insert({
+    const entry = {
       actor_user_id: user.id,
       action: "visual.generate",
       target_type: "visual_asset",
       target_id: requestId,
       after_data: { pillar_id: pillarId, model: MODEL, status, ...extra },
-    });
-    if (error) console.error("Visual audit write failed:", error.message);
-    return !error;
+    };
+    const result = auditInitialized
+      ? await admin.from("admin_audit_log").update({ after_data: entry.after_data })
+          .eq("actor_user_id", user.id).eq("action", "visual.generate").eq("target_id", requestId)
+      : await admin.from("admin_audit_log").insert(entry);
+    if (result.error) console.error("Visual audit write failed:", result.error.message);
+    else auditInitialized = true;
+    return !result.error;
   };
   await audit("started");
 
@@ -189,6 +195,12 @@ Deno.serve(async (req: Request) => {
   } else if (!bucketCheck.ok) {
     await audit("storage_check_error");
     return json({ error: "Private image storage could not be verified" }, 503);
+  } else {
+    const bucketMeta = await bucketCheck.json();
+    if (bucketMeta?.public === true) {
+      await audit("unsafe_public_bucket");
+      return json({ error: "The visual-assets bucket is public; generation is blocked until private storage is configured" }, 503);
+    }
   }
 
   const path = "drafts/pillar-" + pillarId + "/" + new Date().toISOString().replace(/[:.]/g, "-") + "-" + requestId + ".webp";
