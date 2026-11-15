@@ -141,6 +141,109 @@ body{background:var(--dash-bg)!important;color:var(--dash-text)!important;font-f
 }
 
 </style>
+
+<style id="reference-homepage-v4">
+/* Wzorzec V4 — dopracowanie kompozycji strony głównej */
+.hero-banner{
+  min-height:clamp(225px,21vw,330px)!important;
+  background-position:center 57%!important;
+  background-size:cover!important;
+}
+.hero-banner:before{
+  z-index:-1!important;
+  background:linear-gradient(90deg,rgba(3,16,31,.24),rgba(3,16,31,.04) 48%,rgba(3,16,31,.12)),
+             linear-gradient(0deg,rgba(3,16,31,.12),transparent 42%)!important;
+}
+.hero-copy{position:relative;z-index:2;transform:translateY(-2px)}
+.hero-copy h1{font-size:clamp(2.65rem,6vw,5.25rem)!important;letter-spacing:-.045em!important}
+.hero-copy p{font-size:clamp(1rem,1.8vw,1.5rem)!important}
+.hero-map{
+  display:block!important;left:clamp(1rem,6vw,6rem)!important;top:12%!important;
+  width:clamp(105px,15vw,205px)!important;height:clamp(120px,15vw,190px)!important;
+  font-size:0!important;opacity:1!important;z-index:1!important;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  clip-path:polygon(21% 2%,35% 8%,52% 4%,61% 12%,82% 15%,91% 30%,84% 44%,94% 58%,79% 72%,73% 91%,57% 84%,46% 98%,34% 83%,18% 78%,14% 60%,4% 48%,11% 31%,7% 17%);
+  border:2px solid transparent!important;
+  filter:drop-shadow(0 0 5px #8bd6ff) drop-shadow(0 0 13px #43aaff)!important;
+}
+.hero-map:before{
+  content:""!important;display:block!important;width:100%!important;height:100%!important;margin:0!important;
+  border:2px solid #d9f2ff!important;border-radius:0!important;transform:none!important;
+  clip-path:inherit!important;
+  background:
+    radial-gradient(circle at 20% 22%,#fff 0 2px,transparent 4px),
+    radial-gradient(circle at 48% 16%,#fff 0 2px,transparent 4px),
+    radial-gradient(circle at 73% 28%,#fff 0 2px,transparent 4px),
+    radial-gradient(circle at 34% 47%,#fff 0 2px,transparent 4px),
+    radial-gradient(circle at 66% 56%,#fff 0 2px,transparent 4px),
+    radial-gradient(circle at 45% 78%,#fff 0 2px,transparent 4px),
+    linear-gradient(28deg,transparent 47%,#b8e8ff 48%,transparent 49%),
+    linear-gradient(145deg,transparent 48%,#b8e8ff 49%,transparent 50%),
+    linear-gradient(75deg,transparent 48%,#b8e8ff 49%,transparent 50%)!important;
+  box-shadow:inset 0 0 24px #63c7ff55,0 0 18px #63c7ff!important;
+}
+.hero-flag{
+  display:block!important;right:clamp(1rem,6vw,6rem)!important;top:9%!important;
+  width:clamp(90px,13vw,175px)!important;height:clamp(70px,8vw,112px)!important;
+  transform:perspective(260px) rotateY(-15deg) rotateZ(1deg)!important;
+  transform-origin:left center!important;z-index:2!important;
+}
+.hero-flag:before{
+  content:"";position:absolute;left:-5px;top:-8px;width:3px;height:calc(100% + 28px);
+  border-radius:3px;background:linear-gradient(90deg,#71869b,#f5f8fc 55%,#66788b);
+  box-shadow:2px 2px 5px #0008;
+}
+.hero-flag span{
+  position:relative;height:50%!important;
+  clip-path:polygon(0 0,100% 8%,95% 18%,100% 30%,94% 44%,99% 58%,93% 73%,98% 88%,91% 100%,0 88%)!important;
+  filter:drop-shadow(0 5px 7px #0007);
+}
+.hero-flag span:first-child{
+  background:linear-gradient(105deg,#fff 0%,#f4f6fa 35%,#d8e1ec 60%,#fff 82%,#d5deea 100%)!important;
+}
+.hero-flag span+span{
+  background:linear-gradient(105deg,#d71935 0%,#ef304b 35%,#b90d2b 62%,#f12b45 83%,#a70b27 100%)!important;
+}
+.pillars-dashboard{gap:clamp(.55rem,.95vw,.9rem)!important}
+.pillar-tile{
+  min-height:clamp(150px,11.8vw,190px)!important;
+  border-radius:15px!important;
+  background-position:center!important;
+  box-shadow:0 7px 18px #0006,inset 0 0 0 1px #ffffff18!important;
+}
+.pillar-tile:before{
+  background:linear-gradient(0deg,rgba(2,10,20,.96),rgba(2,13,25,.16) 83%)!important;
+}
+.quick-actions{gap:clamp(.55rem,1vw,1rem)!important}
+.dashboard-footer{margin-top:.15rem!important}
+@media(max-width:900px){
+ .site-header{grid-template-columns:1fr auto!important;gap:.4rem!important}
+ .top-navigation{grid-column:1/-1;grid-row:2;justify-content:flex-start;overflow-x:auto;scrollbar-width:thin}
+ .top-navigation a{padding:.65rem .5rem}
+ .hero-map{left:2%!important;opacity:.75!important}
+ .hero-flag{right:3%!important}
+ .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:560px){
+ .hero-banner{min-height:205px!important;padding:1.5rem .8rem!important}
+ .hero-copy{max-width:74%;margin-left:auto}
+ .hero-copy h1{font-size:clamp(2rem,8vw,3rem)!important}
+ .hero-copy p{font-size:.88rem!important}
+ .hero-map{width:76px!important;height:96px!important;left:2%!important;top:18%!important}
+ .hero-flag{width:68px!important;height:52px!important;right:2%!important;top:10%!important}
+ .pillars-dashboard{grid-template-columns:1fr 1fr!important;gap:.5rem!important}
+ .pillar-tile{min-height:132px!important;padding:.65rem .55rem!important;gap:.4rem!important}
+ .tile-icon{font-size:1.55rem!important}
+ .tile-copy small{font-size:.7rem!important}
+ .tile-copy strong{font-size:.82rem!important}
+ .tile-copy em{font-size:.65rem!important}
+ .quick-actions{grid-template-columns:1fr 1fr!important}
+ .quick-actions a{min-height:74px!important;padding:.65rem!important}
+ .dashboard-footer{gap:.5rem!important;font-size:.72rem!important}
+}
+@media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important}}
+</style>
+
 </head>
 <body>
 
