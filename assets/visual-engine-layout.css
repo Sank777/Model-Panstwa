@@ -222,3 +222,7 @@
 .hero-banner.visual-hero-fallback{background-color:#102f50!important;background-image:linear-gradient(105deg,rgba(5,20,39,.28),rgba(5,20,39,.08) 50%,rgba(5,20,39,.25)),linear-gradient(180deg,#163c60,#0a2039)!important}
 .hero-banner.visual-hero-fallback>.hero-map,.hero-banner.visual-hero-fallback>.hero-flag{display:block!important}
 @media(max-width:700px){.pillar-tile.visual-tile-fallback{min-height:145px!important;aspect-ratio:1.2/1!important;padding:.75rem .65rem!important}.pillar-tile.visual-tile-fallback>.tile-icon{font-size:1.55rem!important}}
+
+
+/* LEON RECOVERY PATCH 6.12.2 — remove synthetic hero overlays; JS owns sprite cell position. */
+.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}

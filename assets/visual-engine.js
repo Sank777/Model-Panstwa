@@ -118,8 +118,8 @@
       layer.style.backgroundRepeat = "no-repeat";
       if (Number.isInteger(recipe.spriteIndex)) {
         const col = recipe.spriteIndex % 5, row = Math.floor(recipe.spriteIndex / 5);
-        layer.style.backgroundSize = "500% 200%";
-        layer.style.backgroundPosition = (col * 25) + "% " + (row * 100) + "%";
+        layer.style.setProperty("background-size", "500% 200%", "important");
+        layer.style.setProperty("background-position", (col * 25) + "% " + (row * 100) + "%", "important");
       } else {
         layer.style.backgroundSize = "cover";
         layer.style.backgroundPosition = recipe.focal || "center";
