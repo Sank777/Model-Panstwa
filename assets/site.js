@@ -13,6 +13,7 @@
     ["informacje-prawne.html", "Informacje prawne"]
   ];
   const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  if (current !== "index.html") {
   const existing = [...document.querySelectorAll("body nav")];
   const nav = existing.shift() || document.createElement("nav");
   existing.forEach(item => item.remove());
@@ -50,6 +51,8 @@
     }
     brandBar.classList.add("mp-brandbar");
     brandBar.insertAdjacentElement("afterend", nav);
+  }
+
   }
 
   const themeKey = "model_panstwa_v2_theme";
