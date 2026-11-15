@@ -1,50 +1,17 @@
-/* Visual Engine v3 — warstwy obrazów bez ujemnego z-index */
-.hero-banner{
-  position:relative!important;
-  isolation:isolate!important;
-  overflow:hidden!important;
-  background-color:#09213b!important;
-  background-repeat:no-repeat!important;
-  background-size:cover!important;
-  background-position:center 54%!important;
-}
-.hero-banner>.visual-engine-image{
-  position:absolute!important;inset:0!important;z-index:0!important;
-  display:block!important;width:100%!important;height:100%!important;
-  max-width:none!important;object-fit:cover!important;object-position:center 54%!important;
-  border:0!important;padding:0!important;margin:0!important;
-}
-.hero-banner>.hero-copy,.hero-banner>.hero-map,.hero-banner>.hero-flag{
-  position:relative!important;z-index:3!important;
-}
-.hero-banner:before,.hero-banner:after{z-index:1!important;pointer-events:none!important}
+/* Leon Visual Engine 5.0 — scena, światło, siatka i warstwa interfejsu */
+.hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:#071a2d!important;background-size:cover!important;background-position:center 54%!important}
+.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 54%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important}
+.hero-banner:before{content:""!important;display:block!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(180deg,rgba(3,13,25,.04),rgba(3,13,25,.10) 48%,rgba(3,13,25,.58)),linear-gradient(90deg,rgba(3,13,25,.24),transparent 35%,transparent 65%,rgba(3,13,25,.22))!important}
+.hero-banner:after{content:""!important;display:block!important;position:absolute!important;inset:auto 0 0!important;height:3px!important;z-index:2!important;background:linear-gradient(90deg,#e52e4d 0 50%,#fff 50% 100%)!important;box-shadow:0 0 16px rgba(255,255,255,.35)!important;pointer-events:none!important}
+.hero-banner>.hero-copy,.hero-banner>.hero-map,.hero-banner>.hero-flag{position:relative!important;z-index:3!important}
 .hero-banner.visual-image-error{background-image:linear-gradient(120deg,#0b2745,#142e49)!important}
-
-.pillar-tile{
-  position:relative!important;isolation:isolate!important;overflow:hidden!important;
-  background-color:#102c48!important;background-size:cover!important;background-position:center!important;
-}
-.pillar-tile>.visual-engine-tile-image{
-  position:absolute!important;inset:0!important;z-index:0!important;
-  display:block!important;width:100%!important;height:100%!important;
-  max-width:none!important;object-fit:cover!important;object-position:center!important;
-  border:0!important;padding:0!important;margin:0!important;
-}
-.pillar-tile:before{
-  position:absolute!important;inset:0!important;z-index:1!important;
-  pointer-events:none!important;
-}
-.pillar-tile:after{
-  position:absolute!important;inset:0!important;z-index:2!important;
-  pointer-events:none!important;
-}
-.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{
-  position:relative!important;z-index:3!important;
-}
+.pillar-tile{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#0b2038!important;background-image:linear-gradient(135deg,#173b5b,#07182b)!important;background-size:cover!important;background-position:center!important;border:1px solid rgba(173,208,239,.58)!important;box-shadow:0 8px 22px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.16)!important;transform:translateZ(0)}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;margin:0!important;padding:0!important;border:0!important;border-radius:inherit!important;pointer-events:none!important}
+.pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;display:block!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.91),rgba(2,12,24,.50) 43%,rgba(2,12,24,.08)),linear-gradient(112deg,rgba(3,15,28,.22),transparent 46%,rgba(4,17,31,.14)),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 44px),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 44px)!important}
+.pillar-tile:after{content:""!important;position:absolute!important;inset:0!important;z-index:2!important;display:block!important;pointer-events:none!important;border-radius:inherit!important;box-shadow:inset 4px 0 0 var(--tile-accent,#39a9ef),inset 0 0 26px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.24)!important;background:radial-gradient(ellipse at 12% 16%,rgba(255,255,255,.13),transparent 32%)!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important}
 .pillar-tile.visual-image-error{background-image:linear-gradient(135deg,#173c5b,#08192c)!important}
-@media(max-width:760px){
-  .hero-banner>.visual-engine-image{object-position:center 52%!important}
-}
-@media(prefers-reduced-motion:reduce){
-  .pillar-tile{transition:none!important}
-}
+.pillar-tile:hover{border-color:rgba(225,242,255,.9)!important;box-shadow:0 12px 28px rgba(0,0,0,.42),0 0 16px color-mix(in srgb,var(--tile-accent,#39a9ef) 30%,transparent)!important}
+@media(min-width:1200px){.pillar-tile{min-height:clamp(150px,13vw,205px)!important;border-radius:16px!important}}
+@media(max-width:760px){.hero-banner>.visual-engine-image{object-position:center 52%!important}.pillar-tile{min-height:132px!important}}
+@media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
