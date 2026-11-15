@@ -3,7 +3,7 @@
    layers, focal positioning, filters, borders and safe local assets. */
 (() => {
   "use strict";
-  const VERSION = "1.3.0";
+  const VERSION = "1.4.0";
   const SAFE_ASSET = /^(?!\/)(?!.*(?:^|\/)\.\.(?:\/|$))[a-zA-Z0-9_./-]+\.(?:svg|webp|png|jpe?g)$/i;
   const BLENDS = new Set(["normal","multiply","screen","overlay","soft-light","hard-light","darken","lighten"]);
   const POS = /^(?:\d{1,3}%|left|center|right)\s+(?:\d{1,3}%|top|center|bottom)$/;
@@ -76,7 +76,7 @@
     stage.className=opts.className||"leon-recipe-stage";
     stage.setAttribute("aria-hidden","true");
     stage.dataset.recipeHash=fingerprint(recipe);
-    stage.style.cssText="position:absolute;inset:0;width:100%;height:100%;overflow:hidden;pointer-events:none;border-radius:inherit;";
+    stage.style.cssText="position:absolute;inset:0;width:100%;height:100%;z-index:0;overflow:hidden;pointer-events:none;border-radius:inherit;";
     let pending=0,failed=0;
     recipe.layers.forEach((layer,index)=>{
       const node=document.createElement("div");
@@ -87,7 +87,7 @@
       else if(layer.type==="solid")node.style.backgroundColor=layer.value;
       else {
         const img=document.createElement("img");
-        img.alt="";img.draggable=false;img.decoding="async";img.loading=opts.priority?"eager":"lazy";
+        img.alt="";img.draggable=false;img.decoding="async";img.loading=opts.priority?"eager":"lazy";img.referrerPolicy="no-referrer";
         if(opts.priority&&"fetchPriority"in img)img.fetchPriority="high";
         img.style.cssText="display:block;width:100%;height:100%;max-width:none;object-fit:"+layer.fit+";object-position:"+layer.focal+";"+(layer.filter?"filter:"+layer.filter+";":"");
         pending++;
