@@ -43,6 +43,12 @@ async function hashClientIp(ip: string, secret: string): Promise<string> {
   return Array.from(new Uint8Array(signature), (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+export function parseBearerHeader(value: string | null): { token: string | null; invalid: boolean } {
+  if (value === null || value.trim() === "") return { token: null, invalid: false };
+  const match = value.match(/^Bearer\\s+([^\\s]+)$/i);
+  return match ? { token: match[1], invalid: false } : { token: null, invalid: true };
+}
+
 function validImageSignature(bytes: Uint8Array, mime: string): boolean {
   if (mime === "image/jpeg") return bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
   if (mime === "image/png") return bytes.length >= 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47 && bytes[4] === 0x0d && bytes[5] === 0x0a && bytes[6] === 0x1a && bytes[7] === 0x0a;
@@ -68,10 +74,10 @@ Deno.serve(async (req: Request) => {
   // Trust only Cloudflare's edge-provided client IP; never accept client-controlled forwarding headers.
   // Optional account linking: the user ID is always derived from a verified access token.
   let submitterUserId: string | null = null;
-  const authorization = req.headers.get("authorization") || "";
-  const hasAuthorization = authorization.trim().length > 0;
-  const bearer = authorization.match(/^Bearer\s+([^\s]+)$/i)?.[1];
-  if (hasAuthorization && !bearer) return reply({ error: "Invalid authorization header" }, 401);
+  const authorization = req.headers.get("authorization");
+  const parsedAuthorization = parseBearerHeader(authorization);
+  const bearer = parsedAuthorization.token;
+  if (parsedAuthorization.invalid) return reply({ error: "Invalid authorization header" }, 401);
   if (bearer) {
     const authClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY") || "", { auth: { persistSession: false, autoRefreshToken: false } });
     const { data: authData, error: authError } = await authClient.auth.getUser(bearer);
