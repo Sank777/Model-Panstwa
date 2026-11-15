@@ -28,3 +28,41 @@
 @media(max-width:1100px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media(max-width:700px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}}
 @media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}}
+
+
+/* LEON CSS POSITIONING FIX 6.15 — tile is the positioning reference */
+body .dashboard-home .pillars-dashboard > a.pillar-tile{
+  position:relative!important;
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:304 / 179!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+body .dashboard-home .pillars-dashboard > a.pillar-tile > img.visual-engine-tile-image{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  object-fit:cover!important;
+  object-position:50% 50%!important;
+  transform:none!important;
+  border:0!important;
+  border-radius:inherit!important;
+  pointer-events:none!important;
+}
+body .dashboard-home .pillars-dashboard > a.pillar-tile::before,
+body .dashboard-home .pillars-dashboard > a.pillar-tile::after{
+  pointer-events:none!important;
+}
