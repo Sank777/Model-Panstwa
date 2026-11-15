@@ -1,4 +1,4 @@
-/* Leon Visual ROM 1.6 — verified assets stored in /assets/menu/. */
+/* Leon Visual ROM 1.7 — verified assets stored in /assets/menu/. */
 (() => {
   "use strict";
   const data = [
@@ -18,7 +18,8 @@
     title:item[0],subtitle:item[1],icon:item[2],accent:item[3]
   })]));
   window.LeonVisualROM = Object.freeze({
-    id:"model-panstwa-home-reference",version:"1.6.0",deterministic:true,
+    id:"model-panstwa-home-reference",version:"1.7.0",deterministic:true,
+    spriteGrid:Object.freeze({columns:5,rows:2}),
     hero:Object.freeze({id:"hero",asset:"menu/leon-hero.webp",focal:"center 50%",alt:"Panorama Polski z mapą i flagą"}),
     tiles:Object.freeze(tiles)
   });

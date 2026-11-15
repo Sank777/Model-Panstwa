@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Leon — test ekstrakcji atlasu</title>
+<style>
+:root{font:16px/1.45 system-ui,sans-serif;color-scheme:dark;background:#0b1220;color:#eef4ff}
+body{max-width:900px;margin:0 auto;padding:20px}
+h1{font-size:1.45rem}p{color:#b9c8dc}
+#summary{padding:12px;border:1px solid #49617d;border-radius:12px;margin:16px 0}
+#results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+figure{margin:0;padding:8px;border:1px solid #34475f;border-radius:10px;min-width:0}
+img{display:block;width:100%;aspect-ratio:304/179;object-fit:contain;background:#18263a}
+figcaption{font-size:.85rem;margin-top:6px}
+.pass{color:#72e0a1}.fail{color:#ff8c8c}
+button{font:inherit;padding:10px 14px;border-radius:9px;border:1px solid #6683a6;background:#203752;color:white}
+code{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<h1>Leon — rzeczywisty test ekstrakcji grafiki</h1>
+<p>Ten test pobiera oryginalny atlas z repozytorium, wycina 10 pól przez ten sam moduł co renderer i porównuje każdy piksel wyciętego PNG z odpowiadającym mu obszarem źródła.</p>
+<button id="run" type="button">Uruchom test ponownie</button>
+<div id="summary" role="status" aria-live="polite">Oczekiwanie na test…</div>
+<div id="results"></div>
+<script src="../assets/visual-segmenter.js?v=1.0.0"></script>
+<script>
+(() => {
+ "use strict";
+ const summary=document.getElementById("summary");
+ const results=document.getElementById("results");
+ const run=document.getElementById("run");
+ const GRID={columns:5,rows:2};
+ const SRC="../assets/menu/leon-pillar-sprite.webp";
+ const say=(text,ok)=>{summary.textContent=text;summary.className=ok?"pass":"fail"};
+ function canvas(w,h){const c=document.createElement("canvas");c.width=w;c.height=h;return c}
+ function pixels(ctx,w,h){return ctx.getImageData(0,0,w,h).data}
+ function equalPixels(a,b){if(a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(a[i]!==b[i])return false;return true}
+ async function runTest(){
+  run.disabled=true;results.replaceChildren();say("Test w toku…",true);
+  try{
+   if(!window.LeonVisualSegmenter)throw new Error("Segmenter nie został załadowany");
+   const image=new Image();image.decoding="async";image.src=SRC;
+   await image.decode();
+   const w=image.naturalWidth,h=image.naturalHeight;
+   const plan=window.LeonVisualSegmenter.planSegments(w,h,GRID);
+   if(w!==1520||h!==358)throw new Error("Nieoczekiwane wymiary atlasu: "+w+"×"+h);
+   if(plan.length!==10)throw new Error("Plan nie zawiera dokładnie 10 segmentów");
+   const extracted=await window.LeonVisualSegmenter.extract(image,GRID);
+   const sourceCanvas=canvas(w,h),sourceCtx=sourceCanvas.getContext("2d",{willReadFrequently:true});
+   sourceCtx.drawImage(image,0,0);
+   let passed=0;
+   for(const part of extracted){
+    const expected=pixels(sourceCtx,part.width,part.height);
+    const blobURL=URL.createObjectURL(part.blob);
+    try{
+     const crop=new Image();crop.src=blobURL;await crop.decode();
+     if(crop.naturalWidth!==part.width||crop.naturalHeight!==part.height)throw new Error("nieprawidłowy rozmiar PNG");
+     const cropCanvas=canvas(part.width,part.height),cropCtx=cropCanvas.getContext("2d",{willReadFrequently:true});
+     cropCtx.drawImage(crop,0,0);
+     const actual=pixels(cropCtx,part.width,part.height);
+     const sourcePart=sourceCtx.getImageData(part.x,part.y,part.width,part.height).data;
+     if(!equalPixels(sourcePart,actual))throw new Error("różnica pikseli względem źródła");
+     passed++;
+     const figure=document.createElement("figure"),preview=document.createElement("img"),caption=document.createElement("figcaption");
+     preview.src=URL.createObjectURL(part.blob);preview.alt="Wyodrębniona grafika "+(part.index+1);
+     caption.textContent="Grafika "+(part.index+1)+" — "+part.width+" × "+part.height+" — PNG — zgodność pikseli 100%";
+     figure.append(preview,caption);results.append(figure);
+    }finally{URL.revokeObjectURL(blobURL)}
+   }
+   if(passed!==10)throw new Error("Zaliczone segmenty: "+passed+"/10");
+   const layout=document.createElement("style");
+   layout.textContent=".test-tile{position:relative;box-sizing:border-box;width:304px;aspect-ratio:304 / 179;overflow:hidden;padding:0!important;border:0!important}.test-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;object-position:50% 50%}";
+   document.head.append(layout);
+   for(const figure of results.querySelectorAll("figure")){
+    figure.classList.add("test-tile");
+    const preview=figure.querySelector("img");
+    const rect=figure.getBoundingClientRect();
+    if(Math.abs(rect.width/rect.height-(304/179))>0.02)throw new Error("nieprawidłowe proporcje kafelka");
+    if(getComputedStyle(preview).objectPosition!=="50% 50%"||getComputedStyle(preview).objectFit!=="fill")throw new Error("nieprawidłowe pozycjonowanie obrazu");
+   }
+   say("ZALICZONE: 10/10 grafik. Każdy PNG ma prawidłowe wymiary i identyczne piksele jak odpowiadający mu fragment oryginału.",true);
+  }catch(error){say("NIEZALICZONE: "+(error&&error.message?error.message:String(error)),false)}
+  finally{run.disabled=false}
+ }
+ run.addEventListener("click",runTest);
+ runTest();
+})();
+</script>
+</body>
+</html>

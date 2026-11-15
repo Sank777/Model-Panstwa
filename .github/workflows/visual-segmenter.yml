@@ -1,0 +1,19 @@
+name: Visual segmenter tests
+on:
+  push:
+    branches:
+      - feature/leon-visual-segmentation-v1
+  pull_request:
+    paths:
+      - "assets/visual-segmenter.js"
+      - "tests/**"
+      - ".github/workflows/visual-segmenter.yml"
+jobs:
+  node-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/visual-segmenter.test.js
