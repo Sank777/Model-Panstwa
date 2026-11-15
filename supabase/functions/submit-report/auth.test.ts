@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
-import { parseBearerHeader } from "./index.ts";
+import { parseBearerHeader } from "./auth.ts";
 
 Deno.test("no Authorization header remains anonymous", () => {
   assertEquals(parseBearerHeader(null), { token: null, invalid: false });
