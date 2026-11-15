@@ -1,41 +1,45 @@
 # Plan zabezpieczenia bazy i aplikacji
 
 ## Zakres
-Ten pakiet jest przygotowany jako osobna gałąź. Nie wykonuje zmian na produkcji i nie czyści danych. Konto administratora nie jest modyfikowane.
+Pakiet jest przygotowywany na osobnej gałęzi. Nie wykonuje zmian na produkcji i nie czyści danych. Konto administratora pozostaje nietknięte.
 
-## Ustalenia z audytu
-- RLS jest włączone na 14 tabelach schematu public; to nie zastępuje kontroli uprawnień SQL.
-- Występują nadmiarowe uprawnienia tabelowe. Migracja ogranicza wyłącznie TRUNCATE, REFERENCES i TRIGGER dla anon/authenticated, pozostawiając zwykłe operacje pod kontrolą RLS.
-- Funkcja submit-report ma verify_jwt=false i wykonuje własną weryfikację JWT. W jej kodzie regex Bearer jest błędnie zapisany jako /^Bearer\\\\s+(.+)$/i, co może powodować pomijanie prawidłowych tokenów.
-- Bucket zgloszenia-zdjecia jest publiczny. Pliki nie są dekodowane i ponownie kodowane, więc walidacja sygnatury nie usuwa EXIF/GPS.
+## Potwierdzone ustalenia z audytu (2026-11-15)
+- RLS jest włączone na tabelach schematu public; samo RLS nie zastępuje grantów SQL.
+- Migracja etapu 1 ogranicza TRUNCATE, REFERENCES i TRIGGER dla anon/authenticated oraz CREATE w public.
+- Funkcja submit-report ma verify_jwt=false i wykonuje własną weryfikację JWT. Regex Bearer w aktywnej wersji funkcji jest błędny: zapis odpowiada /^Bearer\\\\s+(.+)$/i zamiast /^Bearer\\s+(.+)$/i. Ponadto niepoprawny/nieobsługiwany nagłówek Authorization nie może po cichu zamieniać zgłoszenia w anonimowe.
+- Bucket zgloszenia-zdjecia jest publiczny, limit 5 MB, MIME JPEG/PNG/WebP.
+- storage.objects ma RLS włączone, FORCE RLS wyłączone i obecnie nie ma żadnych polityk RLS. Jednocześnie role anon i authenticated mają granty SELECT/INSERT/UPDATE/DELETE na tabeli storage.objects. RLS bez polityk blokuje operacje przez API tabelowe, ale szerokie granty pozostają niepotrzebną powierzchnią uprawnień i mogą stać się aktywne po dodaniu polityk. Nie zmieniamy ich w ciemno, dopóki nie zinwentaryzujemy wszystkich sposobów użycia Storage przez frontend.
+- Pliki nie są dekodowane i ponownie kodowane, więc sprawdzenie sygnatury nie usuwa EXIF/GPS.
 - admin-manage-reports usuwa rekord zgłoszenia, ale nie usuwa powiązanego pliku.
-- Usunięcia i korekty wymagają pełnego, nieusuwalnego śladu audytowego.
+- GET w funkcji administracyjnej powinien zwracać wyłącznie jawnie wskazane kolumny; nie stosować select("*").
+- Advisors: 2 tabele prywatne mają RLS bez polityk; 1 FK report_events bez indeksu; 5 ostrzeżeń o kosztownych wywołaniach auth w politykach; ochrona haseł wyciekłych jest wyłączona. Te wyniki wymagają oceny kontekstu, nie automatycznej zmiany.
 
-## Ważne: co celowo NIE jest automatycznie wdrażane
-1. Nie zmieniamy istniejącego bucketu z publicznego na prywatny w tej migracji. Frontend używa publicznych URL-i zdjęć; zmiana bez jednoczesnej migracji odczytu na krótkotrwałe signed URL-e zepsułaby widoki.
-2. Nie dodajemy nowych polityk do istniejących tabel bez sprawdzenia ich kolumn, istniejących polityk i wszystkich zapytań frontendowych.
-3. Nie włączamy automatycznie ochrony haseł wyciekłych, bo to ustawienie Auth może zmienić zachowanie rejestracji i zmiany hasła.
-4. Nie kasujemy żadnych rekordów, kont ani obiektów Storage.
+## Co celowo nie jest wdrażane automatycznie
+1. Nie zmieniamy bucketu publicznego na prywatny, zanim frontend nie przejdzie na signed URL i testów end-to-end.
+2. Nie odbieramy globalnie grantów Storage, dopóki nie potwierdzimy, że żadna część strony nie wysyła plików bezpośrednio z przeglądarki. Aktualnie submit-report używa service_role po stronie serwera.
+3. Nie dodajemy polityk RLS bez znajomości modelu dostępu i testów anon/użytkownik A/użytkownik B/admin.
+4. Nie włączamy automatycznie ochrony haseł wyciekłych — wymaga oceny wpływu na logowanie/rejestrację.
+5. Nie kasujemy rekordów, kont ani obiektów Storage.
 
-## Kolejność wdrożenia
-1. Wykonać kopię/backup i potwierdzić możliwość odtworzenia.
-2. Uruchomić migrację 1 na środowisku testowym i wykonać testy negatywne.
-3. Poprawić submit-report: prawidłowy regex /^Bearer\\s+(.+)$/i; gdy nagłówek Authorization jest podany, ale token nie przechodzi weryfikacji, zwrócić 401 zamiast zapisywać zgłoszenie anonimowe.
-4. Zmienić pipeline zdjęć: prywatny bucket pending, dekodowanie i ponowne kodowanie do bezpiecznego formatu (usunąć EXIF), walidacja MIME/sygnatury/wymiarów/rozmiaru, losowy UUID, krótko żyjące signed URL-e dla moderatorów; publiczna publikacja wyłącznie przetworzonego obrazu po zatwierdzeniu.
-5. Zmienić usuwanie zgłoszenia: pobrać powiązane ścieżki, zapisać zdarzenie audytowe, usunąć rekord i obiekt Storage z kontrolą błędów oraz zadaniem ponawiającym sprzątanie osieroconych plików. Nie usuwać historii audytowej.
-6. Dodać testy własności kont, dostępu do szkiców, eskalacji ról i ograniczeń kolumn.
-7. Po przejściu testów dopiero wykonać rollout na produkcję.
+## Kolejność prac
+1. Potwierdzić backup bazy oraz osobną kopię obiektów Storage i procedurę odtworzenia.
+2. Uruchomić migrację etapu 1 na środowisku testowym i wykonać testy negatywne.
+3. Poprawić submit-report: prawidłowy regex /^Bearer\\s+(.+)$/i; jeśli Authorization jest obecny, ale nie ma poprawnego Bearer lub token nie przechodzi auth.getUser, zwrócić 401. Brak nagłówka pozostaje anonimowy tylko wtedy, gdy formularz dopuszcza anonimowe zgłoszenia.
+4. Zinwentaryzować wszystkie klientowe odwołania do Storage. Następnie ograniczyć granty zapisu dla anon/authenticated i wdrożyć najmniejsze wymagane polityki.
+5. Przenieść zdjęcia do prywatnego pipeline: dekodowanie/re-encoding bez EXIF, walidacja wymiarów, MIME, sygnatury i rozmiaru, losowe nazwy, krótkie signed URL dla moderatorów; publikować tylko oczyszczony obraz po zatwierdzeniu.
+6. Zmienić usuwanie zgłoszenia: odczytać ścieżkę obiektu, zapisać zdarzenie audytowe, usunąć rekord i plik z kontrolą błędów oraz mechanizmem ponawiania sprzątania osieroconych plików.
+7. Ograniczyć kolumny w endpointach administracyjnych, dodać indeks FK report_events oraz zoptymalizować polityki RLS po testach.
+8. Testy: anon, użytkownik A/B, site_admin/admin, token prawidłowy/błędny/wygasły, próby eskalacji ról, Storage, EXIF, usuwanie, rate limit.
+9. Dopiero po testach i potwierdzeniu odtworzenia przeprowadzić rollout produkcyjny.
 
 ## Testy akceptacyjne
-- anon: nie może wykonywać TRUNCATE/REFERENCES/TRIGGER ani czytać danych prywatnych.
-- użytkownik A: może wykonać wyłącznie dozwolone operacje na własnych danych.
-- użytkownik B: nie może odczytać/zmienić/usunąć danych użytkownika A.
-- site_admin: dostęp wyłącznie do przydzielonych modułów.
-- admin: zachowuje dotychczasowe uprawnienia; konto i identyfikator pozostają bez zmian.
-- próby wstrzyknięcia user_id, role, moderation_status i storage path przez klienta są odrzucane lub ignorowane.
-- token poprawny, błędny, wygasły, brakujący i niepoprawny nagłówek Authorization są testowane oddzielnie.
-- obrazy z EXIF/GPS po przetworzeniu nie zawierają tych metadanych.
-- po usunięciu zgłoszenia nie pozostają osierocone zdjęcia, a ślad audytowy pozostaje.
+- anon nie wykonuje TRUNCATE/REFERENCES/TRIGGER i nie czyta danych prywatnych.
+- użytkownik A wykonuje wyłącznie dozwolone operacje na własnych danych; B nie odczyta/zmieni/usunie danych A.
+- site_admin ma wyłącznie przydzielone moduły; admin zachowuje dotychczasowe uprawnienia i konto.
+- klient nie może wstrzyknąć user_id, roli, moderation_status ani ścieżki Storage.
+- błędny, wygasły i źle sformatowany token kończy się 401; brak tokenu może oznaczać anonimowość tylko zgodnie z regułą formularza.
+- obrazy po re-encodingu nie zawierają EXIF/GPS.
+- po usunięciu zgłoszenia nie pozostają osierocone pliki, a audyt pozostaje.
 
 ## Ryzyka i ograniczenia
-CORS nie jest mechanizmem autoryzacji. Publiczny klucz Supabase jest z założenia widoczny w przeglądarce; bezpieczeństwo musi wynikać z RLS, grantów, walidacji serwerowej i ograniczeń Storage. Nie należy umieszczać service_role w kodzie frontendowym ani logować tokenów, adresów IP lub treści zgłoszeń.
+CORS nie jest autoryzacją. Klucz publishable/anon jest jawny z założenia; service_role nigdy nie trafia do przeglądarki. Nie logować tokenów, adresów IP ani treści zgłoszeń. Migracje i wdrożenia funkcji wymagają kopii oraz testów.
