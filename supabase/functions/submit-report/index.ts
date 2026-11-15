@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { parseBearerHeader } from "./auth.ts";
+import { stripImageMetadata } from "./image_sanitize.ts";
 
 const allowedOrigin = "https://sank777.github.io";
 const corsHeaders = {
@@ -147,6 +148,12 @@ Deno.serve(async (req: Request) => {
     if (!["image/jpeg", "image/png", "image/webp"].includes(photo.type)) return reply({ error: "Dozwolone formaty zdjęć: JPG, PNG lub WebP." }, 415);
     const bytes = new Uint8Array(await photo.arrayBuffer());
     if (!validImageSignature(bytes, photo.type)) return reply({ error: "Plik nie jest prawidłowym obrazem JPG, PNG lub WebP." }, 415);
+    try {
+      const sanitizedBytes = stripImageMetadata(bytes, photo.type);
+      photo = new File([sanitizedBytes], photo.name, { type: photo.type, lastModified: photo.lastModified });
+    } catch {
+      return reply({ error: "Nie udało się bezpiecznie przetworzyć zdjęcia." }, 415);
+    }
   }
 
 
