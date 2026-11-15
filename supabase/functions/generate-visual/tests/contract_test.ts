@@ -1,6 +1,6 @@
 // Lightweight source-level contract checks for the Visual Engine.
-import { assert, assertEquals } from "jsr:@std/assert@1";
-const source = await Deno.readTextFile(new URL("../supabase/functions/generate-visual/index.ts", import.meta.url));
+import { assert } from "jsr:@std/assert@1";
+const source = await Deno.readTextFile(new URL("../index.ts", import.meta.url));
 Deno.test("visual engine uses the supported pinned image model", () => {
   assert(source.includes('|| "gpt-image-2.5-sunburst"'));
   assert(source.includes("https://api.openai.com/v1/images/generations"));
