@@ -15,3 +15,8 @@
 @media(min-width:1200px){.pillar-tile{min-height:clamp(150px,13vw,205px)!important;border-radius:16px!important}}
 @media(max-width:760px){.hero-banner>.visual-engine-image{object-position:center 52%!important}.pillar-tile{min-height:132px!important}}
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
+/* V5.1 — lekkie, generowane lokalnie schematy geometryczne */
+.pillar-tile>.visual-engine-geometry{position:absolute!important;inset:0!important;z-index:2!important;width:100%!important;height:100%!important;display:block!important;pointer-events:none!important;opacity:.82!important;mix-blend-mode:screen!important}
+.pillar-tile>.visual-engine-geometry polyline{vector-effect:non-scaling-stroke!important}
+.pillar-tile>.visual-engine-geometry circle{vector-effect:non-scaling-stroke!important}
+@media(prefers-reduced-motion:reduce){.pillar-tile>.visual-engine-geometry{mix-blend-mode:normal!important}}
