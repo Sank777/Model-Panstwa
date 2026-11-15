@@ -48,16 +48,16 @@ body{background:var(--dash-bg)!important;color:var(--dash-text)!important;font-f
 .header-tools a,.header-tools button{display:grid;place-items:center;width:38px;height:38px;border:0;border-left:1px solid #ffffff18;border-radius:0;background:transparent;color:#fff;text-decoration:none;font-size:1.6rem}
 .header-tools a:hover,.header-tools button:hover{color:#9fd3ff}
 .dashboard-home{width:100%!important;max-width:none!important;margin:0!important;padding:0 clamp(.8rem,1.5vw,1.5rem) 0!important;gap:1rem!important}
-.hero-banner{position:relative;isolation:isolate;display:grid;place-items:center;min-height:220px;overflow:hidden;margin:0 calc(clamp(.8rem,1.5vw,1.5rem)*-1);padding:2rem 1rem;background:linear-gradient(90deg,rgba(4,18,34,.25),rgba(4,18,34,.12) 45%,rgba(4,18,34,.18)),linear-gradient(180deg,#0d3152,#173b5c 42%,#0b2038)!important;border-bottom:1px solid #a8c9e455}
+.hero-banner{position:relative;isolation:isolate;display:grid;place-items:center;min-height:220px;overflow:hidden;margin:0 calc(clamp(.8rem,1.5vw,1.5rem)*-1);padding:2rem 1rem;background-image:linear-gradient(90deg,rgba(4,18,34,.14),rgba(4,18,34,.06) 45%,rgba(4,18,34,.16)),url("assets/menu/polska-hero.webp")!important;background-size:cover!important;background-position:center 54%!important;border-bottom:1px solid #a8c9e455}
 .hero-banner:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 70%,#e5a36b 0%,#bf775b 9%,transparent 31%),linear-gradient(180deg,#071c32 0%,#163a5b 43%,#263e54 57%,#0b2037 100%)}
 .hero-banner:after{content:"";position:absolute;z-index:-1;inset:35% -5% -15%;background:linear-gradient(165deg,transparent 10%,#1a3850 11% 20%,#0d2944 21% 34%,#071b31 35% 49%,#06162a 50%);clip-path:polygon(0 44%,9% 28%,18% 41%,29% 18%,38% 37%,48% 11%,58% 36%,69% 14%,79% 39%,90% 18%,100% 38%,100% 100%,0 100%)}
 .hero-copy{text-align:center;text-shadow:0 3px 18px #00101f;max-width:850px}
 .hero-copy h1{margin:0;font-size:clamp(2.5rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.055em;font-weight:850}
 .hero-copy p{margin:.55rem 0 .8rem;font-size:clamp(1rem,1.7vw,1.45rem);color:#f2f6fb}
 .flag-divider{display:block;width:100px;height:7px;margin:0 auto;background:linear-gradient(#fff 0 50%,#e52e42 50%);border-radius:1px;box-shadow:0 0 18px #e52e4280}
-.hero-map{position:absolute;left:clamp(1rem,7vw,8rem);top:1.2rem;color:#bfe4ff;font-size:.6rem;letter-spacing:.18em;text-shadow:0 0 12px #54b9ff;opacity:.8}
+.hero-map{display:none!important;position:absolute;left:clamp(1rem,7vw,8rem);top:1.2rem;color:#bfe4ff;font-size:.6rem;letter-spacing:.18em;text-shadow:0 0 12px #54b9ff;opacity:.8}
 .hero-map:before{content:"";display:block;width:clamp(90px,13vw,175px);height:clamp(85px,12vw,150px);margin-bottom:.35rem;background:radial-gradient(circle at 20% 30%,#fff 0 2px,transparent 3px),radial-gradient(circle at 48% 18%,#fff 0 2px,transparent 3px),radial-gradient(circle at 68% 44%,#fff 0 2px,transparent 3px),radial-gradient(circle at 32% 70%,#fff 0 2px,transparent 3px);border:2px solid #c9e9ff;border-radius:38% 47% 35% 43%;transform:rotate(-9deg);box-shadow:0 0 18px #57baff,inset 0 0 20px #57baff55}
-.hero-flag{position:absolute;right:clamp(1rem,7vw,8rem);top:2.1rem;width:clamp(75px,12vw,150px);height:95px;filter:drop-shadow(0 8px 12px #0008);transform:perspective(200px) rotateY(-13deg)}
+.hero-flag{display:none!important;position:absolute;right:clamp(1rem,7vw,8rem);top:2.1rem;width:clamp(75px,12vw,150px);height:95px;filter:drop-shadow(0 8px 12px #0008);transform:perspective(200px) rotateY(-13deg)}
 .hero-flag span{display:block;height:50%;background:linear-gradient(100deg,#fff,#e5e9ef 55%,#fff);clip-path:polygon(0 0,100% 8%,95% 100%,0 88%)}
 .hero-flag span+span{background:linear-gradient(100deg,#d71935,#f02b43 55%,#b90e28);clip-path:polygon(0 0,95% 12%,100% 100%,0 88%)}
 .pillars-dashboard{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(.55rem,1vw,.9rem);padding:.1rem 0}
