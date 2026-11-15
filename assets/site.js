@@ -2,18 +2,15 @@
   "use strict";
   const LINKS = [
     ["index.html", "Strona główna"],
-    ["moduly.html", "Moduły systemu"],
+    ["inwestycje.html", "01 · Jawność wydatków"],
+    ["centrum-jawnosci.html", "02 · Jawność decyzji"],
     ["prototyp.html", "Zgłoszenia obywatelskie"],
-    ["centrum-jawnosci.html", "Jawność decyzji"],
-    ["odpowiedzialnosc.html", "Historia spraw"],
-    ["inwestycje.html", "Inwestycje publiczne"],
-    ["studium-inwestycji.html", "Studium inwestycji"],
+    ["moduly.html", "Architektura systemu"],
     ["model.html", "Nasza koncepcja"],
     ["filary.html", "10 filarów"],
     ["reformy.html", "Reformy"],
     ["zasady.html", "Zasady projektowe"],
-    ["informacje-prawne.html", "Informacje prawne"],
-    ["admin.html", "Panel administratora"]
+    ["informacje-prawne.html", "Informacje prawne"]
   ];
   const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   const existing = [...document.querySelectorAll("body nav")];
