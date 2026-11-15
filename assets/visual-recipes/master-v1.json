@@ -1,0 +1,46 @@
+{
+  "schema": "leon-visual-recipe/1.0",
+  "engine": "5.4.0",
+  "purpose": "Stała, deterministyczna receptura wizualna dla strony Model Państwa i kolejnych rozdziałów.",
+  "reference": {
+    "homepage": {"width":1536,"height":864,"format":"JPEG","status":"reference-image-only"},
+    "panorama": {"width":1536,"height":512,"format":"JPEG","status":"reference-image-only"}
+  },
+  "palette": {
+    "navyDeep":"#010E22",
+    "navyMid":"#124168",
+    "navyBlue":"#012344",
+    "white":"#F5F7FC",
+    "red":"#E62946",
+    "coolGlow":"#78BFFF",
+    "warmGlow":"#FFB36A"
+  },
+  "canvas": {
+    "desktop":{"width":1536,"height":864,"columns":5,"rows":2,"tileGap":16,"outerGutter":18},
+    "hero":{"heightRatio":0.26,"mapAnchor":{"x":0.12,"y":0.48},"titleAnchor":{"x":0.5,"y":0.42},"flagAnchor":{"x":0.88,"y":0.38}},
+    "tileTreatment":{"radius":16,"borderWidth":2,"shadeBottom":0.56,"accentRailWidth":5}
+  },
+  "recipes": {
+    "hero": {
+      "id":"model-panstwa-hero-v1",
+      "width":1536,"height":512,"accent":"#78BFFF",
+      "layers":[
+        {"type":"image","asset":"menu/polska-hero.webp","focal":"50% 54%","fit":"cover"},
+        {"type":"gradient","value":"linear-gradient(180deg,rgba(1,14,34,0.02),rgba(1,14,34,0.12) 58%,rgba(1,14,34,0.48))","opacity":1}
+      ]
+    },
+    "pillarTemplate": {
+      "id":"pillar-photo-card-template-v1",
+      "width":600,"height":340,"accent":"#168CFF",
+      "layers":[
+        {"type":"image","asset":"menu/pillar-photo-placeholder.webp","focal":"50% 50%","fit":"cover","filter":"saturate(0.92) contrast(1.04)"},
+        {"type":"gradient","value":"linear-gradient(0deg,rgba(1,8,18,0.82),rgba(1,12,25,0.28) 54%,rgba(1,12,25,0.02))"}
+      ]
+    }
+  },
+  "limitations": [
+    "Receptura nie zawiera oryginalnych warstw źródłowego obrazu; zapisuje odtwarzalne parametry kompozycji.",
+    "Do porównania pikselowego 1:1 potrzebny jest oryginalny plik wzorca oraz wszystkie użyte zdjęcia i fonty.",
+    "Grafiki kafelków pozostają oddzielnymi zasobami; treści tekstowe są renderowane przez HTML."
+  ]
+}
