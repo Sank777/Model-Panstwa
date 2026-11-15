@@ -37,7 +37,7 @@
 .pillar-tile:before{
   content:""!important;position:absolute!important;inset:0!important;z-index:1!important;
   display:block!important;pointer-events:none!important;
-  background:linear-gradient(0deg,rgba(2,9,18,.88),rgba(2,12,24,.38) 48%,rgba(2,12,24,.04)),
+  background:linear-gradient(0deg,rgba(2,9,18,var(--tile-shade-opacity,.46)),rgba(2,12,24,.38) 48%,rgba(2,12,24,.04)),
     linear-gradient(112deg,rgba(3,15,28,.18),transparent 46%,rgba(4,17,31,.12))!important;
 }
 .pillar-tile:after{
