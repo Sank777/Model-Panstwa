@@ -46,3 +46,36 @@ test("returned plan and rectangles are immutable", () => {
   assert.ok(Object.isFrozen(parts));
   assert.ok(Object.isFrozen(parts[0]));
 });
+
+test("extract calls drawImage with ten exact source rectangles", async () => {
+  const calls = [];
+  const previous = global.OffscreenCanvas;
+  global.OffscreenCanvas = class {
+    constructor(width, height) { this.width = width; this.height = height; }
+    getContext() {
+      return {
+        clearRect() {},
+        drawImage(source, sx, sy, sw, sh, dx, dy, dw, dh) {
+          calls.push({ sx, sy, sw, sh, dx, dy, dw, dh });
+        }
+      };
+    }
+    async convertToBlob() {
+      return new Blob([JSON.stringify(calls[calls.length - 1])], { type: "image/png" });
+    }
+  };
+  try {
+    const { extract } = require("../assets/visual-segmenter.js");
+    const result = await extract({ width: 1520, height: 358 });
+    assert.equal(result.length, 10);
+    assert.equal(calls.length, 10);
+    assert.deepEqual(calls[0], { sx: 0, sy: 0, sw: 304, sh: 179, dx: 0, dy: 0, dw: 304, dh: 179 });
+    assert.deepEqual(calls[4], { sx: 1216, sy: 0, sw: 304, sh: 179, dx: 0, dy: 0, dw: 304, dh: 179 });
+    assert.deepEqual(calls[5], { sx: 0, sy: 179, sw: 304, sh: 179, dx: 0, dy: 0, dw: 304, dh: 179 });
+    assert.deepEqual(calls[9], { sx: 1216, sy: 179, sw: 304, sh: 179, dx: 0, dy: 0, dw: 304, dh: 179 });
+    assert.ok(result.every(item => item.blob.type === "image/png" && item.blob.size > 0));
+  } finally {
+    if (previous === undefined) delete global.OffscreenCanvas;
+    else global.OffscreenCanvas = previous;
+  }
+});
