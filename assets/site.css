@@ -134,3 +134,21 @@ body > .mp-nav a[aria-current="page"]{background:var(--mp-accent)!important;colo
 @media(prefers-reduced-motion:reduce){
   .site-nav a,body > .mp-nav a,.nav a,.site-menu a{transition:none!important}
 }
+
+
+/* Test zdjęć menu — dwa kafelki na gałęzi podglądowej */
+.mp-nav a[href="inwestycje.html"]{
+  background-image:linear-gradient(100deg,rgba(8,18,12,.78),rgba(8,18,12,.38)),url("menu/jawnosc-wydatkow.jpg")!important;
+}
+.mp-nav a[href="moduly.html"]{
+  background-image:linear-gradient(100deg,rgba(8,18,12,.78),rgba(8,18,12,.38)),url("menu/architektura-systemu.jpg")!important;
+}
+.mp-nav a[href="inwestycje.html"],
+.mp-nav a[href="moduly.html"]{
+  background-size:cover!important;background-position:center!important;
+  background-repeat:no-repeat!important;color:#fff!important;
+  text-shadow:0 1px 3px rgba(0,0,0,.85);
+  border-color:rgba(255,255,255,.22)!important;
+}
+.mp-nav a[href="inwestycje.html"]::before,
+.mp-nav a[href="moduly.html"]::before{content:none!important;display:none!important}
