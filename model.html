@@ -1,0 +1,58 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Dlaczego powstał Model Państwa i jakie zasady powinny łączyć wszystkie proponowane rozwiązania."><title>Nasze myślenie o państwie · Model Państwa</title><style>
+:root{--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--border:#d8e1da;--shadow:0 8px 24px #1c352015}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}header{background:linear-gradient(135deg,#1e5c3a,#163d29);color:white;padding:2.2rem max(1rem,calc((100% - 1050px)/2)) 1.6rem}header .eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#c8e4d0;font-weight:800}header h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:.5rem 0}header p{max-width:760px;color:#e0ebe3;margin:.5rem 0}.site-nav{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;padding:.75rem 1rem;background:var(--surface);border-bottom:1px solid var(--border)}.site-nav a{padding:.45rem .7rem;border:1px solid var(--border);border-radius:999px;color:var(--accent);text-decoration:none;font-size:.85rem;font-weight:650}.site-nav a:hover{background:var(--surface2)}main{width:min(1000px,100% - 2rem);margin:1.4rem auto 3rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:clamp(1rem,3vw,1.6rem);margin:1rem 0;box-shadow:var(--shadow)}h2{font-size:1.35rem;line-height:1.25;margin:.1rem 0 .7rem}h3{font-size:1.03rem;margin:.3rem 0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}.tile{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1rem}.tile b{color:var(--accent)}.kicker{font-size:.75rem;letter-spacing:.1em;color:var(--accent);font-weight:800}.tag{display:inline-block;border:1px solid var(--border);border-radius:99px;padding:.15rem .55rem;color:var(--muted);font-size:.75rem}.callout{border-left:4px solid var(--accent);background:var(--surface2);padding:.9rem 1rem;border-radius:0 10px 10px 0}.steps{counter-reset:step;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem}.step{padding:1rem;border:1px solid var(--border);border-radius:12px;background:var(--surface2)}.step b{color:var(--accent)}ul{padding-left:1.25rem}li{margin:.3rem 0}a{color:var(--accent)}footer{text-align:center;color:var(--muted);padding:1rem;font-size:.82rem}@media(max-width:600px){header{padding:1.6rem 1rem}main{width:calc(100% - 1rem)}}
+.site-nav a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+:root{color-scheme:dark;--bg:#151b17;--surface:#202923;--surface2:#29352d;--text:#edf3ee;--muted:#aab8ad;--accent:#69bd88;--border:#d8e1da;--shadow:0 8px 24px #0004}
+[data-theme="light"]{color-scheme:light;--bg:#f3f6f4;--surface:#fff;--surface2:#eaf0ec;--text:#17231b;--muted:#647268;--accent:#1e5c3a;--border:#d8e1da;--shadow:0 8px 24px #1c352015}
+.global-theme-toggle{position:fixed;right:1rem;top:1rem;z-index:3000;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text);padding:.55rem .85rem;font:600 .85rem system-ui;box-shadow:0 3px 14px #0003;cursor:pointer}
+
+/* Leon Visual Recipe — wspólny wzorzec granatowy */
+:root{color-scheme:dark;--bg:#06182c;--surface:#0d2743;--surface2:#102f50;--text:#f5f8fc;--muted:#c2d2e3;--accent:#8dcaff;--border:rgba(161,198,231,.35);--shadow:0 10px 28px #0005}
+[data-theme="light"]{color-scheme:dark;--bg:#06182c;--surface:#0d2743;--surface2:#102f50;--text:#f5f8fc;--muted:#c2d2e3;--accent:#8dcaff;--border:rgba(161,198,231,.35)}
+body{background:var(--bg)!important;color:var(--text)!important}
+header{position:relative;isolation:isolate;min-height:260px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:#071a2d url("assets/menu/polska-hero.webp") center 54%/cover no-repeat!important;padding:2.5rem max(1rem,calc((100% - 1200px)/2))!important;border-bottom:1px solid var(--border);text-shadow:0 2px 14px #00101f}
+header:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(1,12,25,.62),rgba(1,12,25,.16) 70%),linear-gradient(0deg,rgba(1,12,25,.48),transparent 70%)}
+header .eyebrow{color:#c7e5ff}header h1{max-width:900px;font-size:clamp(2.1rem,5vw,4rem);letter-spacing:-.045em}header p{color:#f0f6ff;max-width:760px}
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(5,22,40,.96)!important;border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.site-nav a{color:#eaf4ff!important;border-color:var(--border)!important;background:rgba(255,255,255,.035)}.site-nav a:hover,.site-nav a[aria-current="page"]{background:#17436a!important;border-color:#80bfff!important;color:#fff!important}
+main{width:min(1200px,100% - 2rem)!important;margin:1.2rem auto 3rem!important}
+.card{background:linear-gradient(145deg,rgba(16,47,80,.98),rgba(8,30,52,.98))!important;border:1px solid var(--border)!important;border-radius:16px!important;box-shadow:0 8px 24px #0004!important}
+.tile,.step{background:rgba(19,54,88,.8)!important;border-color:var(--border)!important}.tile b,.step b,.kicker{color:#9ed2ff!important}.callout{background:#123657!important;border-left-color:#e62946!important}
+.tag{border-color:var(--border)!important;color:#c8d9eb!important}a{color:#a9d7ff}footer{color:#c2d2e3!important}
+.global-theme-toggle{background:#0d2743!important;color:#fff!important;border-color:var(--border)!important}
+@media(max-width:600px){header{min-height:220px;padding:1.6rem 1rem!important}main{width:calc(100% - 1rem)!important}}
+</style><script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
+</head><body>
+<button type="button" class="global-theme-toggle" id="globalThemeToggle" aria-label="Zmień motyw">☀️ Jasny</button><header><div class="eyebrow">IDEA I ZAŁOŻENIA</div><h1>Nasze myślenie o państwie</h1><p>Dlaczego powstał Model Państwa i jakie zasady powinny łączyć wszystkie proponowane rozwiązania.</p></header><nav class="site-nav" aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html" aria-current="page">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html">Prototyp zgłoszeń</a><a href="centrum-jawnosci.html">Centrum jawności</a></nav><main><section class="card"><div class="kicker">Punkt wyjścia</div><h2>Nie gotowy program polityczny, lecz sposób myślenia o państwie</h2>
+<p>Model Państwa to obywatelska koncepcja uporządkowania najważniejszych obszarów działania państwa. Łączy instytucje, gospodarkę, prawo, bezpieczeństwo, edukację, demografię i finanse w jeden system wzajemnie zależnych elementów.</p>
+<p>Nie chodzi o obietnicę, że istnieje jedno idealne rozwiązanie. Chodzi o to, by problemy rozpoznawać, proponować możliwe warianty, sprawdzać ich skutki i poprawiać to, co nie działa.</p>
+<div class="callout"><b>Główna myśl:</b> państwo powinno być przewidywalne, przejrzyste i odpowiedzialne, a obywatel powinien rozumieć decyzje, które wpływają na jego życie.</div></section>
+<section class="card"><h2>Co łączy wszystkie filary?</h2><div class="grid">
+<div class="tile"><b>Zaufanie</b><p>Buduje się je przez jawność, rzetelność, dotrzymywanie zasad i możliwość sprawdzenia decyzji.</p></div>
+<div class="tile"><b>Odpowiedzialność</b><p>Ważne decyzje powinny mieć uzasadnienie, wskazanego gospodarza i możliwość oceny efektów.</p></div>
+<div class="tile"><b>Myślenie długoterminowe</b><p>Strategiczne działania powinny wykraczać poza jedną kadencję, ale podlegać jawnej ocenie i korekcie.</p></div>
+<div class="tile"><b>Proporcjonalność</b><p>Rozwiązanie powinno odpowiadać skali problemu. Nie tworzymy rozbudowanej biurokracji tam, gdzie wystarczy prosty mechanizm.</p></div>
+<div class="tile"><b>Odporność</b><p>Państwo i społeczeństwo powinny przygotowywać się na kryzysy, błędy, zakłócenia i manipulację.</p></div>
+<div class="tile"><b>Uczenie się</b><p>Instytucje powinny umieć przyznać, że rozwiązanie nie działa, i je poprawić.</p></div>
+</div></section>
+<section class="card"><h2>Jak czytać ten projekt?</h2><p>Dziesięć filarów to uporządkowana mapa tematów, a nie zamknięty katalog gotowych ustaw. Każdy pomysł wymaga osobnej diagnozy, analizy prawnej, finansowej i organizacyjnej. Tam, gdzie to możliwe, powinien być najpierw testowany w ograniczonej skali.</p><p class="muted">Propozycje opisane na stronie nie są opisem obecnie obowiązującego prawa ani oficjalnym stanowiskiem instytucji państwowych.</p></section></main><footer>Model Państwa · obywatelska propozycja do dyskusji i dalszego rozwijania</footer>
+<script>
+(() => {
+  const endpoint = "https://ldjrinmohlomzlyeagwd.supabase.co/functions/v1/track-visit";
+  const path = window.location.pathname || "/";
+  fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": "sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR"
+    },
+    body: JSON.stringify({ path }),
+    keepalive: true
+  }).catch(() => {});
+})();
+</script>
+<script>const themeButton=document.getElementById("globalThemeToggle");function setSiteTheme(theme){document.documentElement.dataset.theme=theme;themeButton.textContent=theme==="dark"?"☀️ Jasny":"🌙 Ciemny";try{localStorage.setItem("model_panstwa_v2_theme",theme)}catch(e){}}setSiteTheme(document.documentElement.dataset.theme||"dark");themeButton.addEventListener("click",()=>setSiteTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));</script>
+<script src="assets/site.js?v=20261115-5" defer></script>
+</body></html>

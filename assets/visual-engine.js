@@ -2,7 +2,7 @@
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.11.0";
+  const VERSION = "6.12.1";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 
@@ -15,7 +15,7 @@
   let watchdog = null;
 
   function assetURL(path) {
-    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g)$/i.test(path) ||
+    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g|svg)$/i.test(path) ||
         path.split("/").some(part => part === "." || part === "..")) throw new Error("asset-path-rejected");
     const url = new URL(path, ROOT);
     if (url.origin !== location.origin || !url.pathname.startsWith(ROOT.pathname)) throw new Error("asset-origin-rejected");
@@ -43,6 +43,7 @@
     if (!hero) return Promise.resolve();
     const recipe = ROM && ROM.hero;
     if (!recipe) { hero.classList.add("visual-hero-fallback"); state.hero = "fallback"; return Promise.resolve(); }
+    hero.dataset.visualState = "loading";
     return load(recipe.asset).then(() => {
       let layer = directChild(hero,"visual-engine-image");
       if (!layer) {
@@ -60,9 +61,11 @@
       }
       hero.classList.remove("visual-hero-fallback","visual-image-error");
       hero.classList.add("visual-hero-ready");
+      hero.dataset.visualState = "loaded";
       state.hero = "loaded";
     }).catch(error => {
       hero.classList.add("visual-hero-fallback","visual-image-error");
+      hero.dataset.visualState = "fallback";
       state.hero = "fallback";
       record("hero",error);
     });
@@ -111,12 +114,16 @@
         layer.setAttribute("aria-hidden","true");
         tile.insertBefore(layer,tile.firstChild);
       }
-      const col = Number(recipe.spriteIndex) % 5;
-      const row = Math.floor(Number(recipe.spriteIndex) / 5);
       layer.style.backgroundImage = 'url("' + assetURL(recipe.asset) + '")';
-      layer.style.backgroundSize = "500% 200%";
       layer.style.backgroundRepeat = "no-repeat";
-      layer.style.backgroundPosition = (col * 25) + "% " + (row * 100) + "%";
+      if (Number.isInteger(recipe.spriteIndex)) {
+        const col = recipe.spriteIndex % 5, row = Math.floor(recipe.spriteIndex / 5);
+        layer.style.backgroundSize = "500% 200%";
+        layer.style.backgroundPosition = (col * 25) + "% " + (row * 100) + "%";
+      } else {
+        layer.style.backgroundSize = "cover";
+        layer.style.backgroundPosition = recipe.focal || "center";
+      }
       tile.classList.remove("visual-tile-fallback","visual-image-error");
       tile.dataset.visualState = "loaded";
       state.loaded++;
@@ -130,9 +137,9 @@
   function scan() {
     state.lastCheck = Date.now();
     const hero = document.querySelector(".hero-banner");
-    if (hero && hero.dataset.visualState !== "loaded") renderHero();
+    if (hero && !["loaded","loading","fallback"].includes(hero.dataset.visualState)) renderHero();
     document.querySelectorAll(".pillar-tile").forEach(tile => {
-      if (tile.dataset.visualState !== "loaded" && tile.dataset.visualState !== "loading") renderTile(tile);
+      if (!["loaded","loading","fallback"].includes(tile.dataset.visualState)) renderTile(tile);
     });
     state.total = document.querySelectorAll(".pillar-tile").length;
   }
@@ -149,7 +156,7 @@
   function retryFailed() {
     document.querySelectorAll(".pillar-tile.visual-tile-fallback").forEach(tile => { tile.dataset.visualState = "idle"; });
     const hero = document.querySelector(".hero-banner");
-    if (hero) hero.classList.remove("visual-hero-ready");
+    if (hero) { hero.classList.remove("visual-hero-ready","visual-hero-fallback","visual-image-error"); hero.dataset.visualState = "idle"; }
     state.hero = "pending";
     scan();
     return Promise.resolve(getStatus());
@@ -160,8 +167,12 @@
     window.ModelPanstwaVisualEngine = Object.freeze({version:VERSION,getStatus,retryFailed,scan});
     scan();
     if (window.MutationObserver) {
-      observer = new MutationObserver(() => {
-        if (!document.hidden) scan();
+      observer = new MutationObserver(records => {
+        if (document.hidden) return;
+        const addedVisualHost = records.some(record => Array.from(record.addedNodes).some(node =>
+          node.nodeType === 1 && (node.matches?.(".pillar-tile,.hero-banner") || node.querySelector?.(".pillar-tile,.hero-banner"))
+        ));
+        if (addedVisualHost) scan();
       });
       observer.observe(document.querySelector(".dashboard-home") || document.body,{childList:true,subtree:true});
     }
