@@ -1,31 +1,24 @@
-/* Leon Visual ROM 1.3 — one hero + 10 crops from a 5x2 WebP sprite. */
+/* Leon Visual ROM 1.4 — independent clean artwork per pillar. */
 (() => {
   "use strict";
-  const names = [
-    ["Fundament państwa","#fa3048","strong"],
-    ["Gospodarka i rozwój","#168cff","medium"],
-    ["System prawny","#f2c94c","strong"],
-    ["Bezpieczeństwo","#55e879","medium"],
-    ["System emerytalny","#c66cff","medium"],
-    ["Kapitał ludzki","#27d4e8","medium"],
-    ["Zarządzanie strategiczne","#278cff","medium"],
-    ["Odporność informacyjna","#ed49b6","strong"],
-    ["Demografia i stabilność","#f08a43","medium"],
-    ["System finansów państwa","#20cda8","medium"]
+  const data = [
+    ["Fundament państwa","Instytucje i zaufanie","▥","leon-filar-01-fundament.svg","#fa3048"],
+    ["Gospodarka i rozwój","Inwestycje, przemysł, innowacje","▤","leon-filar-02-gospodarka.svg","#159bff"],
+    ["System prawny","Proste i skuteczne prawo","⚖","leon-filar-03-prawo.svg","#f5c747"],
+    ["Bezpieczeństwo","Odporność państwa i obywateli","⬡","leon-filar-04-bezpieczenstwo.svg","#63d77e"],
+    ["System emerytalny","Stabilność i godne życie","♧","leon-filar-05-emerytury.svg","#c76bff"],
+    ["Kapitał ludzki","Edukacja, kompetencje, rozwój","◆","leon-filar-06-kapital-ludzki.svg","#27d4e8"],
+    ["Zarządzanie strategiczne","Długofalowa polityka państwa","⚙","leon-filar-07-strategia.svg","#278cff"],
+    ["Odporność informacyjna","Świadome i bezpieczne społeczeństwo","⬡","leon-filar-08-informacje.svg","#ed49b6"],
+    ["Demografia i stabilność","Rodzina, mieszkalnictwo, regiony","♧","leon-filar-09-demografia.svg","#f08a43"],
+    ["System finansów państwa","Przejrzystość, efektywność, kontrola","▤","leon-filar-10-finanse.svg","#20cda8"]
   ];
-  const tiles = Object.fromEntries(names.map((item, index) => {
-    const n = index + 1;
-    return ["pillar-" + n, Object.freeze({
-      id:"pillar-" + n, sprite:"leon-pillar-sprite.webp",
-      column:index % 5, row:Math.floor(index / 5),
-      accent:item[1], shade:item[2], alt:item[0]
-    })];
-  }));
+  const tiles = Object.fromEntries(data.map((item,index)=>["pillar-"+(index+1),Object.freeze({
+    id:"pillar-"+(index+1),asset:item[3],title:item[0],subtitle:item[1],icon:item[2],accent:item[4]
+  })]));
   window.LeonVisualROM = Object.freeze({
-    id:"model-panstwa-home-reference", version:"1.3.0",
-    deterministic:true,
-    hero:Object.freeze({id:"hero",asset:"leon-hero.webp",focal:"center 54%",alt:"Panorama Polski z mapą i flagą"}),
-    sprite:Object.freeze({asset:"leon-pillar-sprite.webp",columns:5,rows:2}),
+    id:"model-panstwa-home-reference",version:"1.4.0",deterministic:true,
+    hero:Object.freeze({id:"hero",asset:"leon-hero.webp",focal:"center 50%",alt:"Panorama Polski z mapą i flagą"}),
     tiles:Object.freeze(tiles)
   });
 })();
