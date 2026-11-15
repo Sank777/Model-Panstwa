@@ -1,0 +1,26 @@
+name: Security tests
+
+on:
+  push:
+    branches:
+      - security/database-hardening-2026-11
+  pull_request:
+    paths:
+      - "supabase/functions/submit-report/**"
+      - ".github/workflows/security-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  deno-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Test Bearer header parser
+        run: deno test --no-check supabase/functions/submit-report/auth.test.ts
