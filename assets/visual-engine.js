@@ -40,6 +40,7 @@
     img.alt = "";
     img.setAttribute("aria-hidden", "true");
     img.decoding = "async";
+    img.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;pointer-events:none;border-radius:inherit";
     img.loading = priority ? "eager" : "lazy";
     if (priority) img.fetchPriority = "high";
 
