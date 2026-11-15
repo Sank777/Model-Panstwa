@@ -1,4 +1,4 @@
-/* Leon Visual Engine 6.12.2 — persistent, fail-open renderer.
+/* Leon Visual Engine 6.13.1 — persistent, fail-open renderer.
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
@@ -53,20 +53,6 @@
   }
   function directChild(host, cls) {
     return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
-  }
-  function extractSegments(path, source) {
-    if (!window.LeonVisualSegmenter || !ROM || !ROM.spriteGrid) throw new Error("segmenter-or-grid-unavailable");
-    if (!segmentCache.has(path)) {
-      const promise = window.LeonVisualSegmenter.extract(source, ROM.spriteGrid)
-        .catch(error => { segmentCache.delete(path); throw error; });
-      segmentCache.set(path, promise);
-    }
-    return segmentCache.get(path);
-  }
-  function getSegmentURL(path, index, blob) {
-    const key = path + "#" + index;
-    if (!objectURLs.has(key)) objectURLs.set(key, URL.createObjectURL(blob));
-    return objectURLs.get(key);
   }
   function directChild(host, cls) {
     return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
