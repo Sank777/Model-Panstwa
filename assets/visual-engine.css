@@ -1,4 +1,4 @@
-/* Leon Visual Engine 6.7 — image layers are the only tile artwork renderer. */
+/* Leon Visual Engine 6.13 — image layers are the only tile artwork renderer. */
 .hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:clamp(230px,18vw,290px)!important;background:#071a2d!important;background-image:none!important}
 .hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important}
 .hero-banner>.visual-engine-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 50%!important;margin:0!important;padding:0!important;border:0!important}
@@ -19,7 +19,7 @@
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
 
 
-/* 6.8.0 PERMANENT AUTHORITY LAYER — overrides legacy homepage artwork rules.
+/* 6.13.0 PERMANENT AUTHORITY LAYER — overrides legacy homepage artwork rules.
    Images are supplied only by LeonVisualROM; legacy CSS illustrations are disabled. */
 .hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#071a2d!important;background-image:none!important}
 .hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important}
