@@ -24,12 +24,14 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
 .site-nav a{display:inline-block;padding:.48rem .72rem;border:1px solid var(--border);border-radius:999px;color:var(--accent);text-decoration:none;font-size:.86rem;font-weight:650}
 .site-nav a:hover,.site-nav a:focus{background:var(--surface-2);text-decoration:underline}
 .site-nav a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.home-page{display:grid;gap:1.2rem}.home-intro{padding:clamp(1.2rem,3vw,2rem)}.home-intro h2{font-size:clamp(1.8rem,4vw,2.7rem);max-width:18ch;margin:.45rem 0}.home-intro p{max-width:68ch}.home-section{padding:.3rem 0}.home-section-heading{margin:0 0 1rem}.home-section-heading h2{margin:.25rem 0}.home-modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.home-module{display:flex;flex-direction:column;gap:.7rem;min-width:0;padding:1.1rem;border:1px solid var(--border);border-radius:1rem;background:var(--surface);color:inherit;text-decoration:none;transition:transform .18s ease,border-color .18s ease}.home-module:hover,.home-module:focus-visible{transform:translateY(-2px);border-color:var(--accent);outline-offset:3px}.home-illustration{display:grid;place-items:center;width:3.2rem;height:3.2rem;border-radius:.9rem;background:var(--surface-2);font-size:1.65rem}.home-module-title{font-weight:750;font-size:1.08rem}.home-module-copy{color:var(--muted);font-size:.94rem;line-height:1.55;flex:1}.home-module-link{color:var(--accent);font-weight:700;font-size:.9rem}.home-principle h2{margin:.35rem 0}.home-principle p{max-width:75ch}.home-principle a{font-weight:700;color:var(--accent)}@media(max-width:760px){.home-modules{grid-template-columns:1fr}.home-module{display:grid;grid-template-columns:3.2rem 1fr;align-items:center}.home-illustration{grid-row:span 2}.home-module-copy,.home-module-link{grid-column:2}}
 </style>
 <link rel="stylesheet" href="assets/site.css?v=20261115-5">
 </head>
 <body>
 <header>
-  <div class="header-actions"><button type="button" id="themeToggle" aria-label="Zmień motyw">🌙 Ciemny</button><a class="header-link" href="prototyp.html">Prototyp zgłoszeń</a></div>
+  <div class="header-actions"><button type="button" id="themeToggle" aria-label="Zmień motyw">🌙 Ciemny</button></div>
   <div class="eyebrow">Laboratorium obywatelskie · wersja prezentacyjna</div>
   <h1>Model Państwa</h1>
   <p>Małe, sprawdzalne narzędzia współpracy obywateli z instytucjami. Przejrzystość, odpowiedzialność i prostota działania.</p>
@@ -46,7 +48,53 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
   <a href="inwestycje.html">Budżety inwestycji</a>
 <a href="centrum-jawnosci.html">Centrum jawności</a><a href="studium-inwestycji.html">Studium inwestycji</a><a href="admin.html">Panel administracyjny</a></nav>
 
-<main>
+<main class="home-page">
+  <section class="card home-intro">
+    <div class="eyebrow" style="color:var(--accent)">Model Państwa · projekt obywatelski</div>
+    <h2>Państwo, które działa przejrzyście</h2>
+    <p>Projektujemy i sprawdzamy rozwiązania, które wzmacniają odpowiedzialność instytucji, jawność decyzji i udział obywateli.</p>
+    <div class="actions">
+      <a class="btn" href="filary.html" style="text-decoration:none">Poznaj model państwa</a>
+      <a class="btn secondary" href="centrum-jawnosci.html" style="text-decoration:none">Zobacz centrum jawności</a>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="home-modules-title">
+    <div class="home-section-heading">
+      <div class="eyebrow" style="color:var(--accent)">Główne obszary</div>
+      <h2 id="home-modules-title">Wybierz obszar projektu</h2>
+      <p class="muted">Każdy moduł ma własną stronę i jasno określone zadanie.</p>
+    </div>
+    <div class="home-modules">
+      <a class="home-module" href="centrum-jawnosci.html">
+        <span class="home-illustration" aria-hidden="true">🏛️</span>
+        <span class="home-module-title">Jawność publiczna</span>
+        <span class="home-module-copy">Przejrzyste informacje o inwestycjach, wydatkach i działaniach instytucji.</span>
+        <span class="home-module-link">Przejdź do modułu →</span>
+      </a>
+      <a class="home-module" href="studium-inwestycji.html">
+        <span class="home-illustration" aria-hidden="true">📊</span>
+        <span class="home-module-title">Analiza inwestycji</span>
+        <span class="home-module-copy">Przyglądanie się planom, kosztom, realizacji i efektom inwestycji.</span>
+        <span class="home-module-link">Przejdź do modułu →</span>
+      </a>
+      <a class="home-module" href="prototyp.html">
+        <span class="home-illustration" aria-hidden="true">📍</span>
+        <span class="home-module-title">Zgłoszenia obywatelskie</span>
+        <span class="home-module-copy">Demonstracyjny moduł zgłaszania lokalnych problemów i śledzenia ich statusu.</span>
+        <span class="home-module-link">Przejdź do modułu →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="card home-principle">
+    <div class="eyebrow" style="color:var(--accent)">Zasada działania</div>
+    <h2>Najpierw sprawdzamy, potem wdrażamy</h2>
+    <p>Każde rozwiązanie powinno przejść diagnozę, ocenę skutków, konsultacje i – jeśli to możliwe – pilotaż. Wyniki sprawdzamy, a błędy poprawiamy.</p>
+    <a href="reformy.html">Zobacz, jak przygotowujemy zmiany →</a>
+  </section>
+
+  <div hidden aria-hidden="true" id="legacy-home-content">
   <section class="card">
     <h2>O projekcie</h2>
     <p>To prototyp – laboratorium do testowania konkretnych rozwiązań. Nie jest to oficjalny kanał zgłoszeń do urzędu i nie zastępuje procedur administracyjnych.</p>
@@ -145,8 +193,9 @@ main{width:min(1050px,100%);margin:auto;padding:1.25rem 1rem 3rem}.card{backgrou
     <div class="proposal"><strong>Ocena jakości obsługi</strong> – informacja zwrotna po zakończeniu sprawy.</div>
     <div class="proposal"><strong>Publiczny rejestr decyzji</strong> – kto, kiedy i na jakiej podstawie zmienił status sprawy.</div>
   </section>
+</div>
 </main>
-<footer>Model Państwa · prezentacja i prototyp 2.1<br>Wersja demonstracyjna. Nie jest oficjalnym systemem administracji publicznej.</footer>
+<footer>Model Państwa · projekt obywatelski<br>Wersja demonstracyjna. Nie jest oficjalnym systemem administracji publicznej.</footer>
 <div id="presentation" class="presentation-overlay" role="dialog" aria-modal="true" aria-label="Pokaz slajdów Model Państwa" aria-hidden="true">
   <div class="presentation-shell">
     <div class="presentation-top"><span id="slideCounter">Slajd 1 z 14</span><button type="button" class="presentation-close" id="closePresentation" aria-label="Zamknij pokaz">✕ Zamknij</button></div>
