@@ -70,16 +70,16 @@ body{background:var(--dash-bg)!important;color:var(--dash-text)!important;font-f
 .tile-copy small{font-size:.8rem;font-weight:750;color:#f4f7fb}
 .tile-copy strong{font-size:clamp(.88rem,1.15vw,1.08rem);line-height:1.16;font-weight:800}
 .tile-copy em{margin-top:.25rem;font-size:clamp(.68rem,.83vw,.8rem);line-height:1.25;color:#e1eaf4;font-style:normal}
-.pillar-1{--tile-accent:#fa3048;background-image:url("assets/menu/leon-filar-01-fundament.svg")}
-.pillar-2{--tile-accent:#159bff;background-image:url("assets/menu/leon-filar-02-gospodarka.svg")}
-.pillar-3{--tile-accent:#f5c747;background-image:url("assets/menu/leon-filar-03-prawo.svg")}
-.pillar-4{--tile-accent:#63d77e;background-image:url("assets/menu/leon-filar-04-bezpieczenstwo.svg")}
-.pillar-5{--tile-accent:#c76bff;background-image:url("assets/menu/leon-filar-05-emerytury.svg")}
-.pillar-6{--tile-accent:#46d8e9;background-image:url("assets/menu/leon-filar-06-kapital-ludzki.svg")}
-.pillar-7{--tile-accent:#168cff;background-image:url("assets/menu/leon-filar-07-strategia.svg")}
-.pillar-8{--tile-accent:#ec42bc;background-image:url("assets/menu/leon-filar-08-informacje.svg")}
-.pillar-9{--tile-accent:#f28c38;background-image:url("assets/menu/leon-filar-09-demografia.svg")}
-.pillar-10{--tile-accent:#13d4ac;background-image:url("assets/menu/leon-filar-10-finanse.svg")}
+.pillar-1{--tile-accent:#fa3048}
+.pillar-2{--tile-accent:#159bff}
+.pillar-3{--tile-accent:#f5c747}
+.pillar-4{--tile-accent:#63d77e}
+.pillar-5{--tile-accent:#c76bff}
+.pillar-6{--tile-accent:#27d4e8}
+.pillar-7{--tile-accent:#278cff}
+.pillar-8{--tile-accent:#ed49b6}
+.pillar-9{--tile-accent:#f08a43}
+.pillar-10{--tile-accent:#20cda8}
 .quick-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.6rem,1.3vw,1.2rem);padding:.1rem 0 .5rem}
 .quick-actions a{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.8rem;min-width:0;min-height:78px;padding:.8rem 1rem;border:1px solid rgba(167,202,235,.45);border-radius:14px;background:linear-gradient(135deg,rgba(29,65,99,.9),rgba(9,31,54,.96));color:#fff;text-decoration:none;box-shadow:0 5px 14px #0005,inset 0 1px 0 #ffffff22;transition:transform .18s,border-color .18s}
 .quick-actions a:hover{transform:translateY(-2px);border-color:#b8e1ff}
@@ -185,6 +185,7 @@ body{background:var(--dash-bg)!important;color:var(--dash-text)!important;font-f
 <link rel="preload" as="image" href="assets/menu/leon-hero.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/visual-engine.css?v=6.4.0">
 <link rel="stylesheet" href="assets/header-national-mark.css?v=1.0.0">
+<style id="leon-layout-fix">.pillars-dashboard{grid-template-columns:repeat(5,minmax(0,1fr))!important}.hero-banner{display:grid!important;place-items:center!important}.hero-copy{width:min(100%,900px);margin-inline:auto;text-align:center!important}.pillar-tile{min-width:0!important;background-repeat:no-repeat!important}@media(max-width:1050px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}@media(max-width:650px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}.pillar-tile{min-height:145px;padding:.75rem!important}}</style>
 </head>
 <body>
 
