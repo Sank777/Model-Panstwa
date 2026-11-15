@@ -1,0 +1,88 @@
+/* Leon 6.10 — responsive layout authority.
+   Layout is based on the actual dashboard container, not the physical monitor size. */
+.dashboard-home{
+  container-name:leon-dashboard;
+  container-type:inline-size;
+  width:min(100%,1600px)!important;
+  max-width:1600px!important;
+  margin-inline:auto!important;
+  padding-inline:clamp(12px,2vw,28px)!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+}
+.hero-banner{
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  place-items:center!important;
+  overflow:hidden!important;
+}
+.hero-banner>.visual-engine-image{
+  position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;
+}
+.hero-banner>.visual-engine-image img{
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:none!important;object-fit:cover!important;
+  object-position:50% 50%!important;
+}
+.hero-banner>.hero-copy{
+  position:relative!important;z-index:2!important;
+  justify-self:center!important;align-self:center!important;
+  width:min(100%,900px)!important;max-width:900px!important;
+  margin-inline:auto!important;padding-inline:clamp(8px,2vw,20px)!important;
+  text-align:center!important;transform:none!important;
+}
+.pillars-dashboard{
+  grid-column:1/-1!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin-inline:auto!important;justify-self:stretch!important;
+  gap:clamp(8px,1vw,16px)!important;
+  box-sizing:border-box!important;
+}
+.pillar-tile{
+  display:block!important;position:relative!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  min-height:0!important;height:auto!important;
+  aspect-ratio:1.48/1!important;
+  padding:0!important;margin:0!important;
+  overflow:hidden!important;box-sizing:border-box!important;
+  border:0!important;outline:0!important;box-shadow:none!important;
+  background:transparent!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;inset:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  background-repeat:no-repeat!important;
+  background-size:500% 200%!important;
+  pointer-events:none!important;
+}
+.pillar-tile:before,.pillar-tile:after{display:none!important;content:none!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{display:none!important}
+.quick-actions,.dashboard-footer{width:100%!important;max-width:100%!important;min-width:0!important}
+@container leon-dashboard (max-width:1100px){
+  .pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@container leon-dashboard (max-width:700px){
+  .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .pillar-tile{aspect-ratio:1.42/1!important}
+  .hero-banner{min-height:205px!important}
+}
+@container leon-dashboard (max-width:360px){
+  .pillars-dashboard{grid-template-columns:1fr!important}
+  .pillar-tile{aspect-ratio:1.55/1!important}
+}
+/* Fallback for browsers without container queries. */
+@supports not (container-type:inline-size){
+  @media(max-width:1150px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+  @media(max-width:700px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+  @media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}}
+}
+@media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
