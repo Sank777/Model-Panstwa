@@ -1,8 +1,8 @@
-/* Leon Visual Engine 6.4 — one image and one text layer per tile. */
+/* Leon Visual Engine 6.6 — shared sprite sheet, single text layer per tile. */
 (() => {
   "use strict";
   if(window.ModelPanstwaVisualEngine&&window.ModelPanstwaVisualEngine.version)return;
-  const VERSION="6.5.0",script=document.currentScript;
+  const VERSION="6.6.0",script=document.currentScript;
   const ROOT=new URL("./menu/",script&&script.src?script.src:location.href);
   const ROM=window.LeonVisualROM,hero=document.querySelector(".hero-banner");
   const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
@@ -22,9 +22,9 @@
     const key=Array.from(tile.classList).find(c=>/^pillar-(?:[1-9]|10)$/.test(c)),recipe=key&&ROM.tiles[key];
     if(!recipe){tile.dataset.visualState="failed";state.failed++;return;}
     tile.dataset.visualState="loading";tile.style.setProperty("--tile-accent",recipe.accent);
-    tile.querySelectorAll(".visual-engine-tile-image,.tile-icon,.tile-copy").forEach(n=>n.remove());
+    tile.querySelectorAll(".visual-engine-tile-image,.tile-icon,.tile-copy,[data-leon-tile-label]").forEach(n=>n.remove());
     try{
-      addImage(tile,recipe.asset,"visual-engine-tile-image",false,()=>{tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");state.loaded++;},()=>{tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key);});
+      const sprite=assetURL(recipe.asset);const col=recipe.spriteIndex%5,row=Math.floor(recipe.spriteIndex/5);tile.style.backgroundImage="url("+JSON.stringify(sprite)+")";tile.style.backgroundSize="500% 200%";tile.style.backgroundPosition=(col*25)+"% "+(row*100)+"%";tile.style.backgroundRepeat="no-repeat";tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");state.loaded++;
       const icon=document.createElement("span");icon.className="tile-icon";icon.dataset.leonTileLabel="true";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon;
       const copy=document.createElement("span");copy.className="tile-copy";copy.dataset.leonTileLabel="true";
       const small=document.createElement("small");small.textContent="Filar "+key.slice(7);
@@ -42,7 +42,7 @@
     tiles.forEach((tile,index)=>{if(index<2||!observer)renderTile(tile);else observer.observe(tile);});
     window.ModelPanstwaVisualEngine=Object.freeze({
       version:VERSION,
-      getStatus(){return {version:VERSION,started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"individual-svg-one-copy",assetRoot:ROOT.href};},
+      getStatus(){return {version:VERSION,started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"shared-5x2-sprite-one-copy",assetRoot:ROOT.href};},
       retryFailed(){if(state.hero==="failed"){state.hero="idle";renderHero();}tiles.filter(t=>t.dataset.visualState==="failed").forEach(t=>{t.dataset.visualState="idle";renderTile(t);});}
     });
     window.dispatchEvent(new CustomEvent("model-panstwa:visual-ready",{detail:{version:VERSION,tiles:tiles.length}}));
