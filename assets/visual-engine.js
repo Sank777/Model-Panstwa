@@ -4,25 +4,18 @@
   /* Leon Visual Engine 5.4
      Deterministic recipe renderer: all visual decisions are fixed in this manifest.
      No random values, external image API, runtime image generation or user data. */
-  const VERSION = "5.4.1";
+  const VERSION = "5.5.0";
   const ROOT = new URL("./menu/", document.currentScript.src);
   const hero = document.querySelector(".hero-banner");
   const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
 
   /* Recipe = immutable source + focal point + accent + fixed treatment.
      Values are deliberately explicit so the same input always produces the same scene. */
-  const RECIPES = Object.freeze({
-    "pillar-1":  Object.freeze({ asset:"leon-filar-01-fundament.svg", focal:"50% 50%", accent:"#fa3048", shade:"strong" }),
-    "pillar-2":  Object.freeze({ asset:"leon-filar-02-gospodarka.svg", focal:"50% 50%", accent:"#168cff", shade:"medium" }),
-    "pillar-3":  Object.freeze({ asset:"leon-filar-03-prawo.svg", focal:"50% 50%", accent:"#f2c94c", shade:"strong" }),
-    "pillar-4":  Object.freeze({ asset:"leon-filar-04-bezpieczenstwo.svg", focal:"50% 50%", accent:"#55d88a", shade:"medium" }),
-    "pillar-5":  Object.freeze({ asset:"leon-filar-05-emerytury.svg", focal:"50% 50%", accent:"#c66cff", shade:"medium" }),
-    "pillar-6":  Object.freeze({ asset:"leon-filar-06-kapital-ludzki.svg", focal:"50% 50%", accent:"#27d4e8", shade:"medium" }),
-    "pillar-7":  Object.freeze({ asset:"leon-filar-07-strategia.svg", focal:"50% 50%", accent:"#278cff", shade:"medium" }),
-    "pillar-8":  Object.freeze({ asset:"leon-filar-08-informacje.svg", focal:"50% 50%", accent:"#ed49b6", shade:"strong" }),
-    "pillar-9":  Object.freeze({ asset:"leon-filar-09-demografia.svg", focal:"50% 50%", accent:"#f08a43", shade:"medium" }),
-    "pillar-10": Object.freeze({ asset:"leon-filar-10-finanse.svg", focal:"50% 50%", accent:"#20cda8", shade:"medium" })
-  });
+  const ROM = window.LeonVisualROM;
+  if (!ROM || ROM.version !== "1.0.0") {
+    throw new Error("visual-rom-missing-or-incompatible");
+  }
+  const RECIPES = ROM.tiles;
 
   const state = {
     version: VERSION,
@@ -93,7 +86,7 @@
   if (hero) {
     hero.classList.add("visual-engine-active");
     state.hero = "loading";
-    applyImage(hero, "polska-hero.webp", "visual-engine-image", true, "hero", "center 54%");
+    applyImage(hero, ROM.hero.asset, "visual-engine-image", true, "hero", ROM.hero.focal);
   }
 
   function renderTile(tile) {
@@ -105,7 +98,7 @@
       return;
     }
     tile.dataset.visualLoaded = "1";
-    tile.dataset.visualRecipe = "5.4.1";
+    tile.dataset.visualRecipe = ROM.version;
     tile.style.setProperty("--tile-accent", recipe.accent);
     tile.style.setProperty("--tile-focal", recipe.focal);
     tile.style.setProperty("--tile-shade-opacity", recipe.shade === "strong" ? "0.58" : "0.38");
