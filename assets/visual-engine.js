@@ -1,103 +1,179 @@
-/* Leon Visual Engine 6.10.3 — retry-safe local assets and deterministic sprite crops. */
+/* Leon Visual Engine 6.11.0 — persistent, fail-open renderer.
+   Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION="6.10.3";
-  if(window.__LEON_VISUAL_ENGINE_INSTANCE__)return;
-  window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
-  const script=document.currentScript;
-  const ROOT=new URL("./",script&&script.src?script.src:location.href);
-  const ROM=window.LeonVisualROM;
-  const state={started:false,hero:"idle",loaded:0,failed:0,errors:[],startedAt:Date.now()};
-  const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
-  const hero=document.querySelector(".hero-banner");
-  const safeAsset=name=>{
-    if(typeof name!=="string"||!/^[a-z0-9_/-]+\.(webp|png|jpe?g)$/i.test(name)||name.split("/").some(p=>p===".."||p==="."))throw new Error("asset-name-rejected");
-    const url=new URL(name,ROOT);
-    if(url.origin!==location.origin||!url.pathname.startsWith(ROOT.pathname))throw new Error("asset-path-rejected");
+  const VERSION = "6.11.0";
+  if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
+  window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
+
+  const script = document.currentScript;
+  const ROOT = new URL("./", script && script.src ? script.src : location.href);
+  const ROM = window.LeonVisualROM;
+  const state = { started:false, hero:"pending", total:0, loaded:0, fallback:0, errors:[], lastCheck:0 };
+  const cache = new Map();
+  let observer = null;
+  let watchdog = null;
+
+  function assetURL(path) {
+    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g)$/i.test(path) ||
+        path.split("/").some(part => part === "." || part === "..")) throw new Error("asset-path-rejected");
+    const url = new URL(path, ROOT);
+    if (url.origin !== location.origin || !url.pathname.startsWith(ROOT.pathname)) throw new Error("asset-origin-rejected");
     return url.href;
-  };
-  const cache=new Map();
-  function preload(name){
-    const url=safeAsset(name);
-    if(!cache.has(url)){
-      const task=new Promise((resolve,reject)=>{
-        const img=new Image();img.decoding="async";
-        img.onload=()=>resolve(img);
-        img.onerror=()=>reject(new Error("asset-load-failed:"+url.split("/").pop()));
-        img.src=url;
-      }).catch(error=>{cache.delete(url);throw error;});
-      cache.set(url,task);
+  }
+  function load(path) {
+    const url = assetURL(path);
+    if (!cache.has(url)) {
+      const promise = new Promise((resolve,reject) => {
+        const img = new Image();
+        img.decoding = "async";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("asset-not-found:" + path));
+        img.src = url;
+      }).catch(error => { cache.delete(url); throw error; });
+      cache.set(url,promise);
     }
     return cache.get(url);
   }
-  function renderHeroFallback(){
-    if(!hero)return;
-    hero.classList.add("visual-hero-fallback");
-    hero.classList.remove("visual-hero-ready","visual-image-error");
-    state.hero="fallback";
+  function directChild(host, cls) {
+    return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
   }
-  async function renderHero(){
-    if(!hero||!ROM||!ROM.hero)return;
-    try{
-      const url=safeAsset(ROM.hero.asset);
-      await preload(ROM.hero.asset);
-      let layer=hero.querySelector(":scope > .visual-engine-image");
-      if(!layer){
-        layer=document.createElement("div");layer.className="visual-engine-image";
+  function renderHero() {
+    const hero = document.querySelector(".hero-banner");
+    if (!hero) return Promise.resolve();
+    const recipe = ROM && ROM.hero;
+    if (!recipe) { hero.classList.add("visual-hero-fallback"); state.hero = "fallback"; return Promise.resolve(); }
+    return load(recipe.asset).then(() => {
+      let layer = directChild(hero,"visual-engine-image");
+      if (!layer) {
+        layer = document.createElement("div");
+        layer.className = "visual-engine-image";
         layer.setAttribute("aria-hidden","true");
-        const img=document.createElement("img");img.alt="";img.decoding="async";
-        img.loading="eager";img.referrerPolicy="no-referrer";img.src=url;
-        layer.appendChild(img);hero.prepend(layer);
-      }else{
-        const img=layer.querySelector("img");if(img&&img.src!==url)img.src=url;
+        const img = document.createElement("img");
+        img.alt = "";
+        img.decoding = "async";
+        img.loading = "eager";
+        img.referrerPolicy = "no-referrer";
+        img.src = assetURL(recipe.asset);
+        layer.appendChild(img);
+        hero.insertBefore(layer,hero.firstChild);
       }
-      hero.classList.add("visual-hero-ready");hero.classList.remove("visual-image-error");
-      state.hero="loaded";
-    }catch(error){state.hero="failed";state.errors.push("hero:"+error.message);hero.classList.add("visual-image-error");renderHeroFallback();}
+      hero.classList.remove("visual-hero-fallback","visual-image-error");
+      hero.classList.add("visual-hero-ready");
+      state.hero = "loaded";
+    }).catch(error => {
+      hero.classList.add("visual-hero-fallback","visual-image-error");
+      state.hero = "fallback";
+      record("hero",error);
+    });
   }
-  function tileKey(tile){return Array.from(tile.classList).find(name=>/^pillar-(?:[1-9]|10)$/.test(name));}
-  async function renderTile(tile){
-    const key=tileKey(tile),recipe=key&&ROM&&ROM.tiles&&ROM.tiles[key];
-    if(!recipe){tile.dataset.visualState="failed";state.failed++;state.errors.push("tile-rom-missing:"+key);return;}
-    if(tile.dataset.visualState==="loaded"||tile.dataset.visualState==="loading")return;
-    tile.dataset.visualState="loading";
-    tile.style.setProperty("--tile-accent",recipe.accent);
-    try{
-      const url=safeAsset(recipe.asset);await preload(recipe.asset);
-      let layer=tile.querySelector(":scope > .visual-engine-tile-image");
-      if(!layer){layer=document.createElement("div");layer.className="visual-engine-tile-image";layer.setAttribute("aria-hidden","true");tile.prepend(layer);}
-      layer.style.backgroundImage='url("'+url+'")';
-      layer.style.backgroundRepeat="no-repeat";
-      layer.style.backgroundSize="500% 200%";
-      const col=recipe.spriteIndex%5,row=Math.floor(recipe.spriteIndex/5);
-      layer.style.backgroundPosition=(col*25)+"% "+(row*100)+"%";
-      tile.style.setProperty("background-image","none","important");
-      tile.querySelectorAll(":scope > .tile-icon, :scope > .tile-copy").forEach(node=>node.remove());
-      tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");tile.classList.remove("visual-image-error");
-      state.loaded++;
-    }catch(error){
-      tile.dataset.visualState="fallback";tile.classList.add("visual-image-error","visual-tile-fallback");
-      const icon=document.createElement("span");icon.className="tile-icon";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon||"◆";
-      const copy=document.createElement("span");copy.className="tile-copy";
-      const number=document.createElement("small");number.textContent="Filar "+key.replace("pillar-","");
-      const title=document.createElement("strong");title.textContent=recipe.title||"Obszar rozwoju państwa";
-      const subtitle=document.createElement("em");subtitle.textContent=recipe.subtitle||"";
-      copy.append(number,title,subtitle);tile.innerHTML="";tile.appendChild(icon);tile.appendChild(copy);
-      state.failed++;state.errors.push(key+":"+error.message);
+  function getTileKey(tile) {
+    return Array.from(tile.classList).find(name => /^pillar-(?:[1-9]|10)$/.test(name));
+  }
+  function renderFallback(tile, recipe, error) {
+    const key = getTileKey(tile);
+    const oldLayer = directChild(tile,"visual-engine-tile-image");
+    if (oldLayer) oldLayer.remove();
+    tile.classList.add("visual-tile-fallback","visual-image-error");
+    tile.dataset.visualState = "fallback";
+    let icon = directChild(tile,"tile-icon");
+    let copy = directChild(tile,"tile-copy");
+    if (!icon) { icon = document.createElement("span"); icon.className = "tile-icon"; tile.appendChild(icon); }
+    if (!copy) { copy = document.createElement("span"); copy.className = "tile-copy"; tile.appendChild(copy); }
+    icon.textContent = recipe.icon || "◆";
+    icon.setAttribute("aria-hidden","true");
+    const number = document.createElement("small");
+    number.textContent = "Filar " + String(key || "").replace("pillar-","");
+    const title = document.createElement("strong");
+    title.textContent = recipe.title || "Obszar rozwoju państwa";
+    const subtitle = document.createElement("em");
+    subtitle.textContent = recipe.subtitle || "";
+    copy.replaceChildren(number,title,subtitle);
+    record(key || "tile",error);
+  }
+  function renderTile(tile) {
+    const key = getTileKey(tile);
+    const recipe = key && ROM && ROM.tiles && ROM.tiles[key];
+    if (!recipe) {
+      tile.classList.add("visual-tile-fallback");
+      tile.dataset.visualState = "fallback";
+      record(key || "tile","missing-rom-recipe");
+      return Promise.resolve();
     }
+    if (tile.dataset.visualState === "loaded" || tile.dataset.visualState === "loading") return Promise.resolve();
+    tile.dataset.visualState = "loading";
+    tile.style.setProperty("--tile-accent",recipe.accent || "#39a9ef");
+    return load(recipe.asset).then(() => {
+      let layer = directChild(tile,"visual-engine-tile-image");
+      if (!layer) {
+        layer = document.createElement("div");
+        layer.className = "visual-engine-tile-image";
+        layer.setAttribute("aria-hidden","true");
+        tile.insertBefore(layer,tile.firstChild);
+      }
+      const col = Number(recipe.spriteIndex) % 5;
+      const row = Math.floor(Number(recipe.spriteIndex) / 5);
+      layer.style.backgroundImage = 'url("' + assetURL(recipe.asset) + '")';
+      layer.style.backgroundSize = "500% 200%";
+      layer.style.backgroundRepeat = "no-repeat";
+      layer.style.backgroundPosition = (col * 25) + "% " + (row * 100) + "%";
+      tile.classList.remove("visual-tile-fallback","visual-image-error");
+      tile.dataset.visualState = "loaded";
+      state.loaded++;
+    }).catch(error => renderFallback(tile,recipe,error));
   }
-  function status(){return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"rom-first-sprite-5x2-menu-assets-retry-safe",assetRoot:ROOT.href});}
-  function retryFailed(){
-    state.failed=0;state.errors=[];
-    const jobs=tiles.filter(tile=>tile.dataset.visualState==="failed").map(tile=>{tile.dataset.visualState="idle";return renderTile(tile);});
-    if(state.hero==="failed"||state.hero==="fallback"){state.hero="idle";jobs.push(renderHero());}
-    return Promise.all(jobs).then(status);
+  function record(source,error) {
+    const message = source + ":" + (error && error.message ? error.message : String(error));
+    if (!state.errors.includes(message)) state.errors.push(message);
+    if (state.errors.length > 30) state.errors.shift();
   }
-  function start(){
-    if(state.started)return;state.started=true;
-    window.ModelPanstwaVisualEngine=Object.freeze({version:VERSION,getStatus:status,retryFailed});
-    if(!ROM||!ROM.hero||!ROM.tiles){state.errors.push("rom-missing-or-invalid");console.error("[Leon Visual Engine] ROM unavailable",status());return;}
-    Promise.all([renderHero(),...tiles.map(renderTile)]).then(()=>console.info("[Leon Visual Engine]",status()));
+  function scan() {
+    state.lastCheck = Date.now();
+    const hero = document.querySelector(".hero-banner");
+    if (hero && hero.dataset.visualState !== "loaded") renderHero();
+    document.querySelectorAll(".pillar-tile").forEach(tile => {
+      if (tile.dataset.visualState !== "loaded" && tile.dataset.visualState !== "loading") renderTile(tile);
+    });
+    state.total = document.querySelectorAll(".pillar-tile").length;
   }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
+  function getStatus() {
+    const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
+    return Object.freeze({
+      version:VERSION, rom:ROM ? ROM.version : "missing", running:state.started,
+      hero:state.hero, tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded").length,
+      fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},
+      errors:state.errors.slice(), lastCheck:new Date(state.lastCheck).toISOString(),
+      renderer:"persistent-fail-open-local-rom"
+    });
+  }
+  function retryFailed() {
+    document.querySelectorAll(".pillar-tile.visual-tile-fallback").forEach(tile => { tile.dataset.visualState = "idle"; });
+    const hero = document.querySelector(".hero-banner");
+    if (hero) hero.classList.remove("visual-hero-ready");
+    state.hero = "pending";
+    scan();
+    return Promise.resolve(getStatus());
+  }
+  function start() {
+    if (state.started) return;
+    state.started = true;
+    window.ModelPanstwaVisualEngine = Object.freeze({version:VERSION,getStatus,retryFailed,scan});
+    scan();
+    if (window.MutationObserver) {
+      observer = new MutationObserver(() => {
+        if (!document.hidden) scan();
+      });
+      observer.observe(document.querySelector(".dashboard-home") || document.body,{childList:true,subtree:true});
+    }
+    watchdog = window.setInterval(() => {
+      if (!document.hidden) scan();
+    },30000);
+    window.addEventListener("pagehide",() => {
+      if (observer) observer.disconnect();
+      if (watchdog) window.clearInterval(watchdog);
+    },{once:true});
+    console.info("[Leon Visual Engine]",getStatus());
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
 })();
