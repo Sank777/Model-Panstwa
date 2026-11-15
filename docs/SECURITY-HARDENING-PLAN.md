@@ -12,7 +12,7 @@ Pakiet jest przygotowywany na osobnej gałęzi. Nie wykonuje zmian na produkcji 
 - Pliki nie są dekodowane i ponownie kodowane, więc sprawdzenie sygnatury nie usuwa EXIF/GPS.
 - admin-manage-reports usuwa rekord zgłoszenia, ale nie usuwa powiązanego pliku.
 - GET w funkcji administracyjnej powinien zwracać wyłącznie jawnie wskazane kolumny; nie stosować select("*").
-- Advisors: 2 tabele prywatne mają RLS bez polityk; 1 FK report_events bez indeksu; 5 ostrzeżeń o kosztownych wywołaniach auth w politykach; ochrona haseł wyciekłych jest wyłączona. Te wyniki wymagają oceny kontekstu, nie automatycznej zmiany.
+- Advisors: 2 tabele prywatne mają RLS bez polityk; 5 ostrzeżeń o kosztownych wywołaniach auth w politykach; ochrona haseł wyciekłych jest wyłączona. Ponowny odczyt katalogów potwierdził, że `report_events` ma już indeks `report_events_report_created_idx` po `(report_id, created_at DESC)` — wcześniejsze ostrzeżenie o braku indeksu jest nieaktualne.
 
 ## Co celowo nie jest wdrażane automatycznie
 1. Nie zmieniamy bucketu publicznego na prywatny, zanim frontend nie przejdzie na signed URL i testów end-to-end.
@@ -27,6 +27,13 @@ Pakiet jest przygotowywany na osobnej gałęzi. Nie wykonuje zmian na produkcji 
 - Dodano automatyczny workflow GitHub Actions do uruchamiania testów parsera Bearer przy push/PR.
 - Nadal nie przełączamy bucketu na private ani nie zmieniamy grantów Storage: publiczny frontend prototypu korzysta z publicznych URL-i. Migracja wymaga jednoczesnej zmiany sposobu dostarczania obrazów.
 - WAŻNE: produkcyjna Edge Function `submit-report` version 5 nadal zawiera błąd regexu. Kod w PR #10 jest poprawiony, ale dopóki nie przejdzie testów i kontrolowanego wdrożenia, produkcja pozostaje narażona na odrzucanie poprawnych nagłówków Bearer lub niewłaściwe traktowanie nagłówka.
+
+## Etap 3 – rejestr administracyjny i kolejka zdjęć (przygotowane w gałęzi)
+- Dodano migrację `202611150002_admin_audit_and_cleanup_queue.sql`: osobny `admin_audit_log` bez kaskadowego FK do zgłoszeń oraz trwałą `storage_cleanup_queue` niezależną od rekordu zgłoszenia. Obie tabele mają RLS, bez polityk dla klientów; dostęp otrzymuje wyłącznie `service_role`.
+- `admin-manage-reports` w gałęzi przed usunięciem pobiera zgłoszenie, wyciąga ścieżkę zdjęcia wyłącznie z publicznego URL-a z tego samego projektu i dodaje zadanie sprzątania. Dopiero potem usuwa zgłoszenie i próbuje usunąć plik. Nieudane sprzątanie pozostaje w kolejce jako `pending`.
+- Operacje PATCH i DELETE zapisują metadane przed/po w `admin_audit_log`. Rejestr nie przechowuje treści opisu ani lokalizacji zgłoszenia.
+- Jeśli zapis audytu nie powiedzie się po wykonanej zmianie, endpoint zwraca HTTP 202 z `audit_recorded:false`; zmiana jest wykonana, ale wymaga kontroli. Nie należy interpretować 202 jako pełnego sukcesu audytowego.
+- Migracja i zmodyfikowana funkcja pozostają wyłącznie w repozytorium. Nie wykonano migracji ani deployu. Kolejka jest przygotowana do ponawiania; automatyczny worker/retry wymaga osobnego wdrożenia i harmonogramu.
 
 ## Kolejność prac
 1. Potwierdzić backup bazy oraz osobną kopię obiektów Storage i procedurę odtworzenia.
