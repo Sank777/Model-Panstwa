@@ -32,9 +32,12 @@
   };
 
   const assetURL = name => new URL(name, ROOT).href;
-  const recipeFor = tile => Object.keys(RECIPES).map(key =>
-    tile.classList.contains(key) ? RECIPES[key] : null
-  ).find(Boolean) || null;
+  function recipeFor(tile) {
+    for (const key in RECIPES) {
+      if (tile.classList.contains(key)) return RECIPES[key];
+    }
+    return null;
+  }
 
   function recordError(target, url, reason) {
     state.errors.push({ target, url, reason });
@@ -96,7 +99,7 @@
     tile.dataset.visualRecipe = "5.1";
     tile.style.setProperty("--tile-accent", recipe.accent);
     tile.style.setProperty("--tile-focal", recipe.focal);
-    tile.style.setProperty("--tile-shade", recipe.shade);
+    tile.style.setProperty("--tile-shade-opacity", recipe.shade === "strong" ? "0.58" : "0.38");
     state.tiles.pending++;
     applyImage(tile, recipe.asset, "visual-engine-tile-image", false, tile.className, recipe.focal);
   }
