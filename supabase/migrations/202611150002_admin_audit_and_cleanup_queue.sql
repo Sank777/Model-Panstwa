@@ -37,6 +37,11 @@ create index if not exists storage_cleanup_queue_pending_idx
   on public.storage_cleanup_queue (created_at)
   where status = 'pending';
 
+-- Cover the actor FK on the existing report_events table (the report_id FK
+-- already has report_events_report_created_idx).
+create index if not exists report_events_actor_created_idx
+  on public.report_events (actor_user_id, created_at desc);
+
 alter table public.admin_audit_log enable row level security;
 alter table public.storage_cleanup_queue enable row level security;
 
