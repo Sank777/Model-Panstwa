@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { parseBearerHeader } from "./auth.ts";
 
 const allowedOrigin = "https://sank777.github.io";
 const corsHeaders = {
@@ -41,12 +42,6 @@ async function hashClientIp(ip: string, secret: string): Promise<string> {
     { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(ip));
   return Array.from(new Uint8Array(signature), (b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-export function parseBearerHeader(value: string | null): { token: string | null; invalid: boolean } {
-  if (value === null || value.trim() === "") return { token: null, invalid: false };
-  const match = value.match(/^Bearer\\s+([^\\s]+)$/i);
-  return match ? { token: match[1], invalid: false } : { token: null, invalid: true };
 }
 
 function validImageSignature(bytes: Uint8Array, mime: string): boolean {
