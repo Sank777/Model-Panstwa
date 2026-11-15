@@ -2,7 +2,7 @@
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.11.0";
+  const VERSION = "6.12.1";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 

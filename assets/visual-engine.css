@@ -6,7 +6,7 @@
 .hero-banner:after{display:none!important}.hero-banner>.hero-copy{position:relative!important;z-index:2!important}.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
 .pillars-dashboard{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(.55rem,1vw,.9rem)!important}
 .pillar-tile{position:relative!important;isolation:isolate!important;display:flex!important;align-items:flex-end!important;gap:.7rem!important;min-width:0!important;min-height:clamp(155px,13vw,205px)!important;overflow:hidden!important;padding:1rem .85rem!important;border:1px solid rgba(173,208,239,.58)!important;border-radius:16px!important;background:#0b2038!important;background-image:none!important;color:#fff!important;text-decoration:none!important}
-.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important;background-repeat:no-repeat!important;background-size:cover!important}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important;background-repeat:no-repeat!important;}
 .pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.92),rgba(2,12,24,.18) 78%)!important}
 .pillar-tile:after{content:""!important;position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;border-radius:inherit!important;box-shadow:inset 4px 0 0 var(--tile-accent,#39a9ef),inset 0 0 20px rgba(255,255,255,.08)!important}
 .pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important;clip:auto!important;clip-path:none!important;white-space:normal!important;border:0!important}
@@ -28,7 +28,7 @@
 .hero-banner>.hero-copy{position:relative!important;z-index:2!important}
 .hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
 .pillar-tile{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#0b2038!important;background-image:none!important}
-.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;background-repeat:no-repeat!important;background-size:cover!important;pointer-events:none!important}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;background-repeat:no-repeat!important;pointer-events:none!important}
 .pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.9),rgba(2,12,24,.12) 82%)!important}
 .pillar-tile:after{z-index:2!important;pointer-events:none!important}
 .pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important;display:flex!important;clip:auto!important;clip-path:none!important;overflow:visible!important;white-space:normal!important}
@@ -107,7 +107,7 @@
 }
 .pillar-tile>.visual-engine-tile-image{
   position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
-  background-size:cover!important;background-repeat:no-repeat!important;
+  background-repeat:no-repeat!important;
 }
 .pillar-tile:before,.pillar-tile:after{border-radius:inherit!important}
 .quick-actions,.dashboard-footer{width:100%!important;max-width:100%!important}
@@ -230,7 +230,7 @@
   width:100%!important;
   height:100%!important;
   background-repeat:no-repeat!important;
-  background-size:cover!important;
+  
   pointer-events:none!important;
   border:0!important;
   border-radius:0!important;

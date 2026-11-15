@@ -14,6 +14,10 @@ on:
       - "supabase/functions/generate-visual/**"
       - "admin.html"
       - "supabase/migrations/**"
+      - "index.html"
+      - "*.html"
+      - "assets/**"
+      - "scripts/**"
       - ".github/workflows/security-tests.yml"
 
 permissions:
@@ -25,6 +29,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Validate site links, assets and visual ROM
+        run: node scripts/validate-site.mjs
+      - name: Check JavaScript syntax
+        run: node --check assets/site.js && node --check assets/visual-rom.js && node --check assets/visual-engine.js && node --check assets/visual-recipe-core.js
       - name: Setup Deno
         uses: denoland/setup-deno@v2
         with:
