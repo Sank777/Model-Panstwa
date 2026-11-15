@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - security/storage-cleanup-worker-2026-11
+      - security/worker-hardening-followup
   pull_request:
     paths:
       - "supabase/functions/submit-report/**"
