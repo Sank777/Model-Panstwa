@@ -57,7 +57,7 @@
   const ACCENTS=["#ff4964","#36a9ff","#ffd34e","#56d99a","#bd72ff","#37d9e8","#319cff","#f04dbb","#ff9c45","#35d9b4"];
   function addGeometry(tile){
     if(tile.querySelector(".visual-engine-geometry"))return;
-    const match=tile.className.match(/pillar-(10|[1-9])(?:\\s|$)/);
+    const match=tile.className.match(/pillar-(10|[1-9])(?:\s|$)/);
     if(!match)return;
     const index=Number(match[1])-1,points=GEOMETRY[index];
     const svg=document.createElementNS(NS,"svg");
