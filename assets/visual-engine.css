@@ -205,3 +205,63 @@
 @media(max-width:360px){
   .pillars-dashboard{grid-template-columns:1fr!important}
 }
+
+
+/* LEON 6.9.3 — avoid double card frames.
+   The sprite already contains the complete card artwork, including its border,
+   labels and icon. The renderer must not add a second frame or dark overlay. */
+.pillar-tile{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:none!important;
+}
+.pillar-tile:before,
+.pillar-tile:after{
+  content:none!important;
+  display:none!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  background-repeat:no-repeat!important;
+  background-size:500% 200%!important;
+  pointer-events:none!important;
+  border:0!important;
+  border-radius:0!important;
+}
+.pillar-tile[data-visual-state="failed"]{
+  border:1px solid rgba(173,208,239,.45)!important;
+  background:linear-gradient(135deg,#102b49,#061426)!important;
+}
+.hero-banner>.visual-engine-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+.hero-banner>.visual-engine-image img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  object-position:50% 50%!important;
+  border:0!important;
+  border-radius:0!important;
+}
+.hero-banner:before,
+.hero-banner:after{display:none!important;content:none!important}
+.hero-banner>.hero-copy{position:relative!important;z-index:2!important}
+@media(prefers-reduced-motion:reduce){
+  .pillar-tile{transition:none!important;transform:none!important}
+}
