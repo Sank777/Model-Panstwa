@@ -1,10 +1,11 @@
-/* Leon Visual Engine 5.1 — one deterministic style layer; loaded after site.css */
+/* Leon Visual Engine 5.3 — one deterministic style layer; loaded after site.css */
 .hero-banner{
   position:relative!important;isolation:isolate!important;overflow:hidden!important;
   background:#071a2d!important;background-image:none!important;
   background-size:cover!important;background-position:center 54%!important;
 }
-.hero-banner>.visual-engine-image{
+.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;pointer-events:none!important;}
+.hero-banner>.visual-engine-image img{
   position:absolute!important;inset:0!important;z-index:0!important;display:block!important;
   width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;
   object-position:center 54%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
@@ -28,7 +29,8 @@
   box-shadow:0 8px 22px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.16)!important;
   transform:translateZ(0);
 }
-.pillar-tile>.visual-engine-tile-image{
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;pointer-events:none!important;}
+.pillar-tile>.visual-engine-tile-image img{
   position:absolute!important;inset:0!important;z-index:0!important;display:block!important;
   width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;
   object-position:var(--tile-focal,center)!important;margin:0!important;padding:0!important;

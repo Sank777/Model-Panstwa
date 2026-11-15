@@ -4,7 +4,7 @@
   /* Leon Visual Engine 5.1
      Deterministic recipe renderer: all visual decisions are fixed in this manifest.
      No random values, external image API, runtime image generation or user data. */
-  const VERSION = "5.1.0";
+  const VERSION = "5.3.0";
   const ROOT = new URL("./menu/", document.currentScript.src);
   const hero = document.querySelector(".hero-banner");
   const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
@@ -45,40 +45,49 @@
   }
 
   function applyImage(host, file, className, priority, target, focal) {
-    const src = assetURL(file);
-    const image = document.createElement("img");
-    image.className = className;
-    image.alt = "";
-    image.setAttribute("aria-hidden", "true");
-    image.setAttribute("draggable", "false");
-    image.decoding = "async";
-    image.loading = priority ? "eager" : "lazy";
-    if (focal) image.style.objectPosition = focal;
-    if (priority && "fetchPriority" in image) image.fetchPriority = "high";
-
-    image.addEventListener("load", () => {
-      host.classList.add("visual-image-ready");
-      host.classList.remove("visual-image-error");
-      if (priority) state.hero = "loaded";
-      else {
-        state.tiles.loaded++;
-        state.tiles.pending = Math.max(0, state.tiles.pending - 1);
-      }
-    }, { once: true });
-
-    image.addEventListener("error", () => {
-      image.remove();
+    const core = window.LeonVisualRecipeCore;
+    if (!core) {
+      recordError(target, file, "recipe-core-missing");
       host.classList.add("visual-image-error");
-      recordError(target, src, "asset-unavailable");
+      return;
+    }
+    const shade = Number.parseFloat(host.style.getPropertyValue("--tile-shade-opacity")) || 0;
+    try {
+      core.render(host, {
+        asset: file,
+        focal: focal || "50% 50%",
+        fit: "cover",
+        shade,
+        accent: host.style.getPropertyValue("--tile-accent").trim() || "#39a9ef"
+      }, {
+        baseURL: ROOT,
+        className,
+        priority,
+        onLoad() {
+          if (priority) state.hero = "loaded";
+          else {
+            state.tiles.loaded++;
+            state.tiles.pending = Math.max(0, state.tiles.pending - 1);
+          }
+        },
+        onError(src) {
+          recordError(target, src, "asset-unavailable");
+          if (priority) state.hero = "error";
+          else {
+            state.tiles.failed++;
+            state.tiles.pending = Math.max(0, state.tiles.pending - 1);
+          }
+        }
+      });
+    } catch (error) {
+      recordError(target, file, error && error.message ? error.message : "recipe-invalid");
+      host.classList.add("visual-image-error");
       if (priority) state.hero = "error";
       else {
         state.tiles.failed++;
         state.tiles.pending = Math.max(0, state.tiles.pending - 1);
       }
-    }, { once: true });
-
-    host.prepend(image);
-    image.src = src;
+    }
   }
 
   if (hero) {
@@ -96,7 +105,7 @@
       return;
     }
     tile.dataset.visualLoaded = "1";
-    tile.dataset.visualRecipe = "5.1";
+    tile.dataset.visualRecipe = "5.3";
     tile.style.setProperty("--tile-accent", recipe.accent);
     tile.style.setProperty("--tile-focal", recipe.focal);
     tile.style.setProperty("--tile-shade-opacity", recipe.shade === "strong" ? "0.58" : "0.38");
@@ -128,11 +137,22 @@
         errors: state.errors.map(error => ({ ...error })),
         tileCount: tiles.length,
         recipeCount: Object.keys(RECIPES).length,
-        deterministic: true
+        deterministic: true,
+        recipeCore: window.LeonVisualRecipeCore ? window.LeonVisualRecipeCore.version : "missing"
       };
     },
     getRecipes() {
       return Object.keys(RECIPES);
+    },
+    renderRecipe(host, recipe, options) {
+      const core = window.LeonVisualRecipeCore;
+      if (!core) throw new Error("recipe-core-missing");
+      const opts = options || {};
+      return core.renderRecipe(host, recipe, { ...opts, baseURL: opts.baseURL || new URL("./", document.currentScript ? document.currentScript.src : location.href) });
+    },
+    recipeFingerprint(recipe) {
+      if (!window.LeonVisualRecipeCore) throw new Error("recipe-core-missing");
+      return window.LeonVisualRecipeCore.fingerprint(window.LeonVisualRecipeCore.validateRecipe(recipe));
     }
   });
 })();
