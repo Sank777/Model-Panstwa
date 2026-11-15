@@ -15,3 +15,6 @@
 @media(min-width:1200px){.pillar-tile{min-height:clamp(150px,13vw,205px)!important;border-radius:16px!important}}
 @media(max-width:760px){.hero-banner>.visual-engine-image{object-position:center 52%!important}.pillar-tile{min-height:132px!important}}
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
+/* V5.0.1 hotfix: panorama is the only hero artwork; suppress legacy synthetic overlays */
+.hero-banner>.hero-map,
+.hero-banner>.hero-flag{display:none!important}
