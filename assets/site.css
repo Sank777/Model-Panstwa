@@ -305,3 +305,35 @@ body:has(> .mp-nav) > footer{color:#b7c8dc!important;border-top:1px solid rgba(1
  body:has(> .mp-nav) main{padding:12px 10px 32px}
 }
 @media(prefers-reduced-motion:reduce){.mp-nav a{transition:none!important}}
+
+
+/* V4 PATCH — naprawa widoczności grafiki i wierniejsze proporcje wzorca */
+body:has(.dashboard-home){background:#061326!important}
+.dashboard-home{max-width:none!important;width:100%!important}
+.hero-banner{
+ min-height:clamp(220px,18vw,270px)!important;
+ background-color:#09213a!important;
+ background-image:linear-gradient(90deg,rgba(2,13,26,.04),rgba(2,13,26,.02) 50%,rgba(2,13,26,.04)),url("menu/polska-hero.webp")!important;
+ background-repeat:no-repeat!important;background-size:cover!important;background-position:center 53%!important;
+}
+.hero-banner:before,.hero-banner:after{display:none!important}
+.hero-copy{position:relative!important;z-index:4!important}
+.hero-map{z-index:3!important;opacity:1!important}
+.hero-flag{z-index:3!important;opacity:1!important}
+.pillars-dashboard{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
+.pillar-tile{
+ min-height:clamp(145px,11.5vw,180px)!important;
+ background-size:cover!important;background-position:center!important;
+ border-width:1px!important;border-radius:15px!important;
+}
+.pillar-tile:before{background:linear-gradient(0deg,rgba(1,8,18,.94) 0%,rgba(1,8,18,.35) 65%,rgba(1,8,18,.04) 100%)!important}
+.pillar-tile:after{box-shadow:inset 4px 0 0 var(--tile-accent),inset 0 0 22px #fff1!important}
+.tile-icon{font-size:2rem!important}
+.tile-copy strong{font-size:clamp(.92rem,1.15vw,1.12rem)!important}
+.quick-actions a{min-height:76px!important}
+@media(max-width:1120px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:760px){
+ .hero-banner{min-height:190px!important;background-position:center!important}
+ .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .pillar-tile{min-height:132px!important}
+}
