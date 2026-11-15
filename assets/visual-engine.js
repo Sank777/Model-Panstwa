@@ -6,7 +6,7 @@
   if(window.__LEON_VISUAL_ENGINE_INSTANCE__)return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
-  const ROOT=new URL("./menu/",script&&script.src?script.src:location.href);
+  const ROOT=new URL("./",script&&script.src?script.src:location.href);
   const ROM=window.LeonVisualROM;
   const state={started:false,hero:"idle",loaded:0,failed:0,errors:[],startedAt:Date.now()};
   const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
