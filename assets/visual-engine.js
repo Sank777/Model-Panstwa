@@ -1,123 +1,50 @@
-/* Leon Visual Engine 6.1 — WebP hero + 5x2 sprite compositor. */
+/* Leon Visual Engine 6.4 — one image and one text layer per tile. */
 (() => {
   "use strict";
-  const VERSION = "6.2.0";
-  const script = document.currentScript;
-  const ROOT = new URL("./menu/", script && script.src ? script.src : location.href);
-  const hero = document.querySelector(".hero-banner");
-  const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
-  const ROM = window.LeonVisualROM;
-  const state = {version:VERSION,started:false,hero:hero?"idle":"missing",
-    tiles:{total:tiles.length,loaded:0,failed:0,pending:0},assets:[],errors:[]};
-  const safeAsset = value => typeof value === "string" && /^[a-zA-Z0-9_-]+\.webp$/i.test(value);
-  const urlFor = value => {
-    if (!safeAsset(value)) throw new TypeError("asset-name-rejected");
-    const url = new URL(value, ROOT);
-    if (url.origin !== location.origin) throw new TypeError("cross-origin-asset-blocked");
-    return url.href;
-  };
-  const record = (id,asset,reason) => {
-    state.errors.push({id,asset,reason});
-    if (state.errors.length > 30) state.errors.shift();
-  };
-  const setAsset = (id,asset,status) => {
-    state.assets = state.assets.filter(x=>x.id!==id);
-    state.assets.push({id,asset,status});
-  };
-  function renderHero() {
-    if (!hero || !ROM || !ROM.hero) return;
-    const stage=document.createElement("div");
-    stage.className="visual-engine-image";
-    stage.setAttribute("aria-hidden","true");
-    const img=document.createElement("img");
-    img.alt=""; img.draggable=false; img.decoding="async"; img.loading="eager";
-    img.referrerPolicy="no-referrer";
-    img.style.cssText="position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:"+ROM.hero.focal+";";
-    if ("fetchPriority" in img) img.fetchPriority="high";
-    img.addEventListener("load",()=>{hero.dataset.visualState="loaded";hero.classList.add("visual-image-ready");state.hero="loaded";setAsset("hero",ROM.hero.asset,"loaded");},{once:true});
-    img.addEventListener("error",()=>{hero.dataset.visualState="failed";hero.classList.add("visual-image-error");state.hero="error";record("hero",ROM.hero.asset,"image-load-failed");setAsset("hero",ROM.hero.asset,"failed");},{once:true});
-    stage.appendChild(img); hero.prepend(stage);
-    img.src=urlFor(ROM.hero.asset);
+  const VERSION="6.4.0",script=document.currentScript;
+  const ROOT=new URL("./menu/",script&&script.src?script.src:location.href);
+  const ROM=window.LeonVisualROM,hero=document.querySelector(".hero-banner");
+  const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
+  const state={started:false,hero:"idle",loaded:0,failed:0,errors:[]};
+  const safeAsset=v=>typeof v==="string"&&/^[a-zA-Z0-9_-]+\.(?:webp|svg)$/i.test(v);
+  const assetURL=v=>{if(!safeAsset(v))throw new TypeError("asset-name-rejected");const u=new URL(v,ROOT);if(u.origin!==location.origin)throw new TypeError("cross-origin-asset-blocked");return u.href;};
+  function addImage(host,asset,cls,priority,onload,onerror){
+    const stage=document.createElement("div");stage.className=cls;stage.setAttribute("aria-hidden","true");
+    const img=document.createElement("img");img.alt="";img.draggable=false;img.decoding="async";img.loading=priority?"eager":"lazy";img.referrerPolicy="no-referrer";
+    if(priority&&"fetchPriority"in img)img.fetchPriority="high";
+    img.addEventListener("load",()=>onload&&onload(),{once:true});img.addEventListener("error",()=>onerror&&onerror(),{once:true});
+    stage.appendChild(img);host.prepend(stage);img.src=assetURL(asset);
   }
-  function recipeFor(tile) {
-    for (const key of Object.keys(ROM.tiles)) if (tile.classList.contains(key)) return ROM.tiles[key];
-    return null;
+  function renderHero(){if(!hero||!ROM.hero)return;try{addImage(hero,ROM.hero.asset,"visual-engine-image",true,()=>{state.hero="loaded";hero.classList.add("visual-image-ready");},()=>{state.hero="failed";hero.classList.add("visual-image-error");state.errors.push("hero");});}catch(e){state.hero="failed";state.errors.push("hero:"+e.message);}}
+  function renderTile(tile){
+    if(tile.dataset.visualState==="loading"||tile.dataset.visualState==="loaded")return;
+    const key=Array.from(tile.classList).find(c=>/^pillar-(?:[1-9]|10)$/.test(c)),recipe=key&&ROM.tiles[key];
+    if(!recipe){tile.dataset.visualState="failed";state.failed++;return;}
+    tile.dataset.visualState="loading";tile.style.setProperty("--tile-accent",recipe.accent);
+    tile.querySelectorAll(".visual-engine-tile-image,.tile-icon,.tile-copy").forEach(n=>n.remove());
+    try{
+      addImage(tile,recipe.asset,"visual-engine-tile-image",false,()=>{tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");state.loaded++;},()=>{tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key);});
+      const icon=document.createElement("span");icon.className="tile-icon";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon;
+      const copy=document.createElement("span");copy.className="tile-copy";
+      const small=document.createElement("small");small.textContent="Filar "+key.slice(7);
+      const strong=document.createElement("strong");strong.textContent=recipe.title;
+      const em=document.createElement("em");em.textContent=recipe.subtitle;
+      copy.append(small,strong,em);tile.append(icon,copy);
+    }catch(e){tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key+":"+e.message);}
   }
-  function renderTile(tile) {
-    if (tile.dataset.visualState==="loading" || tile.dataset.visualState==="loaded") return;
-    const recipe=recipeFor(tile);
-    if (!recipe || !ROM.sprite || !safeAsset(recipe.sprite)) {
-      tile.dataset.visualState="failed"; tile.classList.add("visual-image-error");
-      state.tiles.failed++; record("tile",recipe&&recipe.sprite,"recipe-or-sprite-missing"); return;
-    }
-    tile.dataset.visualState="loading"; state.tiles.pending++;
-    tile.style.setProperty("--tile-accent",recipe.accent);
-    tile.style.setProperty("--tile-shade-opacity",recipe.shade==="strong"?"0.58":"0.38");
-    const stage=document.createElement("div");
-    stage.className="visual-engine-tile-image";
-    stage.setAttribute("aria-hidden","true");
-    const img=document.createElement("img");
-    img.className="visual-sprite-crop";
-    img.alt=""; img.draggable=false; img.decoding="async"; img.loading="lazy";
-    img.referrerPolicy="no-referrer";
-    img.style.cssText="position:absolute;display:block;max-width:none;object-fit:fill;margin:0;padding:0;border:0;";
-    img.style.setProperty("inset","auto","important");
-    img.style.setProperty("object-fit","fill","important");
-    const updateCrop=()=>{
-      if(!img.naturalWidth||!img.naturalHeight)return;
-      const width=stage.clientWidth,height=stage.clientHeight;
-      if(!width||!height)return;
-      const cellWidth=img.naturalWidth/ROM.sprite.columns;
-      const cellHeight=img.naturalHeight/ROM.sprite.rows;
-      const scale=Math.max(width/cellWidth,height/cellHeight);
-      const renderedCellWidth=cellWidth*scale;
-      const renderedCellHeight=cellHeight*scale;
-      img.style.setProperty("width",(img.naturalWidth*scale)+"px","important");
-      img.style.setProperty("height",(img.naturalHeight*scale)+"px","important");
-      img.style.setProperty("left",( (width-renderedCellWidth)/2-recipe.column*renderedCellWidth )+"px","important");
-      img.style.setProperty("top",( (height-renderedCellHeight)/2-recipe.row*renderedCellHeight )+"px","important");
-    };
-    img.addEventListener("load",()=>{
-      updateCrop();
-      if("ResizeObserver" in window){const resizeObserver=new ResizeObserver(updateCrop);resizeObserver.observe(stage);}
-      else window.addEventListener("resize",updateCrop,{passive:true});
-      tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");
-      state.tiles.loaded++;state.tiles.pending=Math.max(0,state.tiles.pending-1);
-      setAsset(recipe.id,recipe.sprite+"#"+recipe.column+","+recipe.row,"loaded");
-    },{once:true});
-    img.addEventListener("error",()=>{
-      tile.dataset.visualState="failed";tile.classList.add("visual-image-error");
-      state.tiles.failed++;state.tiles.pending=Math.max(0,state.tiles.pending-1);
-      record(recipe.id,recipe.sprite,"sprite-load-failed");
-      setAsset(recipe.id,recipe.sprite,"failed");
-    },{once:true});
-    stage.appendChild(img);tile.prepend(stage);img.src=urlFor(recipe.sprite);
-  }
-  function start() {
+  function start(){
     if(state.started)return;state.started=true;
-    if(!ROM||!ROM.tiles||!ROM.hero){record("engine","visual-rom.js","visual-rom-missing");return;}
+    if(!ROM||!ROM.tiles||!ROM.hero){state.errors.push("rom-missing");return;}
     renderHero();
-    tiles.slice(0,2).forEach(renderTile);
-    if("IntersectionObserver" in window){
-      const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
-        if(entry.isIntersecting){observer.unobserve(entry.target);renderTile(entry.target);}
-      }),{rootMargin:"600px 0px",threshold:0.01});
-      tiles.slice(2).forEach(tile=>observer.observe(tile));
-    }else tiles.slice(2).forEach(renderTile);
+    let observer=null;
+    if("IntersectionObserver"in window)observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){observer.unobserve(entry.target);renderTile(entry.target);}}),{rootMargin:"500px 0px",threshold:.01});
+    tiles.forEach((tile,index)=>{if(index<2||!observer)renderTile(tile);else observer.observe(tile);});
     window.ModelPanstwaVisualEngine=Object.freeze({
       version:VERSION,
-      getStatus(){return {version:VERSION,started:state.started,hero:state.hero,
-        tiles:{...state.tiles},assets:state.assets.map(x=>({...x})),
-        errors:state.errors.map(x=>({...x})),tileCount:tiles.length,
-        recipeCount:Object.keys(ROM.tiles).length,renderer:"webp-5x2-sprite",assetRoot:ROOT.href,rom:ROM.version};},
-      retryFailed(){
-        if(hero&&state.hero==="error"){state.hero="idle";renderHero();}
-        tiles.filter(x=>x.dataset.visualState==="failed").forEach(x=>{
-          x.dataset.visualState="idle";state.tiles.failed=Math.max(0,state.tiles.failed-1);renderTile(x);
-        });
-      }
+      getStatus(){return {version:VERSION,started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"individual-svg-one-copy",assetRoot:ROOT.href};},
+      retryFailed(){if(state.hero==="failed"){state.hero="idle";renderHero();}tiles.filter(t=>t.dataset.visualState==="failed").forEach(t=>{t.dataset.visualState="idle";renderTile(t);});}
     });
-    window.dispatchEvent(new CustomEvent("model-panstwa:visual-ready",{detail:{version:VERSION,tiles:tiles.length,recipes:Object.keys(ROM.tiles).length}}));
+    window.dispatchEvent(new CustomEvent("model-panstwa:visual-ready",{detail:{version:VERSION,tiles:tiles.length}}));
     console.info("[Leon Visual Engine]",window.ModelPanstwaVisualEngine.getStatus());
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
