@@ -227,3 +227,81 @@ body > .mp-nav a[aria-current="page"],body > .site-nav a[aria-current="page"],bo
 .mp-nav a[href="zasady.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/zasady-projektowe.svg")!important}
 .mp-nav a[href="informacje-prawne.html"]{background-image:linear-gradient(110deg,rgba(5,15,10,.58),rgba(5,15,10,.16)),url("menu/informacje-prawne.svg")!important}
 .mp-nav a[href="index.html"]::before,.mp-nav a[href="centrum-jawnosci.html"]::before,.mp-nav a[href="prototyp.html"]::before,.mp-nav a[href="model.html"]::before,.mp-nav a[href="filary.html"]::before,.mp-nav a[href="reformy.html"]::before,.mp-nav a[href="zasady.html"]::before,.mp-nav a[href="informacje-prawne.html"]::before{content:none!important;display:none!important}
+
+
+/* ROZDZIAŁ IV — wspólny szablon wizualny dla wszystkich podstron */
+:root{
+ --bg:#061426;--surface:#0c2038;--surface-2:#102b49;--text:#f3f7ff;--muted:#b7c8dc;
+ --accent:#63b8ff;--accent-2:#8bd0ff;--border:rgba(164,202,239,.28);
+ --shadow:0 12px 34px rgba(0,0,0,.28);--radius:16px;
+}
+[data-theme="dark"]{
+ --bg:#061426;--surface:#0c2038;--surface-2:#102b49;--text:#f3f7ff;--muted:#b7c8dc;
+ --accent:#63b8ff;--accent-2:#8bd0ff;--border:rgba(164,202,239,.28);
+ --shadow:0 12px 34px rgba(0,0,0,.28);
+}
+body{background:radial-gradient(ellipse at 50% -20%,#17406a 0%,#081a30 48%,#04101f 100%)!important;color:#f3f7ff!important}
+body:has(> .mp-nav) > header{
+ background:linear-gradient(115deg,#07172b,#12375b 55%,#081a30)!important;
+ color:#fff!important;border-bottom:1px solid rgba(160,205,245,.26);
+ box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+body:has(> .mp-nav) > header:before{
+ background:linear-gradient(90deg,rgba(4,16,31,.55),rgba(8,35,62,.12))!important;opacity:1!important
+}
+body > .mp-brandbar{
+ min-height:66px;padding:10px clamp(16px,3vw,42px);
+ display:flex;align-items:center;gap:18px;
+ background:linear-gradient(100deg,#061326,#0b2440 60%,#061326);
+ border-bottom:1px solid rgba(160,205,245,.22);color:#fff;
+}
+.mp-brandbar .mp-brand{
+ color:#fff;text-decoration:none;font-weight:800;letter-spacing:.025em;
+ font-size:clamp(1rem,2vw,1.25rem);display:inline-flex;align-items:center;gap:12px
+}
+.mp-brandbar .mp-brand:before{content:"PL";display:grid;place-items:center;width:40px;height:40px;
+ border:1px solid rgba(255,255,255,.42);border-radius:50%;font-weight:900;color:#fff;
+ background:linear-gradient(145deg,#173b60,#07172b);box-shadow:0 0 18px #4da8ff35}
+.mp-nav{
+ width:min(1500px,100%);margin:0 auto;padding:8px clamp(10px,2vw,28px);
+ display:flex;align-items:center;justify-content:center;gap:clamp(4px,.8vw,12px);
+ flex-wrap:wrap;background:rgba(5,19,36,.92);
+ border-bottom:1px solid rgba(160,205,245,.22);
+}
+.mp-nav a{
+ display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+ padding:9px clamp(10px,1.1vw,18px);border-radius:10px;
+ color:#edf6ff!important;text-decoration:none;font-weight:650;font-size:.9rem;
+ border:1px solid rgba(160,205,245,.22)!important;
+ background:linear-gradient(130deg,rgba(255,255,255,.13),rgba(255,255,255,.035))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 5px 14px rgba(0,0,0,.15)!important;
+}
+.mp-nav a[aria-current=page]{border-color:#69bdff!important;background:linear-gradient(130deg,#164b79,#0c2b4b)!important;box-shadow:0 0 0 1px #69bdff45,0 0 20px #398bd733!important}
+body:has(> .mp-nav) main{
+ width:min(1440px,100%);padding:clamp(14px,2.2vw,30px) clamp(12px,2.2vw,30px) 48px;
+}
+body:has(> .mp-nav) .card,body:has(> .mp-nav) .pillar-card,body:has(> .mp-nav) .process-step{
+ color:#edf5ff;background:linear-gradient(145deg,rgba(18,48,78,.94),rgba(8,27,48,.96))!important;
+ border:1px solid rgba(152,199,239,.25)!important;border-radius:16px!important;
+ box-shadow:0 10px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.07)!important;
+}
+body:has(> .mp-nav) .card h2,body:has(> .mp-nav) .card h3,
+body:has(> .mp-nav) .pillar-card h3{color:#f5f9ff}
+body:has(> .mp-nav) .muted,body:has(> .mp-nav) .hint,
+body:has(> .mp-nav) .pillar-card p,body:has(> .mp-nav) footer{color:#b7c8dc!important}
+body:has(> .mp-nav) input,body:has(> .mp-nav) select,body:has(> .mp-nav) textarea,
+body:has(> .mp-nav) .admin-control{
+ background:#071a2e!important;color:#f3f7ff!important;border-color:rgba(151,198,238,.34)!important;
+}
+body:has(> .mp-nav) .btn{background:linear-gradient(110deg,#1765a0,#2788c7)!important;color:#fff!important}
+body:has(> .mp-nav) .btn.secondary{background:#173653!important;border:1px solid #5b85aa!important;color:#fff!important}
+body:has(> .mp-nav) .notice{background:#132f4b!important;color:#eaf4ff!important;border-left-color:#67baff!important}
+body:has(> .mp-nav) .map{border-color:rgba(151,198,238,.35)!important}
+body:has(> .mp-nav) > footer{color:#b7c8dc!important;border-top:1px solid rgba(151,198,238,.2)}
+@media(max-width:760px){
+ body > .mp-brandbar{min-height:56px;justify-content:center}
+ .mp-nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}
+ .mp-nav a{white-space:nowrap;min-height:38px;font-size:.82rem}
+ body:has(> .mp-nav) main{padding:12px 10px 32px}
+}
+@media(prefers-reduced-motion:reduce){.mp-nav a{transition:none!important}}
