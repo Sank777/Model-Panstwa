@@ -2,11 +2,47 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { constantTimeEqual, retryDelaySeconds, validManagedPath } from "./worker-utils.ts";
 
 const MAX_BATCH = 20;
+const MAX_BODY_BYTES = 1000;
 const MAX_ATTEMPTS = 8;
 const corsHeaders = { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" };
 
 function reply(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: corsHeaders });
+}
+
+async function readBodyLimited(req: Request): Promise<string> {
+  const declaredLength = req.headers.get("content-length");
+  if (declaredLength !== null) {
+    const length = Number(declaredLength);
+    if (!Number.isSafeInteger(length) || length < 0 || length > MAX_BODY_BYTES) {
+      throw new Error("Request too large");
+    }
+  }
+  if (!req.body) return "";
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > MAX_BODY_BYTES) {
+        await reader.cancel();
+        throw new Error("Request too large");
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
 }
 
 Deno.serve(async (req: Request) => {
@@ -24,8 +60,7 @@ Deno.serve(async (req: Request) => {
 
   let batchSize = 10;
   try {
-    const raw = await req.text();
-    if (raw.length > 1000) return reply({ error: "Request too large" }, 413);
+    const raw = await readBodyLimited(req);
     if (raw.trim()) {
       const body = JSON.parse(raw);
       if (!body || typeof body !== "object" || Array.isArray(body)) return reply({ error: "Invalid JSON" }, 400);
@@ -36,8 +71,9 @@ Deno.serve(async (req: Request) => {
         batchSize = body.limit;
       }
     }
-  } catch {
-    return reply({ error: "Invalid JSON" }, 400);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "";
+    return reply({ error: message === "Request too large" ? message : "Invalid JSON" }, message === "Request too large" ? 413 : 400);
   }
 
   const admin = createClient(supabaseUrl, serviceKey, {
@@ -55,9 +91,10 @@ Deno.serve(async (req: Request) => {
   for (const job of jobs ?? []) {
     if (!validManagedPath(job.bucket_id, job.object_path)) {
       results.rejected++;
-      await admin.from("storage_cleanup_queue").update({
+      const { error: rejectError } = await admin.from("storage_cleanup_queue").update({
         status: "dead", locked_at: null, last_error: "Rejected unmanaged Storage path",
       }).eq("id", job.id).eq("status", "processing");
+      if (rejectError) console.error("storage cleanup rejection update failed:", rejectError.message);
       continue;
     }
 
