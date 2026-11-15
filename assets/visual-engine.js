@@ -2,7 +2,7 @@
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.14.0";
+  const VERSION = "6.14.1";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 
@@ -132,7 +132,7 @@
         layer.className = "visual-engine-tile-image";
         layer.alt = "";
         layer.decoding = "async";
-        layer.loading = "lazy";
+        layer.loading = "eager";
         layer.draggable = false;
         layer.setAttribute("aria-hidden","true");
         tile.insertBefore(layer,tile.firstChild);
@@ -142,8 +142,10 @@
         const segment = segments[recipe.spriteIndex];
         if (!segment) throw new Error("sprite-index-out-of-range:" + recipe.spriteIndex);
         layer.src = getSegmentURL(recipe.asset, recipe.spriteIndex, segment.blob);
+        if (typeof layer.decode === "function") await layer.decode();
       } else {
         layer.src = assetURL(recipe.asset);
+        if (typeof layer.decode === "function") await layer.decode();
       }
       tile.classList.remove("visual-tile-fallback","visual-image-error");
       tile.dataset.visualState = "loaded";
