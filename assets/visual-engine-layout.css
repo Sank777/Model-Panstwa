@@ -19,3 +19,12 @@
 @container leon-dashboard (max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}.pillar-tile{aspect-ratio:1.65/1!important}}
 @supports not (container-type:inline-size){@media(max-width:1150px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}@media(max-width:700px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.pillar-tile{aspect-ratio:1.42/1!important}.hero-banner{min-height:clamp(185px,48vw,230px)!important}}@media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}.pillar-tile{aspect-ratio:1.65/1!important}}}
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
+
+/* LEON IMAGE POSITIONING — single authoritative rule set (6.14) */
+.pillars-dashboard{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;align-items:stretch!important}
+.pillar-tile{position:relative!important;display:block!important;aspect-ratio:304 / 179!important;width:100%!important;height:auto!important;min-height:0!important;overflow:hidden!important;padding:0!important;background:#102c48!important}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;object-fit:fill!important;object-position:50% 50%!important;border:0!important;border-radius:inherit!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{display:none!important}
+@media(max-width:1100px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:700px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}}
+@media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}}
