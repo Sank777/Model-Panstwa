@@ -1,7 +1,7 @@
 /* Leon Visual Engine 6.1 — WebP hero + 5x2 sprite compositor. */
 (() => {
   "use strict";
-  const VERSION = "6.1.0";
+  const VERSION = "6.2.0";
   const script = document.currentScript;
   const ROOT = new URL("./menu/", script && script.src ? script.src : location.href);
   const hero = document.querySelector(".hero-banner");
@@ -62,12 +62,25 @@
     img.referrerPolicy="no-referrer";
     img.style.cssText="position:absolute;display:block;max-width:none;object-fit:fill;margin:0;padding:0;border:0;";
     img.style.setProperty("inset","auto","important");
-    img.style.setProperty("width","500%","important");
-    img.style.setProperty("height","200%","important");
-    img.style.setProperty("left",(-recipe.column*100)+"%","important");
-    img.style.setProperty("top",(-recipe.row*100)+"%","important");
     img.style.setProperty("object-fit","fill","important");
+    const updateCrop=()=>{
+      if(!img.naturalWidth||!img.naturalHeight)return;
+      const width=stage.clientWidth,height=stage.clientHeight;
+      if(!width||!height)return;
+      const cellWidth=img.naturalWidth/ROM.sprite.columns;
+      const cellHeight=img.naturalHeight/ROM.sprite.rows;
+      const scale=Math.max(width/cellWidth,height/cellHeight);
+      const renderedCellWidth=cellWidth*scale;
+      const renderedCellHeight=cellHeight*scale;
+      img.style.setProperty("width",(img.naturalWidth*scale)+"px","important");
+      img.style.setProperty("height",(img.naturalHeight*scale)+"px","important");
+      img.style.setProperty("left",( (width-renderedCellWidth)/2-recipe.column*renderedCellWidth )+"px","important");
+      img.style.setProperty("top",( (height-renderedCellHeight)/2-recipe.row*renderedCellHeight )+"px","important");
+    };
     img.addEventListener("load",()=>{
+      updateCrop();
+      if("ResizeObserver" in window){const resizeObserver=new ResizeObserver(updateCrop);resizeObserver.observe(stage);}
+      else window.addEventListener("resize",updateCrop,{passive:true});
       tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");
       state.tiles.loaded++;state.tiles.pending=Math.max(0,state.tiles.pending-1);
       setAsset(recipe.id,recipe.sprite+"#"+recipe.column+","+recipe.row,"loaded");
