@@ -1,8 +1,8 @@
-/* Leon Visual Engine 6.11.0 — persistent, fail-open renderer.
+/* Leon Visual Engine 6.12.2 — persistent, fail-open renderer.
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.12.1";
+  const VERSION = "6.12.2";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 
