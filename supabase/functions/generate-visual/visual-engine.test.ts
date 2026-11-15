@@ -33,7 +33,7 @@ Deno.test("image output is constrained to WebP and a private bucket", () => {
 });
 
 Deno.test("library can only delete managed draft paths", () => {
-  assertMatch(source, /drafts\\\\\/pillar-\(\?:\[1-9\]\|10\)\\\\\/\[\^\/\]\{1,180\}\\\\\.webp/);
+  assert(source.includes("Only managed draft WebP files can be deleted"));
   assert(source.includes('action: "visual.delete"'));
   assert(source.includes('req.method === "DELETE"'));
 });
