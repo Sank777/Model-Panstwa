@@ -454,3 +454,105 @@ body:has(.dashboard-home){background:#061326!important}
 .pillar-8{background-image:url("menu/jawnosc-decyzji.svg")!important}
 .pillar-9{background-image:url("menu/strona-glowna.svg")!important}
 .pillar-10{background-image:url("menu/zasady-projektowe.svg")!important}
+
+
+/* LEON 6.10.1 — deterministic image layers + responsive centering.
+   Fixes: stale polska-hero.webp override, unstyled engine layers, viewport overflow. */
+body:has(.dashboard-home){overflow-x:hidden!important}
+.dashboard-home{
+  width:min(100%,1600px)!important;
+  max-width:1600px!important;
+  margin-inline:auto!important;
+  padding-inline:clamp(10px,2vw,28px)!important;
+}
+.hero-banner{
+  position:relative!important;
+  isolation:isolate!important;
+  width:100%!important;
+  min-width:0!important;
+  margin-inline:0!important;
+  overflow:hidden!important;
+  background-color:#09213a!important;
+  background-image:none!important;
+}
+.hero-banner>.visual-engine-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+.hero-banner>.visual-engine-image img{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  object-position:center 50%!important;
+}
+.hero-banner>.hero-copy{position:relative!important;z-index:2!important}
+.hero-map,.hero-flag{display:none!important}
+.pillars-dashboard{
+  display:grid!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:clamp(8px,1vw,14px)!important;
+  margin-inline:auto!important;
+}
+.pillar-tile{
+  position:relative!important;
+  isolation:isolate!important;
+  display:block!important;
+  min-width:0!important;
+  min-height:clamp(145px,12vw,190px)!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background-color:#102c48!important;
+  background-image:none!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  background-repeat:no-repeat!important;
+  background-size:500% 200%!important;
+  pointer-events:none!important;
+}
+.pillar-tile:before{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  content:""!important;
+  pointer-events:none!important;
+  background:linear-gradient(0deg,rgba(1,8,18,.94),rgba(1,8,18,.30) 62%,rgba(1,8,18,.02))!important;
+}
+.pillar-tile:after{
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  content:""!important;
+  pointer-events:none!important;
+}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important}
+.pillar-tile.visual-image-ready{background-image:none!important}
+@media(max-width:1100px){
+  .pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:760px){
+  .dashboard-home{padding-inline:10px!important}
+  .hero-banner{min-height:190px!important}
+  .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .pillar-tile{min-height:clamp(128px,34vw,170px)!important}
+}
+@media(max-width:360px){
+  .pillars-dashboard{gap:7px!important}
+  .pillar-tile{min-height:122px!important}
+}
