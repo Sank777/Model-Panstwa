@@ -337,3 +337,16 @@ body:has(.dashboard-home){background:#061326!important}
  .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .pillar-tile{min-height:132px!important}
 }
+
+
+/* V4.1 — panorama is a single source image: no synthetic map/flag overlays */
+.hero-banner{
+  background-image:linear-gradient(90deg,rgba(2,12,24,.06),rgba(2,12,24,0) 50%,rgba(2,12,24,.04)),url("menu/polska-hero.webp")!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center 56%!important;
+}
+.hero-map,.hero-flag{display:none!important}
+.hero-banner:before,.hero-banner:after{display:none!important}
+.hero-copy{position:relative!important;z-index:2!important}
+@media(min-width:1200px){.hero-banner{min-height:clamp(230px,17vw,285px)!important}}
