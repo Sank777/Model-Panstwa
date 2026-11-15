@@ -1,0 +1,267 @@
+/* Leon Visual Engine 6.7 — image layers are the only tile artwork renderer. */
+.hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:clamp(230px,18vw,290px)!important;background:#071a2d!important;background-image:none!important}
+.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important}
+.hero-banner>.visual-engine-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 50%!important;margin:0!important;padding:0!important;border:0!important}
+.hero-banner:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(90deg,rgba(3,13,25,.14),transparent 28%,transparent 72%,rgba(3,13,25,.14)),linear-gradient(180deg,rgba(3,13,25,.02),rgba(3,13,25,.20))!important}
+.hero-banner:after{display:none!important}.hero-banner>.hero-copy{position:relative!important;z-index:2!important}.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
+.pillars-dashboard{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(.55rem,1vw,.9rem)!important}
+.pillar-tile{position:relative!important;isolation:isolate!important;display:flex!important;align-items:flex-end!important;gap:.7rem!important;min-width:0!important;min-height:clamp(155px,13vw,205px)!important;overflow:hidden!important;padding:1rem .85rem!important;border:1px solid rgba(173,208,239,.58)!important;border-radius:16px!important;background:#0b2038!important;background-image:none!important;color:#fff!important;text-decoration:none!important}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important;background-repeat:no-repeat!important;background-size:500% 200%!important}
+.pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.92),rgba(2,12,24,.18) 78%)!important}
+.pillar-tile:after{content:""!important;position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;border-radius:inherit!important;box-shadow:inset 4px 0 0 var(--tile-accent,#39a9ef),inset 0 0 20px rgba(255,255,255,.08)!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important;clip:auto!important;clip-path:none!important;white-space:normal!important;border:0!important}
+.pillar-tile>.tile-icon{flex:0 0 auto!important;font-size:2rem!important;line-height:1!important;color:#fff!important;text-shadow:0 2px 8px #000!important}
+.pillar-tile>.tile-copy{display:flex!important;flex-direction:column!important;min-width:0!important;text-shadow:0 2px 5px #000!important}
+.pillar-tile .tile-copy small{font-size:.8rem!important;font-weight:750!important;color:#f4f7fb!important}.pillar-tile .tile-copy strong{font-size:clamp(.88rem,1.1vw,1.08rem)!important;line-height:1.16!important;font-weight:800!important}.pillar-tile .tile-copy em{margin-top:.25rem!important;font-size:clamp(.68rem,.8vw,.8rem)!important;line-height:1.25!important;color:#e1eaf4!important;font-style:normal!important}
+@media(max-width:900px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}.pillar-tile{min-height:160px!important}}
+@media(max-width:650px){.hero-banner{min-height:220px!important}.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.65rem!important}.pillar-tile{min-height:155px!important;padding:.8rem .65rem!important;gap:.45rem!important}.pillar-tile>.tile-icon{font-size:1.55rem!important}.pillar-tile .tile-copy strong{font-size:clamp(.82rem,3.2vw,1rem)!important}.pillar-tile .tile-copy em{font-size:.7rem!important}}
+@media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}.pillar-tile{min-height:170px!important}}
+@media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
+
+
+/* 6.8.0 PERMANENT AUTHORITY LAYER — overrides legacy homepage artwork rules.
+   Images are supplied only by LeonVisualROM; legacy CSS illustrations are disabled. */
+.hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#071a2d!important;background-image:none!important}
+.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important}
+.hero-banner>.visual-engine-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 50%!important}
+.hero-banner:before,.hero-banner:after{display:none!important}
+.hero-banner>.hero-copy{position:relative!important;z-index:2!important}
+.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
+.pillar-tile{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#0b2038!important;background-image:none!important}
+.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;background-repeat:no-repeat!important;background-size:500% 200%!important;pointer-events:none!important}
+.pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.9),rgba(2,12,24,.12) 82%)!important}
+.pillar-tile:after{z-index:2!important;pointer-events:none!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important;display:flex!important;clip:auto!important;clip-path:none!important;overflow:visible!important;white-space:normal!important}
+.pillar-tile>.tile-icon{flex:0 0 auto!important}
+.pillar-tile>.tile-copy{flex-direction:column!important;min-width:0!important}
+.pillar-tile[data-visual-state="failed"]>.visual-engine-tile-image{display:none!important}
+@media(max-width:900px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:650px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+
+/* 6.9.0 — sprite jest kompletną kartą (tekst i ikony są już w obrazie). */
+.pillar-tile{display:block!important;padding:0!important;background-image:none!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{display:none!important}
+.pillar-tile>.visual-engine-tile-image{z-index:0!important}
+.pillar-tile:before{background:linear-gradient(0deg,rgba(2,9,18,.12),rgba(2,12,24,.02) 65%,transparent)!important}
+.pillar-tile:after{z-index:2!important}
+.pillar-tile[data-visual-state="failed"]{background:#102b49!important}
+.pillar-tile[data-visual-state="failed"]:before{background:linear-gradient(135deg,#102b49,#061426)!important}
+
+
+/* LEON 6.9.1 — HOMEPAGE ALIGNMENT LOCK
+   Stałe parametry układu. Grafiki nadal pochodzą wyłącznie z Visual ROM.
+   Nie zmieniać geometrii renderera przy korektach pozycjonowania. */
+:root{
+  --leon-home-max:1600px;
+  --leon-home-gutter:clamp(12px,1.65vw,28px);
+  --leon-home-gap:clamp(9px,1vw,16px);
+  --leon-tile-radius:16px;
+  --leon-hero-focus-x:50%;
+  --leon-hero-focus-y:50%;
+}
+.site-header{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;
+  align-items:center!important;
+}
+.site-header>.brand{grid-column:1;justify-self:start;min-width:0}
+.site-header>.top-navigation{grid-column:2;justify-self:center;min-width:0;padding-inline:0!important}
+.site-header>.header-tools{grid-column:3;justify-self:end}
+.site-header>.header-national-mark{
+  position:absolute!important;left:50%!important;right:auto!important;top:50%!important;
+  transform:translate(-50%,-50%)!important;z-index:36!important;
+}
+.dashboard-home{
+  width:100%!important;max-width:var(--leon-home-max)!important;
+  margin-inline:auto!important;padding:0 var(--leon-home-gutter)!important;
+  display:grid!important;gap:var(--leon-home-gap)!important;
+}
+.hero-banner{
+  width:calc(100% + 2 * var(--leon-home-gutter))!important;
+  margin-inline:calc(-1 * var(--leon-home-gutter))!important;
+  min-height:clamp(210px,18vw,290px)!important;
+  display:grid!important;place-items:center!important;
+  background-position:var(--leon-hero-focus-x) var(--leon-hero-focus-y)!important;
+}
+.hero-banner>.visual-engine-image,
+.hero-banner>.visual-engine-image img{width:100%!important;height:100%!important}
+.hero-banner>.visual-engine-image img{
+  object-fit:cover!important;
+  object-position:var(--leon-hero-focus-x) var(--leon-hero-focus-y)!important;
+}
+.hero-copy{
+  width:min(100%,900px)!important;margin-inline:auto!important;
+  text-align:center!important;justify-self:center!important;
+}
+.pillars-dashboard{
+  width:100%!important;max-width:100%!important;margin-inline:auto!important;
+  display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:var(--leon-home-gap)!important;align-items:stretch!important;
+}
+.pillar-tile{
+  width:100%!important;min-width:0!important;min-height:clamp(150px,12vw,190px)!important;
+  aspect-ratio:1.48/1!important;border-radius:var(--leon-tile-radius)!important;
+  overflow:hidden!important;position:relative!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+  background-size:500% 200%!important;background-repeat:no-repeat!important;
+}
+.pillar-tile:before,.pillar-tile:after{border-radius:inherit!important}
+.quick-actions,.dashboard-footer{width:100%!important;max-width:100%!important}
+@media(max-width:1150px){
+  .site-header{grid-template-columns:minmax(0,1fr) auto!important}
+  .site-header>.top-navigation{grid-column:1/-1!important;grid-row:2!important;justify-self:stretch!important}
+  .site-header>.header-national-mark{top:50%!important;left:50%!important}
+  .pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  .site-header{grid-template-columns:minmax(0,1fr) auto!important}
+  .site-header>.brand{grid-column:1!important;grid-row:1!important}
+  .site-header>.header-tools{grid-column:2!important;grid-row:1!important}
+  .site-header>.header-national-mark{
+    position:static!important;grid-column:1/-1!important;grid-row:2!important;
+    justify-self:center!important;transform:none!important;margin:.15rem auto!important;
+  }
+  .site-header>.top-navigation{grid-column:1/-1!important;grid-row:3!important}
+  .dashboard-home{padding-inline:10px!important}
+  .hero-banner{width:calc(100% + 20px)!important;margin-inline:-10px!important;min-height:205px!important}
+  .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .pillar-tile{min-height:145px!important;aspect-ratio:1.2/1!important}
+}
+@media(max-width:360px){
+  .pillars-dashboard{grid-template-columns:1fr!important}
+  .pillar-tile{aspect-ratio:1.6/1!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .pillar-tile{transition:none!important;transform:none!important}
+}
+
+/* LEON 6.9.2 — FINAL CENTERING AUTHORITY
+   Center the dashboard as one bounded composition; do not offset the hero with negative margins. */
+.dashboard-home{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:min(100%,1600px)!important;
+  max-width:1600px!important;
+  margin-inline:auto!important;
+  padding-inline:clamp(12px,2vw,28px)!important;
+  box-sizing:border-box!important;
+}
+.hero-banner{
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:0!important;
+  display:grid!important;
+  place-items:center!important;
+  box-sizing:border-box!important;
+  background-position:50% 50%!important;
+}
+.hero-banner>.visual-engine-image,
+.hero-banner>.visual-engine-image img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+}
+.hero-banner>.visual-engine-image img{
+  object-fit:cover!important;
+  object-position:50% 50%!important;
+}
+.hero-banner>.hero-copy{
+  justify-self:center!important;
+  align-self:center!important;
+  width:min(100%,900px)!important;
+  max-width:900px!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+.pillars-dashboard{
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+  justify-self:stretch!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  box-sizing:border-box!important;
+}
+.pillar-tile{
+  min-width:0!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:1150px){
+  .pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media(max-width:700px){
+  .dashboard-home{padding-inline:10px!important}
+  .hero-banner{width:100%!important;margin-inline:0!important}
+  .hero-banner>.hero-copy{width:min(100%,900px)!important;padding-inline:8px!important}
+  .pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:360px){
+  .pillars-dashboard{grid-template-columns:1fr!important}
+}
+
+
+/* LEON 6.9.3 — avoid double card frames.
+   The sprite already contains the complete card artwork, including its border,
+   labels and icon. The renderer must not add a second frame or dark overlay. */
+.pillar-tile{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:none!important;
+}
+.pillar-tile:before,
+.pillar-tile:after{
+  content:none!important;
+  display:none!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  background-repeat:no-repeat!important;
+  background-size:500% 200%!important;
+  pointer-events:none!important;
+  border:0!important;
+  border-radius:0!important;
+}
+.pillar-tile[data-visual-state="failed"]{
+  border:1px solid rgba(173,208,239,.45)!important;
+  background:linear-gradient(135deg,#102b49,#061426)!important;
+}
+.hero-banner>.visual-engine-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
+}
+.hero-banner>.visual-engine-image img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  object-position:50% 50%!important;
+  border:0!important;
+  border-radius:0!important;
+}
+.hero-banner:before,
+.hero-banner:after{display:none!important;content:none!important}
+.hero-banner>.hero-copy{position:relative!important;z-index:2!important}
+@media(prefers-reduced-motion:reduce){
+  .pillar-tile{transition:none!important;transform:none!important}
+}
