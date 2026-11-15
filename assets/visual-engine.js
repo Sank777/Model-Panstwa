@@ -59,6 +59,9 @@
         layer.appendChild(img);
         hero.insertBefore(layer,hero.firstChild);
       }
+      hero.style.setProperty("--leon-hero-focus", recipe.focal || "50% 50%");
+      const heroImage = layer.querySelector("img");
+      if (heroImage) heroImage.style.objectPosition = recipe.focal || "50% 50%";
       hero.classList.remove("visual-hero-fallback","visual-image-error");
       hero.classList.add("visual-hero-ready");
       hero.dataset.visualState = "loaded";
