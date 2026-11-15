@@ -6,7 +6,7 @@ Pakiet jest przygotowywany na osobnej gałęzi. Nie wykonuje zmian na produkcji 
 ## Potwierdzone ustalenia z audytu (2026-11-15)
 - RLS jest włączone na tabelach schematu public; samo RLS nie zastępuje grantów SQL.
 - Migracja etapu 1 ogranicza TRUNCATE, REFERENCES i TRIGGER dla anon/authenticated oraz CREATE w public.
-- Funkcja submit-report ma verify_jwt=false i wykonuje własną weryfikację JWT. Regex Bearer w aktywnej wersji funkcji jest błędny: zapis odpowiada /^Bearer\\\\s+(.+)$/i zamiast /^Bearer\\s+(.+)$/i. Ponadto niepoprawny/nieobsługiwany nagłówek Authorization nie może po cichu zamieniać zgłoszenia w anonimowe.
+- Funkcja submit-report ma verify_jwt=false i wykonuje własną weryfikację JWT. Audyt aktywnej wersji produkcyjnej (version 5) potwierdził błędny regex Bearer (`/^Bearer\\\\s+(.+)$/i`), który może nie rozpoznawać poprawnego nagłówka. Aktywna wersja nie odrzuca też jawnie błędnego formatu Authorization. Poprawka istnieje w gałęzi PR #10, ale nie jest wdrożona.
 - Bucket zgloszenia-zdjecia jest publiczny, limit 5 MB, MIME JPEG/PNG/WebP.
 - storage.objects ma RLS włączone, FORCE RLS wyłączone i obecnie nie ma żadnych polityk RLS. Jednocześnie role anon i authenticated mają granty SELECT/INSERT/UPDATE/DELETE na tabeli storage.objects. RLS bez polityk blokuje operacje przez API tabelowe, ale szerokie granty pozostają niepotrzebną powierzchnią uprawnień i mogą stać się aktywne po dodaniu polityk. Nie zmieniamy ich w ciemno, dopóki nie zinwentaryzujemy wszystkich sposobów użycia Storage przez frontend.
 - Pliki nie są dekodowane i ponownie kodowane, więc sprawdzenie sygnatury nie usuwa EXIF/GPS.
@@ -20,6 +20,13 @@ Pakiet jest przygotowywany na osobnej gałęzi. Nie wykonuje zmian na produkcji 
 3. Nie dodajemy polityk RLS bez znajomości modelu dostępu i testów anon/użytkownik A/użytkownik B/admin.
 4. Nie włączamy automatycznie ochrony haseł wyciekłych — wymaga oceny wpływu na logowanie/rejestrację.
 5. Nie kasujemy rekordów, kont ani obiektów Storage.
+
+## Etap 2 – prace w gałęzi (bez wdrożenia)
+- Zinwentaryzowano frontend: `prototyp.html` bezpośrednio czyta publiczne zdjęcia z pola `photo`, formularz wysyła pliki wyłącznie do `submit-report`, a panel administratora pobiera zdjęcia przez `admin-manage-reports`. `index.html` ma także starszy, lokalny model danych oraz publiczny odczyt REST.
+- `admin-manage-reports` w gałęzi zwraca tylko kolumny potrzebne panelowi; usunięto `lat`, `lng` i `user_id`, których panel nie wyświetla. Nie zmienia to schematu bazy.
+- Dodano automatyczny workflow GitHub Actions do uruchamiania testów parsera Bearer przy push/PR.
+- Nadal nie przełączamy bucketu na private ani nie zmieniamy grantów Storage: publiczny frontend prototypu korzysta z publicznych URL-i. Migracja wymaga jednoczesnej zmiany sposobu dostarczania obrazów.
+- WAŻNE: produkcyjna Edge Function `submit-report` version 5 nadal zawiera błąd regexu. Kod w PR #10 jest poprawiony, ale dopóki nie przejdzie testów i kontrolowanego wdrożenia, produkcja pozostaje narażona na odrzucanie poprawnych nagłówków Bearer lub niewłaściwe traktowanie nagłówka.
 
 ## Kolejność prac
 1. Potwierdzić backup bazy oraz osobną kopię obiektów Storage i procedurę odtworzenia.
