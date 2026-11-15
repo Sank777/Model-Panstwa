@@ -2,7 +2,7 @@
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.13.0";
+  const VERSION = "6.14.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 
@@ -50,9 +50,6 @@
     const key = path + "#" + index;
     if (!objectURLs.has(key)) objectURLs.set(key, URL.createObjectURL(blob));
     return objectURLs.get(key);
-  }
-  function directChild(host, cls) {
-    return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
   }
   function directChild(host, cls) {
     return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
@@ -131,8 +128,12 @@
     return load(recipe.asset).then(async source => {
       let layer = directChild(tile,"visual-engine-tile-image");
       if (!layer) {
-        layer = document.createElement("div");
+        layer = document.createElement("img");
         layer.className = "visual-engine-tile-image";
+        layer.alt = "";
+        layer.decoding = "async";
+        layer.loading = "lazy";
+        layer.draggable = false;
         layer.setAttribute("aria-hidden","true");
         tile.insertBefore(layer,tile.firstChild);
       }
@@ -140,15 +141,9 @@
         const segments = await extractSegments(recipe.asset, source);
         const segment = segments[recipe.spriteIndex];
         if (!segment) throw new Error("sprite-index-out-of-range:" + recipe.spriteIndex);
-        layer.style.backgroundImage = 'url("' + getSegmentURL(recipe.asset, recipe.spriteIndex, segment.blob) + '")';
-        layer.style.backgroundRepeat = "no-repeat";
-        layer.style.setProperty("background-size", "100% 100%", "important");
-        layer.style.setProperty("background-position", "center", "important");
+        layer.src = getSegmentURL(recipe.asset, recipe.spriteIndex, segment.blob);
       } else {
-        layer.style.backgroundImage = 'url("' + assetURL(recipe.asset) + '")';
-        layer.style.backgroundRepeat = "no-repeat";
-        layer.style.backgroundSize = "cover";
-        layer.style.backgroundPosition = recipe.focal || "center";
+        layer.src = assetURL(recipe.asset);
       }
       tile.classList.remove("visual-tile-fallback","visual-image-error");
       tile.dataset.visualState = "loaded";
