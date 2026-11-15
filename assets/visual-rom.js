@@ -1,30 +1,25 @@
-/* Leon Visual ROM 1.2 — photographic scene mapping and responsive reference layout. */
+/* Leon Visual ROM 1.2 — stable photographic-ready mapping; local fallback remains available. */
 (() => {
   "use strict";
   const tiles = {
-    "pillar-1":  { id:"pillar-1", asset:"filar-1-fundament.webp", focal:"50% 48%", accent:"#fa3048", shade:"strong", alt:"Gmach instytucji publicznej z polskimi flagami" },
-    "pillar-2":  { id:"pillar-2", asset:"filar-2-gospodarka.webp", focal:"50% 50%", accent:"#168cff", shade:"medium", alt:"Robot przemysłowy na hali produkcyjnej" },
-    "pillar-3":  { id:"pillar-3", asset:"filar-3-prawo.webp", focal:"50% 48%", accent:"#f2c94c", shade:"strong", alt:"Waga sprawiedliwości na tle ksiąg prawnych" },
-    "pillar-4":  { id:"pillar-4", asset:"filar-4-bezpieczenstwo.webp", focal:"50% 48%", accent:"#55e879", shade:"medium", alt:"Żołnierz w polskim umundurowaniu i samoloty" },
-    "pillar-5":  { id:"pillar-5", asset:"filar-5-emerytury.webp", focal:"50% 50%", accent:"#c66cff", shade:"medium", alt:"Starsza para spacerująca w parku" },
-    "pillar-6":  { id:"pillar-6", asset:"filar-6-kapital-ludzki.webp", focal:"50% 50%", accent:"#27d4e8", shade:"medium", alt:"Biret absolwencki na książkach" },
-    "pillar-7":  { id:"pillar-7", asset:"filar-7-strategia.webp", focal:"50% 50%", accent:"#278cff", shade:"medium", alt:"Analityk przed ekranami z danymi i mapą Polski" },
-    "pillar-8":  { id:"pillar-8", asset:"filar-8-odpornosc-informacyjna.webp", focal:"50% 50%", accent:"#ed49b6", shade:"strong", alt:"Ekran cyberbezpieczeństwa z symbolem ochrony" },
-    "pillar-9":  { id:"pillar-9", asset:"filar-9-demografia.webp", focal:"50% 50%", accent:"#f08a43", shade:"medium", alt:"Rodzina idąca razem o zachodzie słońca" },
-    "pillar-10": { id:"pillar-10", asset:"filar-10-finanse.webp", focal:"50% 50%", accent:"#20cda8", shade:"medium", alt:"Monety i rosnący wykres finansowy" }
+    "pillar-1":  { id:"pillar-1", asset:"leon-filar-01-fundament.svg", focal:"50% 35%", accent:"#fa3048", shade:"strong", scene:"institutions", alt:"Fundament państwa" },
+    "pillar-2":  { id:"pillar-2", asset:"leon-filar-02-gospodarka.svg", focal:"50% 35%", accent:"#168cff", shade:"medium", scene:"industry", alt:"Gospodarka i rozwój" },
+    "pillar-3":  { id:"pillar-3", asset:"leon-filar-03-prawo.svg", focal:"50% 35%", accent:"#f2c94c", shade:"strong", scene:"justice", alt:"System prawny" },
+    "pillar-4":  { id:"pillar-4", asset:"leon-filar-04-bezpieczenstwo.svg", focal:"50% 35%", accent:"#55e879", shade:"medium", scene:"security", alt:"Bezpieczeństwo" },
+    "pillar-5":  { id:"pillar-5", asset:"leon-filar-05-emerytury.svg", focal:"50% 35%", accent:"#c66cff", shade:"medium", scene:"senior-life", alt:"System emerytalny" },
+    "pillar-6":  { id:"pillar-6", asset:"leon-filar-06-kapital-ludzki.svg", focal:"50% 35%", accent:"#27d4e8", shade:"medium", scene:"education", alt:"Kapitał ludzki" },
+    "pillar-7":  { id:"pillar-7", asset:"leon-filar-07-strategia.svg", focal:"50% 35%", accent:"#278cff", shade:"medium", scene:"strategy", alt:"Zarządzanie strategiczne" },
+    "pillar-8":  { id:"pillar-8", asset:"leon-filar-08-informacje.svg", focal:"50% 35%", accent:"#ed49b6", shade:"strong", scene:"information-resilience", alt:"Odporność informacyjna" },
+    "pillar-9":  { id:"pillar-9", asset:"leon-filar-09-demografia.svg", focal:"50% 35%", accent:"#f08a43", shade:"medium", scene:"family", alt:"Demografia i stabilność" },
+    "pillar-10": { id:"pillar-10", asset:"leon-filar-10-finanse.svg", focal:"50% 35%", accent:"#20cda8", shade:"medium", scene:"public-finance", alt:"Finanse państwa" }
   };
   const ROM = {
     id:"model-panstwa-home-reference", version:"1.2.0",
-    source:{file:"reference-1536x864",width:1536,height:864,method:"measured-reference-and-photographic-assets"},
+    source:{file:"reference-1536x864",width:1536,height:864,method:"measured-reference"},
     deterministic:true, canvas:{width:1536,height:864,aspect:"16:9"},
     palette:{night:"#001020",deep:"#001030",navy:"#002040",blue:"#103060",text:"#f0f0f0",muted:"#d8e2ef",line:"rgba(161,198,231,.35)",polishWhite:"#fff",polishRed:"#dc143c"},
-    composition:{
-      navigation:{top:0,height:66},
-      hero:{top:66,height:225,asset:"polska-hero.webp",fit:"cover",position:"center 54%"},
-      pillars:{columns:5,rows:2,gap:14,ratio:"16:9",order:"1-10"},
-      modules:{columns:4,ratio:"4:1"}, footer:{height:78}
-    },
-    hero:{id:"hero",asset:"polska-hero.webp",focal:"center 54%",fit:"cover",alt:"Panorama polskiego krajobrazu z mapą Polski i flagą"},
+    composition:{navigation:{top:0,height:66},hero:{top:66,height:225,asset:"polska-hero.webp",fit:"cover",position:"center 54%"},pillars:{columns:5,rows:2,gap:14,ratio:"16:9",order:"1-10"},modules:{columns:4,ratio:"4:1"},footer:{height:78}},
+    hero:{id:"hero",asset:"polska-hero.webp",focal:"50% 54%",fit:"cover",alt:"Panorama Polski z mapą i flagą"},
     tiles:Object.freeze(Object.fromEntries(Object.entries(tiles).map(([key,value])=>[key,Object.freeze(value)])))
   };
   window.LeonVisualROM=Object.freeze(ROM);
