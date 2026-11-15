@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "5.7.0";
+  const VERSION = "5.8.0";
   const ROOT = new URL("./menu/", document.currentScript.src);
   const hero = document.querySelector(".hero-banner");
   const tiles = Array.from(document.querySelectorAll(".pillar-tile"));
@@ -13,7 +13,7 @@
   const state = {
     version: VERSION, hero: hero ? "waiting" : "missing",
     tiles: { total: tiles.length, loaded: 0, failed: 0, pending: 0 },
-    errors: [], startedAt: Date.now()
+    errors: [], assets: [], startedAt: Date.now()
   };
   const assetURL = name => new URL(name, ROOT).href;
   function recipeFor(tile) {
@@ -52,7 +52,7 @@
           else finishTile(host, true);
         },
         onError(src) {
-          recordError(isHero ? "hero" : host.className, src, "asset-unavailable");
+          recordError(isHero ? "hero" : host.className, src, "asset-unavailable");\n          state.assets = state.assets.filter(item => item.id !== (isHero ? "hero" : recipe.id));\n          state.assets.push({ id: isHero ? "hero" : recipe.id, asset: recipe.asset, status: "failed" });
           if (attempt < 1) {
             host.dataset.visualState = "retrying";
             window.setTimeout(() => renderImage(host, recipe, isHero, attempt + 1), 700);
@@ -121,7 +121,7 @@
         version: state.version, hero: state.hero, tiles: { ...state.tiles },
         errors: state.errors.map(error => ({ ...error })),
         tileCount: tiles.length, recipeCount: Object.keys(RECIPES).length,
-        deterministic: true, recipeCore: window.LeonVisualRecipeCore?.version || "missing",
+        deterministic: true, recipeCore: window.LeonVisualRecipeCore?.version || "missing",\n        assetRoot: ROOT.href,
         rom: ROM.version
       };
     },
