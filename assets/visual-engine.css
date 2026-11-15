@@ -1,0 +1,16 @@
+/* Visual Engine v1 — jednoznaczne warstwy obrazu, responsywność i lekki transfer */
+body:has(.dashboard-home){background:#061326!important}
+.dashboard-home{width:100%!important;max-width:none!important}
+.hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:clamp(210px,17vw,270px)!important;background:#0a2340!important;background-image:none!important}
+.hero-banner>.hero-art{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center 54%;z-index:-1}
+.hero-banner:before,.hero-banner:after{display:none!important}
+.hero-copy{position:relative!important;z-index:2!important}
+.hero-map,.hero-flag{display:none!important}
+.pillars-dashboard{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:clamp(8px,1vw,14px)!important}
+.pillar-tile{min-height:clamp(145px,11.5vw,180px)!important;background-color:#102c48!important;background-image:none!important;background-size:cover!important;background-position:center!important}
+.pillar-tile:before{background:linear-gradient(0deg,rgba(1,8,18,.92),rgba(1,8,18,.12) 78%)!important}
+.pillar-tile.is-image-error{background-image:linear-gradient(135deg,#153451,#071a2d)!important}
+@media(max-width:1120px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:760px){.hero-banner{min-height:190px!important}.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.pillar-tile{min-height:132px!important}}
+@media(max-width:420px){.pillars-dashboard{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){.pillar-tile,.quick-actions a{transition:none!important}}
