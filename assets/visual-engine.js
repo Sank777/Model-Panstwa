@@ -30,6 +30,12 @@
     }
     return cache.get(url);
   }
+  function renderHeroFallback(){
+    if(!hero)return;
+    hero.classList.add("visual-hero-fallback");
+    hero.classList.remove("visual-hero-ready","visual-image-error");
+    state.hero="fallback";
+  }
   async function renderHero(){
     if(!hero||!ROM||!ROM.hero)return;
     try{
@@ -47,7 +53,7 @@
       }
       hero.classList.add("visual-hero-ready");hero.classList.remove("visual-image-error");
       state.hero="loaded";
-    }catch(error){state.hero="failed";state.errors.push("hero:"+error.message);hero.classList.add("visual-image-error");}
+    }catch(error){state.hero="failed";state.errors.push("hero:"+error.message);hero.classList.add("visual-image-error");renderHeroFallback();}
   }
   function tileKey(tile){return Array.from(tile.classList).find(name=>/^pillar-(?:[1-9]|10)$/.test(name));}
   async function renderTile(tile){
@@ -69,13 +75,22 @@
       tile.querySelectorAll(":scope > .tile-icon, :scope > .tile-copy").forEach(node=>node.remove());
       tile.dataset.visualState="loaded";tile.classList.add("visual-image-ready");tile.classList.remove("visual-image-error");
       state.loaded++;
-    }catch(error){tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key+":"+error.message);}
+    }catch(error){
+      tile.dataset.visualState="fallback";tile.classList.add("visual-image-error","visual-tile-fallback");
+      const icon=document.createElement("span");icon.className="tile-icon";icon.setAttribute("aria-hidden","true");icon.textContent=recipe.icon||"◆";
+      const copy=document.createElement("span");copy.className="tile-copy";
+      const number=document.createElement("small");number.textContent="Filar "+key.replace("pillar-","");
+      const title=document.createElement("strong");title.textContent=recipe.title||"Obszar rozwoju państwa";
+      const subtitle=document.createElement("em");subtitle.textContent=recipe.subtitle||"";
+      copy.append(number,title,subtitle);tile.replaceChildren(icon,copy);
+      state.failed++;state.errors.push(key+":"+error.message);
+    }
   }
   function status(){return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"rom-first-sprite-5x2-menu-assets-retry-safe",assetRoot:ROOT.href});}
   function retryFailed(){
     state.failed=0;state.errors=[];
     const jobs=tiles.filter(tile=>tile.dataset.visualState==="failed").map(tile=>{tile.dataset.visualState="idle";return renderTile(tile);});
-    if(state.hero==="failed"){state.hero="idle";jobs.push(renderHero());}
+    if(state.hero==="failed"||state.hero==="fallback"){state.hero="idle";jobs.push(renderHero());}
     return Promise.all(jobs).then(status);
   }
   function start(){
