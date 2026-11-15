@@ -136,19 +136,39 @@ body > .mp-nav a[aria-current="page"]{background:var(--mp-accent)!important;colo
 }
 
 
-/* Test zdjęć menu — dwa kafelki na gałęzi podglądowej */
-.mp-nav a[href="inwestycje.html"]{
-  background-image:linear-gradient(100deg,rgba(8,18,12,.78),rgba(8,18,12,.38)),url("menu/jawnosc-wydatkow.jpg")!important;
-}
-.mp-nav a[href="moduly.html"]{
-  background-image:linear-gradient(100deg,rgba(8,18,12,.78),rgba(8,18,12,.38)),url("menu/architektura-systemu.jpg")!important;
-}
+/* Kafelki ze zdjęciami: jaśniejsze tło i subtelny efekt szklanej tafli.
+   Zachowujemy dwa sprawdzone obrazy; pozostałe dostaną mapowanie po publikacji zasobu. */
 .mp-nav a[href="inwestycje.html"],
 .mp-nav a[href="moduly.html"]{
-  background-size:cover!important;background-position:center!important;
-  background-repeat:no-repeat!important;color:#fff!important;
-  text-shadow:0 1px 3px rgba(0,0,0,.85);
-  border-color:rgba(255,255,255,.22)!important;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  color:#fff!important;
+  text-shadow:0 1px 3px rgba(0,0,0,.72);
+  border:1px solid rgba(255,255,255,.34)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 5px 16px rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+.mp-nav a[href="inwestycje.html"]{
+  background-image:
+    linear-gradient(112deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 42%,rgba(255,255,255,.13)),
+    linear-gradient(100deg,rgba(8,18,12,.34),rgba(8,18,12,.12)),
+    url("menu/jawnosc-wydatkow.jpg")!important;
+}
+.mp-nav a[href="moduly.html"]{
+  background-image:
+    linear-gradient(112deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 42%,rgba(255,255,255,.13)),
+    linear-gradient(100deg,rgba(8,18,12,.34),rgba(8,18,12,.12)),
+    url("menu/architektura-systemu.jpg")!important;
 }
 .mp-nav a[href="inwestycje.html"]::before,
 .mp-nav a[href="moduly.html"]::before{content:none!important;display:none!important}
+.mp-nav a[href="inwestycje.html"]:hover,
+.mp-nav a[href="moduly.html"]:hover{
+  filter:brightness(1.08) saturate(1.06);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .mp-nav a[href="inwestycje.html"],
+  .mp-nav a[href="moduly.html"]{background-color:rgba(255,255,255,.10)!important}
+}
