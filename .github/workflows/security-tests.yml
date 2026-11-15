@@ -5,6 +5,7 @@ on:
     branches:
       - security/storage-cleanup-worker-2026-11
       - security/worker-hardening-followup
+      - feature/visual-engine-v2-hardening
   pull_request:
     paths:
       - "supabase/functions/submit-report/**"
