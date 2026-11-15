@@ -46,13 +46,17 @@
         baseURL: ROOT, className: isHero ? "visual-engine-image" : "visual-engine-tile-image",
         priority: isHero,
         onLoad() {
+          state.assets = state.assets.filter(item => item.id !== (isHero ? "hero" : recipe.id));
+          state.assets.push({ id: isHero ? "hero" : recipe.id, asset: recipe.asset, status: "loaded" });
           host.classList.add("visual-image-ready");
           host.classList.remove("visual-image-error");
           if (isHero) state.hero = "loaded";
           else finishTile(host, true);
         },
         onError(src) {
-          recordError(isHero ? "hero" : host.className, src, "asset-unavailable");\n          state.assets = state.assets.filter(item => item.id !== (isHero ? "hero" : recipe.id));\n          state.assets.push({ id: isHero ? "hero" : recipe.id, asset: recipe.asset, status: "failed" });
+          recordError(isHero ? "hero" : host.className, src, "asset-unavailable");
+          state.assets = state.assets.filter(item => item.id !== (isHero ? "hero" : recipe.id));
+          state.assets.push({ id: isHero ? "hero" : recipe.id, asset: recipe.asset, status: "failed" });
           if (attempt < 1) {
             host.dataset.visualState = "retrying";
             window.setTimeout(() => renderImage(host, recipe, isHero, attempt + 1), 700);
@@ -119,9 +123,11 @@
     getStatus() {
       return {
         version: state.version, hero: state.hero, tiles: { ...state.tiles },
+        assets: state.assets.map(item => ({ ...item })),
         errors: state.errors.map(error => ({ ...error })),
         tileCount: tiles.length, recipeCount: Object.keys(RECIPES).length,
-        deterministic: true, recipeCore: window.LeonVisualRecipeCore?.version || "missing",\n        assetRoot: ROOT.href,
+        deterministic: true, recipeCore: window.LeonVisualRecipeCore?.version || "missing",
+        assetRoot: ROOT.href,
         rom: ROM.version
       };
     },
