@@ -9,14 +9,14 @@
 .pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;margin:0!important;padding:0!important;border:0!important;border-radius:inherit!important;pointer-events:none!important}
 .pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;display:block!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.91),rgba(2,12,24,.50) 43%,rgba(2,12,24,.08)),linear-gradient(112deg,rgba(3,15,28,.22),transparent 46%,rgba(4,17,31,.14)),repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,transparent 1px 44px),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 44px)!important}
 .pillar-tile:after{content:""!important;position:absolute!important;inset:0!important;z-index:2!important;display:block!important;pointer-events:none!important;border-radius:inherit!important;box-shadow:inset 4px 0 0 var(--tile-accent,#39a9ef),inset 0 0 26px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.24)!important;background:radial-gradient(ellipse at 12% 16%,rgba(255,255,255,.13),transparent 32%)!important}
-.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:3!important}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{position:relative!important;z-index:4!important}
 .pillar-tile.visual-image-error{background-image:linear-gradient(135deg,#173c5b,#08192c)!important}
 .pillar-tile:hover{border-color:rgba(225,242,255,.9)!important;box-shadow:0 12px 28px rgba(0,0,0,.42),0 0 16px rgba(57,169,239,.24)!important}
 @media(min-width:1200px){.pillar-tile{min-height:clamp(150px,13vw,205px)!important;border-radius:16px!important}}
 @media(max-width:760px){.hero-banner>.visual-engine-image{object-position:center 52%!important}.pillar-tile{min-height:132px!important}}
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
 /* V5.1 — lekkie, generowane lokalnie schematy geometryczne */
-.pillar-tile>.visual-engine-geometry{position:absolute!important;inset:0!important;z-index:2!important;width:100%!important;height:100%!important;display:block!important;pointer-events:none!important;opacity:.82!important;mix-blend-mode:screen!important}
+.pillar-tile>.visual-engine-geometry{position:absolute!important;inset:0!important;z-index:3!important;width:100%!important;height:100%!important;display:block!important;pointer-events:none!important;opacity:.82!important;mix-blend-mode:screen!important}
 .pillar-tile>.visual-engine-geometry polyline{vector-effect:non-scaling-stroke!important}
 .pillar-tile>.visual-engine-geometry circle{vector-effect:non-scaling-stroke!important}
 @media(prefers-reduced-motion:reduce){.pillar-tile>.visual-engine-geometry{mix-blend-mode:normal!important}}
