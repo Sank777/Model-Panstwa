@@ -74,23 +74,9 @@ Deno.serve(async (req: Request) => {
     return json({ error: "Visual asset administrator access required" }, 403);
   }
 
-  const raw = await req.text();
-  if (raw.length > MAX_REQUEST_BYTES) return json({ error: "Request too large" }, 413);
-  let body: Record<string, unknown>;
-  try {
-    body = JSON.parse(raw);
-    if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error();
-  } catch {
-    return json({ error: "Invalid JSON" }, 400);
-  }
-  const pillarId = typeof body.pillar_id === "string" ? body.pillar_id : "";
-  const scene = SCENES[pillarId];
-  if (!scene) return json({ error: "pillar_id must be a string from 1 to 10" }, 400);
-  const detail = typeof body.scene_detail === "string" ? body.scene_detail.trim() : "";
-  if (detail.length > 500) return json({ error: "scene_detail must be at most 500 characters" }, 400);
-
   const admin = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
 
+  // GET nie wymaga treści żądania. Obsługujemy go przed parserem JSON.
   // V3: prywatna biblioteka wersji roboczych. Lista nigdy nie ujawnia ścieżek bez podpisanego URL.
   if (req.method === "GET") {
     const all: Array<{ id: string; created_at: string | null; size: number | null; pillar_id: string }> = [];
@@ -152,6 +138,23 @@ Deno.serve(async (req: Request) => {
     if (auditError) console.error("Visual deletion audit failed:", auditError.message);
     return json({ ok: true, deleted: true });
   }
+
+  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
+
+  const raw = await req.text();
+  if (raw.length > MAX_REQUEST_BYTES) return json({ error: "Request too large" }, 413);
+  let body: Record<string, unknown>;
+  try {
+    body = JSON.parse(raw);
+    if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error();
+  } catch {
+    return json({ error: "Invalid JSON" }, 400);
+  }
+  const pillarId = typeof body.pillar_id === "string" ? body.pillar_id : "";
+  const scene = SCENES[pillarId];
+  if (!scene) return json({ error: "pillar_id must be a string from 1 to 10" }, 400);
+  const detail = typeof body.scene_detail === "string" ? body.scene_detail.trim() : "";
+  if (detail.length > 500) return json({ error: "scene_detail must be at most 500 characters" }, 400);
 
   const since = new Date(Date.now() - WINDOW_MS).toISOString();
   const { count, error: countError } = await admin.from("admin_audit_log")
