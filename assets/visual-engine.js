@@ -1,7 +1,7 @@
-/* Leon Visual Engine 6.9.1 — verified menu asset paths and deterministic sprite crops. */
+/* Leon Visual Engine 6.10.3 — retry-safe local assets and deterministic sprite crops. */
 (() => {
   "use strict";
-  const VERSION="6.9.1";
+  const VERSION="6.10.3";
   if(window.__LEON_VISUAL_ENGINE_INSTANCE__)return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
@@ -19,12 +19,15 @@
   const cache=new Map();
   function preload(name){
     const url=safeAsset(name);
-    if(!cache.has(url))cache.set(url,new Promise((resolve,reject)=>{
-      const img=new Image();img.decoding="async";
-      img.onload=()=>resolve(img);
-      img.onerror=()=>reject(new Error("asset-load-failed:"+url.split("/").pop()));
-      img.src=url;
-    }));
+    if(!cache.has(url)){
+      const task=new Promise((resolve,reject)=>{
+        const img=new Image();img.decoding="async";
+        img.onload=()=>resolve(img);
+        img.onerror=()=>reject(new Error("asset-load-failed:"+url.split("/").pop()));
+        img.src=url;
+      }).catch(error=>{cache.delete(url);throw error;});
+      cache.set(url,task);
+    }
     return cache.get(url);
   }
   async function renderHero(){
@@ -68,7 +71,7 @@
       state.loaded++;
     }catch(error){tile.dataset.visualState="failed";tile.classList.add("visual-image-error");state.failed++;state.errors.push(key+":"+error.message);}
   }
-  function status(){return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"rom-first-sprite-5x2-menu-assets",assetRoot:ROOT.href});}
+  function status(){return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",started:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},errors:state.errors.slice(),renderer:"rom-first-sprite-5x2-menu-assets-retry-safe",assetRoot:ROOT.href});}
   function retryFailed(){
     state.failed=0;state.errors=[];
     const jobs=tiles.filter(tile=>tile.dataset.visualState==="failed").map(tile=>{tile.dataset.visualState="idle";return renderTile(tile);});
