@@ -136,6 +136,24 @@ body > .mp-nav a[aria-current="page"]{background:var(--mp-accent)!important;colo
 }
 
 
+/* Wspólny szklany wygląd pozostałych elementów menu.
+   Kafelki ze zdjęciami mają własne, bardziej szczegółowe reguły poniżej. */
+.mp-nav a:not([href="inwestycje.html"]):not([href="moduly.html"]){
+  border:1px solid rgba(255,255,255,.42)!important;
+  background-image:linear-gradient(112deg,rgba(255,255,255,.28),rgba(255,255,255,.07) 48%,rgba(255,255,255,.16))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 3px 10px rgba(0,0,0,.10)!important;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  transition:filter .18s ease,box-shadow .18s ease!important;
+}
+.mp-nav a:not([href="inwestycje.html"]):not([href="moduly.html"]):hover{
+  filter:brightness(1.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 5px 14px rgba(0,0,0,.14)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .mp-nav a:not([href="inwestycje.html"]):not([href="moduly.html"]){transition:none!important}
+}
+
 /* Kafelki ze zdjęciami: jaśniejsze tło i subtelny efekt szklanej tafli.
    Zachowujemy dwa sprawdzone obrazy; pozostałe dostaną mapowanie po publikacji zasobu. */
 .mp-nav a[href="inwestycje.html"],
