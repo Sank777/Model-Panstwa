@@ -82,7 +82,7 @@
       const number=document.createElement("small");number.textContent="Filar "+key.replace("pillar-","");
       const title=document.createElement("strong");title.textContent=recipe.title||"Obszar rozwoju państwa";
       const subtitle=document.createElement("em");subtitle.textContent=recipe.subtitle||"";
-      copy.append(number,title,subtitle);tile.replaceChildren(icon,copy);
+      copy.append(number,title,subtitle);tile.innerHTML="";tile.appendChild(icon);tile.appendChild(copy);
       state.failed++;state.errors.push(key+":"+error.message);
     }
   }
