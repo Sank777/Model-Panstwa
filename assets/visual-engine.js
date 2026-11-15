@@ -2,7 +2,9 @@
    The ROM is the single source of truth. No geometry or CSS artwork fallback is permitted. */
 (() => {
   "use strict";
-  const VERSION="6.8.0";
+  const VERSION="6.9.0";
+  if(window.__LEON_VISUAL_ENGINE_INSTANCE__)return;
+  window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
   const ROOT=new URL("./menu/",script&&script.src?script.src:location.href);
   const ROM=window.LeonVisualROM;
@@ -78,17 +80,9 @@
       layer.style.backgroundSize="500% 200%";
       layer.style.backgroundPosition=(recipe.spriteIndex%5*25)+"% "+(Math.floor(recipe.spriteIndex/5)*100)+"%";
       tile.style.setProperty("background-image","none","important");
-      let icon=tile.querySelector(":scope > .tile-icon");
-      let copy=tile.querySelector(":scope > .tile-copy");
-      if(!icon){icon=document.createElement("span");icon.className="tile-icon";icon.setAttribute("aria-hidden","true");tile.appendChild(icon);}
-      if(!copy){copy=document.createElement("span");copy.className="tile-copy";tile.appendChild(copy);}
-      icon.textContent=recipe.icon;
-      copy.replaceChildren();
-      const small=document.createElement("small"),title=document.createElement("strong"),sub=document.createElement("em");
-      small.textContent="Filar "+key.slice(7);
-      title.textContent=recipe.title;
-      sub.textContent=recipe.subtitle;
-      copy.append(small,title,sub);
+      // Sprite zawiera już pełną kartę wraz z numerem, tytułem, ikoną i opisem.
+      // Nie dodajemy drugiej warstwy tekstowej — to powodowało podwójne napisy.
+      tile.querySelectorAll(":scope > .tile-icon, :scope > .tile-copy").forEach(node=>node.remove());
       tile.dataset.visualState="loaded";
       tile.classList.add("visual-image-ready");
       tile.classList.remove("visual-image-error");
@@ -104,7 +98,7 @@
     return Object.freeze({
       version:VERSION,rom:ROM?ROM.version:"missing",started:state.started,hero:state.hero,
       tiles:{total:tiles.length,loaded:state.loaded,failed:state.failed},
-      errors:state.errors.slice(),renderer:"rom-first-sprite-5x2",assetRoot:ROOT.href
+      errors:state.errors.slice(),renderer:"rom-first-sprite-5x2-image-only",assetRoot:ROOT.href
     });
   }
   function retryFailed(){

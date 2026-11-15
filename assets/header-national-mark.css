@@ -25,3 +25,9 @@
  .header-national-mark{position:static;grid-column:1/-1;justify-self:center;transform:none;margin:.2rem auto}
  .top-navigation{padding:0!important;padding-right:0!important}
 }
+
+
+/* 1.1.0 — mapa i flaga pozostają wyśrodkowane niezależnie od szerokości desktopu. */
+.header-national-mark{left:50%!important;right:auto!important;top:50%!important;transform:translate(-50%,-50%)!important}
+@media(max-width:1100px){.header-national-mark{left:50%!important;right:auto!important;top:50%!important;transform:translate(-50%,-50%)!important}}
+@media(max-width:700px){.header-national-mark{position:static!important;grid-column:1/-1!important;justify-self:center!important;transform:none!important;margin:.2rem auto!important}}
