@@ -36,13 +36,22 @@ Rejestr zmian bezpieczeństwa projektu Model-Panstwa. Statusy opisują stan fakt
 - Ryzyko/ograniczenia: worker nie będzie działał automatycznie bez bezpiecznego wyzwalacza; wymaga testu retry, współbieżności, wygasłych blokad i dead-letter.
 - Rollback: nie dotyczy wdrożenia produkcyjnego, ponieważ go nie wykonano. Ewentualny rollback kodu przez revert merge commit po analizie.
 
-## Stan produkcji po kontroli 2026-11-15
+## Stan produkcji po wdrożeniu etapów 1–4 (2026-11-15)
 - Supabase project: `ldjrinmohlomzlyeagwd`, status `ACTIVE_HEALTHY`.
-- Aktywne Edge Functions: `submit-report` v5, `admin-manage-reports` v4, `track-visit` v1, `admin-case-records` v4, `admin-access-management` v2.
-- Migracje z pakietu PR #10–#12 nie zostały zastosowane.
-- Nie wykonano deployu funkcji ani zmian Storage.
-- Konto administratora, konta użytkowników i istniejące dane nie były modyfikowane w ramach tych zmian.
-- Brak potwierdzonej kopii bazy i osobnej kopii Storage z testem odtworzenia — wdrożenie produkcyjne pozostaje zablokowane do czasu przygotowania i weryfikacji backupu oraz testów na środowisku nieprodukcyjnym.
+- Migracje `202611150001`, `202611150002`, `202611150003` zastosowane pomyślnie.
+- Weryfikacja SQL: tabele `admin_audit_log` i `storage_cleanup_queue` istnieją, RLS jest włączone; role `anon` i `authenticated` nie mają SELECT do tych tabel; RPC `claim_storage_cleanup_jobs` jest wykonywalne przez `service_role`, nie przez role klienckie; role klienckie nie mają CREATE na schemacie public.
+- Edge Function `submit-report` wdrożona jako v6, `verify_jwt=false` (zachowano dotychczasowy model ręcznej weryfikacji Bearer, honeypot i ograniczanie żądań).
+- Edge Function `admin-manage-reports` wdrożona jako v5, `verify_jwt=true`; kod korzysta z kolejki Storage i rejestru audytowego.
+- Pozostałe funkcje: `track-visit` v1, `admin-case-records` v4, `admin-access-management` v2 — bez zmian.
+- Worker `storage-cleanup-worker` NIE jest jeszcze wdrożony; nie ustawiono `STORAGE_CLEANUP_WORKER_SECRET` i nie skonfigurowano harmonogramu/wyzwalacza.
+- Nie zmieniano publiczności bucketu ani grantów `storage.objects`.
+- Konto administratora, konta użytkowników i istniejące rekordy biznesowe nie były modyfikowane przez wdrożenie.
+- Backup i odtworzenie: nie potwierdzono jeszcze kopii bazy i osobnej kopii Storage z testem odtworzenia. Rollback aplikacyjny można wykonać przez ponowne wdrożenie poprzednich wersji funkcji; rollback SQL wymaga osobnej migracji kompensującej i nie jest automatyczny.
+
+## Weryfikacja po wdrożeniu
+- Potwierdzono obecność trzech tabel/funkcji migracji oraz uprawnienia RLS/ACL zapytaniami SQL.
+- Nie wykonano jeszcze pełnego testu przeglądarkowego formularza i panelu administratora ani testu rzeczywistego uploadu/usuwania zdjęć.
+- Przed włączeniem workera wymagane jest bezpieczne ustawienie sekretu o długości co najmniej 32 znaków oraz wyzwalacza z JWT; następnie test na kontrolowanym obiekcie w Storage.
 
 ## Następne wymagane kroki
 1. Wykonać i zweryfikować backup bazy oraz osobną kopię obiektów Storage; potwierdzić procedurę odtworzenia.
