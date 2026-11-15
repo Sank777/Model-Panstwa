@@ -202,3 +202,23 @@
  .pillar-tile.visual-tile-fallback{min-height:145px!important;aspect-ratio:1.2/1!important;padding:.75rem .65rem!important}
  .pillar-tile.visual-tile-fallback>.tile-icon{font-size:1.55rem!important}
 }
+
+
+/* LEON 6.11.0 — fail-open presentation.
+   Missing image assets must never hide tile labels or collapse the homepage. */
+.pillar-tile.visual-tile-fallback{
+  display:flex!important;align-items:flex-end!important;gap:.7rem!important;
+  min-height:clamp(150px,12vw,190px)!important;aspect-ratio:1.48/1!important;
+  padding:1rem .85rem!important;border:1px solid rgba(173,208,239,.55)!important;
+  border-radius:16px!important;background:linear-gradient(145deg,#173d62,#091d34)!important;
+  box-shadow:inset 4px 0 0 var(--tile-accent,#39a9ef),0 5px 16px rgba(0,0,0,.2)!important;
+}
+.pillar-tile.visual-tile-fallback:before{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:0!important;background:linear-gradient(0deg,rgba(2,9,18,.48),transparent 75%)!important}
+.pillar-tile.visual-tile-fallback>.tile-icon{display:block!important;position:relative!important;z-index:2!important;flex:0 0 auto!important;font-size:2rem!important;color:#fff!important}
+.pillar-tile.visual-tile-fallback>.tile-copy{display:flex!important;position:relative!important;z-index:2!important;flex-direction:column!important;min-width:0!important;color:#fff!important}
+.pillar-tile.visual-tile-fallback .tile-copy small{display:block!important;font-size:.78rem!important;font-weight:750!important;color:#dbeaff!important}
+.pillar-tile.visual-tile-fallback .tile-copy strong{display:block!important;font-size:clamp(.86rem,1.05vw,1.08rem)!important;line-height:1.16!important;color:#fff!important}
+.pillar-tile.visual-tile-fallback .tile-copy em{display:block!important;font-size:.72rem!important;line-height:1.25!important;color:#e2edf8!important;font-style:normal!important}
+.hero-banner.visual-hero-fallback{background-color:#102f50!important;background-image:linear-gradient(105deg,rgba(5,20,39,.28),rgba(5,20,39,.08) 50%,rgba(5,20,39,.25)),linear-gradient(180deg,#163c60,#0a2039)!important}
+.hero-banner.visual-hero-fallback>.hero-map,.hero-banner.visual-hero-fallback>.hero-flag{display:block!important}
+@media(max-width:700px){.pillar-tile.visual-tile-fallback{min-height:145px!important;aspect-ratio:1.2/1!important;padding:.75rem .65rem!important}.pillar-tile.visual-tile-fallback>.tile-icon{font-size:1.55rem!important}}
