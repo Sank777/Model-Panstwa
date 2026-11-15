@@ -2,7 +2,7 @@
    Visual rendering, page integrity and diagnostics remain independent. */
 (() => {
   "use strict";
-  const VERSION = "6.12.2";
+  const VERSION = "6.13.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__ = VERSION;
 
@@ -11,6 +11,8 @@
   const ROM = window.LeonVisualROM;
   const state = { started:false, hero:"pending", total:0, loaded:0, fallback:0, errors:[], lastCheck:0 };
   const cache = new Map();
+  const segmentCache = new Map();
+  const objectURLs = new Map();
   let observer = null;
   let watchdog = null;
 
@@ -35,6 +37,20 @@
     }
     return cache.get(url);
   }
+  function extractSegments(path, source) {
+    if (!window.LeonVisualSegmenter || !ROM || !ROM.spriteGrid) throw new Error("segmenter-or-grid-unavailable");
+    if (!segmentCache.has(path)) {
+      const promise = window.LeonVisualSegmenter.extract(source, ROM.spriteGrid)
+        .catch(error => { segmentCache.delete(path); throw error; });
+      segmentCache.set(path, promise);
+    }
+    return segmentCache.get(path);
+  }
+  function getSegmentURL(path, index, blob) {
+    const key = path + "#" + index;
+    if (!objectURLs.has(key)) objectURLs.set(key, URL.createObjectURL(blob));
+    return objectURLs.get(key);
+  }
   function directChild(host, cls) {
     return Array.from(host.children).find(node => node.classList && node.classList.contains(cls)) || null;
   }
@@ -44,7 +60,7 @@
     const recipe = ROM && ROM.hero;
     if (!recipe) { hero.classList.add("visual-hero-fallback"); state.hero = "fallback"; return Promise.resolve(); }
     hero.dataset.visualState = "loading";
-    return load(recipe.asset).then(() => {
+    return load(recipe.asset).then(async source => {
       let layer = directChild(hero,"visual-engine-image");
       if (!layer) {
         layer = document.createElement("div");
@@ -117,13 +133,17 @@
         layer.setAttribute("aria-hidden","true");
         tile.insertBefore(layer,tile.firstChild);
       }
-      layer.style.backgroundImage = 'url("' + assetURL(recipe.asset) + '")';
-      layer.style.backgroundRepeat = "no-repeat";
       if (Number.isInteger(recipe.spriteIndex)) {
-        const col = recipe.spriteIndex % 5, row = Math.floor(recipe.spriteIndex / 5);
-        layer.style.setProperty("background-size", "500% 200%", "important");
-        layer.style.setProperty("background-position", (col * 25) + "% " + (row * 100) + "%", "important");
+        const segments = await extractSegments(recipe.asset, source);
+        const segment = segments[recipe.spriteIndex];
+        if (!segment) throw new Error("sprite-index-out-of-range:" + recipe.spriteIndex);
+        layer.style.backgroundImage = 'url("' + getSegmentURL(recipe.asset, recipe.spriteIndex, segment.blob) + '")';
+        layer.style.backgroundRepeat = "no-repeat";
+        layer.style.setProperty("background-size", "100% 100%", "important");
+        layer.style.setProperty("background-position", "center", "important");
       } else {
+        layer.style.backgroundImage = 'url("' + assetURL(recipe.asset) + '")';
+        layer.style.backgroundRepeat = "no-repeat";
         layer.style.backgroundSize = "cover";
         layer.style.backgroundPosition = recipe.focal || "center";
       }
@@ -185,6 +205,8 @@
     window.addEventListener("pagehide",() => {
       if (observer) observer.disconnect();
       if (watchdog) window.clearInterval(watchdog);
+      objectURLs.forEach(url => URL.revokeObjectURL(url));
+      objectURLs.clear();
     },{once:true});
     console.info("[Leon Visual Engine]",getStatus());
   }
