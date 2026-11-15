@@ -37,6 +37,8 @@ Silnik ma odtwarzać stały język wizualny strony, a nie losować nowy styl prz
 
 ## Etapy ewolucji
 - V2: bezpieczne generowanie wersji roboczych i stałe prompty.
+- V3: prywatna biblioteka maksymalnie 30 ostatnich wersji, krótkie podpisane podglądy, ręczne usuwanie wyłącznie plików z dozwolonego katalogu `drafts/`; bez automatycznej publikacji.
+- V4: testy regresji reguł promptu, wszystkich dziesięciu scen, autoryzacji, prywatności magazynu i kontrolek panelu uruchamiane w GitHub Actions.
 - V2.1: biblioteka wersji roboczych, ponawianie generacji, akceptacja/odrzucenie i porównanie wariantów.
 - V2.2: wzorzec referencyjny i tryb edycji istniejącego obrazu; zatwierdzony obraz bazowy jest stałą referencją.
 - V2.3: porównanie 1:1 w tych samych proporcjach, test miniatury, kontrola kontrastu i kadrowania.
@@ -44,4 +46,4 @@ Silnik ma odtwarzać stały język wizualny strony, a nie losować nowy styl prz
 - V4: automatyczne testy wizualne desktop/mobile i budżet transferu WebP/AVIF.
 
 ## Status
-Kod backendu V2, podstawowy panel administratora i dokumentacja są przygotowane w osobnej gałęzi. Nie są wdrożone. Do uruchomienia potrzebny jest sekret `OPENAI_API_KEY` w Supabase. Biblioteka wersji, akceptacja i publikacja pozostają kolejnymi etapami; aktywne kafelki pozostają nietknięte.
+Kod V2–V4, biblioteka wersji roboczych, podstawowy panel administratora, testy regresji i dokumentacja są przygotowane w osobnej gałęzi. Nie są wdrożone. Do uruchomienia potrzebny jest sekret `OPENAI_API_KEY` w Supabase. Porównywanie obrazu z zatwierdzonym wzorcem, zatwierdzanie/publikacja i prawdziwe testy screenshot-diff desktop/mobile pozostają kolejnymi etapami. Aktywne kafelki pozostają nietknięte.
