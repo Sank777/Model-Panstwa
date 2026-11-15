@@ -15,6 +15,22 @@ function json(body: unknown, status = 200) {
   });
 }
 
+function storagePathFromPublicUrl(photoUrl: unknown, supabaseUrl: string): string | null {
+  if (typeof photoUrl !== "string" || photoUrl.length > 2048) return null;
+  try {
+    const parsed = new URL(photoUrl);
+    const expected = new URL(supabaseUrl);
+    if (parsed.origin !== expected.origin) return null;
+    const prefix = "/storage/v1/object/public/zgloszenia-zdjecia/";
+    if (!parsed.pathname.startsWith(prefix)) return null;
+    const encodedPath = parsed.pathname.slice(prefix.length);
+    if (!encodedPath || encodedPath.includes("..")) return null;
+    return encodedPath.split("/").map((part) => decodeURIComponent(part)).join("/");
+  } catch {
+    return null;
+  }
+}
+
 Deno.serve(async (req: Request) => {
   const origin = req.headers.get("origin");
   if (origin && origin !== allowedOrigin) return json({ error: "Forbidden origin" }, 403);
@@ -76,13 +92,71 @@ Deno.serve(async (req: Request) => {
   if (!id || id.length > 128) return json({ error: "Invalid report id" }, 400);
 
   if (req.method === "DELETE") {
-    const { data, error } = await admin.from("zgloszenia").delete().eq("id", id).select("id").maybeSingle();
-    if (error) {
-      console.error("admin delete failed:", error.message);
-      return json({ error: "Could not delete report" }, 500);
+    const { data: report, error: readError } = await admin.from("zgloszenia")
+      .select("id, number, category, status, moderation_status, photo")
+      .eq("id", id).maybeSingle();
+    if (readError) {
+      console.error("admin delete preflight failed:", readError.message);
+      return json({ error: "Could not prepare report deletion" }, 500);
     }
-    if (!data) return json({ error: "Report not found" }, 404);
-    return json({ deleted: true, id });
+    if (!report) return json({ error: "Report not found" }, 404);
+
+    const photoPath = storagePathFromPublicUrl(report.photo, url);
+    let cleanupQueueId: string | null = null;
+    if (photoPath) {
+      const { data: queued, error: queueError } = await admin.from("storage_cleanup_queue")
+        .insert({ bucket_id: "zgloszenia-zdjecia", object_path: photoPath, created_by: user.id })
+        .select("id").single();
+      if (queueError || !queued) {
+        console.error("storage cleanup enqueue failed:", queueError?.message);
+        return json({ error: "Could not safely queue photo cleanup; report was not deleted" }, 503);
+      }
+      cleanupQueueId = queued.id;
+    }
+
+    const { data: deleted, error: deleteError } = await admin.from("zgloszenia")
+      .delete().eq("id", id).select("id").maybeSingle();
+    if (deleteError || !deleted) {
+      if (cleanupQueueId) await admin.from("storage_cleanup_queue").delete().eq("id", cleanupQueueId);
+      console.error("admin delete failed:", deleteError?.message);
+      return json({ error: "Could not delete report" }, deleteError ? 500 : 404);
+    }
+
+    let photoCleanup = "not_required";
+    if (cleanupQueueId && photoPath) {
+      const { error: removeError } = await admin.storage.from("zgloszenia-zdjecia").remove([photoPath]);
+      if (removeError) {
+        photoCleanup = "pending";
+        await admin.from("storage_cleanup_queue").update({
+          status: "pending", attempts: 1, last_error: removeError.message.slice(0, 1000),
+        }).eq("id", cleanupQueueId);
+      } else {
+        photoCleanup = "done";
+        await admin.from("storage_cleanup_queue").update({
+          status: "done", attempts: 1, last_error: null, processed_at: new Date().toISOString(),
+        }).eq("id", cleanupQueueId);
+      }
+    }
+
+    const { error: auditError } = await admin.from("admin_audit_log").insert({
+      actor_user_id: user.id,
+      action: "report.delete",
+      target_type: "report",
+      target_id: id,
+      before_data: {
+        number: report.number,
+        category: report.category,
+        status: report.status,
+        moderation_status: report.moderation_status,
+        had_photo: Boolean(photoPath),
+      },
+      after_data: { deleted: true, photo_cleanup: photoCleanup },
+    });
+    if (auditError) {
+      console.error("admin delete audit failed:", auditError.message);
+      return json({ deleted: true, id, photo_cleanup: photoCleanup, audit_recorded: false }, 202);
+    }
+    return json({ deleted: true, id, photo_cleanup: photoCleanup, audit_recorded: true });
   }
 
   const patch: Record<string, unknown> = {};
@@ -112,6 +186,15 @@ Deno.serve(async (req: Request) => {
   }
   if (Object.keys(patch).length === 0) return json({ error: "No permitted changes supplied" }, 400);
 
+  const { data: before, error: beforeError } = await admin.from("zgloszenia")
+    .select("id, number, moderation_status, status, priority, comment")
+    .eq("id", id).maybeSingle();
+  if (beforeError) {
+    console.error("admin update preflight failed:", beforeError.message);
+    return json({ error: "Could not prepare report update" }, 500);
+  }
+  if (!before) return json({ error: "Report not found" }, 404);
+
   const { data, error } = await admin.from("zgloszenia").update(patch).eq("id", id)
     .select("id, number, moderation_status, status, priority, comment").maybeSingle();
   if (error) {
@@ -119,5 +202,18 @@ Deno.serve(async (req: Request) => {
     return json({ error: "Could not update report" }, 500);
   }
   if (!data) return json({ error: "Report not found" }, 404);
-  return json({ report: data });
+
+  const { error: auditError } = await admin.from("admin_audit_log").insert({
+    actor_user_id: user.id,
+    action: "report.update",
+    target_type: "report",
+    target_id: id,
+    before_data: before,
+    after_data: data,
+  });
+  if (auditError) {
+    console.error("admin update audit failed:", auditError.message);
+    return json({ report: data, audit_recorded: false }, 202);
+  }
+  return json({ report: data, audit_recorded: true });
 });
