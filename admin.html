@@ -10,7 +10,8 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}main{max-width:960px;margin:2rem auto;padding:0 1rem}.top{padding:1rem;background:var(--surface);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:1rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;margin:1rem 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.tile{background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:1rem}.tile h2{font-size:1.15rem}.muted,small{color:var(--muted)}a,button{color:var(--accent)}a{font-weight:700}input,button{font:inherit;padding:.65rem;border-radius:9px;border:1px solid var(--border);background:var(--surface2)}button{cursor:pointer}.row{display:grid;gap:.5rem;margin:.7rem 0}.hidden{display:none!important}.status{padding:.8rem;border-radius:10px;background:var(--surface2);margin:.8rem 0}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
-<link rel="stylesheet" href="assets/site.css?v=20261115-master-template">\n</head>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
+</head>
 <body>
 <div class="top"><strong>MODEL PAŃSTWA · ADMINISTRACJA</strong><button id="theme" type="button">Zmień motyw</button></div>
 <main>
@@ -117,7 +118,8 @@ const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
 const db=createClient(URL,KEY);
 const $=id=>document.getElementById(id);
 const CASE_API=URL+"/functions/v1/admin-case-records";
-const ACCESS_API=URL+"/functions/v1/admin-access-management";\nconst VISUAL_API=URL+"/functions/v1/generate-visual";
+const ACCESS_API=URL+"/functions/v1/admin-access-management";
+const VISUAL_API=URL+"/functions/v1/generate-visual";
 let accessState={is_main_admin:false,modules:[]};
 let selectedCase="";
 function status(s){$("status").textContent=s;}
@@ -205,7 +207,8 @@ async function generateVisual(){
  finally{button.disabled=false;button.textContent="Wygeneruj wersję roboczą";}
 }
 $("visualGenerate").addEventListener("click",generateVisual);
-\nasync function verify(){
+
+async function verify(){
  const {data:{session}}=await db.auth.getSession();
  if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
  try{
@@ -214,7 +217,8 @@ $("visualGenerate").addEventListener("click",generateVisual);
   if(!res.ok)throw new Error(access.error||"Brak uprawnień administratora.");
   accessState=access;
   $("login").classList.add("hidden");$("hub").classList.remove("hidden");
-  $("accessDesk").classList.toggle("hidden",!access.is_main_admin);\n  $("visualDesk").classList.toggle("hidden",!access.is_main_admin);
+  $("accessDesk").classList.toggle("hidden",!access.is_main_admin);
+  $("visualDesk").classList.toggle("hidden",!access.is_main_admin);
   const hubTiles=[...$("hub").querySelectorAll(":scope > .grid > .tile")];
   hubTiles.forEach(tile=>{const label=tile.textContent;let allowed=access.is_main_admin;if(label.includes("Zgłoszenia obywatelskie"))allowed=access.is_main_admin||access.modules.includes("reports");else if(label.includes("Rejestr inwestycji")||label.includes("Dane i dokumenty")||label.includes("Bezpieczeństwo i audyt"))allowed=access.is_main_admin;tile.classList.toggle("hidden",!allowed);});
   $("caseDesk").classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("case_history"));
@@ -242,4 +246,5 @@ submitRecord($("historyForm"),"history",()=>({entry_type:$("historyType").value,
 submitRecord($("evidenceForm"),"evidence",()=>({evidence_type:$("evidenceType").value,evidence_class:$("evidenceClass").value,title:$("evidenceTitle").value,source_url:$("evidenceUrl").value,issuer:$("evidenceIssuer").value,redaction_note:$("evidenceRedaction").value}));
 await verify();
 </script>
-<script src="assets/site.js?v=20261115-5" defer></script>\n</body></html>
+<script src="assets/site.js?v=20261115-5" defer></script>
+</body></html>
