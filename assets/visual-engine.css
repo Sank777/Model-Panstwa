@@ -1,13 +1,50 @@
-/* Visual Engine v2 — rzeczywiste obrazy HTML, brak zależności i brak sztucznego rysowania */
-.hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:#09213b!important;background-image:none!important}
-.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 54%!important}
-.hero-banner>.hero-copy,.hero-banner>.hero-map,.hero-banner>.hero-flag{position:relative;z-index:2}
-.hero-banner:before,.hero-banner:after{display:none!important}
-.pillar-tile{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:#102c48!important;background-image:none!important}
-.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:-2!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important}
-.pillar-tile:before{z-index:-1!important}
-.pillar-tile.visual-image-error{background:linear-gradient(135deg,#173c5b,#08192c)!important}
-.pillar-tile.visual-image-ready{background-image:none!important}
-.hero-banner.visual-image-error{background:linear-gradient(120deg,#0b2745,#142e49)!important}
-@media(max-width:760px){.hero-banner>.visual-engine-image{object-position:center 52%!important}}
-@media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important}}
+/* Visual Engine v3 — warstwy obrazów bez ujemnego z-index */
+.hero-banner{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background-color:#09213b!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center 54%!important;
+}
+.hero-banner>.visual-engine-image{
+  position:absolute!important;inset:0!important;z-index:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:none!important;object-fit:cover!important;object-position:center 54%!important;
+  border:0!important;padding:0!important;margin:0!important;
+}
+.hero-banner>.hero-copy,.hero-banner>.hero-map,.hero-banner>.hero-flag{
+  position:relative!important;z-index:3!important;
+}
+.hero-banner:before,.hero-banner:after{z-index:1!important;pointer-events:none!important}
+.hero-banner.visual-image-error{background-image:linear-gradient(120deg,#0b2745,#142e49)!important}
+
+.pillar-tile{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;
+  background-color:#102c48!important;background-size:cover!important;background-position:center!important;
+}
+.pillar-tile>.visual-engine-tile-image{
+  position:absolute!important;inset:0!important;z-index:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:none!important;object-fit:cover!important;object-position:center!important;
+  border:0!important;padding:0!important;margin:0!important;
+}
+.pillar-tile:before{
+  position:absolute!important;inset:0!important;z-index:1!important;
+  pointer-events:none!important;
+}
+.pillar-tile:after{
+  position:absolute!important;inset:0!important;z-index:2!important;
+  pointer-events:none!important;
+}
+.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{
+  position:relative!important;z-index:3!important;
+}
+.pillar-tile.visual-image-error{background-image:linear-gradient(135deg,#173c5b,#08192c)!important}
+@media(max-width:760px){
+  .hero-banner>.visual-engine-image{object-position:center 52%!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .pillar-tile{transition:none!important}
+}
