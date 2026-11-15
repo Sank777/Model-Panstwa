@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-label="Ilustracja filaru 3">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#4a3b28"/><stop offset="1" stop-color="#06172b"/></linearGradient><radialGradient id="glow"><stop stop-color="#f5c747" stop-opacity=".55"/><stop offset="1" stop-color="#f5c747" stop-opacity="0"/></radialGradient><linearGradient id="floor" y2="1"><stop stop-color="#244866"/><stop offset="1" stop-color="#07182b"/></linearGradient></defs>
+ <rect width="1000" height="600" fill="url(#bg)"/><circle cx="760" cy="130" r="310" fill="url(#glow)"/>
+ <path d="M0 440L190 350l170 70 160-120 180 100 160-110 140 90v180H0z" fill="#071a2e" opacity=".65"/>
+ <path d="M0 500Q240 430 500 500T1000 470v130H0z" fill="url(#floor)"/>
+ <g opacity=".18" stroke="#c8e5ff" fill="none"><path d="M0 100H1000M0 200H1000M0 300H1000M0 400H1000"/><path d="M150 0V600M350 0V600M550 0V600M750 0V600M950 0V600"/></g>
+ <g opacity=".92"><g stroke="#ffe8a6" stroke-width="9" fill="none"><path d="M510 160v230M390 230h240M420 230l-75 155h150zM600 230l-75 155h150zM430 400h160M390 430h240"/><path d="M510 160l-28 45h56z" fill="#f5c747"/></g><path d="M330 465h360" stroke="#b9a77b" stroke-width="5"/></g>
+ <path d="M0 0h1000v600H0z" fill="none" stroke="#d6eaff" stroke-opacity=".18" stroke-width="3"/>
+ <rect y="475" width="1000" height="125" fill="url(#bg)" opacity=".45"/>
+ <path d="M0 530Q280 490 500 535T1000 520" fill="none" stroke="#f5c747" stroke-opacity=".45" stroke-width="3"/>
+ </svg>
