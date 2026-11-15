@@ -27,8 +27,25 @@
 <article class="tile"><h2>1. Zgłoszenia obywatelskie</h2><p>Moderacja, statusy, priorytety, komentarze i statystyki — zachowany dotychczasowy panel.</p><a href="prototyp.html#accountAccess">Otwórz dotychczasowy panel zgłoszeń ↗</a></article>
 <article class="tile"><h2>2. Rejestr inwestycji</h2><p>Publiczny, anonimowy podgląd opublikowanych projektów, budżetów i osi czasu. Bez edycji dla obywateli.</p><a href="inwestycje.html">Otwórz rejestr inwestycji ↗</a></article>
 <article class="tile"><h2>3. Dane i dokumenty</h2><p>Przygotowanie i weryfikacja źródeł przed publikacją. W tym prototypie zapisy rejestru wymagają kontrolowanego backendu; nie udostępniamy formularza zapisu w przeglądarce.</p><span class="muted">Panel redakcyjny — kolejny etap wdrożenia</span></article>
-<article class="tile"><h2>4. Bezpieczeństwo i audyt</h2><p>Uprawnienia, dziennik zmian i kontrola publikacji. Starsze systemy pozostają zachowane; ich funkcje nie są przenoszone ani kasowane automatycznie.</p><span class="muted">Wymaga osobnego modułu administracyjnego</span></article>
+<article class="tile"><h2>4. Bezpieczeństwo i audyt</h2><p>Uprawnienia, dziennik zmian i kontrola publikacji. Starsze systemy pozostają zachowane; ich funkcje nie są przenoszone ani kasowane automatycznie.</p><span class="muted">Wymaga osobnego modułu administracyjnego</span></article><article class="tile"><h2>5. Leon Visual Engine</h2><p>Generowanie i kontrola wersji roboczych zdjęć filarów. Obrazy nie są publikowane automatycznie.</p><a href="#visualDesk">Otwórz silnik wizualny ↓</a></article>
 </div>
+<section class="card hidden" id="visualDesk">
+<h2>5. Leon Visual Engine — laboratorium obrazów</h2>
+<p class="muted">Generuj wersje robocze według stałych reguł wizualnych. Każdy obraz wymaga ręcznej oceny; ten panel nie publikuje i nie podmienia kafelków.</p>
+<div class="grid">
+<label class="row">Filar<select id="visualPillar">
+<option value="1">1 · Fundament państwa</option><option value="2">2 · Gospodarka i rozwój</option><option value="3">3 · System prawny</option><option value="4">4 · Bezpieczeństwo</option><option value="5">5 · System emerytalny</option><option value="6">6 · Kapitał ludzki</option><option value="7">7 · Zarządzanie strategiczne</option><option value="8">8 · Odporność informacyjna</option><option value="9">9 · Demografia i stabilność</option><option value="10">10 · System finansów państwa</option>
+</select></label>
+<label class="row">Dodatkowa uwaga do sceny (opcjonalnie)<input id="visualDetail" maxlength="500" placeholder="Nie zmieniaj stałego stylu; doprecyzuj tylko temat sceny"></label>
+</div>
+<button id="visualGenerate" type="button">Wygeneruj wersję roboczą</button>
+<div id="visualStatus" class="status" role="status" aria-live="polite">Silnik oczekuje na konfigurację serwerową.</div>
+<div id="visualPreviewWrap" class="tile hidden">
+<img id="visualPreview" alt="Podgląd wygenerowanej grafiki" loading="lazy" style="display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:10px;background:#101827">
+<p id="visualMeta" class="muted"></p>
+<p class="muted small">To prywatny podgląd wersji roboczej. Link wygasa po godzinie. Zatwierdzenie i publikacja będą osobnym etapem.</p>
+</div>
+</section>
 <section class="card hidden" id="accessDesk">
 <h2>6. Podział administratorów i uprawnienia</h2>
 <p class="muted">Ten panel widzi wyłącznie administrator główny. Administratorzy modułowi otrzymują dostęp tylko do przypisanych obszarów.</p>
@@ -100,7 +117,7 @@ const KEY="sb_publishable_aMRUSYoNLbIriNAxLdu9mQ_KTqqefWR";
 const db=createClient(URL,KEY);
 const $=id=>document.getElementById(id);
 const CASE_API=URL+"/functions/v1/admin-case-records";
-const ACCESS_API=URL+"/functions/v1/admin-access-management";
+const ACCESS_API=URL+"/functions/v1/admin-access-management";\nconst VISUAL_API=URL+"/functions/v1/generate-visual";
 let accessState={is_main_admin:false,modules:[]};
 let selectedCase="";
 function status(s){$("status").textContent=s;}
@@ -174,7 +191,21 @@ function submitRecord(form,kind,payload){
   catch(err){status("Nie zapisano: "+err.message);}
  });
 }
-async function verify(){
+
+async function generateVisual(){
+ const button=$("visualGenerate"),statusBox=$("visualStatus"),wrap=$("visualPreviewWrap");
+ button.disabled=true;button.textContent="Generowanie…";statusBox.textContent="Przygotowuję obraz. To może potrwać chwilę.";wrap.classList.add("hidden");
+ try{
+  const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");
+  const response=await fetch(VISUAL_API,{method:"POST",headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json"},body:JSON.stringify({pillar_id:$("visualPillar").value,scene_detail:$("visualDetail").value.trim()})});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się wygenerować obrazu");
+  $("visualPreview").src=data.preview_url;$("visualMeta").textContent="Filar "+data.pillar_id+" · "+data.pillar+" · "+data.width+"×"+data.height+" · "+Math.round(data.bytes/1024)+" KB · "+data.model+" · wersja "+data.prompt_version;
+  wrap.classList.remove("hidden");statusBox.textContent="Wersja robocza gotowa. Nie została opublikowana.";
+ }catch(e){statusBox.textContent="Błąd: "+e.message;}
+ finally{button.disabled=false;button.textContent="Wygeneruj wersję roboczą";}
+}
+$("visualGenerate").addEventListener("click",generateVisual);
+\nasync function verify(){
  const {data:{session}}=await db.auth.getSession();
  if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
  try{
@@ -183,7 +214,7 @@ async function verify(){
   if(!res.ok)throw new Error(access.error||"Brak uprawnień administratora.");
   accessState=access;
   $("login").classList.add("hidden");$("hub").classList.remove("hidden");
-  $("accessDesk").classList.toggle("hidden",!access.is_main_admin);
+  $("accessDesk").classList.toggle("hidden",!access.is_main_admin);\n  $("visualDesk").classList.toggle("hidden",!access.is_main_admin);
   const hubTiles=[...$("hub").querySelectorAll(":scope > .grid > .tile")];
   hubTiles.forEach(tile=>{const label=tile.textContent;let allowed=access.is_main_admin;if(label.includes("Zgłoszenia obywatelskie"))allowed=access.is_main_admin||access.modules.includes("reports");else if(label.includes("Rejestr inwestycji")||label.includes("Dane i dokumenty")||label.includes("Bezpieczeństwo i audyt"))allowed=access.is_main_admin;tile.classList.toggle("hidden",!allowed);});
   $("caseDesk").classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("case_history"));
