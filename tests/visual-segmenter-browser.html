@@ -71,6 +71,16 @@ code{overflow-wrap:anywhere}
     }finally{URL.revokeObjectURL(blobURL)}
    }
    if(passed!==10)throw new Error("Zaliczone segmenty: "+passed+"/10");
+   const layout=document.createElement("style");
+   layout.textContent=".test-tile{position:relative;width:304px;aspect-ratio:304 / 179;overflow:hidden}.test-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;object-position:50% 50%}";
+   document.head.append(layout);
+   for(const figure of results.querySelectorAll("figure")){
+    figure.classList.add("test-tile");
+    const preview=figure.querySelector("img");
+    const rect=figure.getBoundingClientRect();
+    if(Math.abs(rect.width/rect.height-(304/179))>0.02)throw new Error("nieprawidłowe proporcje kafelka");
+    if(getComputedStyle(preview).objectPosition!=="50% 50%"||getComputedStyle(preview).objectFit!=="fill")throw new Error("nieprawidłowe pozycjonowanie obrazu");
+   }
    say("ZALICZONE: 10/10 grafik. Każdy PNG ma prawidłowe wymiary i identyczne piksele jak odpowiadający mu fragment oryginału.",true);
   }catch(error){say("NIEZALICZONE: "+(error&&error.message?error.message:String(error)),false)}
   finally{run.disabled=false}
