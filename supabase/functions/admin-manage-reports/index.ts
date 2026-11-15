@@ -53,7 +53,7 @@ Deno.serve(async (req: Request) => {
   }
 
   if (req.method === "GET") {
-    const { data, error } = await admin.from("zgloszenia").select("id, number, time, category, description, location, lat, lng, status, priority, comment, photo, supports, created_at, moderation_status, user_id")
+    const { data, error } = await admin.from("zgloszenia").select("id, number, time, category, description, location, status, priority, comment, photo, supports, created_at, moderation_status")
       .order("created_at", { ascending: false }).limit(1000);
     if (error) {
       console.error("admin list failed:", error.message);
