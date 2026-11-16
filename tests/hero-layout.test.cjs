@@ -23,5 +23,12 @@ test("mobile hero applies a separate, slightly smaller vertical crop", () => {
 test("hero keeps the original repository asset, title overlay, and versioned stylesheet", () => {
   assert.match(rom, /asset:"menu\/leon-hero\.webp"/);
   assert.match(html, /<section class="hero-banner"[^>]*>[\s\S]*?<div class="hero-copy">/);
-  assert.match(html, /visual-engine-layout\.css\?v=7\.6\.0/);
+  assert.match(html, /visual-engine-layout\.css\?v=7\.7\.0/);
+});
+
+
+test("pillar tiles render without frames, shadows, or overlay accents", () => {
+  assert.match(css, /\.pillar-tile\{[^}]*border:0!important[^}]*outline:0!important[^}]*box-shadow:none!important/);
+  assert.match(css, /\.pillar-tile>\.visual-engine-tile-image\{[^}]*inset:-9%!important[^}]*width:118%!important[^}]*height:118%!important/);
+  assert.match(css, /\.pillar-tile:before,\.pillar-tile:after\{display:none!important;content:none!important/);
 });
