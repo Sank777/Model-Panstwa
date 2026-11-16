@@ -19,12 +19,56 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("model_panstwa_v2_theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
 <link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
   <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
+<link rel="preload" as="image" href="assets/menu/leon-hero.webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/site-shell.css?v=1.0.0">
+<link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0">
+<link rel="stylesheet" href="assets/visual-engine-layout.css?v=7.7.0">
 </head>
-<body>
+<body data-page-shell="homepage-v1">
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Model Państwa — strona główna">
+    <span class="brand-eagle" aria-hidden="true">🦅</span>
+    <span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span>
+  </a>
+  <nav class="top-navigation" aria-label="Nawigacja główna">
+    <a href="index.html"><span>⌂</span> Start</a>
+    <a href="filary.html"><span>▦</span> 10 Filarów</a>
+    <a class="active" href="centrum-jawnosci.html"><span>▤</span> Aktualności</a>
+    <a href="studium-inwestycji.html"><span>▥</span> Analizy</a>
+    <a href="model.html"><span>▣</span> Baza wiedzy</a>
+    <a href="centrum-jawnosci.html"><span>❖</span> Centrum jawności</a>
+    <a href="zasady.html"><span>ⓘ</span> O projekcie</a>
+  </nav>
+  <div class="header-tools">
+    <a href="centrum-jawnosci.html" aria-label="Szukaj" title="Szukaj">⌕</a>
+    <a href="admin.html" aria-label="Panel użytkownika" title="Panel użytkownika">♙</a>
+    <button type="button" id="themeToggle" aria-label="Zmień motyw" title="Zmień motyw">◐</button>
+  </div></header>
 <button type="button" class="global-theme-toggle" id="globalThemeToggle" aria-label="Zmień motyw">☀️ Jasny</button>
-<header><div>LABORATORIUM OBYWATELSKIE</div><h1>System zgłoszeń</h1><p>Dodawanie problemów, publiczny podgląd zatwierdzonych spraw i osobna obsługa administracyjna.</p></header>
-<nav class="nav" aria-label="Nawigacja główna"><a href="index.html">Strona główna</a><a href="model.html">Nasze myślenie</a><a href="filary.html">10 filarów</a><a href="reformy.html">Jak zmieniać państwo</a><a href="zasady.html">Zasady projektowe</a><a href="prototyp.html" aria-current="page">Prototyp zgłoszeń</a><a href="inwestycje.html">Budżety inwestycji</a><a href="centrum-jawnosci.html">Centrum jawności</a><a href="admin.html">Panel administracyjny</a></nav>
-<main>
+
+
+<main class="dashboard-home shared-page-content" data-page-shell="homepage-v1">
+<section class="hero-banner" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <h1 id="hero-title">Model Państwa</h1>
+      <p>Spójny system reform, rozwoju i bezpieczeństwa Polski</p>
+      <span class="flag-divider" aria-hidden="true"></span>
+    </div>
+  </section>
+<section class="pillars-dashboard" aria-label="Dziesięć filarów Modelu Państwa">
+  <a class="pillar-tile pillar-1" href="filary.html" aria-label="Filar 1: Fundament państwa. Instytucje i zaufanie"></a>
+  <a class="pillar-tile pillar-2" href="filary.html" aria-label="Filar 2: Gospodarka i rozwój. Inwestycje, przemysł, innowacje"></a>
+  <a class="pillar-tile pillar-3" href="filary.html" aria-label="Filar 3: System prawny. Proste i skuteczne prawo"></a>
+  <a class="pillar-tile pillar-4" href="filary.html" aria-label="Filar 4: Bezpieczeństwo. Odporność państwa i obywateli"></a>
+  <a class="pillar-tile pillar-5" href="filary.html" aria-label="Filar 5: System emerytalny. Stabilność i godne życie"></a>
+  <a class="pillar-tile pillar-6" href="filary.html" aria-label="Filar 6: Kapitał ludzki. Edukacja, kompetencje, rozwój"></a>
+  <a class="pillar-tile pillar-7" href="filary.html" aria-label="Filar 7: Zarządzanie strategiczne. Długofalowa polityka państwa"></a>
+  <a class="pillar-tile pillar-8" href="filary.html" aria-label="Filar 8: Odporność informacyjna. Świadome i bezpieczne społeczeństwo"></a>
+  <a class="pillar-tile pillar-9" href="filary.html" aria-label="Filar 9: Demografia i stabilność. Rodzina, mieszkalnictwo, rozwój regionów"></a>
+  <a class="pillar-tile pillar-10" href="filary.html" aria-label="Filar 10: System finansów państwa. Przejrzystość, efektywność, kontrola"></a>
+  </section>
+<section class="page-intro"><div>LABORATORIUM OBYWATELSKIE</div><h1>System zgłoszeń</h1><p>Dodawanie problemów, publiczny podgląd zatwierdzonych spraw i osobna obsługa administracyjna.</p></section>
+
 <section class="card" id="accountAccess"><h2>Konto użytkownika</h2>
 <p class="muted">Utwórz konto, aby śledzić swoje zgłoszenia. Możesz też wysłać zgłoszenie anonimowo.</p>
 <form id="accountForm"><div id="turnstile-container" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden"></div><div class="grid"><div class="field"><label for="email">Adres e-mail</label><input id="email" type="email" autocomplete="email" required></div><div class="field"><label for="password">Hasło</label><input id="password" type="password" minlength="8" autocomplete="current-password" required aria-describedby="passwordHelp"><small id="passwordHelp" class="muted">Hasło musi mieć co najmniej 8 znaków. Przy tworzeniu konta użyj nowego, nieużywanego wcześniej hasła.</small></div></div>
@@ -45,6 +89,7 @@
 <section class="card"><h2>Panel administratora</h2><p class="muted">Po zalogowaniu w panelu dostępu powyżej pojawią się narzędzia administracyjne. Dostęp wymaga roli administratora i jest weryfikowany po stronie serwera.</p>
 <div id="adminArea" class="hidden"><div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;justify-content:space-between"><strong>Obsługa zgłoszeń</strong><button class="btn secondary" id="logoutBtn" type="button">Wyloguj</button></div><section class="card" id="analyticsPanel"><h2>Statystyki odwiedzin strony</h2><p class="muted">Dane orientacyjne, bez ujawniania adresów IP.</p><div id="analyticsSummary" class="message">Statystyki będą dostępne po zalogowaniu administratora.</div></section><div id="adminList"></div></div>
 </section>
+<footer class="dashboard-footer"><span>Model Państwa – Wersja Systemowa (10 Filarów)</span><span class="footer-motto"><i aria-hidden="true"></i> Dla silnej, bezpiecznej i nowoczesnej Polski</span><span class="footer-status"><b></b> Wersja projektu: 4.0 <i></i> Status: rozwój</span></footer>
 </main><footer>Model Państwa · System zgłoszeń · Prototyp obywatelski</footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <script type="module">
@@ -285,4 +330,7 @@ await loadPublic();
 })();
 </script>
 <script src="assets/site.js?v=20261115-5" defer></script>
+<script src="assets/visual-rom.js?v=1.8.0" defer></script>
+<script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
+<script src="assets/visual-engine.js?v=7.2.0" defer></script>
 </body></html>
