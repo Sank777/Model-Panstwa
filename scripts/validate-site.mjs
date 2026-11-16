@@ -62,11 +62,11 @@ const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8"
 if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Wspólny motyw nie zawiera zatwierdzonej palety granatowo-niebieskiej");
 else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
 
-console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
-for(const f of failures)console.error("FAIL",f);
-if(failures.length)process.exit(1);
-
 if (!themeCss.includes('input[type="checkbox"]') || !themeCss.includes('input[type="radio"]')) failures.push("Motyw nie zachowuje natywnych kontrolek checkbox/radio");
 else checks.push("Motyw zachowuje natywne kontrolki formularzy");
 if (!themeCss.includes('html[data-theme="light"]')) failures.push("Motyw nie obsługuje trybu jasnego");
 else checks.push("Motyw obsługuje tryb jasny i ciemny");
+
+console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
+for(const f of failures)console.error("FAIL",f);
+if(failures.length)process.exit(1);
