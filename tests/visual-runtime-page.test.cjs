@@ -2,11 +2,11 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
-const html = fs.readFileSync(require.resolve("../leon-visual-test.html"),"utf8");
+const html = fs.readFileSync(require.resolve("../assets/leon-visual-test.html"),"utf8");
 
 test("visual test page loads the local segmenter before the modular runtime", () => {
-  assert.match(html,/assets\/visual-segmenter\.js\?v=2\.1\.0/);
-  assert.match(html,/assets\/leon-visual-runtime\.js\?v=1\.0\.1/);
+  assert.match(html,/visual-segmenter\.js\?v=2\.1\.0/);
+  assert.match(html,/leon-visual-runtime\.js\?v=1\.0\.1/);
   assert.ok(html.indexOf("visual-segmenter.js") < html.indexOf("leon-visual-runtime.js"));
 });
 
