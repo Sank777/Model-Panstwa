@@ -33,7 +33,7 @@
     <a href="admin.html" aria-label="Panel użytkownika" title="Panel użytkownika">♙</a>
     <button type="button" id="themeToggle" aria-label="Zmień motyw" title="Zmień motyw">◐</button>
   </div></header>
-<button type="button" class="global-theme-toggle" id="globalThemeToggle" aria-label="Zmień motyw">☀️ Jasny</button><main class="dashboard-home shared-page-content" data-page-shell="homepage-v1">
+<main class="dashboard-home shared-page-content" data-page-shell="homepage-v1">
 <section class="hero-banner" aria-labelledby="hero-title">
     <div class="hero-copy">
       <h1 id="hero-title">Model Państwa</h1>
@@ -80,7 +80,7 @@
   }).catch(() => {});
 })();
 </script>
-<script>const themeButton=document.getElementById("globalThemeToggle");function setSiteTheme(theme){document.documentElement.dataset.theme=theme;themeButton.textContent=theme==="dark"?"☀️ Jasny":"🌙 Ciemny";try{localStorage.setItem("model_panstwa_v2_theme",theme)}catch(e){}}setSiteTheme(document.documentElement.dataset.theme||"dark");themeButton.addEventListener("click",()=>setSiteTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));</script>
+
 <script src="assets/site.js?v=20261115-5" defer></script>
 
 <script src="assets/visual-rom.js?v=1.8.0" defer></script>
