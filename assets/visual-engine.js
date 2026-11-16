@@ -1,4 +1,4 @@
-/* Leon Visual Engine 7.2.0 — validated local atlas renderer. */
+/* Leon Visual Engine 7.2.1 — validated local atlas renderer. */
 (() => {
   "use strict";
   const VERSION="7.2.1";
@@ -83,10 +83,10 @@
     const recipe=ROM&&ROM.hero;
     if(!recipe){hero.classList.add("visual-hero-fallback");state.hero="fallback";return Promise.resolve();}
     hero.dataset.visualState="loading";
-    const task=load(recipe.asset).then(source=>{
+    const task=load(recipe.asset).then(async source=>{
       let layer=directChild(hero,"visual-engine-image");
       if(!layer){layer=document.createElement("div");layer.className="visual-engine-image";layer.setAttribute("aria-hidden","true");const img=document.createElement("img");img.alt="";img.decoding="async";img.loading="eager";layer.appendChild(img);hero.insertBefore(layer,hero.firstChild);}
-      const img=layer.querySelector("img");img.src=source.currentSrc||assetURL(recipe.asset);setImageFit(img,recipe);
+      const img=layer.querySelector("img");setImageFit(img,recipe);await setImageSource(img,source.currentSrc||assetURL(recipe.asset));
       hero.style.setProperty("--leon-hero-focus",recipe.focal||"50% 50%");
       hero.classList.remove("visual-hero-fallback","visual-image-error");hero.classList.add("visual-hero-ready");hero.dataset.visualState="loaded";state.hero="loaded";
     }).catch(error=>{hero.classList.add("visual-hero-fallback","visual-image-error");hero.dataset.visualState="fallback";state.hero="fallback";record("hero",error);});
