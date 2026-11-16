@@ -63,7 +63,7 @@
     return objectURLs.get(key);
   }
   function setImageFit(image,recipe){
-    image.style.objectFit=recipe.fit==="cover"?"cover":recipe.fit==="contain"?"contain":"fill";
+    image.style.objectFit=recipe.fit==="cover"?"cover":recipe.fit==="fill"?"fill":"contain";
     if(recipe.focal) image.style.objectPosition=recipe.focal;
   }
   function renderHero(){
