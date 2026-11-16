@@ -8,21 +8,20 @@ const css = fs.readFileSync(path.join(__dirname, "../assets/visual-engine-layout
 const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
 const rom = fs.readFileSync(path.join(__dirname, "../assets/visual-rom.js"), "utf8");
 
-test("hero preserves the complete original 3:1 composition", () => {
-  assert.match(css, /\.hero-banner\{[^}]*aspect-ratio:3\/1!important/);
-  assert.match(css, /\.hero-banner>\.visual-engine-image img\{[^}]*object-fit:contain!important/);
-  assert.match(css, /object-position:50% 50%!important/);
+test("desktop hero crops only the bottom and keeps the original image top visible", () => {
+  assert.match(css, /\.hero-banner\{[^}]*aspect-ratio:3\.25\/1!important/);
+  assert.match(css, /\.hero-banner>\.visual-engine-image img\{[^}]*object-fit:cover!important/);
+  assert.match(css, /object-position:50% 0%!important/);
 });
 
-test("mobile layout does not override the full-frame hero ratio", () => {
-  const mobileRules = css.match(/@container leon-dashboard \(max-width:700px\)\{([^}]*(?:\}[^}]*)?)\}/)?.[1] || "";
+test("mobile hero uses a compact crop while retaining the same top focal point", () => {
   assert.match(css, /@container leon-dashboard \(max-width:700px\)/);
-  assert.match(css, /aspect-ratio:3\/1!important/);
-  assert.doesNotMatch(mobileRules, /object-fit:cover/);
+  assert.match(css, /\.hero-banner\{aspect-ratio:3\.15\/1!important;height:auto!important;min-height:clamp\(105px,27vw,140px\)!important/);
+  assert.match(css, /object-fit:cover!important;object-position:50% 0%!important/);
 });
 
-test("hero uses the original repository asset and keeps title overlay", () => {
+test("hero keeps the original repository asset, title overlay, and current stylesheet version", () => {
   assert.match(rom, /asset:"menu\/leon-hero\.webp"/);
   assert.match(html, /<section class="hero-banner"[^>]*>[\s\S]*?<div class="hero-copy">/);
-  assert.match(html, /visual-engine-layout\.css\?v=7\.3\.0/);
+  assert.match(html, /visual-engine-layout\.css\?v=7\.4\.0/);
 });
