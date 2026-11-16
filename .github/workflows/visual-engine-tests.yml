@@ -17,6 +17,8 @@ on:
       - "assets/visual-rom.js"
       - "assets/visual-engine.js"
       - "assets/visual-engine-layout.css"
+      - "assets/leon-visual-runtime.js"
+      - "assets/leon-visual-runtime.css"
       - "tests/**"
       - ".github/workflows/visual-engine-tests.yml"
 jobs:
