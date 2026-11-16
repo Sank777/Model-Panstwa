@@ -58,6 +58,25 @@ for (const page of themedPages) {
  if (!source.includes("assets/site-theme-v1.css?v=1.0.1")) failures.push("Brak wspólnego motywu Leon 1.0 na stronie "+page);
  else checks.push("Motyw Leon 1.0: "+page);
 }
+
+const sharedShellPages = themedPages.filter(page => page !== "index.html");
+for (const page of sharedShellPages) {
+ const source=fs.readFileSync(path.join(root,page),"utf8");
+ const required=[
+  'data-page-shell="homepage-v1"',
+  'class="site-header"',
+  'class="hero-banner"',
+  'class="pillars-dashboard"',
+  'assets/site-shell.css?v=1.0.0',
+  'assets/visual-engine.js?v=7.2.0'
+ ];
+ const missing=required.filter(token=>!source.includes(token));
+ if(missing.length) failures.push("Niepełny szablon strony głównej na "+page+": "+missing.join(", "));
+ else checks.push("Szablon główny 1:1: "+page);
+ const tiles=(source.match(/class="pillar-tile pillar-\d+"/g)||[]).length;
+ if(tiles!==10) failures.push("Strona "+page+" powinna mieć 10 kafelków filarów, ma "+tiles);
+ else checks.push("10 kafelków szablonu: "+page);
+}
 const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8");
 if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Wspólny motyw nie zawiera zatwierdzonej palety granatowo-niebieskiej");
 else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
