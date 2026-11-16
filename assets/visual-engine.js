@@ -1,14 +1,14 @@
-/* Leon Visual Engine 7.0.0 — universal, backward-compatible local renderer. */
+/* Leon Visual Engine 7.1.0 — universal, backward-compatible local renderer. */
 (() => {
   "use strict";
-  const VERSION="7.0.0";
+  const VERSION="7.1.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
   const ROOT=new URL("./",script&&script.src?script.src:location.href);
   const ROM=window.LeonVisualROM;
   const state={started:false,hero:"pending",errors:[],lastCheck:0,pending:new Set()};
-  const imageCache=new Map(),segmentCache=new Map(),objectURLs=new Map();
+  const imageCache=new Map(),segmentCache=new Map(),objectURLs=new Map(),assetRevisions=new Map();
   let observer=null,watchdog=null;
 
   function assetURL(path){
@@ -18,11 +18,13 @@
     return url.href;
   }
   function load(path){
-    const url=assetURL(path);
+    const base=assetURL(path),revision=assetRevisions.get(path)||0;
+    const url=revision?base+(base.includes("?")?"&":"?")+"leon-rev="+revision:base;
     if(!imageCache.has(url)){
       const promise=new Promise((resolve,reject)=>{
         const img=new Image(); img.decoding="async"; img.referrerPolicy="no-referrer";
-        img.onload=()=>resolve(img); img.onerror=()=>reject(new Error("asset-not-found:"+path)); img.src=url;
+        img.onload=()=>resolve(img); img.onerror=()=>reject(new Error("asset-not-found:"+path));
+        img.src=url;
       }).catch(error=>{imageCache.delete(url);throw error;});
       imageCache.set(url,promise);
     }
@@ -130,6 +132,37 @@
       running:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded").length,fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},
       pending:state.pending.size,errors:state.errors.slice(),lastCheck:state.lastCheck?new Date(state.lastCheck).toISOString():null,renderer:"universal-local-single-grid-regions"});
   }
+  function invalidateCache(path){
+    if(path!==undefined)assetURL(path);
+    const matches=key=>path===undefined||key===path||key.startsWith(path+"|");
+    for(const key of Array.from(imageCache.keys()))if(path===undefined||key.startsWith(assetURL(path)))imageCache.delete(key);
+    for(const key of Array.from(segmentCache.keys()))if(matches(key))segmentCache.delete(key);
+    for(const [key,url] of Array.from(objectURLs.entries()))if(matches(key)){URL.revokeObjectURL(url);objectURLs.delete(key);}
+    return Object.freeze({invalidated:path||"all",images:imageCache.size,segments:segmentCache.size,blobURLs:objectURLs.size});
+  }
+  async function reloadAsset(path){
+    assetURL(path);
+    const referenced=ROM&&[ROM.hero&&ROM.hero.asset,...Object.values(ROM.tiles||{}).map(recipe=>recipe.asset)].includes(path);
+    if(!referenced)throw new Error("asset-not-referenced-by-rom");
+    assetRevisions.set(path,(assetRevisions.get(path)||0)+1);
+    invalidateCache(path);
+    const hero=document.querySelector(".hero-banner");
+    if(hero&&ROM.hero&&ROM.hero.asset===path){
+      const old=directChild(hero,"visual-engine-image");if(old)old.remove();
+      hero.classList.remove("visual-hero-ready","visual-hero-fallback","visual-image-error");
+      hero.dataset.visualState="idle";state.hero="pending";
+    }
+    document.querySelectorAll(".pillar-tile").forEach(tile=>{
+      const key=tileKey(tile),recipe=key&&ROM.tiles&&ROM.tiles[key];
+      if(!recipe||recipe.asset!==path)return;
+      const old=directChild(tile,"visual-engine-tile-image");if(old)old.remove();
+      tile.classList.remove("visual-tile-fallback","visual-image-error");
+      tile.dataset.visualState="idle";
+    });
+    scan();
+    while(state.pending.size)await Promise.allSettled(Array.from(state.pending));
+    return getStatus();
+  }
   async function retryFailed(){
     document.querySelectorAll(".pillar-tile.visual-tile-fallback").forEach(tile=>{tile.dataset.visualState="idle";});
     const hero=document.querySelector(".hero-banner");if(hero){hero.classList.remove("visual-hero-ready","visual-hero-fallback","visual-image-error");hero.dataset.visualState="idle";}
@@ -139,7 +172,7 @@
   }
   function start(){
     if(state.started)return;state.started=true;
-    window.ModelPanstwaVisualEngine=Object.freeze({version:VERSION,getStatus,retryFailed,scan,analyzeImage:source=>window.LeonVisualSegmenter.analyze(source)});
+    window.ModelPanstwaVisualEngine=Object.freeze({version:VERSION,getStatus,retryFailed,reloadAsset,invalidateCache,scan,analyzeImage:source=>window.LeonVisualSegmenter.analyze(source)});
     scan();
     if(window.MutationObserver){observer=new MutationObserver(records=>{
       if(document.hidden)return;
