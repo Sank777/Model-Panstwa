@@ -1,7 +1,7 @@
-/* Leon Visual Engine 7.0.0 — universal, backward-compatible local renderer. */
+/* Leon Visual Engine 7.1.0 — universal, backward-compatible local renderer. */
 (() => {
   "use strict";
-  const VERSION="7.0.0";
+  const VERSION="7.1.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
