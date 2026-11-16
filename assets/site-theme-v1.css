@@ -60,3 +60,51 @@ body:not(:has(.dashboard-home)) img{max-width:100%;height:auto}
  body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note){padding:1rem!important}
 }
 @media(prefers-reduced-motion:reduce){body:not(:has(.dashboard-home)) *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Preserve native semantics and usability of form controls. */
+body:not(:has(.dashboard-home)) :is(input[type="checkbox"],input[type="radio"]){
+  width:auto!important;height:auto!important;min-width:1rem;min-height:1rem;
+  accent-color:#63b8ff;background:transparent!important;border:0!important;
+  border-radius:initial!important;box-shadow:none!important;
+}
+body:not(:has(.dashboard-home)) input[type="file"]{
+  max-width:100%;background:transparent!important;border:0!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+body:not(:has(.dashboard-home)) input[type="file"]::file-selector-button{
+  margin-inline-end:.75rem;padding:.5rem .8rem;border:1px solid var(--mp-border);
+  border-radius:9px;background:#173e63;color:#fff;
+}
+/* The shared theme must not disable the existing light/dark switch. */
+html[data-theme="light"] body:not(:has(.dashboard-home)){
+  background:radial-gradient(ellipse at 50% -20%,#e4f0fb 0%,#f3f7fb 52%,#eaf1f8 100%)!important;
+  color:#172638!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(header,.hero){
+  background:linear-gradient(115deg,#dceafa,#bcd8f2 55%,#e8f1fa)!important;
+  color:#142b43!important;border-bottom:1px solid #c3d5e8;box-shadow:0 10px 26px rgba(25,55,85,.10);
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(header,.hero) p{color:#38536d!important}
+html[data-theme="light"] body:not(:has(.dashboard-home)) main{color:#172638!important}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note,.tile,.project,.stat,.metric,.notice,.step,.process-step,.section-card){
+  color:#172638!important;background:linear-gradient(145deg,#fff,#f2f7fc)!important;
+  border:1px solid #d2dfec!important;box-shadow:0 8px 22px rgba(25,55,85,.09)!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note,.tile,.project,.stat,.metric,.notice,.step,.process-step,.section-card) :is(h1,h2,h3,h4,strong,th){color:#172638!important}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(p,li,td,label,dd,dt){color:inherit}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.muted,small,.hint,.eyebrow,figcaption){color:#536b82!important}
+html[data-theme="light"] body:not(:has(.dashboard-home)) a{color:#075d9b}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(input,select,textarea):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]){
+  background:#fff!important;color:#172638!important;border:1px solid #bdcfe0!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav,.top-navigation){
+  background:rgba(225,237,249,.96)!important;border-color:#c6d8e9!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav) a{
+  color:#173653!important;background:linear-gradient(130deg,#fff,#eaf3fb)!important;
+  border-color:#c6d8e9!important;box-shadow:0 3px 10px rgba(25,55,85,.08)!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav) a[aria-current="page"]{
+  color:#fff!important;background:linear-gradient(130deg,#1765a0,#2788c7)!important;border-color:#1765a0!important;
+}
+html[data-theme="light"] body:not(:has(.dashboard-home)) footer{color:#536b82!important;border-color:#d2dfec!important}
