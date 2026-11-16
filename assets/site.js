@@ -78,8 +78,8 @@
     const motionStyle = document.createElement("style");
     motionStyle.dataset.leonAmbientMotion = "1";
     motionStyle.textContent = `
-      .leon-ambient-target { will-change: transform; transform-origin: center; }
-      .leon-ambient-target[data-ambient-active="true"] { animation: leon-photo-drift 22s ease-in-out infinite alternate; }
+      .leon-ambient-target { will-change: auto; transform-origin: center; }
+      .leon-ambient-target[data-ambient-active="true"] { will-change: transform; animation: leon-photo-drift 22s ease-in-out infinite alternate; }
       @keyframes leon-photo-drift {
         0% { transform: scale(1.015) translate3d(0,0,0); }
         100% { transform: scale(1.055) translate3d(-.45%, -.35%, 0); }
@@ -96,16 +96,13 @@
     if (!motionAllowed) return;
 
     const selector = ".hero-banner > .visual-engine-image img, .pillar-tile > .visual-engine-tile-image";
-    const active = new WeakSet();
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         const node = entry.target;
         if (entry.isIntersecting && document.visibilityState === "visible") {
           node.dataset.ambientActive = "true";
-          active.add(node);
         } else {
           delete node.dataset.ambientActive;
-          active.delete(node);
         }
       });
     }, { rootMargin: "80px 0px", threshold: 0.01 });

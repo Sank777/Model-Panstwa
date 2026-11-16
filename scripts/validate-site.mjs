@@ -104,7 +104,7 @@ if(!siteJs.includes("new MutationObserver")) failures.push("Silnik animacji nie 
 else checks.push("Silnik obsługuje grafiki renderowane asynchronicznie");
 for(const page of themedPages){
  const source=fs.readFileSync(path.join(root,page),"utf8");
- if(!source.includes("assets/site.js?v=20261116-motion1")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
+ if(!source.includes("assets/site.js?v=20261116-motion2")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
  else checks.push("Silnik animacji podłączony: "+page);
 }
 
