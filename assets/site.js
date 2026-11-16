@@ -71,7 +71,7 @@
     }
   });
   updateThemeLabel();
-}
+
   // Ambient motion: subtle "living photograph" treatment for existing artwork.
   // No image replacement, no extra network requests, and no motion for reduced-data/accessibility modes.
   function installAmbientMotion() {
