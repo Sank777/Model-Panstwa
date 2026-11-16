@@ -32,7 +32,7 @@ code{overflow-wrap:anywhere}
  const summary=document.getElementById("summary");
  const results=document.getElementById("results");
  const run=document.getElementById("run");
- const GRID={columns:5,rows:2};
+ const GRID={columns:5,rows:2,padding:24,gapX:16,gapY:16};
  const SRC="../assets/menu/leon-pillar-sprite.webp";
  const say=(text,ok)=>{summary.textContent=text;summary.className=ok?"pass":"fail"};
  function canvas(w,h){const c=document.createElement("canvas");c.width=w;c.height=h;return c}
@@ -46,7 +46,7 @@ code{overflow-wrap:anywhere}
    await image.decode();
    const w=image.naturalWidth,h=image.naturalHeight;
    const plan=window.LeonVisualSegmenter.planSegments(w,h,GRID);
-   if(w!==1520||h!==358)throw new Error("Nieoczekiwane wymiary atlasu: "+w+"×"+h);
+   if(w!==2112||h!==594)throw new Error("Nieoczekiwane wymiary atlasu: "+w+"×"+h);
    if(plan.length!==10)throw new Error("Plan nie zawiera dokładnie 10 segmentów");
    const extracted=await window.LeonVisualSegmenter.extract(image,GRID);
    const sourceCanvas=canvas(w,h),sourceCtx=sourceCanvas.getContext("2d",{willReadFrequently:true});
