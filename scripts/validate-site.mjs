@@ -107,6 +107,7 @@ for(const page of themedPages){
  if(!source.includes("assets/site.js?v=20261116-motion1")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
  else checks.push("Silnik animacji podłączony: "+page);
 }
-\nconsole.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
+
+console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
 for(const f of failures)console.error("FAIL",f);
 if(failures.length)process.exit(1);
