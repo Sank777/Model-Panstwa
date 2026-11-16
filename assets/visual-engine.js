@@ -84,7 +84,7 @@
   function tileKey(tile){return Array.from(tile.classList).find(name=>/^pillar-(?:[1-9]|10)$/.test(name));}
   function renderFallback(tile,recipe,error){
     const key=tileKey(tile),old=directChild(tile,"visual-engine-tile-image");if(old)old.remove();
-    tile.classList.add("visual-tile-fallback","visual-image-error");tile.dataset.visualState="fallback";
+    tile.classList.remove("visual-image-ready");tile.classList.add("visual-tile-fallback","visual-image-error");tile.dataset.visualState="fallback";
     let icon=directChild(tile,"tile-icon"),copy=directChild(tile,"tile-copy");
     if(!icon){icon=document.createElement("span");icon.className="tile-icon";tile.appendChild(icon);}
     if(!copy){copy=document.createElement("span");copy.className="tile-copy";tile.appendChild(copy);}
@@ -114,7 +114,7 @@
       }
       setImageFit(layer,recipe);
       if(typeof layer.decode==="function")await layer.decode();
-      tile.classList.remove("visual-tile-fallback","visual-image-error");tile.dataset.visualState="loaded";
+      tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="loaded";
     }).catch(error=>renderFallback(tile,recipe,error));
     state.pending.add(task);return task.finally(()=>state.pending.delete(task));
   }
