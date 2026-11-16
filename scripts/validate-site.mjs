@@ -47,6 +47,21 @@ else checks.push("Silnik raportuje stany grafiki");
 const css=fs.readFileSync(path.join(root,"assets/visual-engine.css"),"utf8");
 if(/\.pillar-tile>\.visual-engine-tile-image\s*\{[^}]*background-size:\s*cover!important/s.test(css))failures.push("CSS nadpisuje kadrowanie sprite'a regułą cover!important");
 else checks.push("CSS nie blokuje kadrowania sprite'a");
+
+const themedPages = [
+ "index.html","filary.html","model.html","moduly.html","reformy.html",
+ "centrum-jawnosci.html","inwestycje.html","studium-inwestycji.html",
+ "odpowiedzialnosc.html","informacje-prawne.html","zasady.html","prototyp.html","admin.html"
+];
+for (const page of themedPages) {
+ const source=fs.readFileSync(path.join(root,page),"utf8");
+ if (!source.includes("assets/site-theme-v1.css?v=1.0.0")) failures.push("Brak wspólnego motywu Leon 1.0 na stronie "+page);
+ else checks.push("Motyw Leon 1.0: "+page);
+}
+const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8");
+if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Wspólny motyw nie zawiera zatwierdzonej palety granatowo-niebieskiej");
+else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
+
 console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
 for(const f of failures)console.error("FAIL",f);
 if(failures.length)process.exit(1);
