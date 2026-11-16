@@ -13,6 +13,12 @@
     ["informacje-prawne.html", "Informacje prawne"]
   ];
   const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  // Pages using the approved homepage shell already contain their own single global header/menu.
+  // Do not replace its navigation with the legacy card menu or move it outside the header.
+  if (document.body.dataset.pageShell === "homepage-v1") {
+    document.documentElement.dataset.navigation = "shared-shell";
+    return;
+  }
   if (current !== "index.html") {
   const existing = [...document.querySelectorAll("body nav")];
   const nav = existing.shift() || document.createElement("nav");
