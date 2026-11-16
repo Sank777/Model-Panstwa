@@ -14,6 +14,7 @@ test("runtime is opt-in and does not hijack legacy hero or tile selectors", () =
 test("runtime validates local asset paths and same-origin URLs", () => {
   assert.match(source,/asset-path-rejected/);
   assert.match(source,/asset-origin-rejected/);
+  assert.match(source,/const SCRIPT_ROOT = new URL/);
   assert.match(source,/part === "\.\."|part === "\."/);
 });
 
