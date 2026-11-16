@@ -23,9 +23,19 @@ test("rectangles cover the source exactly with no overlap or gaps", () => {
   }
 });
 
-test("rejects uneven grids rather than silently cutting neighboring pixels", () => {
-  assert.throws(() => planSegments(1001, 400), /source-does-not-divide-evenly/);
-  assert.throws(() => planSegments(1000, 401), /source-does-not-divide-evenly/);
+test("supports uneven grids and covers every source pixel without gaps or overlap", () => {
+  for (const [width, height, columns, rows] of [[1001, 400, 5, 2], [1000, 401, 5, 2], [2172, 724, 5, 2]]) {
+    const parts = planSegments(width, height, { columns, rows });
+    assert.equal(parts.length, columns * rows);
+    assert.equal(parts.reduce((sum, part) => sum + part.width * part.height, 0), width * height);
+    for (let row = 0; row < rows; row++) {
+      const line = parts.filter(part => part.row === row);
+      assert.equal(line[0].x, 0);
+      assert.equal(line.at(-1).x + line.at(-1).width, width);
+      assert.ok(line.every((part, index) => index === 0 || line[index - 1].x + line[index - 1].width === part.x));
+      assert.ok(line.every(part => part.height > 0 && part.y >= 0 && part.y + part.height <= height));
+    }
+  }
 });
 
 test("rejects invalid dimensions and excessive image sizes", () => {
