@@ -55,7 +55,7 @@ const themedPages = [
 ];
 for (const page of themedPages) {
  const source=fs.readFileSync(path.join(root,page),"utf8");
- if (!source.includes("assets/site-theme-v1.css?v=1.0.0")) failures.push("Brak wspólnego motywu Leon 1.0 na stronie "+page);
+ if (!source.includes("assets/site-theme-v1.css?v=1.0.1")) failures.push("Brak wspólnego motywu Leon 1.0 na stronie "+page);
  else checks.push("Motyw Leon 1.0: "+page);
 }
 const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8");
@@ -65,3 +65,8 @@ else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
 console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
 for(const f of failures)console.error("FAIL",f);
 if(failures.length)process.exit(1);
+
+if (!themeCss.includes('input[type="checkbox"]') || !themeCss.includes('input[type="radio"]')) failures.push("Motyw nie zachowuje natywnych kontrolek checkbox/radio");
+else checks.push("Motyw zachowuje natywne kontrolki formularzy");
+if (!themeCss.includes('html[data-theme="light"]')) failures.push("Motyw nie obsługuje trybu jasnego");
+else checks.push("Motyw obsługuje tryb jasny i ciemny");
