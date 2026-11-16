@@ -1,0 +1,28 @@
+name: Visual engine regression tests
+on:
+  pull_request:
+    paths:
+      - "assets/visual-segmenter.js"
+      - "assets/visual-rom.js"
+      - "assets/visual-engine.js"
+      - "assets/visual-engine-layout.css"
+      - "tests/**"
+      - ".github/workflows/visual-engine-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "assets/visual-segmenter.js"
+      - "assets/visual-rom.js"
+      - "assets/visual-engine.js"
+      - "assets/visual-engine-layout.css"
+      - "tests/**"
+      - ".github/workflows/visual-engine-tests.yml"
+jobs:
+  segmenter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/visual-segmenter.test.cjs

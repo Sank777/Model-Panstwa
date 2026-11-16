@@ -1,6 +1,5 @@
-/* Leon Visual Segmenter 2.0.0
- * Universal local image analysis and deterministic region extraction.
- * Supports single, grid (including remainder pixels), regions and conservative auto mode.
+/* Leon Visual Segmenter 2.1.0
+ * Deterministic local extraction with explicit atlas padding and gutters.
  */
 (function (root) {
   "use strict";
@@ -16,7 +15,7 @@
   }
   function analyze(source) {
     const size = dimensions(source);
-    return Object.freeze({ ...size, format: source.currentSrc ? (source.currentSrc.split(".").pop().split(/[?#]/)[0].toLowerCase()) : "decoded-image", complete: source.complete !== false });
+    return Object.freeze({ ...size, format: source.currentSrc ? source.currentSrc.split(".").pop().split(/[?#]/)[0].toLowerCase() : "decoded-image", complete: source.complete !== false });
   }
   function validateRect(rect, bounds) {
     if (!rect || !["x","y","width","height"].every(key => integer(rect[key]))) throw new TypeError("invalid-region-rectangle");
@@ -26,13 +25,23 @@
   }
   function planGrid(width, height, options) {
     const size = dimensions({ width, height });
-    const columns = options && options.columns !== undefined ? options.columns : 5;
-    const rows = options && options.rows !== undefined ? options.rows : 2;
-    if (!integer(columns) || !integer(rows) || columns < 1 || rows < 1 || columns * rows > LIMITS.maxCells || columns > width || rows > height) throw new RangeError("invalid-grid-size");
+    const config = options || {};
+    const columns = config.columns === undefined ? 5 : config.columns;
+    const rows = config.rows === undefined ? 2 : config.rows;
+    const padding = config.padding === undefined ? 0 : config.padding;
+    const gapX = config.gapX === undefined ? (config.gap === undefined ? 0 : config.gap) : config.gapX;
+    const gapY = config.gapY === undefined ? (config.gap === undefined ? 0 : config.gap) : config.gapY;
+    if (![columns,rows].every(integer) || columns < 1 || rows < 1 || columns * rows > LIMITS.maxCells) throw new RangeError("invalid-grid-size");
+    if (![padding,gapX,gapY].every(value => integer(value) && value >= 0)) throw new RangeError("invalid-grid-spacing");
+    const usableWidth = width - 2 * padding - (columns - 1) * gapX;
+    const usableHeight = height - 2 * padding - (rows - 1) * gapY;
+    if (usableWidth < columns || usableHeight < rows) throw new RangeError("grid-spacing-exceeds-source");
     const result = [];
     for (let row=0; row<rows; row++) for (let column=0; column<columns; column++) {
-      const x0 = Math.floor(column * width / columns), x1 = Math.floor((column + 1) * width / columns);
-      const y0 = Math.floor(row * height / rows), y1 = Math.floor((row + 1) * height / rows);
+      const x0 = padding + Math.floor(column * usableWidth / columns) + column * gapX;
+      const x1 = padding + Math.floor((column + 1) * usableWidth / columns) + column * gapX;
+      const y0 = padding + Math.floor(row * usableHeight / rows) + row * gapY;
+      const y1 = padding + Math.floor((row + 1) * usableHeight / rows) + row * gapY;
       result.push(Object.freeze({ index: row * columns + column, row, column, x:x0, y:y0, width:x1-x0, height:y1-y0 }));
     }
     return Object.freeze(result);
@@ -81,7 +90,7 @@
     } else throw new TypeError("unsupported-segmentation-mode");
     return extractPlan(source,plan);
   }
-  const api=Object.freeze({version:"2.0.0",analyze,dimensions,planSegments,planGrid,planRegions,extract,limits:LIMITS});
+  const api=Object.freeze({version:"2.1.0",analyze,dimensions,planSegments,planGrid,planRegions,extract,limits:LIMITS});
   if (typeof module!=="undefined" && module.exports) module.exports=api;
   root.LeonVisualSegmenter=api;
 })(typeof globalThis!=="undefined"?globalThis:this);

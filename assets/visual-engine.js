@@ -1,7 +1,7 @@
-/* Leon Visual Engine 7.0.0 — universal, backward-compatible local renderer. */
+/* Leon Visual Engine 7.2.0 — validated local atlas renderer. */
 (() => {
   "use strict";
-  const VERSION="7.0.0";
+  const VERSION="7.2.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
@@ -84,7 +84,7 @@
   function tileKey(tile){return Array.from(tile.classList).find(name=>/^pillar-(?:[1-9]|10)$/.test(name));}
   function renderFallback(tile,recipe,error){
     const key=tileKey(tile),old=directChild(tile,"visual-engine-tile-image");if(old)old.remove();
-    tile.classList.remove("visual-image-ready");tile.classList.add("visual-tile-fallback","visual-image-error");tile.dataset.visualState="fallback";
+    tile.classList.remove("visual-image-ready");tile.classList.add("visual-tile-fallback","visual-image-error");tile.dataset.visualState="fallback";tile.dataset.visualValidation="failed";
     let icon=directChild(tile,"tile-icon"),copy=directChild(tile,"tile-copy");
     if(!icon){icon=document.createElement("span");icon.className="tile-icon";tile.appendChild(icon);}
     if(!copy){copy=document.createElement("span");copy.className="tile-copy";tile.appendChild(copy);}
@@ -97,7 +97,7 @@
   function renderTile(tile){
     const key=tileKey(tile),recipe=key&&ROM&&ROM.tiles&&ROM.tiles[key];
     if(!recipe){tile.classList.add("visual-tile-fallback");tile.dataset.visualState="fallback";record(key||"tile","missing-rom-recipe");return Promise.resolve();}
-    if(tile.dataset.visualState==="loaded"||tile.dataset.visualState==="loading")return Promise.resolve();
+    if(tile.dataset.visualState==="rendered"||tile.dataset.visualState==="loaded"||tile.dataset.visualState==="loading")return Promise.resolve();
     tile.dataset.visualState="loading";tile.style.setProperty("--tile-accent",recipe.accent||"#39a9ef");
     const task=load(recipe.asset).then(async source=>{
       let layer=directChild(tile,"visual-engine-tile-image");
@@ -110,11 +110,16 @@
         const index=Number.isInteger(recipe.regionIndex)?recipe.regionIndex:recipe.spriteIndex;
         const segment=segments[index];
         if(!segment)throw new Error("segment-index-out-of-range:"+index);
-        layer.src=blobURL(recipe.asset+"|"+mode+"|"+index+"|"+JSON.stringify(segment),segment.blob);
+        if(!segment.blob||segment.width<=0||segment.height<=0)throw new Error("segment-validation-failed:"+index);
+        tile.dataset.visualValidation="passed";
+        tile.dataset.visualAsset=recipe.asset;
+        tile.dataset.visualSegment=String(index);
+        tile.dataset.visualSourceDimensions=source.naturalWidth+"x"+source.naturalHeight;
+        layer.src=blobURL(recipe.asset+"|"+mode+"|"+index+"|"+JSON.stringify({x:segment.x,y:segment.y,width:segment.width,height:segment.height}),segment.blob);
       }
       setImageFit(layer,recipe);
       if(typeof layer.decode==="function")await layer.decode();
-      tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="loaded";
+      tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="rendered";
     }).catch(error=>renderFallback(tile,recipe,error));
     state.pending.add(task);return task.finally(()=>state.pending.delete(task));
   }
@@ -122,12 +127,12 @@
     state.lastCheck=Date.now();
     const hero=document.querySelector(".hero-banner");
     if(hero&& !["loaded","loading","fallback"].includes(hero.dataset.visualState))renderHero();
-    document.querySelectorAll(".pillar-tile").forEach(tile=>{if(!["loaded","loading","fallback"].includes(tile.dataset.visualState))renderTile(tile);});
+    document.querySelectorAll(".pillar-tile").forEach(tile=>{if(!["rendered","loaded","loading","fallback"].includes(tile.dataset.visualState))renderTile(tile);});
   }
   function getStatus(){
     const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
     return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",segmenter:window.LeonVisualSegmenter?window.LeonVisualSegmenter.version:"missing",
-      running:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded").length,fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},
+      running:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded"||x.dataset.visualState==="rendered").length,validated:tiles.filter(x=>x.dataset.visualValidation==="passed").length,rendered:tiles.filter(x=>x.dataset.visualState==="rendered").length,fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},
       pending:state.pending.size,errors:state.errors.slice(),lastCheck:state.lastCheck?new Date(state.lastCheck).toISOString():null,renderer:"universal-local-single-grid-regions"});
   }
   async function retryFailed(){
