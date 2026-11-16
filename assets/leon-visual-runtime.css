@@ -1,0 +1,29 @@
+/* Leon Visual Runtime 1.0.0 — isolated page-scoped visual slots */
+[data-leon-visual-src]{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+[data-leon-visual-src] > .leon-visual-runtime-image{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  object-fit:cover;
+  object-position:var(--leon-visual-focus,50% 50%);
+  pointer-events:none;
+}
+[data-leon-visual-src] > :not(.leon-visual-runtime-image){
+  position:relative;
+  z-index:1;
+}
+@media(prefers-reduced-motion:reduce){
+  [data-leon-visual-src], [data-leon-visual-src] *{
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}

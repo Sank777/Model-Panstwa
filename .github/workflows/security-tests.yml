@@ -32,7 +32,7 @@ jobs:
       - name: Validate site links, assets and visual ROM
         run: node scripts/validate-site.mjs
       - name: Check JavaScript syntax
-        run: node --check assets/site.js && node --check assets/visual-rom.js && node --check assets/visual-engine.js && node --check assets/visual-recipe-core.js
+        run: node --check assets/site.js && node --check assets/visual-rom.js && node --check assets/visual-engine.js && node --check assets/leon-visual-runtime.js && node --check assets/visual-recipe-core.js
       - name: Setup Deno
         uses: denoland/setup-deno@v2
         with:
