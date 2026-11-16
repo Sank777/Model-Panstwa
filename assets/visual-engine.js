@@ -29,6 +29,17 @@
     return imageCache.get(url);
   }
   function directChild(host,cls){return Array.from(host.children).find(node=>node.classList&&node.classList.contains(cls))||null;}
+  function setImageSource(image,src){
+    if(image.complete&&image.naturalWidth>0&&image.src===src) return Promise.resolve();
+    return new Promise((resolve,reject)=>{
+      const cleanup=()=>{image.removeEventListener("load",onLoad);image.removeEventListener("error",onError);};
+      const onLoad=()=>{cleanup();if(image.naturalWidth>0&&image.naturalHeight>0)resolve();else reject(new Error("image-decode-empty"));};
+      const onError=()=>{cleanup();reject(new Error("image-render-load-failed"));};
+      image.addEventListener("load",onLoad,{once:true});image.addEventListener("error",onError,{once:true});
+      image.src=src;
+      if(image.complete){if(image.naturalWidth>0&&image.naturalHeight>0){cleanup();resolve();}else{cleanup();reject(new Error("image-render-load-failed"));}}
+    }).then(()=>typeof image.decode==="function"?image.decode():undefined);
+  }
   function record(source,error){
     const message=source+":"+(error&&error.message?error.message:String(error));
     if(!state.errors.includes(message)) state.errors.push(message);
@@ -96,29 +107,30 @@
   }
   function renderTile(tile){
     const key=tileKey(tile),recipe=key&&ROM&&ROM.tiles&&ROM.tiles[key];
-    if(!recipe){tile.classList.add("visual-tile-fallback");tile.dataset.visualState="fallback";record(key||"tile","missing-rom-recipe");return Promise.resolve();}
+    if(!recipe){renderFallback(tile,{icon:"◆",title:"Obszar rozwoju państwa",subtitle:"Grafika chwilowo niedostępna"},"missing-rom-recipe");return Promise.resolve();}
     if(tile.dataset.visualState==="rendered"||tile.dataset.visualState==="loaded"||tile.dataset.visualState==="loading")return Promise.resolve();
     tile.dataset.visualState="loading";tile.style.setProperty("--tile-accent",recipe.accent||"#39a9ef");
     const task=load(recipe.asset).then(async source=>{
       let layer=directChild(tile,"visual-engine-tile-image");
-      if(!layer){layer=document.createElement("img");layer.className="visual-engine-tile-image";layer.alt="";layer.decoding="async";layer.loading="lazy";layer.draggable=false;layer.setAttribute("aria-hidden","true");tile.insertBefore(layer,tile.firstChild);}
+      if(!layer){layer=document.createElement("img");layer.className="visual-engine-tile-image";layer.alt="";layer.decoding="async";layer.loading="eager";layer.draggable=false;layer.setAttribute("aria-hidden","true");tile.insertBefore(layer,tile.firstChild);}
       const mode=resolveMode(recipe);
       if(mode==="single"){
-        layer.src=source.currentSrc||assetURL(recipe.asset);
+        await setImageSource(layer,source.currentSrc||assetURL(recipe.asset));
       }else{
         const segments=await getSegment(recipe.asset,recipe,source);
         const index=Number.isInteger(recipe.regionIndex)?recipe.regionIndex:recipe.spriteIndex;
         const segment=segments[index];
         if(!segment)throw new Error("segment-index-out-of-range:"+index);
         if(!segment.blob||segment.width<=0||segment.height<=0)throw new Error("segment-validation-failed:"+index);
-        tile.dataset.visualValidation="passed";
         tile.dataset.visualAsset=recipe.asset;
         tile.dataset.visualSegment=String(index);
         tile.dataset.visualSourceDimensions=source.naturalWidth+"x"+source.naturalHeight;
         layer.src=blobURL(recipe.asset+"|"+mode+"|"+index+"|"+JSON.stringify({x:segment.x,y:segment.y,width:segment.width,height:segment.height}),segment.blob);
       }
       setImageFit(layer,recipe);
-      if(typeof layer.decode==="function")await layer.decode();
+      if(mode!=="single") await setImageSource(layer,layer.src);
+      tile.dataset.visualValidation="passed";
+      tile.dataset.visualAsset=recipe.asset;
       tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="rendered";
     }).catch(error=>renderFallback(tile,recipe,error));
     state.pending.add(task);return task.finally(()=>state.pending.delete(task));
