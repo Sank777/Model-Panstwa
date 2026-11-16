@@ -93,6 +93,17 @@
     state.pending.add(task);return task.finally(()=>state.pending.delete(task));
   }
   function tileKey(tile){return Array.from(tile.classList).find(name=>/^pillar-(?:[1-9]|10)$/.test(name));}
+  function ensureTileCopy(tile,recipe){
+    let copy=directChild(tile,"tile-copy");
+    if(!copy){copy=document.createElement("span");copy.className="tile-copy";tile.appendChild(copy);}
+    if(copy.dataset.visualTitle===recipe.title)return copy;
+    const number=document.createElement("small");
+    number.textContent="Filar "+String(tileKey(tile)||"").replace("pillar-","");
+    const title=document.createElement("strong");title.textContent=recipe.title||"Obszar rozwoju państwa";
+    const subtitle=document.createElement("em");subtitle.textContent=recipe.subtitle||"";
+    copy.replaceChildren(number,title,subtitle);copy.dataset.visualTitle=recipe.title||"";
+    return copy;
+  }
   function renderFallback(tile,recipe,error){
     const key=tileKey(tile),old=directChild(tile,"visual-engine-tile-image");if(old)old.remove();
     tile.classList.remove("visual-image-ready");tile.classList.add("visual-tile-fallback","visual-image-error");tile.dataset.visualState="fallback";tile.dataset.visualValidation="failed";
@@ -109,6 +120,7 @@
     const key=tileKey(tile),recipe=key&&ROM&&ROM.tiles&&ROM.tiles[key];
     if(!recipe){renderFallback(tile,{icon:"◆",title:"Obszar rozwoju państwa",subtitle:"Grafika chwilowo niedostępna"},"missing-rom-recipe");return Promise.resolve();}
     if(tile.dataset.visualState==="rendered"||tile.dataset.visualState==="loaded"||tile.dataset.visualState==="loading")return Promise.resolve();
+    ensureTileCopy(tile,recipe);
     tile.dataset.visualState="loading";tile.style.setProperty("--tile-accent",recipe.accent||"#39a9ef");
     const task=load(recipe.asset).then(async source=>{
       let layer=directChild(tile,"visual-engine-tile-image");
