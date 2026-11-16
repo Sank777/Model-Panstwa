@@ -18,3 +18,28 @@
 @container leon-dashboard (max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}}
 @supports not (container-type:inline-size){@media(max-width:1150px){.pillars-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}}@media(max-width:700px){.hero-banner>.visual-engine-image img{height:125%!important;object-position:50% 0%!important}.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}.pillar-tile{aspect-ratio:80/53!important}.hero-banner{aspect-ratio:3.55/1!important;height:auto!important;min-height:0!important}}@media(max-width:360px){.pillars-dashboard{grid-template-columns:1fr!important}}}
 @media(prefers-reduced-motion:reduce){.pillar-tile{transition:none!important;transform:none!important}}
+
+/* LEON 7.2.1 — keep a visible, accessible fallback when a tile image fails. */
+.pillar-tile.visual-tile-fallback{
+  display:flex!important;align-items:flex-end!important;gap:.7rem!important;
+  padding:1rem .85rem!important;box-sizing:border-box!important;
+  border:1px solid rgba(173,208,239,.58)!important;
+  background:linear-gradient(135deg,#102b49,#061426)!important;
+  color:#fff!important;aspect-ratio:80/53!important;
+}
+.pillar-tile.visual-tile-fallback>.visual-engine-tile-image{display:none!important}
+.pillar-tile.visual-tile-fallback>.tile-icon{
+  display:block!important;position:relative!important;z-index:3!important;
+  flex:0 0 auto!important;width:auto!important;height:auto!important;
+  font-size:2rem!important;line-height:1!important;color:#fff!important;
+}
+.pillar-tile.visual-tile-fallback>.tile-copy{
+  display:flex!important;position:relative!important;z-index:3!important;
+  flex-direction:column!important;min-width:0!important;width:auto!important;height:auto!important;
+  color:#fff!important;overflow:visible!important;clip:auto!important;clip-path:none!important;
+  white-space:normal!important;text-shadow:0 2px 5px #000!important;
+}
+.pillar-tile.visual-tile-fallback .tile-copy small{font-size:.8rem!important;font-weight:750!important;color:#f4f7fb!important}
+.pillar-tile.visual-tile-fallback .tile-copy strong{font-size:clamp(.88rem,1.1vw,1.08rem)!important;line-height:1.16!important;font-weight:800!important}
+.pillar-tile.visual-tile-fallback .tile-copy em{margin-top:.25rem!important;font-size:clamp(.68rem,.8vw,.8rem)!important;line-height:1.25!important;color:#e1eaf4!important;font-style:normal!important}
+@media(max-width:650px){.pillar-tile.visual-tile-fallback{gap:.45rem!important;padding:.8rem .65rem!important}.pillar-tile.visual-tile-fallback>.tile-icon{font-size:1.55rem!important}}
