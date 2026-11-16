@@ -1,7 +1,7 @@
 /* Leon Visual Engine 7.2.0 — validated local atlas renderer. */
 (() => {
   "use strict";
-  const VERSION="7.2.0";
+  const VERSION="7.2.1";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
@@ -114,8 +114,9 @@
       let layer=directChild(tile,"visual-engine-tile-image");
       if(!layer){layer=document.createElement("img");layer.className="visual-engine-tile-image";layer.alt="";layer.decoding="async";layer.loading="eager";layer.draggable=false;layer.setAttribute("aria-hidden","true");tile.insertBefore(layer,tile.firstChild);}
       const mode=resolveMode(recipe);
+      let imageSource;
       if(mode==="single"){
-        await setImageSource(layer,source.currentSrc||assetURL(recipe.asset));
+        imageSource=source.currentSrc||assetURL(recipe.asset);
       }else{
         const segments=await getSegment(recipe.asset,recipe,source);
         const index=Number.isInteger(recipe.regionIndex)?recipe.regionIndex:recipe.spriteIndex;
@@ -125,10 +126,10 @@
         tile.dataset.visualAsset=recipe.asset;
         tile.dataset.visualSegment=String(index);
         tile.dataset.visualSourceDimensions=source.naturalWidth+"x"+source.naturalHeight;
-        layer.src=blobURL(recipe.asset+"|"+mode+"|"+index+"|"+JSON.stringify({x:segment.x,y:segment.y,width:segment.width,height:segment.height}),segment.blob);
+        imageSource=blobURL(recipe.asset+"|"+mode+"|"+index+"|"+JSON.stringify({x:segment.x,y:segment.y,width:segment.width,height:segment.height}),segment.blob);
       }
       setImageFit(layer,recipe);
-      if(mode!=="single") await setImageSource(layer,layer.src);
+      await setImageSource(layer,imageSource);
       tile.dataset.visualValidation="passed";
       tile.dataset.visualAsset=recipe.asset;
       tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="rendered";
