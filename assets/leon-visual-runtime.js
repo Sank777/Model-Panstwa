@@ -4,8 +4,9 @@
  */
 (() => {
   "use strict";
-  const VERSION = "1.0.0";
+  const VERSION = "1.0.1";
   const INSTANCE = "__LEON_VISUAL_RUNTIME__";
+  const SCRIPT_ROOT = new URL("./", document.currentScript && document.currentScript.src ? document.currentScript.src : location.href);
   if (window[INSTANCE]) return;
   const state = { started:false, slots:0, rendered:0, failed:0, pending:0, errors:[] };
   const imageCache = new Map();
@@ -18,9 +19,8 @@
         path.split("/").some(part => !part || part === "." || part === "..")) {
       throw new Error("asset-path-rejected");
     }
-    const root = new URL("./", document.currentScript && document.currentScript.src || location.href);
-    const url = new URL(path, root);
-    if (url.origin !== location.origin || !url.pathname.startsWith(root.pathname)) {
+    const url = new URL(path, SCRIPT_ROOT);
+    if (url.origin !== location.origin || !url.pathname.startsWith(SCRIPT_ROOT.pathname)) {
       throw new Error("asset-origin-rejected");
     }
     return url.href;
