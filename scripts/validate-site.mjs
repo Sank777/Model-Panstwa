@@ -67,8 +67,8 @@ for (const page of sharedShellPages) {
   'class="site-header"',
   'class="hero-banner"',
   'class="pillars-dashboard"',
-  'assets/site-shell.css?v=1.0.0',
-  'assets/visual-engine.js?v=7.2.0'
+  'assets/site-shell.css?v=1.1.0',
+  'assets/visual-engine.js?v=7.3.0'
  ];
  const missing=required.filter(token=>!source.includes(token));
  if(missing.length) failures.push("Niepełny szablon strony głównej na "+page+": "+missing.join(", "));
@@ -104,7 +104,7 @@ if(!siteJs.includes("new MutationObserver")) failures.push("Silnik animacji nie 
 else checks.push("Silnik obsługuje grafiki renderowane asynchronicznie");
 for(const page of themedPages){
  const source=fs.readFileSync(path.join(root,page),"utf8");
- if(!source.includes("assets/site.js?v=20261116-motion1")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
+ if(!source.includes("assets/site.js?v=20261116-motion2")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
  else checks.push("Silnik animacji podłączony: "+page);
 }
 
