@@ -77,6 +77,15 @@ for (const page of sharedShellPages) {
  if(tiles!==10) failures.push("Strona "+page+" powinna mieć 10 kafelków filarów, ma "+tiles);
  else checks.push("10 kafelków szablonu: "+page);
 }
+const siteJs=fs.readFileSync(path.join(root,"assets/site.js"),"utf8");
+if (!/document\.body\.dataset\.pageShell\s*===\s*"homepage-v1"[\s\S]*?return;/.test(siteJs)) failures.push("Nawigacja legacy nie omija stron z zatwierdzonym wspólnym szablonem");
+else checks.push("Wspólny szablon zachowuje własne menu bez nadpisania przez nawigację legacy");
+for (const page of sharedShellPages) {
+ const source=fs.readFileSync(path.join(root,page),"utf8");
+ const nav=(source.match(/class="top-navigation"/g)||[]).length;
+ if (nav!==1) failures.push("Oczekiwano jednego menu szablonu na "+page+", znaleziono "+nav);
+ else checks.push("Jedno menu szablonu: "+page);
+}
 const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8");
 if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Wspólny motyw nie zawiera zatwierdzonej palety granatowo-niebieskiej");
 else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
