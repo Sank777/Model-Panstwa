@@ -26,7 +26,7 @@
 .hero-banner>.visual-engine-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 50%!important}
 .hero-banner:before,.hero-banner:after{display:none!important}
 .hero-banner>.hero-copy{position:relative!important;z-index:2!important}
-.hero-banner>.hero-map,.hero-banner>.hero-flag{display:none!important}
+.hero-banner>.hero-map,.hero-banner>.hero-flag{display:block!important}
 .pillar-tile{position:relative!important;isolation:isolate!important;overflow:hidden!important;background-color:#0b2038!important;background-image:none!important}
 .pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;background-repeat:no-repeat!important;pointer-events:none!important}
 .pillar-tile:before{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;background:linear-gradient(0deg,rgba(2,9,18,.9),rgba(2,12,24,.12) 82%)!important}
