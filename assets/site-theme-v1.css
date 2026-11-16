@@ -1,0 +1,62 @@
+/* LEON SITE THEME 1.0 — wspólny wygląd podstron oparty na zatwierdzonym szablonie.
+   Nie zmienia treści, logiki formularzy ani źródeł grafik. */
+:root{
+ --mp-bg:#061426;--mp-surface:#0c2038;--mp-surface2:#102b49;--mp-text:#f3f7ff;
+ --mp-muted:#b7c8dc;--mp-accent:#63b8ff;--mp-border:rgba(164,202,239,.28);
+ --mp-shadow:0 12px 34px rgba(0,0,0,.28);
+}
+html,body{min-height:100%;background:#061426;color:var(--mp-text)}
+body:not(:has(.dashboard-home)){
+ background:radial-gradient(ellipse at 50% -20%,#17406a 0%,#081a30 48%,#04101f 100%)!important;
+ color:var(--mp-text)!important;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+}
+body:not(:has(.dashboard-home)) :is(header,.hero){
+ background:linear-gradient(115deg,#07172b,#12375b 55%,#081a30)!important;
+ color:#fff!important;border-bottom:1px solid rgba(160,205,245,.26);
+ box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+body:not(:has(.dashboard-home)) :is(header,.hero) :is(h1,h2,h3,p,small,.eyebrow){color:inherit}
+body:not(:has(.dashboard-home)) :is(header,.hero) p{color:#c7d9ed!important}
+body:not(:has(.dashboard-home)) main{color:var(--mp-text)!important}
+body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note,.tile,.project,.stat,.metric,.notice,.step,.process-step,.section-card){
+ color:var(--mp-text)!important;
+ background:linear-gradient(145deg,rgba(18,48,78,.96),rgba(8,27,48,.98))!important;
+ border:1px solid var(--mp-border)!important;border-radius:16px!important;
+ box-shadow:var(--mp-shadow)!important;
+}
+body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note,.tile,.project,.stat,.metric,.notice,.step,.process-step,.section-card) :is(h1,h2,h3,h4,strong,th){color:#f5f9ff}
+body:not(:has(.dashboard-home)) :is(p,li,td,label,dd,dt){color:inherit}
+body:not(:has(.dashboard-home)) :is(.muted,small,.hint,.eyebrow,figcaption){color:var(--mp-muted)!important}
+body:not(:has(.dashboard-home)) a{color:#8bd0ff}
+body:not(:has(.dashboard-home)) a:hover{color:#c0e6ff}
+body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav,.top-navigation){
+ background:rgba(5,19,36,.96)!important;border-color:var(--mp-border)!important;
+}
+body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav) a{
+ color:#edf6ff!important;border:1px solid rgba(160,205,245,.25)!important;
+ border-radius:11px!important;background:linear-gradient(130deg,rgba(255,255,255,.13),rgba(255,255,255,.035))!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 5px 14px rgba(0,0,0,.15)!important;
+ text-decoration:none!important;
+}
+body:not(:has(.dashboard-home)) :is(.site-nav,.nav,.mp-nav) a[aria-current="page"]{
+ border-color:#69bdff!important;background:linear-gradient(130deg,#164b79,#0c2b4b)!important;color:#fff!important;
+}
+body:not(:has(.dashboard-home)) :is(input,select,textarea){
+ background:#071a2e!important;color:#f3f7ff!important;border:1px solid rgba(151,198,238,.34)!important;
+ border-radius:10px!important;
+}
+body:not(:has(.dashboard-home)) :is(button,.btn,[type=submit]){
+ color:#fff!important;background:linear-gradient(110deg,#1765a0,#2788c7)!important;
+ border:1px solid rgba(151,198,238,.35)!important;border-radius:11px!important;
+}
+body:not(:has(.dashboard-home)) :is(button,.btn,[type=submit]).secondary{background:#173653!important}
+body:not(:has(.dashboard-home)) table{border-color:var(--mp-border)!important}
+body:not(:has(.dashboard-home)) :is(td,th){border-color:var(--mp-border)!important}
+body:not(:has(.dashboard-home)) footer{color:var(--mp-muted)!important;border-color:var(--mp-border)!important}
+body:not(:has(.dashboard-home)) :focus-visible{outline:3px solid #76b9e8!important;outline-offset:3px}
+body:not(:has(.dashboard-home)) img{max-width:100%;height:auto}
+@media(max-width:700px){
+ body:not(:has(.dashboard-home)) main{width:auto!important;margin:1rem auto 2rem!important;padding-inline:12px!important}
+ body:not(:has(.dashboard-home)) :is(.card,.panel,.module,.note){padding:1rem!important}
+}
+@media(prefers-reduced-motion:reduce){body:not(:has(.dashboard-home)) *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
