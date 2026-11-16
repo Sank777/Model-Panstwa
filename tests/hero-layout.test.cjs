@@ -4,7 +4,10 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const css = fs.readFileSync(path.join(__dirname, "../assets/visual-engine-layout.css"), "utf8");
+const cssSource = fs.readFileSync(path.join(__dirname, "../assets/visual-engine-layout.css"), "utf8");
+const marker = "/* LEON 7.3.1 — FINAL RENDER AUTHORITY";
+const css = cssSource.slice(cssSource.lastIndexOf(marker));
+if (!cssSource.includes(marker)) throw new Error("Missing final render authority block");
 const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
 const rom = fs.readFileSync(path.join(__dirname, "../assets/visual-rom.js"), "utf8");
 
