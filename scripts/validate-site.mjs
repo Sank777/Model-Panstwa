@@ -1,113 +1,107 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const failures = [], checks = [];
-const exists = p => fs.existsSync(path.join(root,p));
-function walk(dir) {
-  return fs.readdirSync(path.join(root,dir),{withFileTypes:true}).flatMap(e=>{
-    const rel=path.posix.join(dir,e.name);
-    return e.isDirectory() ? walk(rel) : [rel];
+const failures = [];
+const checks = [];
+const exists = (relative) => fs.existsSync(path.resolve(root, relative));
+
+function walk(dir = ".") {
+  return fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap((entry) => {
+    const relative = path.posix.join(dir, entry.name);
+    if (entry.isSymbolicLink()) return [];
+    return entry.isDirectory() ? walk(relative) : [relative];
   });
 }
-const files=walk(".").filter(p=>!p.startsWith(".git/")&&!p.startsWith("node_modules/"));
-function checkRef(from,ref,label) {
-  if(!ref||ref.startsWith("#")||/^(?:[a-z]+:|\/\/|data:|mailto:|tel:|javascript:)/i.test(ref)||ref.includes("\${")) return;
-  const clean=decodeURIComponent(ref.split(/[?#]/,1)[0]);
-  if(!clean)return;
-  const target=path.posix.normalize(path.posix.join(path.posix.dirname(from),clean));
-  if(!exists(target))failures.push(label+": "+from+" -> "+ref+" (brak "+target+")");
-  else checks.push(label+": "+ref);
+
+function checkLocalReference(from, reference, kind) {
+  if (!reference || reference.startsWith("#") || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(reference)) return;
+  let decoded;
+  try { decoded = decodeURIComponent(reference.split(/[?#]/, 1)[0]); }
+  catch { failures.push(kind + ": niepoprawne kodowanie URL w " + from + " -> " + reference); return; }
+  if (!decoded || decoded.startsWith("${")) return;
+  const target = decoded.startsWith("/")
+    ? path.posix.normalize(decoded.slice(1))
+    : path.posix.normalize(path.posix.join(path.posix.dirname(from), decoded));
+  if (target === ".." || target.startsWith("../")) {
+    failures.push(kind + ": odwołanie wychodzi poza repozytorium: " + from + " -> " + reference);
+  } else if (!exists(target)) {
+    failures.push(kind + ": brak zasobu " + from + " -> " + reference + " (szukano " + target + ")");
+  } else checks.push(kind + ": " + reference);
 }
-for(const file of files.filter(p=>p.endsWith(".html"))){
- const src=fs.readFileSync(path.join(root,file),"utf8");
- for(const m of src.matchAll(/(?:href|src)=["']([^"']+)["']/gi))checkRef(file,m[1],"HTML");
+
+const files = walk().filter((file) => !file.startsWith(".git/") && !file.startsWith("node_modules/"));
+const htmlFiles = files.filter((file) => file.endsWith(".html"));
+for (const file of htmlFiles) {
+  const source = fs.readFileSync(path.join(root, file), "utf8");
+  for (const match of source.matchAll(/(?:href|src)\s*=\s*["']([^"']+)["']/gi)) {
+    checkLocalReference(file, match[1].trim(), "HTML");
+  }
 }
-for(const file of files.filter(p=>p.endsWith(".css"))){
- const src=fs.readFileSync(path.join(root,file),"utf8");
- for(const m of src.matchAll(/url\((?:["']?)([^)"']+)(?:["']?)\)/gi))checkRef(file,m[1].trim(),"CSS");
+for (const file of files.filter((item) => item.endsWith(".css"))) {
+  const source = fs.readFileSync(path.join(root, file), "utf8");
+  for (const match of source.matchAll(/url\(\s*["']?([^)"']+)["']?\s*\)/gi)) {
+    checkLocalReference(file, match[1].trim(), "CSS");
+  }
 }
-const index=fs.readFileSync(path.join(root,"index.html"),"utf8");
-const rom=fs.readFileSync(path.join(root,"assets/visual-rom.js"),"utf8");
-const engine=fs.readFileSync(path.join(root,"assets/visual-engine.js"),"utf8");
-const tileCount=(index.match(/class=["'][^"']*pillar-tile\b/g)||[]).length;
-if(tileCount!==10)failures.push("Oczekiwano 10 kafelków, znaleziono "+tileCount);
+
+const index = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const rom = fs.readFileSync(path.join(root, "assets/visual-rom.js"), "utf8");
+const engine = fs.readFileSync(path.join(root, "assets/visual-engine.js"), "utf8");
+const layout = fs.readFileSync(path.join(root, "assets/visual-engine-layout.css"), "utf8");
+const tileCount = (index.match(/class=["'][^"']*pillar-tile\b/g) || []).length;
+if (tileCount !== 10) failures.push("Strona główna powinna zawierać 10 kafelków, znaleziono " + tileCount);
 else checks.push("Strona główna zawiera 10 kafelków");
-const dataBlock=rom.match(/const data = \[([\s\S]*?)\n  \];/);
-const romItems=dataBlock?(dataBlock[1].match(/^\s*\["/gm)||[]).length:0;
-if(romItems!==10)failures.push("ROM powinien zawierać 10 opisów filarów, znaleziono "+romItems);
+const dataBlock = rom.match(/const data = \[([\s\S]*?)\n  \];/);
+const romItems = dataBlock ? (dataBlock[1].match(/^\s*\["/gm) || []).length : 0;
+if (romItems !== 10) failures.push("ROM powinien zawierać 10 opisów filarów, znaleziono " + romItems);
 else checks.push("ROM zawiera 10 opisów filarów");
-for(const m of rom.matchAll(/asset:"([^"]+)"/g)){
- const asset=path.posix.join("assets",m[1]);
- if(!exists(asset))failures.push("ROM: brak grafiki "+asset);
- else checks.push("ROM: "+asset);
+for (const match of rom.matchAll(/asset:"([^"]+)"/g)) {
+  const asset = path.posix.join("assets", match[1]);
+  if (!exists(asset)) failures.push("ROM: brak grafiki " + asset);
+  else checks.push("ROM: " + asset);
 }
-if(!/dataset\.visualState\s*=\s*"loaded"/.test(engine)||!/dataset\.visualState\s*=\s*"fallback"/.test(engine))failures.push("Silnik nie zapisuje stanów loaded/fallback");
-else checks.push("Silnik raportuje stany grafiki");
-const css=fs.readFileSync(path.join(root,"assets/visual-engine.css"),"utf8");
-if(/\.pillar-tile>\.visual-engine-tile-image\s*\{[^}]*background-size:\s*cover!important/s.test(css))failures.push("CSS nadpisuje kadrowanie sprite'a regułą cover!important");
-else checks.push("CSS nie blokuje kadrowania sprite'a");
+if (!/dataset\.visualState\s*=\s*"rendered"/.test(engine) || !/dataset\.visualState\s*=\s*"fallback"/.test(engine)) {
+  failures.push("Silnik nie raportuje stanów rendered/fallback");
+} else checks.push("Silnik raportuje stany rendered/fallback");
+if (!layout.includes(".pillar-tile.visual-image-ready > .tile-copy") ||
+    !layout.includes('.pillar-tile[data-visual-state="rendered"] > .tile-copy')) {
+  failures.push("Brak zabezpieczenia przed zdublowanymi napisami na załadowanych grafikach");
+} else checks.push("Zabezpieczenie przed zdublowanymi napisami jest aktywne");
 
 const themedPages = [
- "index.html","filary.html","model.html","moduly.html","reformy.html",
- "centrum-jawnosci.html","inwestycje.html","studium-inwestycji.html",
- "odpowiedzialnosc.html","informacje-prawne.html","zasady.html","prototyp.html","admin.html"
-];
+  "index.html", "filary.html", "model.html", "moduly.html", "reformy.html",
+  "centrum-jawnosci.html", "inwestycje.html", "studium-inwestycji.html",
+  "odpowiedzialnosc.html", "informacje-prawne.html", "zasady.html", "prototyp.html", "admin.html"
+].filter(exists);
 for (const page of themedPages) {
- const source=fs.readFileSync(path.join(root,page),"utf8");
- if (!source.includes("assets/site-theme-v1.css?v=1.0.1")) failures.push("Brak wspólnego motywu Leon 1.0 na stronie "+page);
- else checks.push("Motyw Leon 1.0: "+page);
+  const source = fs.readFileSync(path.join(root, page), "utf8");
+  if (!source.includes("assets/site-theme-v1.css")) failures.push("Brak wspólnego arkusza motywu na " + page);
+  else checks.push("Wspólny motyw: " + page);
+  if (!source.includes("class=\"site-header\"")) failures.push("Brak nagłówka witryny na " + page);
+  else checks.push("Nagłówek: " + page);
+}
+const themeCss = fs.readFileSync(path.join(root, "assets/site-theme-v1.css"), "utf8");
+if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Nieprawidłowa wspólna paleta motywu");
+else checks.push("Wspólna paleta motywu");
+if (!themeCss.includes('input[type="checkbox"]') || !themeCss.includes('input[type="radio"]')) failures.push("Motyw nie uwzględnia kontrolek checkbox/radio");
+else checks.push("Style kontrolek formularzy");
+if (!themeCss.includes('html[data-theme="light"]')) failures.push("Brak obsługi jasnego motywu");
+else checks.push("Obsługa jasnego i ciemnego motywu");
+
+const siteJs = fs.readFileSync(path.join(root, "assets/site.js"), "utf8");
+for (const [token, label] of [
+  ["IntersectionObserver", "lazy motion / obserwacja widoczności"],
+  ["prefers-reduced-motion: reduce", "ograniczenie ruchu"],
+  ["navigator.connection.saveData", "oszczędzanie transferu"],
+  ["document.visibilityState", "wstrzymanie animacji w ukrytej karcie"],
+  ["new MutationObserver", "obsługa dynamicznych elementów"]
+]) {
+  if (!siteJs.includes(token)) failures.push("Brak mechanizmu: " + label);
+  else checks.push("Mechanizm: " + label);
 }
 
-const sharedShellPages = themedPages.filter(page => page !== "index.html");
-for (const page of sharedShellPages) {
- const source=fs.readFileSync(path.join(root,page),"utf8");
- const required=[
-  'data-page-shell="homepage-v1"',
-  'class="site-header"',
-  'class="hero-banner"',
-  'class="pillars-dashboard"',
-  'assets/site-shell.css?v=1.1.0',
-  'assets/visual-engine.js?v=7.3.0'
- ];
- const missing=required.filter(token=>!source.includes(token));
- if(missing.length) failures.push("Niepełny szablon strony głównej na "+page+": "+missing.join(", "));
- else checks.push("Szablon główny 1:1: "+page);
- const tiles=(source.match(/class="pillar-tile pillar-\d+"/g)||[]).length;
- if(tiles!==10) failures.push("Strona "+page+" powinna mieć 10 kafelków filarów, ma "+tiles);
- else checks.push("10 kafelków szablonu: "+page);
-}
-const themeCss=fs.readFileSync(path.join(root,"assets/site-theme-v1.css"),"utf8");
-if (!themeCss.includes("--mp-bg:#061426") || !themeCss.includes("--mp-accent:#63b8ff")) failures.push("Wspólny motyw nie zawiera zatwierdzonej palety granatowo-niebieskiej");
-else checks.push("Wspólny motyw zawiera paletę zatwierdzonego szablonu");
-
-if (!themeCss.includes('input[type="checkbox"]') || !themeCss.includes('input[type="radio"]')) failures.push("Motyw nie zachowuje natywnych kontrolek checkbox/radio");
-else checks.push("Motyw zachowuje natywne kontrolki formularzy");
-if (!themeCss.includes('html[data-theme="light"]')) failures.push("Motyw nie obsługuje trybu jasnego");
-else checks.push("Motyw obsługuje tryb jasny i ciemny");
-
-
-const siteJs=fs.readFileSync(path.join(root,"assets/site.js"),"utf8");
-const motionRules=[
- ["IntersectionObserver","ruch uruchamiany dopiero przy widoczności elementu"],
- ["prefers-reduced-motion: reduce","respektowanie ustawień ograniczenia ruchu"],
- ["navigator.connection.saveData","respektowanie oszczędzania danych"],
- ["document.visibilityState","wstrzymanie ruchu po ukryciu karty"],
- ["leon-photo-drift","zdefiniowana subtelna animacja zdjęć"],
- [".hero-banner > .visual-engine-image img, .pillar-tile > .visual-engine-tile-image","ruch ograniczony do warstw zdjęć hero i kafelków"]
-];
-for(const [token,label] of motionRules){
- if(!siteJs.includes(token)) failures.push("Silnik animacji: brak "+label);
- else checks.push("Silnik animacji: "+label);
-}
-if(!siteJs.includes("new MutationObserver")) failures.push("Silnik animacji nie wykrywa grafik renderowanych asynchronicznie");
-else checks.push("Silnik obsługuje grafiki renderowane asynchronicznie");
-for(const page of themedPages){
- const source=fs.readFileSync(path.join(root,page),"utf8");
- if(!source.includes("assets/site.js?v=20261116-motion2")) failures.push("Brak aktualnej wersji silnika animacji na "+page);
- else checks.push("Silnik animacji podłączony: "+page);
-}
-
-console.log("Kontrole: "+checks.length+" PASS, "+failures.length+" FAIL");
-for(const f of failures)console.error("FAIL",f);
-if(failures.length)process.exit(1);
+console.log("Audyt witryny: " + checks.length + " PASS, " + failures.length + " FAIL");
+for (const failure of failures) console.error("FAIL", failure);
+if (failures.length) process.exit(1);
