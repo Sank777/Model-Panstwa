@@ -11,8 +11,8 @@ const htmlFiles = fs.readdirSync(root).filter(file => file.endsWith(".html"));
 test("header login remains a single toggleable dialog with accessible state", () => {
   assert.match(site, /function installHeaderLogin\(\)/);
   assert.match(site, /getElementById\("leonHeaderLogin"\)/);
-  assert.match(site, /trigger\.setAttribute\("aria-haspopup","dialog"\)/);
-  assert.match(site, /trigger\.setAttribute\("aria-expanded","false"\)/);
+  assert.match(site, /trigger\.setAttribute\("aria-haspopup",\s*"dialog"\)/);
+  assert.match(site, /trigger\.setAttribute\("aria-expanded",\s*"false"\)/);
   assert.match(site, /const opening = panel\.hidden/);
   assert.match(site, /panel\.hidden = !opening/);
   assert.match(site, /trigger\.setAttribute\("aria-expanded", String\(opening\)\)/);
