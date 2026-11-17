@@ -1,53 +1,78 @@
-/* LEON 7.3 — czytelne, responsywne etykiety HTML na kafelkach.
-   Dolna warstwa zasłania napisy osadzone w atlasie; tytuły pozostają ostre i skalowalne. */
-.pillar-tile:before{
-  display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:1!important;
-  pointer-events:none!important;
-  background:linear-gradient(180deg,rgba(3,13,25,0) 30%,rgba(3,13,25,.22) 47%,rgba(3,13,25,.94) 70%,#061326 100%)!important;
+/* LEON 7.3.4 — SINGLE TEXT AUTHORITY
+   The atlas is the only successful-render typography source.
+   HTML labels are hidden during loading and shown only on explicit fallback. */
+.pillar-tile > .tile-copy,
+.pillar-tile > .tile-icon { display:none !important; }
+.pillar-tile.visual-tile-fallback > .tile-copy {
+  display:flex !important;
+  position:absolute !important;
+  z-index:4 !important;
+  left:clamp(8px,1vw,13px) !important;
+  right:clamp(8px,1vw,13px) !important;
+  bottom:clamp(8px,.9vw,12px) !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:3px !important;
+  min-width:0 !important;
+  width:auto !important;
+  height:auto !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:visible !important;
+  white-space:normal !important;
+  color:#fff !important;
+  text-shadow:0 1px 3px #000,0 0 8px #000 !important;
+  pointer-events:none !important;
 }
-.pillar-tile:after{
-  display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:2!important;
-  pointer-events:none!important;border-radius:inherit!important;
-  box-shadow:inset 3px 0 0 var(--tile-accent,#369de0),inset 0 0 18px rgba(255,255,255,.08)!important;
+.pillar-tile.visual-tile-fallback > .tile-icon {
+  display:none !important;
 }
-.pillar-tile>.tile-icon{display:none!important}
-.pillar-tile[data-visual-state="rendered"]>.tile-copy,.pillar-tile[data-visual-state="rendered"]>.tile-icon{display:none!important}
-.pillar-tile>.tile-copy{
-  display:flex!important;position:absolute!important;z-index:3!important;left:clamp(8px,1vw,13px)!important;right:clamp(8px,1vw,13px)!important;bottom:clamp(8px,.9vw,12px)!important;
-  flex-direction:column!important;align-items:flex-start!important;gap:2px!important;min-width:0!important;width:auto!important;height:auto!important;
-  margin:0!important;padding:0!important;overflow:visible!important;white-space:normal!important;
-  color:#fff!important;text-shadow:0 1px 3px #000!important;pointer-events:none!important;
+.pillar-tile.visual-tile-fallback > .tile-copy small {
+  display:block !important;
+  margin:0 !important;
+  font-size:clamp(9px,.66vw,11px) !important;
+  line-height:1.2 !important;
+  font-weight:750 !important;
+  color:#d6e7f7 !important;
 }
-.pillar-tile>.tile-copy small{display:block!important;margin:0!important;font-size:clamp(9px,.66vw,11px)!important;line-height:1.1!important;font-weight:750!important;letter-spacing:.055em!important;color:#d6e7f7!important}
-.pillar-tile>.tile-copy strong{display:-webkit-box!important;max-width:100%!important;overflow:hidden!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;font-size:clamp(12px,1.02vw,15px)!important;line-height:1.12!important;font-weight:800!important;letter-spacing:-.02em!important;overflow-wrap:anywhere!important}
-.pillar-tile>.tile-copy em{display:-webkit-box!important;max-width:100%!important;overflow:hidden!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;margin:2px 0 0!important;font-size:clamp(9px,.72vw,11px)!important;line-height:1.16!important;color:#dce7f2!important;font-style:normal!important;overflow-wrap:anywhere!important}
-.pillar-tile{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease!important}
-@media(hover:hover) and (pointer:fine){
- .pillar-tile:hover{transform:translateY(-4px) scale(1.012)!important;border-color:#d6edff!important;box-shadow:0 14px 28px #0009,0 0 18px color-mix(in srgb,var(--tile-accent,#369de0) 48%,transparent)!important}
- .pillar-tile:hover>.visual-engine-tile-image{transform:scale(1.035)!important;transition:transform .35s ease!important}
+.pillar-tile.visual-tile-fallback > .tile-copy strong,
+.pillar-tile.visual-tile-fallback > .tile-copy em {
+  display:block !important;
+  max-width:100% !important;
+  overflow:visible !important;
+  white-space:normal !important;
+  -webkit-line-clamp:unset !important;
+  -webkit-box-orient:initial !important;
+  overflow-wrap:break-word !important;
+  word-break:normal !important;
 }
-@media(max-width:760px){
- .pillar-tile>.tile-copy{left:8px!important;right:8px!important;bottom:8px!important}
- .pillar-tile>.tile-copy strong{font-size:clamp(12px,2.4vw,14px)!important}
- .pillar-tile>.tile-copy em{font-size:clamp(9px,1.8vw,10px)!important}
+.pillar-tile.visual-tile-fallback > .tile-copy strong {
+  font-size:clamp(12px,1.02vw,15px) !important;
+  line-height:1.18 !important;
+  font-weight:800 !important;
 }
-@media(prefers-reduced-motion:reduce){
- .pillar-tile,.pillar-tile:hover,.pillar-tile>.visual-engine-tile-image{transition:none!important;transform:none!important}
+.pillar-tile.visual-tile-fallback > .tile-copy em {
+  margin:2px 0 0 !important;
+  font-size:clamp(9px,.72vw,11px) !important;
+  line-height:1.22 !important;
+  color:#dce7f2 !important;
+  font-style:normal !important;
+}
+@media(max-width:760px) {
+  .pillar-tile.visual-tile-fallback > .tile-copy { left:8px !important; right:8px !important; bottom:8px !important; }
+  .pillar-tile.visual-tile-fallback > .tile-copy strong { font-size:clamp(12px,2.4vw,14px) !important; }
+  .pillar-tile.visual-tile-fallback > .tile-copy em { font-size:clamp(9px,1.8vw,10px) !important; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .pillar-tile,.pillar-tile:hover,.pillar-tile > .visual-engine-tile-image { transition:none !important; transform:none !important; }
 }
 
-
-
-
-/* LEON TILE TEXT SAFETY — artwork already includes its own typography.
-   Hide generated HTML labels only after the image has loaded successfully.
-   Keep labels available in fallback/loading states for accessibility and resilience. */
-.pillar-tile.visual-image-ready > .tile-copy,
-.pillar-tile.visual-image-ready > .tile-icon,
-.pillar-tile[data-visual-state="rendered"] > .tile-copy,
-.pillar-tile[data-visual-state="rendered"] > .tile-icon {
-  display: none !important;
-}
 /* LEON 7.3.1 — FINAL RENDER AUTHORITY
+   The atlas already contains the complete tile artwork. Do not add frames,
+   gradients or accent overlays. Keep the original hero artwork centered and
+   crop its lower edge consistently on desktop and mobile. */
+/* LEON 7.3.4 — FINAL RENDER AUTHORITY
    The atlas already contains the complete tile artwork. Do not add frames,
    gradients or accent overlays. Keep the original hero artwork centered and
    crop its lower edge consistently on desktop and mobile. */
