@@ -1,7 +1,7 @@
-/* Leon Visual Engine 7.2.1 — validated local atlas renderer. */
+/* Leon Visual Engine 7.3.4 — atlas-first, fallback-only labels. */
 (() => {
   "use strict";
-  const VERSION="7.3.3";
+  const VERSION="7.3.4";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
