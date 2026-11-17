@@ -28,11 +28,14 @@ details{border:1px solid var(--mp-border);border-radius:10px;padding:.8rem 1rem;
 .case-timeline li{border:0!important;padding:0!important;margin:0!important}
 .case-timeline li:before{display:none!important}
 .case-timeline details{margin:0!important;padding:0!important;border:1px solid var(--mp-border)!important;border-left:4px solid #438a65!important;border-radius:12px!important;background:var(--mp-surface2)!important;overflow:hidden}
-.case-timeline summary{display:flex;align-items:center;gap:.65rem;min-height:54px;padding:.85rem 1rem;cursor:pointer;list-style:none}
+.case-timeline{position:relative;padding-left:1.15rem!important;gap:.48rem!important}
+.case-timeline:before{content:"";position:absolute;left:.34rem;top:.55rem;bottom:.55rem;width:2px;border-radius:2px;background:linear-gradient(180deg,#75d5a0,#438a65 70%,rgba(67,138,101,.25))}
+.case-timeline summary{position:relative;display:flex;align-items:center;gap:.55rem;min-height:42px;padding:.55rem .75rem .55rem 1.05rem;cursor:pointer;list-style:none;font-size:.94rem;line-height:1.35}
+.case-timeline summary:before{content:"";position:absolute;left:-1.28rem;top:50%;width:12px;height:12px;transform:translateY(-50%);border-radius:50%;background:#8be0ad;border:2px solid #174b38;box-shadow:0 0 0 2px rgba(139,224,173,.2)}
 .case-timeline summary::-webkit-details-marker{display:none}
 .case-timeline summary:after{content:"＋";margin-left:auto;font-size:1.15rem;color:var(--mp-accent);font-weight:800}
 .case-timeline details[open] summary:after{content:"−"}
-.case-timeline .stage-content{padding:0 1rem 1rem;border-top:1px solid var(--mp-border)}
+.case-timeline .stage-content{padding:.55rem .8rem .75rem;border-top:1px solid var(--mp-border);font-size:.92rem;line-height:1.55}.case-timeline .stage-content p{margin:.45rem 0}
 .case-timeline .stage-content p:last-child{margin-bottom:0}
 .history-fact{border-left:4px solid #4c91c5;background:var(--mp-surface2);padding:1rem;border-radius:0 10px 10px 0;margin:.8rem 0}
 .history-fact strong{display:block;margin-bottom:.25rem}
