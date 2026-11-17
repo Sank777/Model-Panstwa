@@ -36,6 +36,17 @@
 }
 
 
+
+
+/* LEON TILE TEXT SAFETY — artwork already includes its own typography.
+   Hide generated HTML labels only after the image has loaded successfully.
+   Keep labels available in fallback/loading states for accessibility and resilience. */
+.pillar-tile.visual-image-ready > .tile-copy,
+.pillar-tile.visual-image-ready > .tile-icon,
+.pillar-tile[data-visual-state="rendered"] > .tile-copy,
+.pillar-tile[data-visual-state="rendered"] > .tile-icon {
+  display: none !important;
+}
 /* LEON 7.3.1 — FINAL RENDER AUTHORITY
    The atlas already contains the complete tile artwork. Do not add frames,
    gradients or accent overlays. Keep the original hero artwork centered and
