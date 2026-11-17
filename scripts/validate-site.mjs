@@ -65,10 +65,11 @@ for (const match of rom.matchAll(/asset:"([^"]+)"/g)) {
 if (!/dataset\.visualState\s*=\s*"rendered"/.test(engine) || !/dataset\.visualState\s*=\s*"fallback"/.test(engine)) {
   failures.push("Silnik nie raportuje stanów rendered/fallback");
 } else checks.push("Silnik raportuje stany rendered/fallback");
-if (!layout.includes(".pillar-tile.visual-image-ready > .tile-copy") ||
-    !layout.includes('.pillar-tile[data-visual-state="rendered"] > .tile-copy')) {
-  failures.push("Brak zabezpieczenia przed zdublowanymi napisami na załadowanych grafikach");
-} else checks.push("Zabezpieczenie przed zdublowanymi napisami jest aktywne");
+if (!layout.includes(".pillar-tile > .tile-copy") ||
+    !layout.includes(".pillar-tile.visual-tile-fallback > .tile-copy") ||
+    !layout.includes("display:none !important")) {
+  failures.push("Brak reguły pojedynczego źródła tekstu: atlas albo awaryjny HTML");
+} else checks.push("Pojedyncze źródło tekstu aktywne: atlas lub awaryjny HTML");
 
 const themedPages = [
   "index.html", "filary.html", "model.html", "moduly.html", "reformy.html",
