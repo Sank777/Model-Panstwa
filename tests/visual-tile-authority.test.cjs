@@ -22,10 +22,13 @@ test("HTML labels are visible only in the explicit image fallback state", () => 
   assert.doesNotMatch(css, /\.pillar-tile > \.tile-copy em\{[^}]*-webkit-line-clamp:2/);
 });
 
-test("all pages use the same visual engine and stylesheet versions", () => {
+test("visual pages share the same engine version; admin loads layout only", () => {
   for (const html of pages) {
     assert.match(html, /visual-engine-layout\.css\?v=7\.3\.4/);
-    assert.match(html, /visual-engine\.js\?v=7\.3\.4/);
   }
+  for (const page of pages.slice(0, 2)) {
+    assert.match(page, /visual-engine\.js\?v=7\.3\.4/);
+  }
+  assert.doesNotMatch(pages[2], /visual-engine\.js/);
   assert.match(engine, /const VERSION="7\.3\.4";/);
 });
