@@ -3,6 +3,7 @@ name: Security tests
 on:
   push:
     branches:
+      - main
       - security/storage-cleanup-worker-2026-11
       - security/worker-hardening-followup
       - feature/visual-engine-v2-hardening
