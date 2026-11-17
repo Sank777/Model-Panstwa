@@ -21,6 +21,20 @@ test("HTML labels are visible only in the explicit image fallback state", () => 
   assert.doesNotMatch(css, /\.pillar-tile > \.tile-copy em\{[^}]*-webkit-line-clamp:2/);
 });
 
+test("fallback typography has one CSS authority and survives legacy stylesheet rules", () => {
+  const legacyCss = fs.readFileSync(path.join(root, "assets/visual-engine.css"), "utf8");
+  assert.doesNotMatch(legacyCss, /\.pillar-tile\s*>\s*\.tile-copy\s*,\s*\.pillar-tile\s*>\s*\.tile-icon\s*\{\s*display\s*:\s*none/i);
+  assert.match(css, /\.pillar-tile\.visual-tile-fallback\s*>\s*\.tile-copy\s*\{\s*display:flex\s*!important/i);
+});
+
+test("visual styles load in cascade order on every page", () => {
+  for (const { file, html } of pages) {
+    const legacy = html.indexOf("visual-engine.css");
+    const authority = html.indexOf("visual-engine-layout.css");
+    if (legacy >= 0 && authority >= 0) assert.ok(legacy < authority, file + ": layout authority must load after base visual CSS");
+  }
+});
+
 test("all pages use one visual engine release; admin loads layout only", () => {
   for (const { file, html } of pages) {
     if (html.includes("visual-engine-layout.css")) {
