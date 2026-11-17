@@ -63,5 +63,5 @@ test("responsive hero and tile rules include mobile sizing and reduced-motion su
 test("ROM defines exactly ten deterministic atlas tiles with a shared sprite grid", () => {
   assert.match(rom, /version:"1\.8\.0",deterministic:true/);
   assert.match(rom, /columns:5,rows:2/);
-  assert.equal((rom.match(/asset:"menu\\/leon-pillar-sprite\\.webp"/g) || []).length, 10);
+  assert.equal(rom.split('asset:"menu/leon-pillar-sprite.webp"').length - 1, 10);
 });
