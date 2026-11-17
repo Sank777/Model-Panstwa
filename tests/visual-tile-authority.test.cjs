@@ -27,6 +27,18 @@ test("fallback typography has one CSS authority and survives legacy stylesheet r
   assert.match(css, /\.pillar-tile\.visual-tile-fallback\s*>\s*\.tile-copy\s*\{\s*display:flex\s*!important/i);
 });
 
+test("legacy per-pillar CSS backgrounds cannot override the ROM renderer", () => {
+  const siteCss = fs.readFileSync(path.join(root, "assets/site.css"), "utf8");
+  assert.doesNotMatch(siteCss, /\.pillar-(?:[1-9]|10)\s*\{[^}]*background-image\s*:/s);
+  assert.match(siteCss, /Tile artwork is supplied exclusively by LeonVisualROM and visual-engine\.js/);
+});
+
+test("tile artwork is not assigned through inline page styles", () => {
+  for (const { file, html } of pages) {
+    assert.doesNotMatch(html, /\.pillar-(?:[1-9]|10)\s*\{[^}]*background-image\s*:/s, file + ": tile images must not be assigned by page CSS");
+  }
+});
+
 test("visual styles load in cascade order on every page", () => {
   for (const { file, html } of pages) {
     const legacy = html.indexOf("visual-engine.css");
