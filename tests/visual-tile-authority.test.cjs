@@ -7,9 +7,7 @@ const path = require("node:path");
 const root = path.join(__dirname, "..");
 const css = fs.readFileSync(path.join(root, "assets/visual-engine-layout.css"), "utf8");
 const engine = fs.readFileSync(path.join(root, "assets/visual-engine.js"), "utf8");
-const pages = ["index.html", "filary.html", "admin.html"].map(file =>
-  fs.readFileSync(path.join(root, file), "utf8")
-);
+const htmlFiles = fs.readdirSync(root).filter(file => file.endsWith(".html"));\nconst pages = htmlFiles.map(file => ({ file, html: fs.readFileSync(path.join(root, file), "utf8") }));
 
 test("atlas is the only typography source after a successful tile render", () => {
   assert.match(css, /\.pillar-tile > \.tile-copy,\s*\.pillar-tile > \.tile-icon \{ display:none !important; \}/);
