@@ -76,12 +76,12 @@ const engineVersion = "7.3.4";
 for (const page of htmlFiles) {
   const source = fs.readFileSync(path.join(root, page), "utf8");
   if (source.includes("visual-engine-layout.css")) {
-    const layoutRef = source.match(/assets\\/visual-engine-layout\\.css\\?v=([^"']+)/);
+    const layoutRef = source.match(/assets\/visual-engine-layout\.css\?v=([^"']+)/);
     if (!layoutRef || layoutRef[1] !== engineVersion) failures.push("Niespójna wersja visual-engine-layout.css na " + page + ": oczekiwano " + engineVersion);
     else checks.push("Wersja układu silnika " + engineVersion + ": " + page);
   }
   if (source.includes("visual-engine.js")) {
-    const scriptRef = source.match(/assets\\/visual-engine\\.js\\?v=([^"']+)/);
+    const scriptRef = source.match(/assets\/visual-engine\.js\?v=([^"']+)/);
     if (!scriptRef || scriptRef[1] !== engineVersion) failures.push("Niespójna wersja visual-engine.js na " + page + ": oczekiwano " + engineVersion);
     else checks.push("Wersja JS silnika " + engineVersion + ": " + page);
   }
