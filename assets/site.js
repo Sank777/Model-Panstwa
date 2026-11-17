@@ -106,7 +106,7 @@
     });
     const moduleScript = document.createElement("script");
     moduleScript.type = "module";
-    moduleScript.src = "assets/header-auth.js?v=1.0.0";
+    moduleScript.src = "assets/header-auth.js?v=1.1.0";
     document.body.append(moduleScript);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", installHeaderLogin, {once:true});

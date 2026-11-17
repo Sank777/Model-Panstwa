@@ -39,15 +39,7 @@
 @media(max-width:650px){.pillars-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 
 
-/* 6.9.0 — sprite jest kompletną kartą (tekst i ikony są już w obrazie). */
-.pillar-tile{display:block!important;padding:0!important;background-image:none!important}
-.pillar-tile>.tile-icon,.pillar-tile>.tile-copy{display:none!important}
-.pillar-tile>.visual-engine-tile-image{z-index:0!important}
-.pillar-tile:before{background:linear-gradient(0deg,rgba(2,9,18,.12),rgba(2,12,24,.02) 65%,transparent)!important}
-.pillar-tile:after{z-index:2!important}
-.pillar-tile[data-visual-state="failed"]{background:#102b49!important}
-.pillar-tile[data-visual-state="failed"]:before{background:linear-gradient(135deg,#102b49,#061426)!important}
-
+/* Text visibility is owned by visual-engine-layout.css 7.3.4. */
 
 /* LEON 6.9.1 — HOMEPAGE ALIGNMENT LOCK
    Stałe parametry układu. Grafiki nadal pochodzą wyłącznie z Visual ROM.
