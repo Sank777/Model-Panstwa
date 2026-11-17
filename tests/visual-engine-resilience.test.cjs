@@ -20,7 +20,7 @@ test("asset loading is restricted to validated same-origin local image paths", (
 });
 
 test("failed image requests are evicted from cache so a later retry can work", () => {
-  assert.match(engine, /promise\.catch\(error=>\{imageCache\.delete\(url\);throw error;\}\)/);
+  assert.match(engine, /\.catch\(error=>\{imageCache\.delete\(url\);throw error;\}\)/);
   assert.match(engine, /function retryFailed\(\)/);
   assert.match(engine, /tile\.dataset\.visualState="idle"/);
   assert.match(engine, /while\(state\.pending\.size\)await Promise\.allSettled/);
