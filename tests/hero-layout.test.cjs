@@ -39,5 +39,5 @@ test("pillar tiles render without frames, shadows, or overlay accents", () => {
 
 test("successful atlas render removes duplicate generated tile labels", () => {
   assert.match(engine, /const generatedCopy=directChild\(tile,"tile-copy"\);[\s\S]*?if\(generatedCopy\)generatedCopy\.remove\(\);[\s\S]*?if\(generatedIcon\)generatedIcon\.remove\(\);/);
-  assert.match(engine, /const VERSION="7\\.3\\.4";/);
+  assert.match(engine, /const VERSION="7\.3\.4";/);
 });
