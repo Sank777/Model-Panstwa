@@ -10,6 +10,7 @@ const css = cssSource.slice(cssSource.lastIndexOf(marker));
 if (!cssSource.includes(marker)) throw new Error("Missing final render authority block");
 const html = fs.readFileSync(path.join(__dirname, "../index.html"), "utf8");
 const rom = fs.readFileSync(path.join(__dirname, "../assets/visual-rom.js"), "utf8");
+const engine = fs.readFileSync(path.join(__dirname, "../assets/visual-engine.js"), "utf8");
 
 test("desktop hero clips the lower part of the original image without moving the banner", () => {
   assert.match(css, /\.hero-banner\{[^}]*aspect-ratio:3\.85\/1!important[^}]*overflow:hidden!important/);
@@ -34,4 +35,9 @@ test("pillar tiles render without frames, shadows, or overlay accents", () => {
   assert.match(css, /\.pillar-tile\{[^}]*border:0!important[^}]*outline:0!important[^}]*box-shadow:none!important/);
   assert.match(css, /\.pillar-tile>\.visual-engine-tile-image\{[^}]*inset:-9%!important[^}]*width:118%!important[^}]*height:118%!important/);
   assert.match(css, /\.pillar-tile:before,\.pillar-tile:after\{display:none!important;content:none!important/);
+});
+
+test("successful atlas render removes duplicate generated tile labels", () => {
+  assert.match(engine, /const generatedCopy=directChild\(tile,"tile-copy"\);[\s\S]*?if\(generatedCopy\)generatedCopy\.remove\(\);[\s\S]*?if\(generatedIcon\)generatedIcon\.remove\(\);/);
+  assert.match(engine, /const VERSION="7\.3\.3";/);
 });
