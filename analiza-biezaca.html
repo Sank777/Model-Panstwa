@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Projekt systemu bieżącej analizy zamówień publicznych i zmian w postępowaniach.">
+<title>Analiza bieżąca · Zamówienia publiczne</title>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1"><link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<style>
+.live-wrap{width:min(1120px,100%);margin:1.5rem auto 3rem;padding:0 1rem;color:var(--mp-text)}
+.live-hero,.live-panel{padding:clamp(1rem,3vw,1.5rem);margin:1rem 0;border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface)}
+.live-hero{background:linear-gradient(135deg,#102f4b,#102337)}
+.live-kicker{font-size:.78rem;letter-spacing:.1em;font-weight:800;color:#a9d9ff}.live-hero h1{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.12}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}
+.live-card{padding:1rem;border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2)}
+.live-card h3{margin:.2rem 0 .5rem}.live-muted{color:var(--mp-muted)}
+.live-warning{padding:.9rem 1rem;border-left:4px solid #d6b45c;background:var(--mp-surface2);border-radius:0 10px 10px 0}
+.live-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.55rem;counter-reset:step}
+.live-flow div{padding:.8rem;border:1px solid var(--mp-border);border-radius:10px;background:var(--mp-surface2)}
+.live-flow div:before{counter-increment:step;content:counter(step,decimal-leading-zero);display:block;color:#a9d9ff;font-weight:850}
+.live-back{color:var(--mp-accent);font-weight:750}
+</style></head><body data-page-shell="homepage-v1">
+<header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
+<main class="live-wrap"><a class="live-back" href="centrum-jawnosci.html">← Centrum Jawności</a>
+<section class="live-hero"><div class="live-kicker">ANALIZY · MODUŁ BIEŻĄCY</div><h1>Monitor zamówień i przetargów</h1><p class="live-muted">Oddzielny system do obserwowania postępowań w trakcie ich trwania. Nie jest częścią historycznej bazy spraw: zapisuje kolejne zdarzenia, wersje dokumentów i moment ich publikacji.</p></section>
+<div class="live-warning"><strong>Stan wdrożenia:</strong> to projekt interfejsu i przepływu danych. Nie podłączono jeszcze źródeł ani pobierania na żywo — ekran nie pokazuje fikcyjnych przetargów jako prawdziwych.</div>
+<section class="live-panel"><h2>Co system będzie śledził?</h2><div class="live-grid">
+<article class="live-card"><h3>Ogłoszenia</h3><p class="live-muted">Nowe postępowania, identyfikator, zamawiający, przedmiot, wartość i terminy.</p></article>
+<article class="live-card"><h3>Zmiany dokumentacji</h3><p class="live-muted">Kolejne wersje SWZ, korekty warunków, przesunięcia terminów i historia zmian.</p></article>
+<article class="live-card"><h3>Pytania i odpowiedzi</h3><p class="live-muted">Pytania wykonawców, odpowiedzi zamawiającego i wpływ wyjaśnień na warunki.</p></article>
+<article class="live-card"><h3>Rozstrzygnięcie</h3><p class="live-muted">Złożone oferty, odrzucenia, punktacja, wybór i uzasadnienie.</p></article>
+<article class="live-card"><h3>Umowa i aneksy</h3><p class="live-muted">Wartość umowy, wykonawca, zmiany zakresu, terminu i wynagrodzenia.</p></article>
+<article class="live-card"><h3>Realizacja</h3><p class="live-muted">Odbiory, opóźnienia, kary, płatności i dokumenty potwierdzające wykonanie.</p></article>
+</div></section>
+<section class="live-panel"><h2>Przepływ analizy</h2><div class="live-flow"><div>Pobranie z oficjalnego źródła</div><div>Zapis źródła i czasu pobrania</div><div>Porównanie wersji i wykrycie zmian</div><div>Wskazanie sygnałów do weryfikacji</div><div>Ocena dokumentów i odpowiedzi</div><div>Historia postępowania i raport</div></div></section>
+<section class="live-panel"><h2>Jakie sygnały będą analizowane?</h2><ul>
+<li>istotna zmiana warunków lub terminu po publikacji ogłoszenia;</li>
+<li>krótki czas na przygotowanie oferty — oceniany w kontekście przedmiotu zamówienia;</li>
+<li>warunki udziału lub kryteria wymagające dodatkowego uzasadnienia;</li>
+<li>mała liczba ofert, powtarzalność wykonawców albo odrzucenia — jako sygnały, nie dowody;</li>
+<li>różnice między wartością szacunkową, ofertą, umową i aneksami;</li>
+<li>brak zgodności między rozliczeniem a udokumentowanym wykonaniem.</li>
+</ul><p class="live-muted">Żaden wskaźnik nie będzie automatycznie oznaczał zmowy, korupcji ani winy. System ma wskazywać, co sprawdzić i na podstawie jakiego dokumentu.</p></section>
+<section class="live-panel"><h2>Wymagania techniczne</h2><ul>
+<li>pobieranie przez oficjalne interfejsy lub dozwolone kanały publikacji, z ograniczeniem częstotliwości;</li>
+<li>identyfikatory postępowań i deduplikacja, aby nie tworzyć kopii tego samego ogłoszenia;</li>
+<li>niezmienny dziennik pobrań: adres źródła, czas, suma kontrolna i wersja dokumentu;</li>
+<li>oddzielenie danych źródłowych od ocen i alertów systemu;</li>
+<li>kontrola dostępu, walidacja danych, bezpieczne przechowywanie i kopie zapasowe;</li>
+<li>jawny status awarii lub braku aktualizacji — bez udawania, że dane są świeże.</li>
+</ul></section>
+</main><footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Analiza bieżąca · projekt modułu</span></footer>
+<script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</body></html>

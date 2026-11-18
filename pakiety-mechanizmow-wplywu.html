@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Pakiety analityczne Centrum Jawności: mechanizmy wpływu, konflikty interesów i kontrola decyzji publicznych.">
+<meta name="theme-color" content="#0a1d33">
+<title>Pakiety mechanizmów wpływu · Centrum Jawności</title>
+<link rel="stylesheet" href="assets/site.css?v=20261115-engine3">
+<link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0">
+<link rel="stylesheet" href="assets/visual-engine-layout.css?v=7.3.2">
+<style>
+:root{--p-bg:#071a2e;--p-panel:#102b46;--p-panel2:#163653;--p-line:#35536e;--p-text:#f3f7fb;--p-muted:#c1cfdd;--p-accent:#7fc6ff}
+body{margin:0;background:var(--p-bg);color:var(--p-text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.pw-wrap{width:min(1120px,100%);margin:auto;padding:1rem}
+.pw-hero{padding:clamp(1.2rem,4vw,2.4rem);border:1px solid var(--p-line);border-radius:18px;background:radial-gradient(ellipse at 90% 0%,#245078 0,transparent 45%),linear-gradient(135deg,#102f4d,#0b2037);margin:1rem 0}
+.pw-kicker{font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:#a9d9ff;font-weight:800}
+.pw-hero h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;margin:.4rem 0 .7rem}
+.pw-hero p{max-width:75ch;color:#d5e2ee;margin:.4rem 0}
+.pw-notice{padding:.85rem 1rem;background:#2a2b27;border-left:4px solid #e5bd68;border-radius:0 10px 10px 0;color:#fff0ca;margin:1rem 0}
+.pw-tools{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
+.pw-tools input,.pw-tools select{min-width:0;flex:1;background:#102b46;color:#f3f7fb;border:1px solid var(--p-line);border-radius:10px;padding:.72rem}
+.pw-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.pw-card{background:var(--p-panel);border:1px solid var(--p-line);border-radius:14px;padding:1rem;min-width:0}
+.pw-card h2{font-size:1.12rem;margin:.25rem 0 .45rem}
+.pw-card p{color:#d1deea;margin:.35rem 0}
+.pw-id{font-size:.72rem;font-weight:850;letter-spacing:.1em;color:#9ccfff}
+.pw-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin:.6rem 0}
+.pw-tag{font-size:.72rem;padding:.2rem .55rem;border:1px solid #58718a;border-radius:99px;color:#d7e8f8}
+.pw-card details{border-top:1px solid var(--p-line);margin-top:.75rem;padding-top:.65rem}
+.pw-card summary{cursor:pointer;font-weight:750;color:#a9d9ff}
+.pw-card ul{padding-left:1.2rem;color:#e0e9f1;margin:.55rem 0}
+.pw-card li{margin:.25rem 0}
+.pw-callout{background:#0b2138;border:1px solid #35536e;border-radius:10px;padding:.8rem;margin-top:.7rem}
+.pw-callout strong{display:block;color:#a9d9ff;margin-bottom:.25rem}
+.pw-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:1rem 0}
+.pw-step{padding:.8rem;border:1px solid var(--p-line);border-radius:10px;background:#102b46}
+.pw-step b{display:block;color:#a9d9ff}
+.pw-step span{font-size:.84rem;color:#c5d3e0}
+.pw-empty{display:none;padding:1rem;text-align:center;color:var(--p-muted)}
+.pw-back{display:inline-block;color:#b6dcff;text-decoration:none;margin:.4rem 0 1rem}
+.pw-back:hover{text-decoration:underline}
+@media(max-width:720px){.pw-grid{grid-template-columns:1fr}.pw-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body data-page-shell="homepage-v1">
+<header class="site-header">
+<a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a>
+<div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności" title="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika" title="Panel użytkownika">♙</a><button type="button" id="themeToggle" aria-label="Zmień motyw" title="Zmień motyw">◐</button></div>
+</header>
+<main class="pw-wrap">
+<a class="pw-back" href="centrum-jawnosci.html">← Powrót do Centrum Jawności</a>
+<section class="pw-hero">
+<div class="pw-kicker">Centrum Jawności · moduł analityczny</div>
+<h1>Pakiety mechanizmów wpływu</h1>
+<p>Biblioteka wzorców i narzędzi do badania, jak decyzje publiczne mogą być przejmowane przez nieformalne interesy — od procesu legislacyjnego po przetargi, inwestycje i spółki państwowe.</p>
+<p>Każdy pakiet porządkuje pytania kontrolne, dokumenty i możliwe sygnały ostrzegawcze. Sam sygnał nie jest dowodem nadużycia.</p>
+</section>
+<div class="pw-notice"><strong>Zasada rzetelności:</strong> oddzielamy fakty udokumentowane, ustalenia organów, twierdzenia stron, hipotezy i kwestie niewyjaśnione. Wpisanie osoby lub podmiotu do osi sprawy nie oznacza przypisania winy.</div>
+<section aria-label="Wyszukiwanie pakietów">
+<div class="pw-tools"><input id="pwSearch" type="search" placeholder="Szukaj pakietu, mechanizmu lub dokumentu…" aria-label="Szukaj pakietów"><select id="pwType" aria-label="Filtr pakietów"><option value="all">Wszystkie pakiety</option><option value="prawo">Prawo i wpływ</option><option value="gospodarka">Gospodarka i inwestycje</option><option value="instytucje">Instytucje i decyzje</option></select></div>
+</section>
+<section class="pw-grid" id="pwGrid" aria-label="Lista pakietów">
+<article class="pw-card" data-type="prawo" data-search="rywin legislacja ustawa lobbing pośrednik wpływ nieformalne propozycje">
+<div class="pw-id">PAKIET 01 · WZORZEC HISTORYCZNY</div><h2>Wpływanie na proces legislacyjny</h2>
+<p>Analiza prób nieformalnego oddziaływania na treść prawa, decyzje ustawodawcy i osoby uczestniczące w procesie legislacyjnym.</p>
+<div class="pw-tags"><span class="pw-tag">Afera Rywina – studium historyczne</span><span class="pw-tag">Legislacja</span><span class="pw-tag">Lobbing</span></div>
+<details><summary>Otwórz zakres analizy</summary>
+<ul><li>Geneza projektu ustawy i kolejne wersje tekstu.</li><li>Kto zgłaszał poprawki, kto je opiniował i na jakiej podstawie.</li><li>Spotkania, kontakty i pośrednicy — wyłącznie w zakresie potwierdzonym materiałami.</li><li>Rozdzielenie udokumentowanych zdarzeń od relacji uczestników i spornych interpretacji.</li><li>Ustalenia komisji śledczej, dokumenty publiczne i dalsze rozstrzygnięcia.</li></ul>
+<div class="pw-callout"><strong>Przykład zastosowania</strong>Afera Rywina jako historyczne studium mechanizmu domniemanej nieformalnej presji na proces legislacyjny. Karta sprawy powinna opierać się na stenogramach, raporcie komisji i dokumentach, a nie na dopowiadaniu brakujących faktów.</div></details>
+</article>
+<article class="pw-card" data-type="gospodarka" data-search="przetargi zmowa warunki specyfikacja wykonawca konkurencja zamówienia">
+<div class="pw-id">PAKIET 02 · ZAMÓWIENIA PUBLICZNE</div><h2>Ustawianie przetargów i ograniczanie konkurencji</h2>
+<p>Wykrywanie ryzyk, że postępowanie lub jego warunki zostały ukształtowane pod z góry wybranego wykonawcę.</p>
+<div class="pw-tags"><span class="pw-tag">Przetargi</span><span class="pw-tag">Konkurencja</span><span class="pw-tag">Umowy</span></div>
+<details><summary>Otwórz zakres analizy</summary><ul><li>Opis przedmiotu zamówienia i uzasadnienie wymagań.</li><li>Liczba ofert, powtarzalność zwycięzców i odrzucenia ofert.</li><li>Zmiany specyfikacji, terminów i kryteriów oceny.</li><li>Powiązania wykonawców badane na podstawie legalnie dostępnych rejestrów.</li><li>Protokół postępowania, umowa, aneksy i odbiór.</li></ul><div class="pw-callout"><strong>Punkt kontrolny</strong>Czy niezależny wykonawca spełniający cel zamówienia miał realną możliwość złożenia konkurencyjnej oferty?</div></details>
+</article>
+<article class="pw-card" data-type="gospodarka" data-search="grunty plan zagospodarowania decyzja planistyczna nieruchomość wartość konflikt interesów">
+<div class="pw-id">PAKIET 03 · GRUNTY I PLANOWANIE</div><h2>Decyzje dotyczące gruntów i nieruchomości</h2>
+<p>Badanie zmian planistycznych i administracyjnych, które mogą istotnie zmieniać wartość nieruchomości lub sytuację wybranych podmiotów.</p>
+<div class="pw-tags"><span class="pw-tag">Planowanie</span><span class="pw-tag">Majątek publiczny</span><span class="pw-tag">Konflikt interesów</span></div>
+<details><summary>Otwórz zakres analizy</summary><ul><li>Stan prawny i planistyczny przed oraz po decyzji.</li><li>Uzasadnienie zmiany i analiza interesu publicznego.</li><li>Wyceny, operaty i daty transakcji.</li><li>Jawne konsultacje, uwagi i sposób ich rozpatrzenia.</li><li>Oświadczenia o konflikcie interesów i wyłączenia od decyzji.</li></ul><div class="pw-callout"><strong>Punkt kontrolny</strong>Czy korzyść dla konkretnej nieruchomości wynika z jawnych, równych zasad i prawidłowej procedury?</div></details>
+</article>
+<article class="pw-card" data-type="instytucje" data-search="nieformalne układy pośrednicy naciski urząd inwestor urzędnik relacje">
+<div class="pw-id">PAKIET 04 · RELACJE I NACISKI</div><h2>Nieformalne układy wokół decyzji publicznych</h2>
+<p>Porządkowanie kontaktów, ról i kanałów komunikacji pomiędzy urzędem, inwestorem, wykonawcą i pośrednikami.</p>
+<div class="pw-tags"><span class="pw-tag">Kontakty</span><span class="pw-tag">Naciski</span><span class="pw-tag">Ślad decyzyjny</span></div>
+<details><summary>Otwórz zakres analizy</summary><ul><li>Rejestry spotkań, korespondencja służbowa i notatki z uzgodnień.</li><li>Formalne umocowanie osób występujących w imieniu podmiotów.</li><li>Chronologia kontaktów wobec terminów decyzji.</li><li>Rozbieżności między ustaleniami roboczymi a oficjalnym uzasadnieniem.</li><li>Procedury zgłaszania nacisków i ochrony sygnalistów.</li></ul><div class="pw-callout"><strong>Punkt kontrolny</strong>Czy każda istotna przesłanka decyzji ma możliwy do odtworzenia, zgodny z prawem ślad dokumentacyjny?</div></details>
+</article>
+<article class="pw-card" data-type="instytucje" data-search="spółki państwowe kadry nominacje kontrakty transakcje polityczne wpływy">
+<div class="pw-id">PAKIET 05 · SPÓŁKI I NADZÓR</div><h2>Wpływy w spółkach z udziałem państwa</h2>
+<p>Kontrola decyzji kadrowych, zakupowych i inwestycyjnych pod kątem przejrzystości, kompetencji oraz interesu spółki.</p>
+<div class="pw-tags"><span class="pw-tag">Nadzór</span><span class="pw-tag">Kadry</span><span class="pw-tag">Transakcje</span></div>
+<details><summary>Otwórz zakres analizy</summary><ul><li>Kryteria naboru, konkursy, kompetencje i uzasadnienia nominacji.</li><li>Transakcje z podmiotami powiązanymi i tryb wyboru kontrahenta.</li><li>Uchwały organów spółki i dokumentacja nadzorcza w granicach jawności.</li><li>Ocena ekonomiczna decyzji i późniejsze wyniki.</li><li>Odpowiedzialność zarządcza i audyt wewnętrzny.</li></ul><div class="pw-callout"><strong>Punkt kontrolny</strong>Czy decyzja byłaby taka sama, gdyby nie istniały relacje osobiste lub polityczne jej uczestników?</div></details>
+</article>
+<article class="pw-card" data-type="gospodarka" data-search="inwestycje aneksy koszty opóźnienia odbiór rozliczenie wykonanie">
+<div class="pw-id">PAKIET 06 · CYKL INWESTYCJI</div><h2>Zmiany kosztów i rozliczanie inwestycji</h2>
+<p>Śledzenie całej drogi od planowanego budżetu i umowy do zmian zakresu, odbioru oraz końcowego rozliczenia.</p>
+<div class="pw-tags"><span class="pw-tag">Koszty</span><span class="pw-tag">Aneksy</span><span class="pw-tag">Odbiory</span></div>
+<details><summary>Otwórz zakres analizy</summary><ul><li>Budżet bazowy, kosztorys i porównywalne oferty.</li><li>Każdy aneks: data, kwota, zakres, przyczyna i zatwierdzający.</li><li>Harmonogram, opóźnienia i odpowiedzialność za ich powstanie.</li><li>Protokoły odbioru, wady, poprawki i gwarancje.</li><li>Porównanie płatności z faktycznym postępem prac.</li></ul><div class="pw-callout"><strong>Punkt kontrolny</strong>Czy wzrost kosztu lub terminu ma udokumentowaną przyczynę, zgodę właściwego organu i mierzalne potwierdzenie wykonania?</div></details>
+</article>
+</section>
+<p class="pw-empty" id="pwEmpty">Nie znaleziono pakietów pasujących do wyszukiwania.</p>
+<section class="pw-hero" style="margin-top:1.2rem">
+<div class="pw-kicker">Wspólny standard każdej karty sprawy</div><h2>Od sygnału do weryfikowalnego ustalenia</h2>
+<div class="pw-steps">
+<div class="pw-step"><b>01 · Geneza</b><span>Skąd wzięła się sprawa i jaki interes publiczny dotyczy.</span></div>
+<div class="pw-step"><b>02 · Chronologia</b><span>Daty, decyzje, kontakty i zmiany dokumentów.</span></div>
+<div class="pw-step"><b>03 · Źródła</b><span>Dokumenty pierwotne, status i wiarygodność.</span></div>
+<div class="pw-step"><b>04 · Ocena</b><span>Fakty, ustalenia, twierdzenia, hipotezy i luki.</span></div>
+</div>
+<p>Do karty można dołączać osoby i instytucje wyłącznie z określeniem ich udokumentowanej roli, źródła oraz statusu ustaleń. Nie tworzymy automatycznych ocen winy ani rankingów podejrzanych.</p>
+</section>
+</main>
+<footer style="text-align:center;padding:1.5rem;color:#b7c7d7">Centrum Jawności · Pakiety mechanizmów wpływu · moduł demonstracyjny</footer>
+<script>
+(()=>{const search=document.getElementById('pwSearch'),type=document.getElementById('pwType'),cards=[...document.querySelectorAll('.pw-card')],empty=document.getElementById('pwEmpty');function filter(){const q=search.value.trim().toLocaleLowerCase('pl'),t=type.value;let n=0;for(const card of cards){const show=(t==='all'||card.dataset.type===t)&&(!q||(card.dataset.search+' '+card.innerText).toLocaleLowerCase('pl').includes(q));card.hidden=!show;if(show)n++;}empty.style.display=n?'none':'block';}search.addEventListener('input',filter);type.addEventListener('change',filter);const toggle=document.getElementById('themeToggle');toggle.addEventListener('click',()=>{const root=document.documentElement;const next=root.dataset.theme==='dark'?'light':'dark';root.dataset.theme=next;try{localStorage.setItem('model_panstwa_v2_theme',next)}catch(e){}});try{document.documentElement.dataset.theme=localStorage.getItem('model_panstwa_v2_theme')||'dark'}catch(e){document.documentElement.dataset.theme='dark'}filter();})();
+</script>
+<script src="assets/site.js?v=20261117-header-login1" defer></script>
+<script src="assets/visual-rom.js?v=1.8.0" defer></script>
+<script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
+<script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</body></html>

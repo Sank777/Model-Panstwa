@@ -104,7 +104,7 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
   </section>
   <section class="lib-panel">
     <div style="display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap">
-      <div><h2 style="margin:.1rem 0">Przypadki do testowania</h2><p style="color:var(--lib-muted);margin:.1rem 0">Wyszukuj, filtruj i otwieraj pełne karty.</p></div>
+      <div><h2 style="margin:.1rem 0">Baza spraw publicznych</h2><p style="color:var(--lib-muted);margin:.1rem 0">Wybierz kategorię, znajdź sprawę i otwórz jej osobną kartę analityczną.</p></div>
       <span id="resultCount" style="color:var(--lib-muted);font-size:.82rem">9 wyników</span>
     </div>
     <div class="lib-controls">
@@ -290,6 +290,18 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
   const count=document.getElementById("resultCount");
   const total=document.getElementById("totalCount");
   total.textContent=String(cards.length);
+  cards.forEach(card=>{
+    const id=card.querySelector(".case-id")?.textContent?.split("·")[0]?.trim();
+    if(!id)return;
+    const link=document.createElement("a");
+    link.className="case-open-link";
+    link.href="sprawa.html?id="+encodeURIComponent(id);
+    link.textContent="Otwórz pełną kartę sprawy →";
+    link.style.cssText="display:inline-flex;align-self:flex-start;margin-top:.25rem;padding:.6rem .85rem;border:1px solid var(--lib-line);border-radius:9px;color:#b9e0ff;font-weight:750;text-decoration:none";
+    card.append(link);
+    const summary=card.querySelector("details>summary");
+    if(summary)summary.textContent="Podgląd skrótu";
+  });
   function filter(){
     const q=(search.value||"").trim().toLocaleLowerCase("pl");
     let visible=0;

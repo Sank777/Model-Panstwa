@@ -72,7 +72,8 @@
     <a href="studium-inwestycji.html"><span>▥</span> Analizy</a>
     <a href="model.html"><span>▣</span> Baza wiedzy</a>
     <a href="centrum-jawnosci.html"><span>❖</span> Centrum jawności</a>
-    <a href="biblioteka-spraw.html"><span>◉</span> Biblioteka spraw</a>
+    
+    
     <a href="zasady.html"><span>ⓘ</span> O projekcie</a>
   </nav></div>
 <style>
@@ -98,7 +99,6 @@
  <form class="jaw-search" id="caseSearch"><input id="caseQuery" type="search" placeholder="Szukaj sprawy, identyfikatora, organu lub etapu…" aria-label="Szukaj sprawy"><button class="jaw-btn" type="submit">⌕ Szukaj</button></form></div>
  <div class="jaw-note"><strong>Jak czytać dane?</strong><p class="jaw-muted">Każda informacja ma źródło i status weryfikacji. Brak danych nie oznacza braku zdarzenia, a szacunek nie jest potwierdzoną stratą.</p><span class="jaw-tag">Scenariusz edukacyjny</span></div>
 </section>
-<section class="jaw-section jaw-panel" aria-labelledby="sws-library-title"><div class="jaw-case"><div><span class="jaw-tag">NOWY MODUŁ · SYSTEM WIDZENIA SPRAWY</span><h2 id="sws-library-title">Biblioteka spraw publicznych</h2><p class="jaw-muted">Dołączamy rzeczywiste materiały NIK i RIO, dobre praktyki oraz scenariusze edukacyjne. Każda karta rozdziela ustalenia źródłowe, kontekst, wyjaśnienia i wnioski — bez pochopnego przypisywania winy.</p></div><a class="jaw-btn" href="biblioteka-spraw.html">Otwórz bibliotekę spraw →</a></div></section>
 <section class="jaw-section" aria-label="Podsumowanie rejestru">
  <div class="jaw-stats">
   <div class="jaw-stat"><span class="jaw-muted">Sprawy z dokumentów publicznych</span><strong>8</strong><span class="jaw-muted">karty oparte na źródłach NIK i RIO</span></div>
@@ -107,166 +107,20 @@
   <div class="jaw-stat"><span class="jaw-muted">Dobre praktyki</span><strong>1</strong><span class="jaw-muted">przykład pozytywnego działania</span></div>
  </div>
 </section>
-<section class="jaw-section" aria-labelledby="realCasesTitle">
- <h2 id="realCasesTitle">Rejestr spraw publicznych</h2>
- <p class="jaw-muted">Karty opracowano na podstawie opublikowanych dokumentów NIK i RIO. Każda zawiera zakres źródła, ustalenia, kontekst i granice wnioskowania.</p>
- <div class="lib-controls" style="display:grid;grid-template-columns:minmax(220px,1fr) repeat(2,minmax(150px,.32fr));gap:.6rem;margin:.8rem 0">
-  <input id="searchCases" type="search" placeholder="Szukaj sprawy, instytucji, kwoty lub pojęcia…" aria-label="Szukaj spraw">
-  <select id="typeFilter" aria-label="Filtr rodzaju sprawy"><option value="">Wszystkie rodzaje</option><option value="inwestycje">Inwestycje</option><option value="finanse">Finanse</option><option value="zamowienia">Zamówienia</option><option value="informacja">Dostęp do informacji</option><option value="obywatele">Sygnały obywateli</option><option value="dobre">Dobre praktyki</option></select>
-  <select id="statusFilter" aria-label="Filtr statusu"><option value="">Wszystkie statusy</option><option value="ustalenia">Ustalenia organu</option><option value="historyczna">Materiał historyczny</option><option value="dobra">Dobra praktyka</option></select>
+<section class="jaw-section jaw-panel" aria-labelledby="jaw-modules-title">
+ <h2 id="jaw-modules-title">Jak pracuje Centrum Jawności?</h2>
+ <p class="jaw-muted">Centrum jest punktem wejścia i objaśnia cały system. Nie powiela kart spraw — konkretne materiały, dokumenty i etapy znajdują się w jednej bazie.</p>
+ <div class="jaw-grid">
+  <article class="jaw-card"><span class="jaw-tag">01 · BAZA SPRAW</span><h3>Sprawy historyczne i zakończone kontrole</h3><p>Wybierz kategorię, status lub wyszukaj konkretną sprawę. Otwarta karta prowadzi do osobnego widoku z pełnym materiałem i rozwijanymi etapami.</p><a class="jaw-btn" href="biblioteka-spraw.html">Przejdź do bazy spraw →</a></article>
+  <article class="jaw-card"><span class="jaw-tag">02 · ANALIZA BIEŻĄCA</span><h3>Przetargi i działania na żywo</h3><p>Oddzielny moduł do obserwowania nowych ogłoszeń, zmian dokumentacji, pytań i odpowiedzi, rozstrzygnięć, umów oraz aneksów. Każdy odczyt z datą i źródłem.</p><a class="jaw-btn" href="analiza-biezaca.html">Otwórz analizę bieżącą →</a></article>
+  <article class="jaw-card"><span class="jaw-tag">03 · STANDARD ANALIZY</span><h3>Jak oceniamy sprawę?</h3><p>Oddzielamy fakty, ustalenia organów, stanowiska stron, hipotezy i kwestie niewyjaśnione. Sam sygnał ani udział w sprawie nie oznacza winy.</p></article>
  </div>
- <p class="jaw-muted" id="resultCount" aria-live="polite">8 z 8 spraw</p>
- <div class="jaw-grid jaw-source-grid" id="caseGrid"><article class="case-card jaw-source-card" data-type="inwestycje" data-status="ustalenia" data-search="mosty inwestycje drogi dokumentacja odbiory nadzór techniczny NIK P/25/016 2026">
-        <div class="case-top"><span class="case-id">SWS-PL-001 · P/25/016</span><span class="case-badge">Ustalenia NIK</span></div>
-        <h2>Inwestycje mostowe – dokumentacja, nadzór i odbiory</h2>
-        <p>Kontrola NIK obejmowała inwestycje w ośmiu jednostkach publicznych, w tym siedmiu samorządach i GDDKiA. To dobry test połączenia dokumentacji technicznej, decyzji, wykonawców i bezpieczeństwa użytkowników.</p>
-        <div class="case-meta"><span>Transport</span><span>2021–I poł. 2025</span><span>Publikacja: 02.06.2026</span></div>
-        <div class="case-status warn"><strong>Status SWS:</strong> opublikowane ustalenia kontroli NIK. Nie jest to orzeczenie o odpowiedzialności karnej konkretnych osób.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co ustaliła kontrola?</h3>
-          <ul><li>W pięciu inwestycjach dokumentacja projektowa była niekompletna lub nieprawidłowa.</li><li>W sześciu z ośmiu jednostek dokumentacja procesu budowlanego była prowadzona nierzetelnie.</li><li>Przy oględzinach czterech z dziewięciu inwestycji stwierdzono nieprawidłowy stan techniczny wybranych elementów.</li><li>W dwóch z ośmiu jednostek stwierdzono naruszenia przepisów zamówień publicznych.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Projekt → umowa z projektantem → decyzje administracyjne → wykonawca → nadzór inwestorski → dziennik budowy → badania materiałów → odbiór → utrzymanie obiektu.
-          <h3>Czego nie wolno wywnioskować?</h3>
-          Samo stwierdzenie błędów dokumentacyjnych lub technicznych nie dowodzi korupcji ani osobistej winy. Potrzebne są ustalenia właściwych organów i analiza konkretnej odpowiedzialności.
-          <h3>Pytania edukacyjne</h3>
-          Kto sprawdza kompletność projektu? Jak udokumentować badania materiałów? Co powinno poprzedzać odbiór końcowy?
-          <div class="case-links"><a href="https://www.nik.gov.pl/aktualnosci/inwestycje-mostowe-obarczone-wieloma-bledami.html" target="_blank" rel="noopener noreferrer">Komunikat NIK</a><a href="https://www.nik.gov.pl/kontrole/P/25/016/" target="_blank" rel="noopener noreferrer">Karta kontroli P/25/016</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="inwestycje" data-status="ustalenia" data-search="drogi Polski Ład koszty wydatki umowy kary odbiory rozliczenia NIK P/24/019">
-        <div class="case-top"><span class="case-id">SWS-PL-002 · P/24/019</span><span class="case-badge">Ustalenia NIK</span></div>
-        <h2>Inwestycje drogowe z Rządowego Funduszu Polski Ład</h2>
-        <p>Przykład pełnego śledzenia inwestycji: od przygotowania i wyboru wykonawcy po nadzór, odbiór oraz rozliczenie publicznych pieniędzy.</p>
-        <div class="case-meta"><span>7 jednostek JST</span><span>107,634 mln zł wartości</span><span>Raport: 10.2024</span></div>
-        <div class="case-status warn"><strong>Status SWS:</strong> kontrola NIK zakończona raportem. Wykonanie zaleceń wymaga osobnego śledzenia.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co ustaliła NIK?</h3>
-          <ul><li>Kontrolą objęto inwestycje o łącznej wartości 107,634 mln zł, z dofinansowaniem 93,2283 mln zł.</li><li>NIK wykazała 15,7416 mln zł wydatków z naruszeniem prawa oraz 2,1213 mln zł nienaliczonych kar umownych – łącznie 16,6% wartości kontrolowanych inwestycji.</li><li>W trzech jednostkach stwierdzono odbiór i zapłatę za roboty faktycznie niezrealizowane lub będące w trakcie realizacji.</li><li>Mimo nieprawidłowości osiągnięto efekt rzeczowy na około 59 km dróg.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Źródło finansowania → budżet JST → postępowanie → oferta → umowa → zmiany zakresu → faktury → odbiory → kary → wnioski pokontrolne.
-          <h3>Granice wniosku</h3>
-          Kwoty dotyczą łącznej próby kontrolnej siedmiu jednostek. Nie wolno przypisywać ich jednej gminie, wykonawcy ani osobie.
-          <h3>Pytania edukacyjne</h3>
-          Jak porównywać plan i wykonanie? Kiedy nalicza się karę umowną? Jak udowodnić, że zapłacono wyłącznie za faktycznie wykonane roboty?
-          <div class="case-links"><a href="https://www.nik.gov.pl/kontrole/P/24/019/" target="_blank" rel="noopener noreferrer">Karta kontroli NIK</a><a href="https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz,kin~p_24_019_202408261448581724676538~01,typ,kk.pdf" target="_blank" rel="noopener noreferrer">Pełny raport PDF</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="finanse" data-status="ustalenia" data-search="Łagów gmina RIO finanse dług pożyczka odsetki budżet zobowiązania 2024">
-        <div class="case-top"><span class="case-id">SWS-PL-003 · RIO Kielce</span><span class="case-badge">Raport RIO</span></div>
-        <h2>Gospodarka finansowa Miasta i Gminy Łagów</h2>
-        <p>Raport RIO pozwala prześledzić budżet, zobowiązania, pożyczki krótkoterminowe, odsetki oraz wpływ decyzji finansowych na kolejne lata.</p>
-        <div class="case-meta"><span>Finanse samorządu</span><span>2021–2023</span><span>Raport: 13.09.2024</span></div>
-        <div class="case-status warn"><strong>Status SWS:</strong> ustalenia zawarte w raporcie RIO. Karta nie rozstrzyga odpowiedzialności osobistej ani ewentualnych dalszych postępowań.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co wynika z raportu?</h3>
-          <ul><li>Na 31.12.2023 r. niespłacone zobowiązanie z pożyczki krótkoterminowej wynosiło 3 362 316,69 zł.</li><li>Raport wskazał naliczone odsetki karne 76 636,31 zł według stanu na 19.02.2024 r.</li><li>Raport opisywał także zobowiązania wymagalne i działania podejmowane mimo negatywnych opinii RIO dotyczących dokumentów budżetowych.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Uchwała budżetowa → WPF → opinia RIO → upoważnienie do zaciągnięcia zobowiązania → umowa pożyczki → spłata → odsetki → korekta planu finansowego.
-          <h3>Prawo do wyjaśnień</h3>
-          Uchwała RIO wskazuje możliwość wniesienia przez organy JST zastrzeżeń do raportu w terminie 30 dni. W tej karcie nie przesądzamy, czy i z jakim skutkiem skorzystano z tego uprawnienia.
-          <h3>Pytania edukacyjne</h3>
-          Czym różni się deficyt przejściowy od strukturalnego? Jakie upoważnienie jest potrzebne do zaciągnięcia zobowiązania? Jak odsetki wpływają na budżet kolejnego roku?
-          <div class="case-links"><a href="https://bip.kielce.rio.gov.pl/temp/zdjecia_art/4401/%C5%81ag%C3%B3w%202024.pdf" target="_blank" rel="noopener noreferrer">Raport RIO – pełny dokument</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="informacja" data-status="ustalenia" data-search="dostęp informacja publiczna BIP samorząd dokumenty głosowania sesje skargi NIK 2022">
-        <div class="case-top"><span class="case-id">SWS-PL-004 · NIK</span><span class="case-badge">Kontrola NIK</span></div>
-        <h2>Dostęp do informacji publicznej w samorządach</h2>
-        <p>Przypadek bliski codziennemu obywatelowi: czy urząd publikuje dokumenty, wyniki kontroli, głosowania radnych, nagrania sesji i aktualne dane o majątku?</p>
-        <div class="case-meta"><span>16 JST</span><span>Kontrola 2020–2022</span><span>Publikacja: 22.06.2022</span></div>
-        <div class="case-status"><strong>Status SWS:</strong> opublikowane wyniki kontroli. NIK wskazała zarówno nieprawidłowości, jak i to, że większość obowiązków realizowano prawidłowo.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co ustaliła NIK?</h3>
-          <ul><li>Kontrolą objęto 16 JST: 4 urzędy marszałkowskie, 4 starostwa i 8 urzędów gmin.</li><li>W siedmiu jednostkach przyjęto regulacje ograniczające dostęp do informacji publicznej.</li><li>W 12 jednostkach nie udostępniono wymaganej dokumentacji kontroli; w 11 jednostkach brakowało łącznie 78 nagrań sesji organów stanowiących.</li><li>Jednocześnie NIK oceniła, że większość obowiązków z zakresu udostępniania informacji publicznej wykonywano zgodnie z prawem i rzetelnie.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Informacja publiczna → BIP → metadane → autor i data publikacji → dokument źródłowy → wniosek obywatela → odpowiedź → ewentualna skarga do sądu administracyjnego.
-          <h3>Pytania edukacyjne</h3>
-          Co powinno znaleźć się w BIP? Jak rozpoznać brak aktualności? Kiedy obywatel może złożyć wniosek o informację?
-          <div class="case-links"><a href="https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/dostep-do-informacji-publicznej-2023.html" target="_blank" rel="noopener noreferrer">Wyniki kontroli NIK</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="zamowienia" data-status="historyczna" data-search="zamówienia publiczne przetargi konkurencja kryteria ceny dzielenie zamówień NIK 2015">
-        <div class="case-top"><span class="case-id">SWS-PL-005 · NIK</span><span class="case-badge">Materiał historyczny</span></div>
-        <h2>Zamówienia publiczne – konkurencja i kryteria wyboru</h2>
-        <p>Starsza kontrola pokazująca, dlaczego samo sprawdzenie ceny nie wystarcza i dlaczego warto analizować planowanie oraz łączenie podobnych zamówień.</p>
-        <div class="case-meta"><span>13 jednostek</span><span>2012–I poł. 2014</span><span>Publikacja: 15.07.2015</span></div>
-        <div class="case-status"><strong>Status SWS:</strong> historyczne ustalenia NIK. Nie stosujemy dawnych progów i przepisów jako aktualnego prawa.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co ustaliła NIK?</h3>
-          <ul><li>13 jednostek zleciło około 14 tys. usług o wartości ponad 2,147 mld zł w badanym okresie.</li><li>Większość zamówień udzielono zgodnie z przepisami.</li><li>W dwóch jednostkach stwierdzono nieuzasadniony podział zamówień.</li><li>Dodatkowe kryteria poza ceną zastosowano w 60 zamówieniach, około 2% badanej liczby.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Plan zamówień → szacowanie wartości → podobne zakupy → podział na części → opis przedmiotu → kryteria oceny → oferty → wybór → umowa.
-          <h3>Pytania edukacyjne</h3>
-          Kiedy podobne zakupy należy analizować łącznie? Jak ocenić jakość poza ceną? Dlaczego opis potrzeb ma znaczenie?
-          <div class="case-links"><a href="https://www.nik.gov.pl/nik-o-korupcji/nik-o-realizacji-zamowien-publicznych.html" target="_blank" rel="noopener noreferrer">Materiał NIK</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="finanse" data-status="historyczna" data-search="jawność przejrzystość sprawozdawczość finanse publiczne budżet dług raport NIK 2016">
-        <div class="case-top"><span class="case-id">SWS-PL-006 · P/15/015</span><span class="case-badge">Materiał historyczny</span></div>
-        <h2>Jawność i przejrzystość sprawozdawczości finansów publicznych</h2>
-        <p>Przypadek systemowy: nawet gdy dokumenty istnieją, obywatel może nie być w stanie odtworzyć, skąd pochodzą środki, na co je przeznaczono i jaką politykę finansują.</p>
-        <div class="case-meta"><span>Finanse państwa</span><span>Dane za 2014 r.</span><span>Publikacja: 21.07.2016</span></div>
-        <div class="case-status"><strong>Status SWS:</strong> historyczny raport systemowy NIK; służy do projektowania standardu danych, nie do oceny obecnego stanu finansów.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co wskazała NIK?</h3>
-          <ul><li>Sprawozdania finansowe były niespójne i trudne do porównania, a część istotnych informacji nie była publikowana.</li><li>Niektóre kategorie „inne” i „pozostałe” utrudniały rozpoznanie przeznaczenia środków.</li><li>Raport wskazywał na potrzebę powiązania wydatków z zadaniami i celami publicznymi.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Budżet → klasyfikacja wydatku → program publiczny → jednostka realizująca → rezultat → sprawozdanie → dane porównawcze.
-          <h3>Pytania edukacyjne</h3>
-          Czy z tabeli budżetowej da się odczytać cel wydatku? Jak łączyć wydatki roczne z programem wieloletnim? Jak oznaczać pozycje zbiorcze?
-          <div class="case-links"><a href="https://www.nik.gov.pl/kontrole/P/15/015/" target="_blank" rel="noopener noreferrer">Karta kontroli P/15/015</a><a href="https://www.nik.gov.pl/aktualnosci/nik-o-jawnosci-i-przejrzystosci-finansow-publicznych.html" target="_blank" rel="noopener noreferrer">Omówienie NIK</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="dobre" data-status="dobra" data-search="dobre praktyki zakupy zamówienia platforma internetowa BIP 21 24 NIK 2018">
-        <div class="case-top"><span class="case-id">SWS-PL-007 · NIK 2018</span><span class="case-badge">Dobra praktyka</span></div>
-        <h2>Zakupy publiczne, które można robić przejrzyściej</h2>
-        <p>Ważny kontrapunkt: kontrola nie musi kończyć się wykrywaniem błędów. Możemy uczyć się z rozwiązań, które ułatwiają konkurencję i dostęp do informacji.</p>
-        <div class="case-meta"><span>21 z 24 jednostek</span><span>Raport za 2018 r.</span><span>Przykład pozytywny</span></div>
-        <div class="case-status good"><strong>Status SWS:</strong> NIK oceniła wydatkowanie w większości badanych jednostek jako racjonalne i zgodne z zasadami gospodarowania środkami publicznymi.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Co warto przenieść do dobrych praktyk?</h3>
-          <ul><li>W 21 z 24 skontrolowanych podmiotów zakupy do ówczesnego limitu 30 tys. euro realizowano racjonalnie i zgodnie z zasadami gospodarowania.</li><li>NIK pozytywnie wskazała internetowe platformy zakupowe, które zwiększały zasięg ogłoszeń i pozwalały poznać rynek.</li><li>Dobrą praktyką było publikowanie zapytań ofertowych w BIP.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Potrzeba zakupu → publiczne zapytanie → liczba odpowiedzi → porównanie ofert → uzasadnienie wyboru → umowa → odbiór.
-          <h3>Uwaga prawna</h3>
-          Wartość 30 tys. euro odnosi się do historycznego okresu i nie jest przedstawiana jako obecny próg prawny.
-          <div class="case-links"><a href="https://www.nik.gov.pl/plik/id%2C20101%2Cvp%2C22721.pdf" target="_blank" rel="noopener noreferrer">Sprawozdanie NIK za 2018 r. (PDF)</a></div>
-        </div></details>
-      </article>
-<article class="case-card jaw-source-card" data-type="obywatele" data-status="ustalenia" data-search="skargi wnioski obywatele sygnały kontrola NIK analiza 2023 3814">
-        <div class="case-top"><span class="case-id">SWS-PL-008 · NIK 2023</span><span class="case-badge">Proces przyjmowania sygnałów</span></div>
-        <h2>Co dzieje się ze zgłoszeniem obywatela?</h2>
-        <p>To modelowy materiał do zaprojektowania pierwszego etapu SWS: zgłoszenie jest sygnałem do analizy, a nie automatycznym potwierdzeniem zarzutu.</p>
-        <div class="case-meta"><span>3 814 spraw</span><span>Rok 2023</span><span>Sprawozdanie NIK</span></div>
-        <div class="case-status good"><strong>Status SWS:</strong> oficjalny opis sposobu kwalifikowania korespondencji przez NIK. To nie jest rejestr winy ani lista potwierdzonych nieprawidłowości.</div>
-        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
-          <h3>Jak NIK opisała obsługę spraw zainicjowanych w 2023 r.?</h3>
-          <ul><li>2 850 spraw (74,7%) zakończyło się udzieleniem indywidualnych wyjaśnień i informacji.</li><li>939 spraw (24,6%) przekazano jednostkom kontrolnym NIK do ewentualnych działań kontrolnych.</li><li>25 spraw (0,7%) przekazano właściwym organom, wskazano właściwy organ lub wnioskowano o wyjaśnienia.</li></ul>
-          <h3>Jakie powiązania testujemy?</h3>
-          Zgłoszenie → klasyfikacja tematu → kompetencje organu → wstępna analiza → dokumenty → decyzja o dalszym trybie → informacja zwrotna.
-          <h3>Najważniejsza lekcja</h3>
-          Większość zgłoszeń wymaga wyjaśnienia lub przekierowania, nie kontroli. System powinien umieć uczciwie zakończyć sprawę bez stygmatyzowania osób, których dotyczy.
-          <div class="case-links"><a href="https://www.nik.gov.pl/plik/id%2C29700.pdf" target="_blank" rel="noopener noreferrer">Sprawozdanie NIK – opis procesu</a><a href="https://www.nik.gov.pl/skargi-i-wnioski/informacje/" target="_blank" rel="noopener noreferrer">Jak zgłosić sprawę do NIK</a></div>
-        </div></details>
-      </article></div>
- <p id="emptyCases" class="jaw-muted jaw-hidden">Nie znaleziono spraw spełniających wybrane kryteria.</p>
 </section>
 <section class="jaw-section jaw-note"><strong>Standard rzetelności SWS</strong>
  <p>Pokazujemy ustalenia zawarte w publicznych dokumentach, a nie domniemania winy. Kontrola, wystąpienie pokontrolne, zawiadomienie, postępowanie i prawomocny wyrok to różne statusy. Wartości i progi historyczne nie są przedstawiane jako aktualne prawo.</p>
  <p>Historia spraw jest dopisywana, nie nadpisywana. Rozróżniamy datę zdarzenia, dokumentu i publikacji. Sprostowania oraz późniejsze wyjaśnienia powinny być widoczne obok wcześniejszych wpisów.</p>
 </section>
-<script>
-(()=>{"use strict";
-const grid=document.getElementById("caseGrid"),cards=[...grid.querySelectorAll(".case-card")];
-const search=document.getElementById("searchCases"),type=document.getElementById("typeFilter"),status=document.getElementById("statusFilter");
-const empty=document.getElementById("emptyCases"),count=document.getElementById("resultCount");
-function filter(){const q=(search.value||"").trim().toLocaleLowerCase("pl");let visible=0;
-cards.forEach(card=>{const ok=(!q||(card.dataset.search+" "+card.textContent).toLocaleLowerCase("pl").includes(q))&&(!type.value||card.dataset.type===type.value)&&(!status.value||card.dataset.status===status.value);card.hidden=!ok;if(ok)visible++;});
-count.textContent=visible+" z "+cards.length+" spraw";empty.classList.toggle("jaw-hidden",visible>0);}
-search.addEventListener("input",filter);type.addEventListener("change",filter);status.addEventListener("change",filter);filter();
-})();
-</script>
+
 </main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
 <script src="assets/visual-rom.js?v=1.8.0" defer></script>
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
