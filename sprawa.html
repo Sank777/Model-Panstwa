@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Pełna karta analityczna sprawy publicznej w Centrum Jawności.">
+<title>Karta sprawy · Centrum Jawności</title>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1"><link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<style>
+.case-wrap{width:min(1100px,100%);margin:1.5rem auto 3rem;padding:0 1rem;color:var(--mp-text)}
+.case-hero,.case-panel{border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface);padding:clamp(1rem,3vw,1.5rem);margin:1rem 0}
+.case-hero{background:linear-gradient(135deg,#102f4b,#102337)}
+.case-kicker,.case-muted{color:var(--mp-muted)}.case-kicker{font-size:.78rem;letter-spacing:.1em;font-weight:800}
+.case-hero h1{font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.15;margin:.45rem 0}
+.case-meta{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.8rem}.case-meta span{border:1px solid var(--mp-border);border-radius:9px;padding:.4rem .6rem;font-size:.85rem}
+.case-stage{border:1px solid var(--mp-border);border-radius:12px;margin:.7rem 0;background:var(--mp-surface2);overflow:hidden}
+.case-stage summary{cursor:pointer;padding:.85rem 1rem;font-weight:800}.case-stage-body{padding:0 1rem 1rem;line-height:1.65}
+.case-stage-body a{overflow-wrap:anywhere}.case-back{display:inline-block;margin:.7rem 0;color:var(--mp-accent);font-weight:750}
+.case-status{padding:.8rem 1rem;border-left:4px solid #d6b45c;background:var(--mp-surface2);border-radius:0 10px 10px 0}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style></head><body data-page-shell="homepage-v1">
+<header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
+<main class="case-wrap"><a class="case-back" href="biblioteka-spraw.html">← Wróć do bazy spraw</a>
+<section class="case-hero"><div class="case-kicker">CENTRUM JAWNOŚCI · KARTA SPRAWY</div><h1 id="caseTitle">Wczytywanie karty…</h1><p id="caseIntro" class="case-muted"></p><div class="case-meta" id="caseMeta"></div></section>
+<div class="case-status" id="caseStatus">Treść pochodzi z materiałów przypisanych do tej karty w bazie spraw. Zakres ustaleń i granice wnioskowania należy czytać łącznie ze źródłami.</div>
+<section class="case-panel"><h2>Etapy i obszary analizy</h2><p class="case-muted">Każdy etap można rozwinąć. Pokazujemy wyłącznie informacje zapisane w karcie źródłowej — brak danych nie jest uzupełniany domysłami.</p><div id="caseStages"><p>Wczytywanie materiału…</p></div></section>
+<section class="case-panel"><h2>Standard dowodowy</h2><p>Ustalenie organu, stanowisko strony, materiał historyczny i hipoteza to różne kategorie. Karta nie przypisuje winy na podstawie samego udziału osoby lub podmiotu w opisywanym procesie.</p></section>
+</main><footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Karta analityczna · wersja robocza</span></footer>
+<script>
+(()=>{"use strict";
+const id=new URLSearchParams(location.search).get("id");
+const title=document.getElementById("caseTitle"),intro=document.getElementById("caseIntro"),meta=document.getElementById("caseMeta"),stages=document.getElementById("caseStages"),status=document.getElementById("caseStatus");
+if(!id||!/^[A-Z0-9-]{5,32}$/.test(id)){title.textContent="Nieprawidłowy identyfikator sprawy";stages.textContent="Wróć do bazy i wybierz kartę.";return;}
+fetch("biblioteka-spraw.html",{credentials:"same-origin"}).then(r=>{if(!r.ok)throw new Error("Nie udało się pobrać bazy spraw");return r.text();}).then(html=>{
+const doc=new DOMParser().parseFromString(html,"text/html");
+const card=[...doc.querySelectorAll(".case-card")].find(el=>el.querySelector(".case-id")?.textContent.trim().split("·")[0].trim()===id);
+if(!card)throw new Error("Nie znaleziono sprawy o identyfikatorze "+id);
+title.textContent=card.querySelector("h2")?.textContent.trim()||id;
+intro.textContent=card.querySelector(":scope>p")?.textContent.trim()||"";
+card.querySelectorAll(".case-meta span").forEach(node=>{const s=document.createElement("span");s.textContent=node.textContent.trim();meta.append(s);});
+const badge=card.querySelector(".case-badge");if(badge)status.textContent="Status źródłowy: "+badge.textContent.trim()+". Status opisuje rodzaj materiału, nie rozstrzyga odpowiedzialności osobistej.";
+const detail=card.querySelector(".case-detail");
+if(!detail){stages.textContent="Ta karta nie zawiera jeszcze rozwiniętej analizy.";return;}
+let group=null,index=0;
+[...detail.children].forEach(node=>{
+if(node.tagName==="H3"){group=document.createElement("details");group.className="case-stage";const summary=document.createElement("summary");summary.textContent=node.textContent.trim();group.append(summary);const body=document.createElement("div");body.className="case-stage-body";group.append(body);stages.append(group);index++;}
+else if(group){const body=group.querySelector(".case-stage-body");if(node.tagName==="A"){const href=node.getAttribute("href")||"";if(/^https?:\/\//i.test(href)){const a=document.createElement("a");a.href=href;a.textContent=node.textContent;a.target="_blank";a.rel="noopener noreferrer";body.append(a);}}
+else body.append(node.cloneNode(true));}
+else stages.append(node.cloneNode(true));
+});
+if(!index){const section=document.createElement("details");section.className="case-stage";section.open=true;const summary=document.createElement("summary");summary.textContent="Materiał i ustalenia";const body=document.createElement("div");body.className="case-stage-body";body.append(detail.cloneNode(true));section.append(summary,body);stages.replaceChildren(section);}
+}).catch(error=>{title.textContent="Nie udało się otworzyć karty";intro.textContent=error.message;stages.textContent="Wróć do bazy spraw i spróbuj ponownie.";});
+})();
+</script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</body></html>
