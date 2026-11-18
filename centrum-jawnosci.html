@@ -1,4 +1,35 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Fikcyjny scenariusz edukacyjny pokazujący rejestr decyzji, kompetencji i nadzoru."><title>Jawność decyzji urzędniczych · Model Państwa</title><link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><style>body{margin:0;font:16px/1.6 system-ui,sans-serif}.hero{padding:2.7rem max(1rem,calc((100% - 1100px)/2));background:linear-gradient(130deg,#173d2b,#246b45);color:white}.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:.4rem 0}.hero p{max-width:850px;color:#e1efe5}main{max-width:1100px;margin:1.3rem auto 3rem;padding:0 1rem}.panel{background:var(--mp-surface);border:1px solid var(--mp-border);border-radius:16px;padding:1.2rem;margin:1rem 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}.card{background:var(--mp-surface2);border:1px solid var(--mp-border);border-radius:12px;padding:1rem}.tag{display:inline-block;border:1px solid var(--mp-border);border-radius:99px;padding:.2rem .65rem;color:var(--mp-accent);font-size:.76rem;font-weight:750}.notice{border-left:4px solid #d6b45c;background:var(--mp-surface2);padding:1rem;border-radius:0 10px 10px 0;margin:1rem 0}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:.65rem;border-bottom:1px solid var(--mp-border)}th{color:var(--mp-muted)}a{color:var(--mp-accent);font-weight:700}</style>  <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Fikcyjny scenariusz edukacyjny pokazujący rejestr decyzji, kompetencji i nadzoru."><title>Jawność decyzji urzędniczych · Model Państwa</title><link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><style>body{margin:0;font:16px/1.6 system-ui,sans-serif}.hero{padding:2.7rem max(1rem,calc((100% - 1100px)/2));background:linear-gradient(130deg,#173d2b,#246b45);color:white}.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;margin:.4rem 0}.hero p{max-width:850px;color:#e1efe5}main{max-width:1100px;margin:1.3rem auto 3rem;padding:0 1rem}.panel{background:var(--mp-surface);border:1px solid var(--mp-border);border-radius:16px;padding:1.2rem;margin:1rem 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem}.card{background:var(--mp-surface2);border:1px solid var(--mp-border);border-radius:12px;padding:1rem}.tag{display:inline-block;border:1px solid var(--mp-border);border-radius:99px;padding:.2rem .65rem;color:var(--mp-accent);font-size:.76rem;font-weight:750}.notice{border-left:4px solid #d6b45c;background:var(--mp-surface2);padding:1rem;border-radius:0 10px 10px 0;margin:1rem 0}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:.65rem;border-bottom:1px solid var(--mp-border)}th{color:var(--mp-muted)}a{color:var(--mp-accent);font-weight:700}
+/* Karty rzeczywistych spraw SWS — styl współdzielony z biblioteką */
+.lib-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+.case-card{padding:1rem;min-width:0;display:flex;flex-direction:column;gap:.55rem}
+.case-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap}
+.case-id{font-size:.73rem;letter-spacing:.07em;font-weight:800;color:#9db9d3}
+.case-badge{display:inline-flex;align-items:center;padding:.18rem .55rem;border-radius:99px;border:1px solid #6485a1;font-size:.72rem;font-weight:750;color:#dceaf6}
+.case-card h2{font-size:1.12rem;line-height:1.3;margin:0;color:#fff}
+.case-card p{margin:.1rem 0;color:var(--lib-muted);font-size:.91rem}
+.case-meta{display:flex;gap:.4rem;flex-wrap:wrap}
+.case-meta span{font-size:.74rem;color:#d4e1ed;background:#ffffff0c;border:1px solid var(--lib-line);border-radius:7px;padding:.18rem .45rem}
+.case-status{padding:.7rem .8rem;border-radius:9px;background:#ffffff0b;border-left:3px solid #8db9df;font-size:.84rem;color:#e2edf7}
+.case-status.good{border-left-color:#80d6a0}.case-status.warn{border-left-color:#edc76d}
+.case-card details{margin-top:.25rem;border-top:1px solid var(--lib-line);padding-top:.65rem}
+.case-card summary{cursor:pointer;color:#a8e3be;font-weight:750}
+.case-detail{padding-top:.65rem;font-size:.88rem;color:#d9e5ef}
+.case-detail h3{font-size:.92rem;margin:.9rem 0 .3rem;color:#fff}
+.case-detail ul{padding-left:1.2rem;margin:.35rem 0}
+.case-detail li{margin:.22rem 0}
+.case-links{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:.8rem}
+.case-links a{color:#a8e3be;font-weight:750;text-decoration:underline;text-underline-offset:3px}
+.lib-note{padding:.9rem 1rem;border:1px solid #9e8447;border-radius:11px;background:#3b321d;color:#f5e8bd;font-size:.88rem}
+.lib-empty{padding:1.4rem;text-align:center;color:var(--lib-muted);border:1px dashed var(--lib-line);border-radius:12px}
+
+.jaw-source-card{background:var(--mp-surface);border-color:var(--mp-border)}
+.jaw-source-card h2{color:var(--mp-text)}
+.jaw-source-card p,.jaw-source-card .case-detail{color:var(--mp-muted)}
+.jaw-source-card .case-meta span{color:var(--mp-muted);border-color:var(--mp-border);background:var(--mp-surface2)}
+.jaw-source-card .case-status{color:var(--mp-text);background:var(--mp-surface2)}
+.jaw-source-card .case-links a{color:var(--mp-accent)}
+@media(max-width:760px){.jaw-source-grid{grid-template-columns:1fr}}
+</style>  <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
 <link rel="preload" as="image" href="assets/menu/leon-hero.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
 <link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0">
@@ -68,58 +99,175 @@
  <div class="jaw-note"><strong>Jak czytać dane?</strong><p class="jaw-muted">Każda informacja ma źródło i status weryfikacji. Brak danych nie oznacza braku zdarzenia, a szacunek nie jest potwierdzoną stratą.</p><span class="jaw-tag">Scenariusz edukacyjny</span></div>
 </section>
 <section class="jaw-section jaw-panel" aria-labelledby="sws-library-title"><div class="jaw-case"><div><span class="jaw-tag">NOWY MODUŁ · SYSTEM WIDZENIA SPRAWY</span><h2 id="sws-library-title">Biblioteka spraw publicznych</h2><p class="jaw-muted">Dołączamy rzeczywiste materiały NIK i RIO, dobre praktyki oraz scenariusze edukacyjne. Każda karta rozdziela ustalenia źródłowe, kontekst, wyjaśnienia i wnioski — bez pochopnego przypisywania winy.</p></div><a class="jaw-btn" href="biblioteka-spraw.html">Otwórz bibliotekę spraw →</a></div></section>
-<div class="notice"><strong>DEMONSTRACJA – DANE FIKCYJNE.</strong> Poniższe postacie, nazwy, kwoty, dokumenty i zdarzenia są wymyślone. Nie opisują rzeczywistych osób, instytucji ani spraw.</div>
-<section class="jaw-section" aria-label="Podsumowanie rejestru"><div class="jaw-stats">
- <div class="jaw-stat"><span class="jaw-muted">Wszystkie sprawy</span><strong>4</strong><span class="jaw-muted">rekordy demonstracyjne</span></div>
- <div class="jaw-stat"><span class="jaw-muted">W toku</span><strong>3</strong><span class="jaw-muted">wymaga dalszych działań</span></div>
- <div class="jaw-stat"><span class="jaw-muted">W kontroli</span><strong>1</strong><span class="jaw-muted">trwa weryfikacja</span></div>
- <div class="jaw-stat"><span class="jaw-muted">Zamknięte</span><strong>0</strong><span class="jaw-muted">w tym zestawie</span></div>
-</div></section>
-<section class="jaw-section"><h2>Rejestr spraw</h2><div class="jaw-search" style="margin-bottom:.7rem"><select class="jaw-filter" id="stageFilter" aria-label="Filtr etapu"><option value="">Wszystkie etapy</option><option>Analiza</option><option>Realizacja</option><option>Kontrola</option><option>Rozliczenie</option></select><select class="jaw-filter" id="riskFilter" aria-label="Filtr ryzyka"><option value="">Każdy poziom ryzyka</option><option>Do ustalenia</option><option>Podwyższone</option></select></div>
- <div class="jaw-grid" id="caseList">
-  <article class="jaw-card jaw-case" data-case="DEC-HIST-001 Wał który miał ocalić miasto powódź decyzja kryzysowa odpowiedzialność" data-stage="Analiza" data-risk="Do ustalenia"><div><span class="jaw-tag">DEC-HIST-001 · Scenariusz historyczny</span><h3>Wał, który miał ocalić miasto</h3><p class="jaw-muted">Inspiracja: powódź 1997 r. · fikcyjna rekonstrukcja problemu decyzyjnego</p><p>Czy trudna decyzja ratunkowa była konieczna, dobrze przygotowana i uczciwie rozliczona? Pełna oś czasu, dokumenty scenariusza, hipotezy i analiza.</p></div><a class="jaw-btn" href="sprawy/dec-hist-001.html">Otwórz pełną kartę →</a></article>
-  <article class="jaw-card jaw-case" data-case="DEC-HIST-002 Projekt ustawy i człowiek z obietnicą afera Rywina wpływ lobbing prawo" data-stage="Analiza" data-risk="Do ustalenia"><div><span class="jaw-tag">DEC-HIST-002 · Scenariusz historyczny</span><h3>Projekt ustawy i człowiek z obietnicą</h3><p class="jaw-muted">Inspiracja: afera Rywina 2002–2004 · fikcyjny scenariusz</p><p>Gdzie kończy się legalne reprezentowanie interesów, a zaczyna nieuprawniony wpływ na prawo? Pełna chronologia, materiał, hipotezy i analiza.</p></div><a class="jaw-btn" href="sprawy/dec-hist-002.html">Otwórz pełną kartę →</a></article>
- </div><p id="noCases" class="jaw-muted jaw-hidden">Nie znaleziono spraw spełniających wybrane kryteria.</p>
-</section>
-<section class="jaw-section jaw-panel" id="caseDetail" aria-labelledby="detailTitle">
- <div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center"><div><span class="jaw-tag">KARTA SPRAWY · DEC-DEMO-014</span><h2 id="detailTitle">Zmiana organizacji transportu publicznego</h2><p class="jaw-muted">Pełny przebieg od zgłoszenia do kontroli i rozliczenia</p></div><span class="jaw-tag">Status: kontrola wykonania</span></div>
- <div class="jaw-kv" style="margin:1rem 0">
-  <div><small>Identyfikator sprawy</small><strong>DEC-DEMO-014</strong></div><div><small>Powiązanie finansowe</small><strong>REL-DEMO-014</strong></div>
-  <div><small>Właściwy organ</small><strong>Fikcyjny Zarząd Miasta Brzegowo</strong></div><div><small>Aktualny etap</small><strong>Ocena pilotażu</strong></div>
-  <div><small>Cel</small><strong>Poprawa dostępności transportu</strong></div><div><small>Ostatnia aktualizacja</small><strong>Przykładowy wpis DEMO</strong></div>
- </div>
- <div class="jaw-layout">
-  <div><h3>Przebieg sprawy – oś czasu</h3><ol class="jaw-timeline">
-   <li><strong>1. Zgłoszenie problemu</strong><p class="jaw-muted">Rozpoznano przeciążenie dwóch linii. Źródło: fikcyjne zestawienie zgłoszeń pasażerów.</p></li>
-   <li><strong>2. Analiza i warianty</strong><p class="jaw-muted">Porównano zwiększenie częstotliwości, zmianę tras i pilotaż. Oceniono koszty i dostępność.</p></li>
-   <li><strong>3. Decyzja o pilotażu</strong><p class="jaw-muted">Wybór wariantu wymaga wskazania podstawy kompetencyjnej, uzasadnienia i osoby zatwierdzającej.</p></li>
-   <li><strong>4. Realizacja</strong><p class="jaw-muted">Monitorowanie punktualności, liczby pasażerów, kosztów i skarg.</p></li>
-   <li><strong>5. Kontrola i rozliczenie</strong><p class="jaw-muted">Porównanie wyników z wartościami bazowymi; zalecenia i działania naprawcze pozostają do uzupełnienia.</p></li>
-  </ol></div>
-  <aside><h3>Etap i postęp</h3><p><span class="jaw-tag">Kontrola wykonania</span></p><div class="jaw-bar"><span style="width:68%"></span></div><p class="jaw-muted">68% – wskaźnik przykładowy, nie rzeczywisty pomiar.</p><h3>Co dalej?</h3><ul><li>Uzupełnić wyniki pilotażu.</li><li>Zweryfikować koszty.</li><li>Opublikować protokół kontroli.</li><li>Rozliczyć zalecenia.</li></ul></aside>
+<section class="jaw-section" aria-label="Podsumowanie rejestru">
+ <div class="jaw-stats">
+  <div class="jaw-stat"><span class="jaw-muted">Sprawy z dokumentów publicznych</span><strong>8</strong><span class="jaw-muted">karty oparte na źródłach NIK i RIO</span></div>
+  <div class="jaw-stat"><span class="jaw-muted">Ustalenia organów</span><strong>5</strong><span class="jaw-muted">materiały z wynikami kontroli</span></div>
+  <div class="jaw-stat"><span class="jaw-muted">Materiały historyczne</span><strong>2</strong><span class="jaw-muted">z zachowaniem kontekstu czasu</span></div>
+  <div class="jaw-stat"><span class="jaw-muted">Dobre praktyki</span><strong>1</strong><span class="jaw-muted">przykład pozytywnego działania</span></div>
  </div>
 </section>
-<section class="jaw-section jaw-grid">
- <article class="jaw-panel"><h2>Uczestnicy i odpowiedzialność</h2><p class="jaw-muted">Funkcje są fikcyjne; nie przypisujemy winy bez ustaleń.</p><div class="jaw-table-wrap"><table class="jaw-table"><thead><tr><th>Rola</th><th>Zakres</th><th>Status informacji</th></tr></thead><tbody><tr><td>Organ decyzyjny</td><td>Zatwierdzenie wariantu</td><td>Do potwierdzenia dokumentem</td></tr><tr><td>Wydział mobilności</td><td>Analiza i przygotowanie</td><td>Opis scenariusza DEMO</td></tr><tr><td>Zespół pilotażu</td><td>Realizacja i pomiary</td><td>Do uzupełnienia</td></tr><tr><td>Kontrola wewnętrzna</td><td>Weryfikacja wykonania</td><td>Planowana w scenariuszu</td></tr></tbody></table></div></article>
- <article class="jaw-panel"><h2>Straty i finanse</h2><p class="jaw-muted">Nie utożsamiamy kosztu projektu ze stratą publiczną.</p><div class="jaw-kv"><div><small>Budżet planowany</small><strong>Do uzupełnienia</strong></div><div><small>Wydatki poniesione</small><strong>Do uzupełnienia</strong></div><div><small>Strata potwierdzona</small><strong>Brak ustaleń</strong></div><div><small>Środki odzyskane</small><strong>Brak ustaleń</strong></div></div><p class="jaw-muted">Oddzielne kategorie: plan, wykonanie, koszt opóźnień, strata potwierdzona, ryzyko szacowane i odzyskane środki.</p><a href="inwestycje.html">Otwórz powiązany rejestr wydatków →</a></article>
+<section class="jaw-section" aria-labelledby="realCasesTitle">
+ <h2 id="realCasesTitle">Rejestr spraw publicznych</h2>
+ <p class="jaw-muted">Karty opracowano na podstawie opublikowanych dokumentów NIK i RIO. Każda zawiera zakres źródła, ustalenia, kontekst i granice wnioskowania.</p>
+ <div class="lib-controls" style="display:grid;grid-template-columns:minmax(220px,1fr) repeat(2,minmax(150px,.32fr));gap:.6rem;margin:.8rem 0">
+  <input id="searchCases" type="search" placeholder="Szukaj sprawy, instytucji, kwoty lub pojęcia…" aria-label="Szukaj spraw">
+  <select id="typeFilter" aria-label="Filtr rodzaju sprawy"><option value="">Wszystkie rodzaje</option><option value="inwestycje">Inwestycje</option><option value="finanse">Finanse</option><option value="zamowienia">Zamówienia</option><option value="informacja">Dostęp do informacji</option><option value="obywatele">Sygnały obywateli</option><option value="dobre">Dobre praktyki</option></select>
+  <select id="statusFilter" aria-label="Filtr statusu"><option value="">Wszystkie statusy</option><option value="ustalenia">Ustalenia organu</option><option value="historyczna">Materiał historyczny</option><option value="dobra">Dobra praktyka</option></select>
+ </div>
+ <p class="jaw-muted" id="resultCount" aria-live="polite">8 z 8 spraw</p>
+ <div class="jaw-grid jaw-source-grid" id="caseGrid"><article class="case-card jaw-source-card" data-type="inwestycje" data-status="ustalenia" data-search="mosty inwestycje drogi dokumentacja odbiory nadzór techniczny NIK P/25/016 2026">
+        <div class="case-top"><span class="case-id">SWS-PL-001 · P/25/016</span><span class="case-badge">Ustalenia NIK</span></div>
+        <h2>Inwestycje mostowe – dokumentacja, nadzór i odbiory</h2>
+        <p>Kontrola NIK obejmowała inwestycje w ośmiu jednostkach publicznych, w tym siedmiu samorządach i GDDKiA. To dobry test połączenia dokumentacji technicznej, decyzji, wykonawców i bezpieczeństwa użytkowników.</p>
+        <div class="case-meta"><span>Transport</span><span>2021–I poł. 2025</span><span>Publikacja: 02.06.2026</span></div>
+        <div class="case-status warn"><strong>Status SWS:</strong> opublikowane ustalenia kontroli NIK. Nie jest to orzeczenie o odpowiedzialności karnej konkretnych osób.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co ustaliła kontrola?</h3>
+          <ul><li>W pięciu inwestycjach dokumentacja projektowa była niekompletna lub nieprawidłowa.</li><li>W sześciu z ośmiu jednostek dokumentacja procesu budowlanego była prowadzona nierzetelnie.</li><li>Przy oględzinach czterech z dziewięciu inwestycji stwierdzono nieprawidłowy stan techniczny wybranych elementów.</li><li>W dwóch z ośmiu jednostek stwierdzono naruszenia przepisów zamówień publicznych.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Projekt → umowa z projektantem → decyzje administracyjne → wykonawca → nadzór inwestorski → dziennik budowy → badania materiałów → odbiór → utrzymanie obiektu.
+          <h3>Czego nie wolno wywnioskować?</h3>
+          Samo stwierdzenie błędów dokumentacyjnych lub technicznych nie dowodzi korupcji ani osobistej winy. Potrzebne są ustalenia właściwych organów i analiza konkretnej odpowiedzialności.
+          <h3>Pytania edukacyjne</h3>
+          Kto sprawdza kompletność projektu? Jak udokumentować badania materiałów? Co powinno poprzedzać odbiór końcowy?
+          <div class="case-links"><a href="https://www.nik.gov.pl/aktualnosci/inwestycje-mostowe-obarczone-wieloma-bledami.html" target="_blank" rel="noopener noreferrer">Komunikat NIK</a><a href="https://www.nik.gov.pl/kontrole/P/25/016/" target="_blank" rel="noopener noreferrer">Karta kontroli P/25/016</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="inwestycje" data-status="ustalenia" data-search="drogi Polski Ład koszty wydatki umowy kary odbiory rozliczenia NIK P/24/019">
+        <div class="case-top"><span class="case-id">SWS-PL-002 · P/24/019</span><span class="case-badge">Ustalenia NIK</span></div>
+        <h2>Inwestycje drogowe z Rządowego Funduszu Polski Ład</h2>
+        <p>Przykład pełnego śledzenia inwestycji: od przygotowania i wyboru wykonawcy po nadzór, odbiór oraz rozliczenie publicznych pieniędzy.</p>
+        <div class="case-meta"><span>7 jednostek JST</span><span>107,634 mln zł wartości</span><span>Raport: 10.2024</span></div>
+        <div class="case-status warn"><strong>Status SWS:</strong> kontrola NIK zakończona raportem. Wykonanie zaleceń wymaga osobnego śledzenia.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co ustaliła NIK?</h3>
+          <ul><li>Kontrolą objęto inwestycje o łącznej wartości 107,634 mln zł, z dofinansowaniem 93,2283 mln zł.</li><li>NIK wykazała 15,7416 mln zł wydatków z naruszeniem prawa oraz 2,1213 mln zł nienaliczonych kar umownych – łącznie 16,6% wartości kontrolowanych inwestycji.</li><li>W trzech jednostkach stwierdzono odbiór i zapłatę za roboty faktycznie niezrealizowane lub będące w trakcie realizacji.</li><li>Mimo nieprawidłowości osiągnięto efekt rzeczowy na około 59 km dróg.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Źródło finansowania → budżet JST → postępowanie → oferta → umowa → zmiany zakresu → faktury → odbiory → kary → wnioski pokontrolne.
+          <h3>Granice wniosku</h3>
+          Kwoty dotyczą łącznej próby kontrolnej siedmiu jednostek. Nie wolno przypisywać ich jednej gminie, wykonawcy ani osobie.
+          <h3>Pytania edukacyjne</h3>
+          Jak porównywać plan i wykonanie? Kiedy nalicza się karę umowną? Jak udowodnić, że zapłacono wyłącznie za faktycznie wykonane roboty?
+          <div class="case-links"><a href="https://www.nik.gov.pl/kontrole/P/24/019/" target="_blank" rel="noopener noreferrer">Karta kontroli NIK</a><a href="https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz,kin~p_24_019_202408261448581724676538~01,typ,kk.pdf" target="_blank" rel="noopener noreferrer">Pełny raport PDF</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="finanse" data-status="ustalenia" data-search="Łagów gmina RIO finanse dług pożyczka odsetki budżet zobowiązania 2024">
+        <div class="case-top"><span class="case-id">SWS-PL-003 · RIO Kielce</span><span class="case-badge">Raport RIO</span></div>
+        <h2>Gospodarka finansowa Miasta i Gminy Łagów</h2>
+        <p>Raport RIO pozwala prześledzić budżet, zobowiązania, pożyczki krótkoterminowe, odsetki oraz wpływ decyzji finansowych na kolejne lata.</p>
+        <div class="case-meta"><span>Finanse samorządu</span><span>2021–2023</span><span>Raport: 13.09.2024</span></div>
+        <div class="case-status warn"><strong>Status SWS:</strong> ustalenia zawarte w raporcie RIO. Karta nie rozstrzyga odpowiedzialności osobistej ani ewentualnych dalszych postępowań.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co wynika z raportu?</h3>
+          <ul><li>Na 31.12.2023 r. niespłacone zobowiązanie z pożyczki krótkoterminowej wynosiło 3 362 316,69 zł.</li><li>Raport wskazał naliczone odsetki karne 76 636,31 zł według stanu na 19.02.2024 r.</li><li>Raport opisywał także zobowiązania wymagalne i działania podejmowane mimo negatywnych opinii RIO dotyczących dokumentów budżetowych.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Uchwała budżetowa → WPF → opinia RIO → upoważnienie do zaciągnięcia zobowiązania → umowa pożyczki → spłata → odsetki → korekta planu finansowego.
+          <h3>Prawo do wyjaśnień</h3>
+          Uchwała RIO wskazuje możliwość wniesienia przez organy JST zastrzeżeń do raportu w terminie 30 dni. W tej karcie nie przesądzamy, czy i z jakim skutkiem skorzystano z tego uprawnienia.
+          <h3>Pytania edukacyjne</h3>
+          Czym różni się deficyt przejściowy od strukturalnego? Jakie upoważnienie jest potrzebne do zaciągnięcia zobowiązania? Jak odsetki wpływają na budżet kolejnego roku?
+          <div class="case-links"><a href="https://bip.kielce.rio.gov.pl/temp/zdjecia_art/4401/%C5%81ag%C3%B3w%202024.pdf" target="_blank" rel="noopener noreferrer">Raport RIO – pełny dokument</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="informacja" data-status="ustalenia" data-search="dostęp informacja publiczna BIP samorząd dokumenty głosowania sesje skargi NIK 2022">
+        <div class="case-top"><span class="case-id">SWS-PL-004 · NIK</span><span class="case-badge">Kontrola NIK</span></div>
+        <h2>Dostęp do informacji publicznej w samorządach</h2>
+        <p>Przypadek bliski codziennemu obywatelowi: czy urząd publikuje dokumenty, wyniki kontroli, głosowania radnych, nagrania sesji i aktualne dane o majątku?</p>
+        <div class="case-meta"><span>16 JST</span><span>Kontrola 2020–2022</span><span>Publikacja: 22.06.2022</span></div>
+        <div class="case-status"><strong>Status SWS:</strong> opublikowane wyniki kontroli. NIK wskazała zarówno nieprawidłowości, jak i to, że większość obowiązków realizowano prawidłowo.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co ustaliła NIK?</h3>
+          <ul><li>Kontrolą objęto 16 JST: 4 urzędy marszałkowskie, 4 starostwa i 8 urzędów gmin.</li><li>W siedmiu jednostkach przyjęto regulacje ograniczające dostęp do informacji publicznej.</li><li>W 12 jednostkach nie udostępniono wymaganej dokumentacji kontroli; w 11 jednostkach brakowało łącznie 78 nagrań sesji organów stanowiących.</li><li>Jednocześnie NIK oceniła, że większość obowiązków z zakresu udostępniania informacji publicznej wykonywano zgodnie z prawem i rzetelnie.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Informacja publiczna → BIP → metadane → autor i data publikacji → dokument źródłowy → wniosek obywatela → odpowiedź → ewentualna skarga do sądu administracyjnego.
+          <h3>Pytania edukacyjne</h3>
+          Co powinno znaleźć się w BIP? Jak rozpoznać brak aktualności? Kiedy obywatel może złożyć wniosek o informację?
+          <div class="case-links"><a href="https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/dostep-do-informacji-publicznej-2023.html" target="_blank" rel="noopener noreferrer">Wyniki kontroli NIK</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="zamowienia" data-status="historyczna" data-search="zamówienia publiczne przetargi konkurencja kryteria ceny dzielenie zamówień NIK 2015">
+        <div class="case-top"><span class="case-id">SWS-PL-005 · NIK</span><span class="case-badge">Materiał historyczny</span></div>
+        <h2>Zamówienia publiczne – konkurencja i kryteria wyboru</h2>
+        <p>Starsza kontrola pokazująca, dlaczego samo sprawdzenie ceny nie wystarcza i dlaczego warto analizować planowanie oraz łączenie podobnych zamówień.</p>
+        <div class="case-meta"><span>13 jednostek</span><span>2012–I poł. 2014</span><span>Publikacja: 15.07.2015</span></div>
+        <div class="case-status"><strong>Status SWS:</strong> historyczne ustalenia NIK. Nie stosujemy dawnych progów i przepisów jako aktualnego prawa.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co ustaliła NIK?</h3>
+          <ul><li>13 jednostek zleciło około 14 tys. usług o wartości ponad 2,147 mld zł w badanym okresie.</li><li>Większość zamówień udzielono zgodnie z przepisami.</li><li>W dwóch jednostkach stwierdzono nieuzasadniony podział zamówień.</li><li>Dodatkowe kryteria poza ceną zastosowano w 60 zamówieniach, około 2% badanej liczby.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Plan zamówień → szacowanie wartości → podobne zakupy → podział na części → opis przedmiotu → kryteria oceny → oferty → wybór → umowa.
+          <h3>Pytania edukacyjne</h3>
+          Kiedy podobne zakupy należy analizować łącznie? Jak ocenić jakość poza ceną? Dlaczego opis potrzeb ma znaczenie?
+          <div class="case-links"><a href="https://www.nik.gov.pl/nik-o-korupcji/nik-o-realizacji-zamowien-publicznych.html" target="_blank" rel="noopener noreferrer">Materiał NIK</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="finanse" data-status="historyczna" data-search="jawność przejrzystość sprawozdawczość finanse publiczne budżet dług raport NIK 2016">
+        <div class="case-top"><span class="case-id">SWS-PL-006 · P/15/015</span><span class="case-badge">Materiał historyczny</span></div>
+        <h2>Jawność i przejrzystość sprawozdawczości finansów publicznych</h2>
+        <p>Przypadek systemowy: nawet gdy dokumenty istnieją, obywatel może nie być w stanie odtworzyć, skąd pochodzą środki, na co je przeznaczono i jaką politykę finansują.</p>
+        <div class="case-meta"><span>Finanse państwa</span><span>Dane za 2014 r.</span><span>Publikacja: 21.07.2016</span></div>
+        <div class="case-status"><strong>Status SWS:</strong> historyczny raport systemowy NIK; służy do projektowania standardu danych, nie do oceny obecnego stanu finansów.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co wskazała NIK?</h3>
+          <ul><li>Sprawozdania finansowe były niespójne i trudne do porównania, a część istotnych informacji nie była publikowana.</li><li>Niektóre kategorie „inne” i „pozostałe” utrudniały rozpoznanie przeznaczenia środków.</li><li>Raport wskazywał na potrzebę powiązania wydatków z zadaniami i celami publicznymi.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Budżet → klasyfikacja wydatku → program publiczny → jednostka realizująca → rezultat → sprawozdanie → dane porównawcze.
+          <h3>Pytania edukacyjne</h3>
+          Czy z tabeli budżetowej da się odczytać cel wydatku? Jak łączyć wydatki roczne z programem wieloletnim? Jak oznaczać pozycje zbiorcze?
+          <div class="case-links"><a href="https://www.nik.gov.pl/kontrole/P/15/015/" target="_blank" rel="noopener noreferrer">Karta kontroli P/15/015</a><a href="https://www.nik.gov.pl/aktualnosci/nik-o-jawnosci-i-przejrzystosci-finansow-publicznych.html" target="_blank" rel="noopener noreferrer">Omówienie NIK</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="dobre" data-status="dobra" data-search="dobre praktyki zakupy zamówienia platforma internetowa BIP 21 24 NIK 2018">
+        <div class="case-top"><span class="case-id">SWS-PL-007 · NIK 2018</span><span class="case-badge">Dobra praktyka</span></div>
+        <h2>Zakupy publiczne, które można robić przejrzyściej</h2>
+        <p>Ważny kontrapunkt: kontrola nie musi kończyć się wykrywaniem błędów. Możemy uczyć się z rozwiązań, które ułatwiają konkurencję i dostęp do informacji.</p>
+        <div class="case-meta"><span>21 z 24 jednostek</span><span>Raport za 2018 r.</span><span>Przykład pozytywny</span></div>
+        <div class="case-status good"><strong>Status SWS:</strong> NIK oceniła wydatkowanie w większości badanych jednostek jako racjonalne i zgodne z zasadami gospodarowania środkami publicznymi.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Co warto przenieść do dobrych praktyk?</h3>
+          <ul><li>W 21 z 24 skontrolowanych podmiotów zakupy do ówczesnego limitu 30 tys. euro realizowano racjonalnie i zgodnie z zasadami gospodarowania.</li><li>NIK pozytywnie wskazała internetowe platformy zakupowe, które zwiększały zasięg ogłoszeń i pozwalały poznać rynek.</li><li>Dobrą praktyką było publikowanie zapytań ofertowych w BIP.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Potrzeba zakupu → publiczne zapytanie → liczba odpowiedzi → porównanie ofert → uzasadnienie wyboru → umowa → odbiór.
+          <h3>Uwaga prawna</h3>
+          Wartość 30 tys. euro odnosi się do historycznego okresu i nie jest przedstawiana jako obecny próg prawny.
+          <div class="case-links"><a href="https://www.nik.gov.pl/plik/id%2C20101%2Cvp%2C22721.pdf" target="_blank" rel="noopener noreferrer">Sprawozdanie NIK za 2018 r. (PDF)</a></div>
+        </div></details>
+      </article>
+<article class="case-card jaw-source-card" data-type="obywatele" data-status="ustalenia" data-search="skargi wnioski obywatele sygnały kontrola NIK analiza 2023 3814">
+        <div class="case-top"><span class="case-id">SWS-PL-008 · NIK 2023</span><span class="case-badge">Proces przyjmowania sygnałów</span></div>
+        <h2>Co dzieje się ze zgłoszeniem obywatela?</h2>
+        <p>To modelowy materiał do zaprojektowania pierwszego etapu SWS: zgłoszenie jest sygnałem do analizy, a nie automatycznym potwierdzeniem zarzutu.</p>
+        <div class="case-meta"><span>3 814 spraw</span><span>Rok 2023</span><span>Sprawozdanie NIK</span></div>
+        <div class="case-status good"><strong>Status SWS:</strong> oficjalny opis sposobu kwalifikowania korespondencji przez NIK. To nie jest rejestr winy ani lista potwierdzonych nieprawidłowości.</div>
+        <details><summary>Otwórz kartę i analizę</summary><div class="case-detail">
+          <h3>Jak NIK opisała obsługę spraw zainicjowanych w 2023 r.?</h3>
+          <ul><li>2 850 spraw (74,7%) zakończyło się udzieleniem indywidualnych wyjaśnień i informacji.</li><li>939 spraw (24,6%) przekazano jednostkom kontrolnym NIK do ewentualnych działań kontrolnych.</li><li>25 spraw (0,7%) przekazano właściwym organom, wskazano właściwy organ lub wnioskowano o wyjaśnienia.</li></ul>
+          <h3>Jakie powiązania testujemy?</h3>
+          Zgłoszenie → klasyfikacja tematu → kompetencje organu → wstępna analiza → dokumenty → decyzja o dalszym trybie → informacja zwrotna.
+          <h3>Najważniejsza lekcja</h3>
+          Większość zgłoszeń wymaga wyjaśnienia lub przekierowania, nie kontroli. System powinien umieć uczciwie zakończyć sprawę bez stygmatyzowania osób, których dotyczy.
+          <div class="case-links"><a href="https://www.nik.gov.pl/plik/id%2C29700.pdf" target="_blank" rel="noopener noreferrer">Sprawozdanie NIK – opis procesu</a><a href="https://www.nik.gov.pl/skargi-i-wnioski/informacje/" target="_blank" rel="noopener noreferrer">Jak zgłosić sprawę do NIK</a></div>
+        </div></details>
+      </article></div>
+ <p id="emptyCases" class="jaw-muted jaw-hidden">Nie znaleziono spraw spełniających wybrane kryteria.</p>
 </section>
-<section class="jaw-section jaw-grid">
- <article class="jaw-panel"><h2>Wiedza, źródła i dowody</h2><div class="jaw-evidence"><div><span>Opis problemu</span><span class="jaw-tag">DEMO</span></div><div><span>Analiza wariantów</span><span class="jaw-tag">Do uzupełnienia</span></div><div><span>Podstawa decyzji</span><span class="jaw-tag">Do weryfikacji</span></div><div><span>Wyniki pilotażu</span><span class="jaw-tag">Brak danych</span></div></div><p class="jaw-muted">Statusy informacji: potwierdzona dokumentem, potwierdzona niezależnie, wymaga weryfikacji, sporna, nieznana. Każdy wpis docelowo otrzyma autora, datę, źródło i historię zmian.</p></article>
- <article class="jaw-panel"><h2>Organy kontrolujące</h2><div class="jaw-evidence"><div><span>Kontrola wewnętrzna</span><span class="jaw-tag">Etap realizacji</span></div><div><span>Audyt / nadzór kierowniczy</span><span class="jaw-tag">Zakres do ustalenia</span></div><div><span>RIO / NIK / UZP</span><span class="jaw-tag">Według kompetencji</span></div></div><p class="jaw-muted">Dla każdej kontroli rejestrujemy podstawę kompetencji, zakres, daty, ustalenia, zalecenia, odpowiedź kontrolowanego i wykonanie zaleceń. Żaden organ nie jest automatycznie właściwy w każdej sprawie.</p></article>
+<section class="jaw-section jaw-note"><strong>Standard rzetelności SWS</strong>
+ <p>Pokazujemy ustalenia zawarte w publicznych dokumentach, a nie domniemania winy. Kontrola, wystąpienie pokontrolne, zawiadomienie, postępowanie i prawomocny wyrok to różne statusy. Wartości i progi historyczne nie są przedstawiane jako aktualne prawo.</p>
+ <p>Historia spraw jest dopisywana, nie nadpisywana. Rozróżniamy datę zdarzenia, dokumentu i publikacji. Sprostowania oraz późniejsze wyjaśnienia powinny być widoczne obok wcześniejszych wpisów.</p>
 </section>
-<section class="jaw-section jaw-panel"><h2>Mapa odpowiedzialności i powiązań</h2><p>Sprawa może łączyć decyzję, finansowanie, zamówienie, umowę, wykonanie, kontrolę i działania naprawcze. Każdy element ma własny identyfikator, a relacje prowadzą do powiązanych kart bez mieszania odpowiedzialności.</p><div class="jaw-grid"><div class="jaw-card"><strong>DEC-DEMO-014</strong><p class="jaw-muted">Decyzja</p></div><div class="jaw-card"><strong>REL-DEMO-014</strong><p class="jaw-muted">Powiązanie</p></div><div class="jaw-card"><strong>INV-DEMO-008</strong><p class="jaw-muted">Wydatek / inwestycja</p></div><div class="jaw-card"><strong>CTRL-DEMO-001</strong><p class="jaw-muted">Kontrola – rekord przykładowy</p></div></div></section>
-<section class="jaw-section jaw-note"><strong>Zasady rzetelności i bezpieczeństwa</strong><ul><li>Oddzielamy fakty, oceny, hipotezy i braki informacji.</li><li>Nie publikujemy danych wrażliwych ani niepotrzebnych danych osobowych.</li><li>Nie przypisujemy odpowiedzialności prawnej bez właściwych ustaleń.</li><li>Dokumenty mają wersje, źródła i ślad zmian; materiały fikcyjne są stale oznaczone jako DEMO.</li><li>Widok publiczny pokazuje tylko dane dopuszczone do publikacji; dostęp do materiałów poufnych wymaga osobnych uprawnień.</li></ul></section>
 <script>
 (()=>{"use strict";
-const query=document.getElementById("caseQuery"),stage=document.getElementById("stageFilter"),risk=document.getElementById("riskFilter"),list=[...document.querySelectorAll(".jaw-case")],empty=document.getElementById("noCases");
-function filter(){const q=(query.value||"").trim().toLocaleLowerCase("pl");let count=0;list.forEach(card=>{const ok=(!q||card.dataset.case.toLocaleLowerCase("pl").includes(q))&&(!stage.value||card.dataset.stage===stage.value)&&(!risk.value||card.dataset.risk===risk.value);card.hidden=!ok;if(ok)count++;});empty.classList.toggle("jaw-hidden",count>0);}
-document.getElementById("caseSearch").addEventListener("submit",e=>{e.preventDefault();filter();document.getElementById("caseList").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});});
-stage.addEventListener("change",filter);risk.addEventListener("change",filter);
-document.querySelectorAll(".open-case").forEach(button=>button.addEventListener("click",()=>{document.getElementById(button.dataset.target).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}));
+const grid=document.getElementById("caseGrid"),cards=[...grid.querySelectorAll(".case-card")];
+const search=document.getElementById("searchCases"),type=document.getElementById("typeFilter"),status=document.getElementById("statusFilter");
+const empty=document.getElementById("emptyCases"),count=document.getElementById("resultCount");
+function filter(){const q=(search.value||"").trim().toLocaleLowerCase("pl");let visible=0;
+cards.forEach(card=>{const ok=(!q||(card.dataset.search+" "+card.textContent).toLocaleLowerCase("pl").includes(q))&&(!type.value||card.dataset.type===type.value)&&(!status.value||card.dataset.status===status.value);card.hidden=!ok;if(ok)visible++;});
+count.textContent=visible+" z "+cards.length+" spraw";empty.classList.toggle("jaw-hidden",visible>0);}
+search.addEventListener("input",filter);type.addEventListener("change",filter);status.addEventListener("change",filter);filter();
 })();
 </script>
-<footer class="dashboard-footer"><span>Model Państwa – Wersja Systemowa (10 Filarów)</span><span class="footer-motto"><i aria-hidden="true"></i> Dla silnej, bezpiecznej i nowoczesnej Polski</span><span class="footer-status"><b></b> Wersja projektu: 4.0 <i></i> Status: rozwój</span></footer>
-</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · scenariusze demonstracyjne oraz odrębna biblioteka publicznych źródeł i spraw.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
+</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
 <script src="assets/visual-rom.js?v=1.8.0" defer></script>
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
 <script src="assets/visual-engine.js?v=7.3.0" defer></script>
