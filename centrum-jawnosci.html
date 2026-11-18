@@ -99,7 +99,6 @@
  <form class="jaw-search" id="caseSearch"><input id="caseQuery" type="search" placeholder="Szukaj sprawy, identyfikatora, organu lub etapu…" aria-label="Szukaj sprawy"><button class="jaw-btn" type="submit">⌕ Szukaj</button></form></div>
  <div class="jaw-note"><strong>Jak czytać dane?</strong><p class="jaw-muted">Każda informacja ma źródło i status weryfikacji. Brak danych nie oznacza braku zdarzenia, a szacunek nie jest potwierdzoną stratą.</p><span class="jaw-tag">Scenariusz edukacyjny</span></div>
 </section>
-<section class="jaw-section jaw-panel" aria-labelledby="sws-library-title"><div class="jaw-case"><div><span class="jaw-tag">NOWY MODUŁ · SYSTEM WIDZENIA SPRAWY</span><h2 id="sws-library-title">Biblioteka spraw publicznych</h2><p class="jaw-muted">Dołączamy rzeczywiste materiały NIK i RIO, dobre praktyki oraz scenariusze edukacyjne. Każda karta rozdziela ustalenia źródłowe, kontekst, wyjaśnienia i wnioski — bez pochopnego przypisywania winy.</p></div><a class="jaw-btn" href="biblioteka-spraw.html">Otwórz bibliotekę spraw →</a></div></section>
 <section class="jaw-section" aria-label="Podsumowanie rejestru">
  <div class="jaw-stats">
   <div class="jaw-stat"><span class="jaw-muted">Sprawy z dokumentów publicznych</span><strong>8</strong><span class="jaw-muted">karty oparte na źródłach NIK i RIO</span></div>
@@ -121,17 +120,7 @@
  <p>Pokazujemy ustalenia zawarte w publicznych dokumentach, a nie domniemania winy. Kontrola, wystąpienie pokontrolne, zawiadomienie, postępowanie i prawomocny wyrok to różne statusy. Wartości i progi historyczne nie są przedstawiane jako aktualne prawo.</p>
  <p>Historia spraw jest dopisywana, nie nadpisywana. Rozróżniamy datę zdarzenia, dokumentu i publikacji. Sprostowania oraz późniejsze wyjaśnienia powinny być widoczne obok wcześniejszych wpisów.</p>
 </section>
-<script>
-(()=>{"use strict";
-const grid=document.getElementById("caseGrid"),cards=[...grid.querySelectorAll(".case-card")];
-const search=document.getElementById("searchCases"),type=document.getElementById("typeFilter"),status=document.getElementById("statusFilter");
-const empty=document.getElementById("emptyCases"),count=document.getElementById("resultCount");
-function filter(){const q=(search.value||"").trim().toLocaleLowerCase("pl");let visible=0;
-cards.forEach(card=>{const ok=(!q||(card.dataset.search+" "+card.textContent).toLocaleLowerCase("pl").includes(q))&&(!type.value||card.dataset.type===type.value)&&(!status.value||card.dataset.status===status.value);card.hidden=!ok;if(ok)visible++;});
-count.textContent=visible+" z "+cards.length+" spraw";empty.classList.toggle("jaw-hidden",visible>0);}
-search.addEventListener("input",filter);type.addEventListener("change",filter);status.addEventListener("change",filter);filter();
-})();
-</script>
+
 </main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
 <script src="assets/visual-rom.js?v=1.8.0" defer></script>
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
