@@ -1,0 +1,348 @@
+{
+  "schemaVersion": "1.0.0",
+  "updatedAt": "2026-11-21",
+  "purpose": "Rejestr metadanych spraw i tematów. Źródła są tropami do ponownej weryfikacji; sam wpis nie oznacza ponownego audytu dokumentu.",
+  "evidenceStatuses": [
+    "do_weryfikacji",
+    "zebrano_linki",
+    "dokumenty_pobrane",
+    "dane_zweryfikowane",
+    "karta_opracowana",
+    "wymaga_aktualizacji"
+  ],
+  "cases": [
+    {
+      "id": "SWS-PL-001",
+      "slug": "case-sws-pl-001",
+      "title": "Inwestycje mostowe – dokumentacja, nadzór i odbiory",
+      "category": "inwestycje",
+      "institution": "NIK",
+      "status": "opublikowane_ustalenia",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Kontrola inwestycji w ośmiu jednostkach publicznych: dokumentacja techniczna, decyzje, wykonawcy, nadzór i bezpieczeństwo użytkowników.",
+      "scope": [
+        "Transport",
+        "2021–I poł. 2025",
+        "Publikacja: 02.06.2026"
+      ],
+      "sources": [
+        {
+          "label": "Komunikat NIK",
+          "url": "https://www.nik.gov.pl/aktualnosci/inwestycje-mostowe-obarczone-wieloma-bledami.html",
+          "type": "komunikat"
+        },
+        {
+          "label": "Karta kontroli P/25/016",
+          "url": "https://www.nik.gov.pl/kontrole/P/25/016/",
+          "type": "karta_kontroli"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-002",
+      "slug": "case-sws-pl-002",
+      "title": "Inwestycje drogowe z Rządowego Funduszu Polski Ład",
+      "category": "inwestycje",
+      "institution": "NIK",
+      "status": "raport_opublikowany",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Śledzenie inwestycji od przygotowania i wyboru wykonawcy po nadzór, odbiór i rozliczenie pieniędzy publicznych.",
+      "scope": [
+        "7 jednostek JST",
+        "107,634 mln zł wartości",
+        "Raport: 10.2024"
+      ],
+      "sources": [
+        {
+          "label": "Karta kontroli NIK",
+          "url": "https://www.nik.gov.pl/kontrole/P/24/019/",
+          "type": "karta_kontroli"
+        },
+        {
+          "label": "Pełny raport PDF",
+          "url": "https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz,kin~p_24_019_202408261448581724676538~01,typ,kk.pdf",
+          "type": "raport"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-003",
+      "slug": "pozostale-sprawy",
+      "title": "Gospodarka finansowa Miasta i Gminy Łagów",
+      "category": "finanse_samorzadu",
+      "institution": "RIO Kielce",
+      "status": "raport_opublikowany",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Raport RIO o budżecie, zobowiązaniach, pożyczkach krótkoterminowych, odsetkach i skutkach decyzji finansowych.",
+      "scope": [
+        "Finanse samorządu",
+        "2021–2023",
+        "Raport: 13.09.2024"
+      ],
+      "sources": [
+        {
+          "label": "Raport RIO – pełny dokument",
+          "url": "https://bip.kielce.rio.gov.pl/temp/zdjecia_art/4401/%C5%81ag%C3%B3w%202024.pdf",
+          "type": "raport"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-004",
+      "slug": "case-sws-pl-004",
+      "title": "Dostęp do informacji publicznej w samorządach",
+      "category": "dostep_do_informacji",
+      "institution": "NIK",
+      "status": "kontrola_opisana",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Dostępność dokumentów, wyników kontroli, głosowań radnych, nagrań sesji i danych o majątku.",
+      "scope": [
+        "16 JST",
+        "Kontrola 2020–2022",
+        "Publikacja: 22.06.2022"
+      ],
+      "sources": [
+        {
+          "label": "Wyniki kontroli NIK",
+          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/dostep-do-informacji-publicznej-2023.html",
+          "type": "wyniki_kontroli"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-005",
+      "slug": "case-sws-pl-005",
+      "title": "Zamówienia publiczne – konkurencja i kryteria wyboru",
+      "category": "zamowienia",
+      "institution": "NIK",
+      "status": "material_historyczny",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Historyczna kontrola o planowaniu zamówień, konkurencji i kryteriach wyboru; wymaga oddzielenia ówczesnych przepisów od obecnych.",
+      "scope": [
+        "13 jednostek",
+        "2012–I poł. 2014",
+        "Publikacja: 15.07.2015"
+      ],
+      "sources": [
+        {
+          "label": "Materiał NIK",
+          "url": "https://www.nik.gov.pl/nik-o-korupcji/nik-o-realizacji-zamowien-publicznych.html",
+          "type": "material"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-006",
+      "slug": "case-sws-pl-006",
+      "title": "Jawność i przejrzystość sprawozdawczości finansów publicznych",
+      "category": "finanse_publiczne",
+      "institution": "NIK",
+      "status": "material_historyczny",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Systemowa analiza możliwości odtworzenia źródeł środków, ich przeznaczenia i finansowanych polityk publicznych.",
+      "scope": [
+        "Finanse państwa",
+        "Dane za 2014 r.",
+        "Publikacja: 21.07.2016"
+      ],
+      "sources": [
+        {
+          "label": "Karta kontroli P/15/015",
+          "url": "https://www.nik.gov.pl/kontrole/P/15/015/",
+          "type": "karta_kontroli"
+        },
+        {
+          "label": "Omówienie NIK",
+          "url": "https://www.nik.gov.pl/aktualnosci/nik-o-jawnosci-i-przejrzystosci-finansow-publicznych.html",
+          "type": "komunikat"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-007",
+      "slug": "case-sws-pl-007",
+      "title": "Zakupy publiczne, które można robić przejrzyściej",
+      "category": "dobre_praktyki",
+      "institution": "NIK",
+      "status": "przyklad_pozytywny",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Pozytywny kontrapunkt: praktyki ułatwiające konkurencję i dostęp do informacji.",
+      "scope": [
+        "21 z 24 jednostek",
+        "Raport za 2018 r.",
+        "Przykład pozytywny"
+      ],
+      "sources": [
+        {
+          "label": "Sprawozdanie NIK za 2018 r. (PDF)",
+          "url": "https://www.nik.gov.pl/plik/id%2C20101%2Cvp%2C22721.pdf",
+          "type": "raport"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    },
+    {
+      "id": "SWS-PL-008",
+      "slug": "case-sws-pl-008",
+      "title": "Co dzieje się ze zgłoszeniem obywatela?",
+      "category": "sygnaly_obywateli",
+      "institution": "NIK",
+      "status": "opis_procesu",
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Proces przyjmowania, kwalifikowania i wykorzystywania sygnałów obywateli. Zgłoszenie jest sygnałem do analizy, a nie potwierdzeniem zarzutu.",
+      "scope": [
+        "3 814 spraw",
+        "Rok 2023",
+        "Sprawozdanie NIK"
+      ],
+      "sources": [
+        {
+          "label": "Sprawozdanie NIK – opis procesu",
+          "url": "https://www.nik.gov.pl/plik/id%2C29700.pdf",
+          "type": "sprawozdanie"
+        },
+        {
+          "label": "Jak zgłosić sprawę do NIK",
+          "url": "https://www.nik.gov.pl/skargi-i-wnioski/informacje/",
+          "type": "instrukcja"
+        }
+      ],
+      "visual": null,
+      "sections": []
+    }
+  ],
+  "educationalScenarios": [
+    {
+      "id": "EDU-DYP-001",
+      "slug": "scenariusz-dyplomatyczny",
+      "title": "Decyzja dyplomatyczna pod presją czasu",
+      "status": "fikcyjny_scenariusz",
+      "evidenceStatus": "nie_dotyczy",
+      "summary": "Fikcyjny przypadek do testowania analizy kontekstu, ograniczeń informacyjnych, wariantów i skutków.",
+      "scope": [
+        "Dyplomacja",
+        "Bez prawdziwych osób",
+        "Test kontekstu"
+      ],
+      "sources": [],
+      "visual": null,
+      "sections": []
+    }
+  ],
+  "nikTopics": [
+    {
+      "id": "NIK-TOPIC-01",
+      "title": "Cyberbezpieczeństwo usług kluczowych",
+      "visual": "cyber",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Energia, woda i transport; obowiązki operatorów, nadzór, monitoring incydentów i reakcja na alerty."
+    },
+    {
+      "id": "NIK-TOPIC-02",
+      "title": "Reakcja państwa na powódź",
+      "visual": "flood",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Reakcja szczebla centralnego, wojewódzkiego, powiatowego i gminnego, zmiany prawne i odbudowa."
+    },
+    {
+      "id": "NIK-TOPIC-03",
+      "title": "Publiczne systemy IT, które nie działały",
+      "visual": "it",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Umowy, wymagania, zmiany, odbiory, płatności, prawa do oprogramowania i bezpieczeństwo informacji."
+    },
+    {
+      "id": "NIK-TOPIC-04",
+      "title": "Kryzys ekologiczny na Odrze",
+      "visual": "odra",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Monitoring wód, przepływ informacji, współpraca instytucji, ostrzeganie i wcześniejsze sygnały."
+    },
+    {
+      "id": "NIK-TOPIC-05",
+      "title": "Wykonanie budżetu państwa",
+      "visual": "budget",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Dochody, wydatki, rezerwy, fundusze poza budżetem, dług i sprawozdawczość."
+    },
+    {
+      "id": "NIK-TOPIC-06",
+      "title": "Przygotowanie wyborów korespondencyjnych",
+      "visual": "election",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Kompetencje organów, podstawy prawne, decyzje, koszty i późniejsze rozstrzygnięcia."
+    },
+    {
+      "id": "NIK-TOPIC-07",
+      "title": "Gospodarka odpadami i recykling",
+      "visual": "waste",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór."
+    },
+    {
+      "id": "NIK-TOPIC-08",
+      "title": "Zamawianie świadczeń zdrowotnych w szpitalach",
+      "visual": "health",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Umowy, braki kadrowe, nadzór nad usługami, bezpieczeństwo pacjentów i środki."
+    },
+    {
+      "id": "NIK-TOPIC-09",
+      "title": "Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
+      "visual": "schools",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Rola samorządów i dyrektorów, organizacja szkół, wsparcie uczniów i wykonanie wniosków."
+    },
+    {
+      "id": "NIK-TOPIC-10",
+      "title": "Rządowy Fundusz Rozwoju Mieszkalnictwa",
+      "visual": "housing",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Przepływ środków, rola ministrów i KZN, wnioski gmin, SIM i efekty mieszkaniowe."
+    },
+    {
+      "id": "NIK-TOPIC-11",
+      "title": "Miejsca schronienia i budowle ochronne",
+      "visual": "shelter",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Stan infrastruktury, odpowiedzialność za utrzymanie, ewidencja obiektów i gotowość ochrony ludności."
+    },
+    {
+      "id": "NIK-TOPIC-12",
+      "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
+      "visual": "psp-ev",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek."
+    }
+  ],
+  "imageDelivery": {
+    "preferredFormat": "webp",
+    "variants": [
+      640,
+      1280
+    ],
+    "quality": 78,
+    "maxBytes": {
+      "640": 90000,
+      "1280": 220000
+    },
+    "heroPreload": true,
+    "belowFoldLoading": "lazy",
+    "decoding": "async",
+    "localOnly": true,
+    "stripMetadata": true
+  }
+}
