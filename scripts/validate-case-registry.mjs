@@ -19,9 +19,16 @@ for (const item of [...data.cases, ...(data.educationalScenarios || [])]) {
   }
   assert.ok(Array.isArray(item.sections), "Sections must be an array for " + item.id);
 }
+let topicsWithSources = 0;
 for (const topic of data.nikTopics) {
   assert.ok(topic.id && topic.title && evidence.has(topic.evidenceStatus), "Invalid NIK topic");
+  if (topic.sources?.length) topicsWithSources++;
+  for (const source of topic.sources || []) {
+    assert.ok(/^https:\/\//i.test(source.url), "Only HTTPS topic sources are allowed: " + source.url);
+    assert.ok(source.label && source.type, "Topic source label/type missing for " + topic.id);
+  }
 }
+assert.equal(topicsWithSources, 11, "Expected source leads for the eleven citizen/NIK topics; PSP remains separately marked for research");
 assert.equal(data.imageDelivery.preferredFormat, "webp");
 assert.ok(data.imageDelivery.localOnly === true, "Case images must be local assets");
 console.log("Case registry valid:", ids.size, "case/scenario records,", data.nikTopics.length, "topics.");
