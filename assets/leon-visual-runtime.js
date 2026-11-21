@@ -15,7 +15,7 @@
   let observer = null;
 
   function safeAsset(path) {
-    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g)$/i.test(path) ||
+    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g|svg)$/i.test(path) ||
         path.split("/").some(part => !part || part === "." || part === "..")) {
       throw new Error("asset-path-rejected");
     }
