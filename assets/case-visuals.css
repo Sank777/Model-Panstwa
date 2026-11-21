@@ -1,0 +1,6 @@
+/* Wspólne style ilustracji kart Centrum Jawności. */
+.case-topic-visual{display:block;width:100%;aspect-ratio:16/8.5;object-fit:cover;border-radius:11px;border:1px solid var(--mp-border,#426078);background:#c9d9dd;margin:.1rem 0 .25rem}
+.case-topic-caption{font-size:.7rem!important;color:var(--mp-muted,#a9bdcc)!important;letter-spacing:.02em;margin:-.25rem 0 .1rem!important}
+.case-hero-visual{display:block;width:100%;max-height:360px;aspect-ratio:16/7;object-fit:cover;object-position:center;border-radius:14px;border:1px solid var(--mp-border,#426078);margin:0 0 1rem}
+@media(prefers-reduced-motion:no-preference){.case-topic-visual{transition:transform .2s ease}.case-topic-visual:hover{transform:scale(1.01)}}
+@media(prefers-reduced-motion:reduce){.case-topic-visual{transition:none}}

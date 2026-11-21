@@ -2,7 +2,7 @@
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Pełna karta analityczna sprawy publicznej w Centrum Jawności.">
 <title>Karta sprawy · Centrum Jawności</title>
-<link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1"><link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1"><link rel="stylesheet" href="assets/site-shell.css?v=1.1.0"><link rel="stylesheet" href="assets/case-visuals.css?v=1.0.0">
 <style>
 .case-wrap{width:min(1100px,100%);margin:1.5rem auto 3rem;padding:0 1rem;color:var(--mp-text)}
 .case-hero,.case-panel{border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface);padding:clamp(1rem,3vw,1.5rem);margin:1rem 0}
@@ -72,6 +72,7 @@ const doc=new DOMParser().parseFromString(html,"text/html");
 const card=[...doc.querySelectorAll(".case-card")].find(el=>el.querySelector(".case-id")?.textContent.trim().split("·")[0].trim()===id);
 if(!card)throw new Error("Nie znaleziono sprawy o identyfikatorze "+id);
 title.textContent=card.querySelector("h2")?.textContent.trim()||id;
+if(card.dataset.caseVisual){const hero=document.querySelector(".case-hero");if(hero){hero.dataset.caseVisual=card.dataset.caseVisual;window.CaseVisuals?.mount(hero,card.dataset.caseVisual,true);}}
 intro.textContent=card.querySelector(":scope>p")?.textContent.trim()||"";
 card.querySelectorAll(".case-meta span").forEach(node=>{const s=document.createElement("span");s.textContent=node.textContent.trim();meta.append(s);});
 const sourceStatus=card.querySelector(".case-status");\nif(sourceStatus){status.textContent=sourceStatus.textContent.trim();}\nelse{const badge=card.querySelector(".case-badge");status.textContent=badge?"Status źródłowy: "+badge.textContent.trim()+". Status opisuje rodzaj materiału, nie rozstrzyga odpowiedzialności osobistej.":"Status źródłowy nie został określony w karcie."; }
@@ -87,5 +88,5 @@ else stages.append(node.cloneNode(true));
 if(!index){const section=document.createElement("details");section.className="case-stage";section.open=true;const summary=document.createElement("summary");summary.textContent="Materiał i ustalenia";const body=document.createElement("div");body.className="case-stage-body";body.append(detail.cloneNode(true));section.append(summary,body);stages.replaceChildren(section);}
 }).catch(error=>{title.textContent="Nie udało się otworzyć karty";intro.textContent=error.message;stages.textContent="Wróć do bazy spraw i spróbuj ponownie.";});
 })();
-</script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</script><script src="assets/case-visuals.js?v=1.0.0" defer></script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
 </body></html>
