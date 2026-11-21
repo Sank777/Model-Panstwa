@@ -32,8 +32,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate site links, assets and visual ROM
         run: node scripts/validate-site.mjs
+      - name: Validate case data registry
+        run: node scripts/validate-case-registry.mjs
       - name: Check JavaScript syntax
-        run: node --check assets/site.js && node --check assets/visual-rom.js && node --check assets/visual-engine.js && node --check assets/leon-visual-runtime.js && node --check assets/visual-recipe-core.js
+        run: node --check assets/case-visuals.js && node --check assets/site.js && node --check assets/visual-rom.js && node --check assets/visual-engine.js && node --check assets/leon-visual-runtime.js && node --check assets/visual-recipe-core.js
       - name: Setup Deno
         uses: denoland/setup-deno@v2
         with:
