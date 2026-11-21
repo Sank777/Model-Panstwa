@@ -3,8 +3,8 @@
 <meta name="description" content="Analiza spraw publicznych opracowana na podstawie materiałów i ustaleń Najwyższej Izby Kontroli.">
 <meta name="theme-color" content="#061426"><title>Analiza materiału NIK · Centrum Jawności</title>
 <link rel="stylesheet" href="assets/site.css?v=20261115-master-template"><link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
-<link rel="preload" as="image" href="assets/menu/leon-hero.webp" fetchpriority="high"><link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
-<link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0"><link rel="stylesheet" href="assets/visual-engine-layout.css?v=7.3.2">
+<link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<link rel="stylesheet" href="assets/leon-visual-runtime.css?v=1.0.2">
 <style>
 .nik-wrap{width:min(1500px,calc(100% - 24px));margin:16px auto 42px}.nik-breadcrumb{color:#b8cce0;font-size:.88rem;margin:10px 2px 14px}.nik-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}.nik-main,.nik-side{min-width:0}
 .nik-hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.78fr);gap:18px;align-items:stretch;overflow:hidden;padding:clamp(16px,2.4vw,28px);border:1px solid rgba(129,190,235,.5);border-radius:17px;background:linear-gradient(115deg,#0b2845,#092039 70%,#06182c);box-shadow:0 12px 30px #0004}
@@ -50,7 +50,7 @@ $("#sourceScope").textContent=topic.preliminaryNote||topic.noteStatus||"Zakres m
 $("#connectionsTitle").textContent=links?.title||"Jakie zależności analizujemy?";$("#connectionsLead").textContent=links?.lead||"";fillList("#connections",links?.points||[]);
 $("#lessonTitle").textContent=lesson?.title||"Najważniejsza lekcja dla Modelu Państwa";$("#lessonLead").textContent=lesson?.lead||"";fillList("#lessons",lesson?.points||[]);$("#modelLesson").textContent=(lesson?.points||[]).at(-1)||"Wniosek wymaga dalszej analizy.";
 $("#controlQuestion").textContent=links?.points?.find(x=>x.includes("?"))||"Jak odpowiedzialność, decyzje i skutki łączą się w analizowanym przypadku?";
-if(plan.src){$("#topicImage").src=plan.src;$("#topicImage").alt=plan.alt||topic.title;$("#galleryImage").src=plan.src;$("#galleryImage").alt=plan.alt||topic.title;$("#imageCaption").textContent=plan.caption||"Ilustracja poglądowa.";}else{$("#topicImage").hidden=true;$("#galleryImage").hidden=true;}
+if(plan.src){const activateImage=(image,priority)=>{image.alt=plan.alt||topic.title;image.dataset.leonVisualSrc=plan.src;image.dataset.leonVisualMode="single";if(priority){image.loading="eager";image.fetchPriority="high";}else{image.loading="lazy";image.decoding="async";}if(window.LeonVisualRuntime){window.LeonVisualRuntime.scan(image.parentElement);}else{image.src=plan.src;}};activateImage($("#topicImage"),true);activateImage($("#galleryImage"),false);$("#imageCaption").textContent=plan.caption||"Ilustracja poglądowa.";}else{$("#topicImage").hidden=true;$("#galleryImage").hidden=true;}
 $("#sources").replaceChildren();(topic.sources||[]).forEach(source=>{const a=document.createElement("a");a.href=source.url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=source.label;$("#sources").append(a);});
 $("#evidenceNote").textContent=topic.noteStatus||topic.preliminaryNote||"Zakres i kompletność materiałów wymagają dalszej analizy.";
 $("#topicStatus").textContent=labels[topic.evidenceStatus]||"Status nieokreślony";
@@ -59,5 +59,5 @@ document.title=topic.title+" · Analiza materiału NIK · Centrum Jawności";
 }).catch(error=>{$("#topicTitle").textContent="Nie udało się otworzyć analizy";$("#topicSummary").textContent=error.message;});
 })();
 </script>
-<script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+<script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/leon-visual-runtime.js?v=1.0.2" defer></script>
 </body></html>
