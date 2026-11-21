@@ -43,6 +43,6 @@
     }
   };
   window.CaseVisuals = Object.freeze({ mount(host, key, hero = true) { if (host && key) addImage(host, key, hero); } });
-  document.querySelectorAll(".case-card[data-case-visual]").forEach((node) => addImage(node, node.dataset.caseVisual, false));
+  document.querySelectorAll(".case-card[data-case-visual], .nik-topic-card[data-case-visual]").forEach((node) => addImage(node, node.dataset.caseVisual, false));
   document.querySelectorAll(".case-hero[data-case-visual]").forEach((node) => addImage(node, node.dataset.caseVisual, true));
 })();
