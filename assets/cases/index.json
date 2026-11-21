@@ -248,7 +248,7 @@
       "id": "NIK-TOPIC-01",
       "title": "Cyberbezpieczeństwo usług kluczowych",
       "visual": "cyber",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Energia, woda i transport; obowiązki operatorów, nadzór, monitoring incydentów i reakcja na alerty.",
       "sources": [
         {
@@ -261,6 +261,20 @@
           "label": "Karta kontroli NIK P/25/083 – Cyberbezpieczeństwo wybranych usług kluczowych",
           "url": "https://www.nik.gov.pl/kontrole/P/25/083/",
           "type": "karta_kontroli",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Karta kontroli NIK P/25/083 – Cyberbezpieczeństwo wybranych usług kluczowych",
+          "url": "https://www.nik.gov.pl/kontrole/P/25/083/",
+          "type": "karta_kontroli",
+          "sourceId": "nik-cyber-control",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Komunikat NIK z wynikami kontroli",
+          "url": "https://www.nik.gov.pl/aktualnosci/transport-dostawy-energii-i-wody-pitnej-niewystarczajaco-zabezpieczone-przed-cyberatakami.html",
+          "type": "komunikat_NIK",
+          "sourceId": "nik-cyber-2026",
           "lastChecked": "2026-11-21"
         }
       ],
@@ -292,11 +306,18 @@
       "id": "NIK-TOPIC-02",
       "title": "Reakcja państwa na powódź",
       "visual": "flood",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Reakcja szczebla centralnego, wojewódzkiego, powiatowego i gminnego, zmiany prawne i odbudowa.",
       "sources": [
         {
           "label": "NIK: Zarządzanie kryzysowe w czasie powodzi – do poprawy",
+          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
+          "type": "wyniki_kontroli",
+          "sourceId": "nik-flood-2026",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Szczegółowe wyniki kontroli zarządzania kryzysowego podczas powodzi",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
           "type": "wyniki_kontroli",
           "sourceId": "nik-flood-2026",
@@ -325,7 +346,7 @@
       "id": "NIK-TOPIC-03",
       "title": "Publiczne systemy IT, które nie działały",
       "visual": "it",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Umowy, wymagania, zmiany, odbiory, płatności, prawa do oprogramowania i bezpieczeństwo informacji.",
       "sources": [
         {
@@ -475,7 +496,7 @@
       "id": "NIK-TOPIC-08",
       "title": "Zamawianie świadczeń zdrowotnych w szpitalach",
       "visual": "health",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Umowy, braki kadrowe, nadzór nad usługami, bezpieczeństwo pacjentów i środki.",
       "sources": [
         {
@@ -508,7 +529,7 @@
       "id": "NIK-TOPIC-09",
       "title": "Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
       "visual": "schools",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Rola samorządów i dyrektorów, organizacja szkół, wsparcie uczniów i wykonanie wniosków.",
       "sources": [
         {
@@ -541,7 +562,7 @@
       "id": "NIK-TOPIC-10",
       "title": "Rządowy Fundusz Rozwoju Mieszkalnictwa",
       "visual": "housing",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Przepływ środków, rola ministrów i KZN, wnioski gmin, SIM i efekty mieszkaniowe.",
       "sources": [
         {
@@ -568,7 +589,7 @@
       "id": "NIK-TOPIC-11",
       "title": "Miejsca schronienia i budowle ochronne",
       "visual": "shelter",
-      "evidenceStatus": "dokumenty_pobrane",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Stan infrastruktury, odpowiedzialność za utrzymanie, ewidencja obiektów i gotowość ochrony ludności.",
       "sources": [
         {
@@ -607,7 +628,7 @@
       "id": "NIK-TOPIC-12",
       "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
       "visual": "psp-ev",
-      "evidenceStatus": "do_weryfikacji",
+      "evidenceStatus": "zebrano_linki",
       "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek.",
       "sources": []
     }
