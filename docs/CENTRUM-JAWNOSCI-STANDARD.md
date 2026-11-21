@@ -63,14 +63,9 @@ Każdy z 12 tematów w karcie SWS-PL-008 powinien mieć:
 
 Lista 11 tematów i PSP/OSP jest zestawem powiązanym ze ścieżką zgłoszeń obywatelskich. Jeśli istnieje już raport NIK, karta ma pokazywać istniejące ustalenia, zalecenia i ich wykonanie; nowy sygnał można rozważać wyłącznie dla nowego lub nieobjętego zakresu. Temat PSP/OSP jest odrębnie oznaczony jako propozycja do rozpoznania.
 
-## 7. Standard graficzny
+## 7. Standard graficzny — obowiązujący wzorzec
 
-- Każda sprawa ma indywidualną ilustrację tematyczną, a nie przypadkowy wspólny obraz.
-- Ilustracja jest oznaczona jako poglądowa, jeżeli nie jest autentycznym zdjęciem źródłowym.
-- Nie może sugerować winy konkretnej osoby ani nieudokumentowanego zdarzenia.
-- Preferowane są lokalne, zoptymalizowane pliki; brak zewnętrznych trackerów i bibliotek.
-- Tekst alternatywny, wymiary, responsywność i lazy loading dla grafik poza pierwszym ekranem.
-- Zdjęcia dokumentacyjne i ilustracje poglądowe muszą być rozróżnione.
+Obowiązuje zatwierdzony przez użytkownika wzorzec nowoczesnych, realistycznych, szczegółowych ilustracji z kierunkowym światłem, refleksami, rozjaśnieniami i kontrolowanymi akcentami kolorystycznymi. To nie są płaskie piktogramy ani abstrakcyjne, przeładowane grafiki. Pełny standard, kontrolę jakości i bazowy prompt opisuje `docs/CENTRUM-JAWNOSCI-STANDARD-WIZUALNY.md`. Dokument jest nadrzędną regułą dla kolejnych kart, miniatur i ilustracji Centrum Jawności; nie pytamy ponownie o styl i nie zmieniamy go bez zgody użytkownika.
 
 ## 8. Cykl pracy nad nową sprawą
 
