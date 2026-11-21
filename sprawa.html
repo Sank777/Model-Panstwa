@@ -28,6 +28,13 @@
 .case-empty{border:1px dashed var(--mp-border);border-radius:12px;padding:1rem;color:var(--mp-muted);background:var(--mp-surface2)}
 .case-rule{border-left:4px solid #d6b45c;padding:.75rem 1rem;background:var(--mp-surface2);border-radius:0 9px 9px 0}
 @media(max-width:650px){.case-two-col{grid-template-columns:1fr}}
+.case-topic-research{margin-top:.8rem;padding:.8rem;border:1px solid var(--mp-border);border-radius:10px;background:var(--mp-surface)}
+.case-topic-research h4{margin:.1rem 0 .5rem;font-size:.9rem;color:var(--mp-accent)}
+.case-topic-research ul{padding-left:1.2rem;margin:.4rem 0}
+.case-topic-research li{margin:.45rem 0;line-height:1.5}
+.case-topic-research li small{display:block;color:var(--mp-muted);font-size:.76rem}
+.case-topic-research a{overflow-wrap:anywhere}
+
 </style></head><body data-page-shell="homepage-v1">
 <header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
 <main class="case-wrap"><a class="case-back" href="biblioteka-spraw.html">← Wróć do bazy spraw</a>
@@ -111,6 +118,38 @@ if(!index){const group=document.createElement("details");group.className="case-s
 const fallback=document.createElement("div");fallback.className="case-empty";fallback.textContent="Ta pozycja nie ma jeszcze rozwiniętej analizy źródłowej. Poniżej pokazujemy dostępne informacje z karty biblioteki.";
 stages.append(fallback);
 card.querySelectorAll(":scope > p, :scope > .case-links").forEach(node=>stages.append(node.cloneNode(true)));
+}
+if(id==="SWS-PL-008"){
+const topicNodes=[...stages.querySelectorAll(".nik-topic-card")];
+topicNodes.forEach((node,index)=>{
+const topic=registry.nikTopics?.find(item=>item.id==="NIK-TOPIC-"+String(index+1).padStart(2,"0"));
+if(!topic)return;
+const panel=document.createElement("section");panel.className="case-topic-research";
+const heading=document.createElement("h4");heading.textContent="Postęp opracowania: "+(evidenceLabels[topic.evidenceStatus]||"do weryfikacji");panel.append(heading);
+if(topic.preliminaryFacts?.length){
+const list=document.createElement("ul");
+topic.preliminaryFacts.forEach(fact=>{
+const item=document.createElement("li");item.textContent=fact.text;
+const source=(topic.sources||[]).find(entry=>entry.sourceId===fact.sourceId);
+if(source){const link=document.createElement("a");link.href=source.url;link.textContent=" Źródło: "+source.label;link.target="_blank";link.rel="noopener noreferrer";item.append(link);}
+if(fact.scope){const scope=document.createElement("small");scope.textContent="Zakres: "+fact.scope;item.append(scope);}
+list.append(item);
+});
+panel.append(list);
+}else{
+const note=document.createElement("p");note.textContent=topic.noteStatus||"Zebrano wstępne odnośniki. Pełny raport i dane wymagają pobrania oraz analizy.";panel.append(note);
+}
+if(topic.sources?.length){
+const links=document.createElement("div");links.className="case-links";
+topic.sources.forEach(source=>{
+const already=[...node.querySelectorAll("a[href]")].some(link=>link.href===source.url);
+if(already)return;
+const link=document.createElement("a");link.href=source.url;link.textContent=source.label;link.target="_blank";link.rel="noopener noreferrer";links.append(link);
+});
+if(links.childNodes.length)panel.append(links);
+}
+node.append(panel);
+});
 }
 if(!stages.childNodes.length){const empty=document.createElement("div");empty.className="case-empty";empty.textContent="W bibliotece nie ma jeszcze przypisanych szczegółowych materiałów do tej sprawy.";stages.append(empty);}
 }).catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na dane sprawy. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);}).finally(()=>clearTimeout(timeout));
