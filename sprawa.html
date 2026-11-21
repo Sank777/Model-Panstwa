@@ -74,7 +74,7 @@ if(!card)throw new Error("Nie znaleziono sprawy o identyfikatorze "+id);
 title.textContent=card.querySelector("h2")?.textContent.trim()||id;
 intro.textContent=card.querySelector(":scope>p")?.textContent.trim()||"";
 card.querySelectorAll(".case-meta span").forEach(node=>{const s=document.createElement("span");s.textContent=node.textContent.trim();meta.append(s);});
-const badge=card.querySelector(".case-badge");if(badge)status.textContent="Status źródłowy: "+badge.textContent.trim()+". Status opisuje rodzaj materiału, nie rozstrzyga odpowiedzialności osobistej.";
+const sourceStatus=card.querySelector(".case-status");\nif(sourceStatus){status.textContent=sourceStatus.textContent.trim();}\nelse{const badge=card.querySelector(".case-badge");status.textContent=badge?"Status źródłowy: "+badge.textContent.trim()+". Status opisuje rodzaj materiału, nie rozstrzyga odpowiedzialności osobistej.":"Status źródłowy nie został określony w karcie."; }
 const detail=card.querySelector(".case-detail");
 if(!detail){stages.textContent="Ta karta nie zawiera jeszcze rozwiniętej analizy.";return;}
 let group=null,index=0;
