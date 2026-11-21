@@ -1,4 +1,12 @@
 /* Leon Visual Engine 6.13 — image layers are the only tile artwork renderer. */
+/* Wspólne ilustracje spraw publicznych — lokalny atlas, kadrowanie przez Visual Engine. */
+.case-visual{position:relative;display:block;isolation:isolate;overflow:hidden;width:100%;aspect-ratio:16/9;margin:.35rem 0 .55rem;border:1px solid rgba(173,208,239,.28);border-radius:12px;background:linear-gradient(135deg,#17334b,#0c1e32)}
+.case-visual>.visual-engine-case-image{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center;margin:0;padding:0;border:0}
+.case-visual:after{content:"";position:absolute;inset:55% 0 0;pointer-events:none;background:linear-gradient(0deg,rgba(3,12,23,.22),transparent)}
+.case-visual-fallback:before{content:"Ilustracja tematyczna";position:absolute;inset:auto 0 .45rem;text-align:center;color:#d8e7f3;font-size:.78rem;z-index:1}
+.case-visual-ready:after{display:none}
+@media(prefers-reduced-motion:no-preference){.case-visual>.visual-engine-case-image{transition:transform .25s ease}.case-card:hover .case-visual>.visual-engine-case-image{transform:scale(1.025)}}
+@media(prefers-reduced-motion:reduce){.case-visual>.visual-engine-case-image{transition:none}}
 .hero-banner{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:clamp(230px,18vw,290px)!important;background:#071a2d!important;background-image:none!important}
 .hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;overflow:hidden!important;pointer-events:none!important}
 .hero-banner>.visual-engine-image img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center 50%!important;margin:0!important;padding:0!important;border:0!important}
