@@ -6,7 +6,7 @@ Centrum Jawności jest punktem wejścia do różnych rodzajów spraw publicznych
 
 ## 2. Główne obszary na stronie
 
-1. **Zgłoszenia obywateli do NIK** — osobna karta opisująca sposób przyjmowania i kwalifikowania sygnałów przez NIK. W jej obrębie znajduje się lista 11 tematów wybranych do rozważenia oraz temat PSP/OSP jako dwunasty. To propozycje do udokumentowania i ewentualnego przekazania, a nie zgłoszenia przyjęte przez NIK ani kontrole już rozpoczęte.
+1. **Zgłoszenia obywateli do NIK** — osobna karta opisująca sposób przyjmowania i kwalifikowania sygnałów przez NIK. W jej obrębie znajduje się 11 tematów opartych na publicznych materiałach oraz temat PSP/OSP jako dwunasty. Tam, gdzie istnieje raport NIK, pokazujemy jego ustalenia i dalsze losy zaleceń; PSP/OSP pozostaje propozycją do rozpoznania.
 2. **Sprawy skontrolowane** — karty oparte na opublikowanych raportach NIK, RIO lub innych właściwych organów.
 3. **Pozostałe sprawy publiczne** — sprawy samorządowe, instytucjonalne, historyczne i przykłady dobrych praktyk, również poza zakresem NIK.
 4. **Analiza bieżąca** — przetargi, umowy, aneksy, zmiany kosztów i terminy; osobny moduł obserwacji.
@@ -61,7 +61,7 @@ Każdy z 12 tematów w karcie SWS-PL-008 powinien mieć:
 - ocenę, czy sprawa należy do właściwości NIK, czy wymaga skierowania do innego organu;
 - status propozycji (przygotowywana / udokumentowana / wysłana / potwierdzona / przekierowana / zakończona).
 
-Lista 11 tematów i PSP/OSP jest katalogiem propozycji. Nie opisuje automatycznie spraw, które NIK już skontrolowała.
+Lista 11 tematów i PSP/OSP jest zestawem powiązanym ze ścieżką zgłoszeń obywatelskich. Jeśli istnieje już raport NIK, karta ma pokazywać istniejące ustalenia, zalecenia i ich wykonanie; nowy sygnał można rozważać wyłącznie dla nowego lub nieobjętego zakresu. Temat PSP/OSP jest odrębnie oznaczony jako propozycja do rozpoznania.
 
 ## 7. Standard graficzny
 
