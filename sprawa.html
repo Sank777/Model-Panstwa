@@ -15,16 +15,55 @@
 .case-stage-body a{overflow-wrap:anywhere}.case-back{display:inline-block;margin:.7rem 0;color:var(--mp-accent);font-weight:750}
 .case-status{padding:.8rem 1rem;border-left:4px solid #d6b45c;background:var(--mp-surface2);border-radius:0 10px 10px 0}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.case-tabs{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}
+.case-tab{border:1px solid var(--mp-border);border-radius:999px;padding:.65rem 1rem;background:var(--mp-surface2);color:var(--mp-text);font:inherit;font-weight:750;cursor:pointer}
+.case-tab[aria-selected="true"]{background:#174b37;border-color:#4b9972;color:#fff}
+.case-view[hidden]{display:none}
+.case-view{border:1px solid var(--mp-border);border-radius:14px;padding:1rem;background:var(--mp-surface)}
+.case-view h2{margin-top:.1rem}
+.case-two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.case-info-card{border:1px solid var(--mp-border);border-radius:12px;padding:1rem;background:var(--mp-surface2)}
+.case-info-card p{margin-bottom:0;color:var(--mp-muted)}
+.case-empty{border:1px dashed var(--mp-border);border-radius:12px;padding:1rem;color:var(--mp-muted);background:var(--mp-surface2)}
+.case-rule{border-left:4px solid #d6b45c;padding:.75rem 1rem;background:var(--mp-surface2);border-radius:0 9px 9px 0}
+@media(max-width:650px){.case-two-col{grid-template-columns:1fr}}
 </style></head><body data-page-shell="homepage-v1">
 <header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
 <main class="case-wrap"><a class="case-back" href="biblioteka-spraw.html">← Wróć do bazy spraw</a>
 <section class="case-hero"><div class="case-kicker">CENTRUM JAWNOŚCI · KARTA SPRAWY</div><h1 id="caseTitle">Wczytywanie karty…</h1><p id="caseIntro" class="case-muted"></p><div class="case-meta" id="caseMeta"></div></section>
 <div class="case-status" id="caseStatus">Treść pochodzi z materiałów przypisanych do tej karty w bazie spraw. Zakres ustaleń i granice wnioskowania należy czytać łącznie ze źródłami.</div>
-<section class="case-panel"><h2>Etapy i obszary analizy</h2><p class="case-muted">Każdy etap można rozwinąć. Pokazujemy wyłącznie informacje zapisane w karcie źródłowej — brak danych nie jest uzupełniany domysłami.</p><div id="caseStages"><p>Wczytywanie materiału…</p></div></section>
+<nav class="case-tabs" role="tablist" aria-label="Poziomy karty sprawy">
+<button class="case-tab" id="tab-knowledge" type="button" role="tab" aria-selected="true" aria-controls="view-knowledge">1. Encyklopedia informacji</button>
+<button class="case-tab" id="tab-actions" type="button" role="tab" aria-selected="false" aria-controls="view-actions" tabindex="-1">2. Propozycje działań</button>
+</nav>
+<section class="case-view" id="view-knowledge" role="tabpanel" aria-labelledby="tab-knowledge">
+<h2>Encyklopedia informacji</h2>
+<p class="case-muted">Warstwa faktograficzna: materiały źródłowe, chronologia, role instytucji, finanse i ustalenia. Nie służy do głosowania nad prawdziwością faktów.</p>
+<div id="caseStages"><p>Wczytywanie materiału…</p></div>
+</section>
+<section class="case-view" id="view-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
+<h2>Przestrzeń propozycji i działań</h2>
+<p class="case-muted">Warstwa obywatelska: możliwe pytania, propozycje zgodnych z prawem działań, argumenty za i przeciw oraz ocena, czy uzyskane odpowiedzi są wystarczające.</p>
+<div class="case-rule"><strong>Ważne rozdzielenie:</strong> propozycja użytkownika, popularność pomysłu ani analiza AI nie są ustaleniem faktu, dowodem winy ani decyzją organu.</div>
+<div class="case-two-col">
+ <article class="case-info-card"><h3>Propozycje działań</h3><p>Przyszły rejestr pytań, wniosków o informację, propozycji kontroli, konsultacji i zmian procedur. Każdy wpis powinien zawierać uzasadnienie, podstawę źródłową, autora lub status autorstwa, datę i historię zmian.</p></article>
+ <article class="case-info-card"><h3>Argumenty i oceny</h3><p>Miejsce na argumenty popierające i krytyczne. Liczba głosów pokazuje zainteresowanie, a nie prawdziwość twierdzenia. Mniejszościowy, dobrze udokumentowany głos pozostaje widoczny.</p></article>
+ <article class="case-info-card"><h3>Reakcje instytucji</h3><p>Odpowiedzi, decyzje, przekazania, kontrole i inne działania dopisywane jako osobne zdarzenia wraz z dokumentem i datą.</p></article>
+ <article class="case-info-card"><h3>Rezultaty i kwestie otwarte</h3><p>Co faktycznie się zmieniło, co zostało wyjaśnione, czego nie wykonano i na jakie pytania nadal nie ma odpowiedzi.</p></article>
+</div>
+<div class="case-empty" style="margin-top:1rem"><strong>Moduł koncepcyjny – bez aktywnego przyjmowania zgłoszeń.</strong><br>Ta karta nie wysyła wniosków do instytucji i nie zapisuje opinii użytkowników. Najpierw ustalamy reguły prawne, moderację, ochronę danych i bezpieczny sposób przechowywania wpisów.</div>
+</section>
+
+
 <section class="case-panel"><h2>Standard dowodowy</h2><p>Ustalenie organu, stanowisko strony, materiał historyczny i hipoteza to różne kategorie. Karta nie przypisuje winy na podstawie samego udziału osoby lub podmiotu w opisywanym procesie.</p></section>
 </main><footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Karta analityczna · wersja robocza</span></footer>
 <script>
 (()=>{"use strict";
+
+const tabs=[...document.querySelectorAll(".case-tab")],views=[...document.querySelectorAll(".case-view")];
+function activateTab(index){tabs.forEach((tab,i)=>{const active=i===index;tab.setAttribute("aria-selected",String(active));tab.tabIndex=active?0:-1;views[i].hidden=!active;});}
+tabs.forEach((tab,index)=>{tab.addEventListener("click",()=>activateTab(index));tab.addEventListener("keydown",event=>{if(event.key==="ArrowRight"||event.key==="ArrowLeft"){event.preventDefault();const next=(index+(event.key==="ArrowRight"?1:tabs.length-1))%tabs.length;activateTab(next);tabs[next].focus();}});});
 const id=new URLSearchParams(location.search).get("id");
 const title=document.getElementById("caseTitle"),intro=document.getElementById("caseIntro"),meta=document.getElementById("caseMeta"),stages=document.getElementById("caseStages"),status=document.getElementById("caseStatus");
 if(!id||!/^[A-Z0-9-]{5,32}$/.test(id)){title.textContent="Nieprawidłowy identyfikator sprawy";stages.textContent="Wróć do bazy i wybierz kartę.";return;}
