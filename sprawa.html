@@ -115,5 +115,5 @@ card.querySelectorAll(":scope > p, :scope > .case-links").forEach(node=>stages.a
 if(!stages.childNodes.length){const empty=document.createElement("div");empty.className="case-empty";empty.textContent="W bibliotece nie ma jeszcze przypisanych szczegółowych materiałów do tej sprawy.";stages.append(empty);}
 }).catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na dane sprawy. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);}).finally(()=>clearTimeout(timeout));
 })();
-<script src="assets/case-visuals.js?v=1.0.0" defer></script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</script><script src="assets/case-visuals.js?v=1.1.0" defer></script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
 </body></html>
