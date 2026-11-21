@@ -71,20 +71,25 @@ title.textContent="Ładowanie: "+id;
 intro.textContent="Pobieranie przypisanych materiałów źródłowych…";
 document.title="Ładowanie "+id+" · Centrum Jawności";
 const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);
-fetch("biblioteka-spraw.html",{credentials:"same-origin",cache:"no-store",signal:controller.signal})
-.then(response=>{if(!response.ok)throw new Error("Serwer zwrócił błąd HTTP "+response.status+".");return response.text();})
-.then(html=>{
+Promise.all([
+fetch("assets/cases/index.json",{credentials:"same-origin",cache:"no-store",signal:controller.signal}).then(response=>{if(!response.ok)throw new Error("Nie udało się pobrać rejestru spraw (HTTP "+response.status+").");return response.json();}),
+fetch("biblioteka-spraw.html",{credentials:"same-origin",cache:"no-store",signal:controller.signal}).then(response=>{if(!response.ok)throw new Error("Serwer zwrócił błąd HTTP "+response.status+".");return response.text();})
+]).then(([registry,html])=>{
+const record=registry.cases?.find(item=>item.id===id);
+if(!record)throw new Error("Identyfikator "+id+" nie istnieje w rejestrze danych spraw.");
 const doc=new DOMParser().parseFromString(html,"text/html");
 const card=[...doc.querySelectorAll(".case-card")].find(el=>el.querySelector(".case-id")?.textContent.trim().split("·")[0].trim()===id);
-if(!card)throw new Error("Nie znaleziono karty "+id+" w aktualnej bibliotece. Sprawdź, czy link prowadzi do właściwego identyfikatora.");
-const heading=card.querySelector(":scope > h2")||card.querySelector("h2");
-title.textContent=heading?.textContent.trim()||"Sprawa "+id;
+if(!card)throw new Error("Nie znaleziono treści karty "+id+" w bibliotece. Rejestr i biblioteka wymagają uzgodnienia.");
+title.textContent=record.title||card.querySelector(":scope > h2")?.textContent.trim()||"Sprawa "+id;
 document.title=title.textContent+" · Centrum Jawności";
-if(card.dataset.caseVisual){const hero=document.querySelector(".case-hero");if(hero){hero.dataset.caseVisual=card.dataset.caseVisual;window.CaseVisuals?.mount(hero,card.dataset.caseVisual,true);}}
-intro.textContent=card.querySelector(":scope > p")?.textContent.trim()||"Materiał przypisany do tej sprawy w bibliotece Centrum Jawności.";
-card.querySelectorAll(".case-meta span").forEach(node=>{const item=document.createElement("span");item.textContent=node.textContent.trim();meta.append(item);});
+if(record.visual||card.dataset.caseVisual){const hero=document.querySelector(".case-hero");if(hero){hero.dataset.caseVisual=record.visual||card.dataset.caseVisual;window.CaseVisuals?.mount(hero,hero.dataset.caseVisual,true);}}
+intro.textContent=record.summary||card.querySelector(":scope > p")?.textContent.trim()||"Materiał przypisany do tej sprawy w bibliotece Centrum Jawności.";
+(record.scope||[]).forEach(value=>{const item=document.createElement("span");item.textContent=value;meta.append(item);});
+if(!meta.childNodes.length)card.querySelectorAll(".case-meta span").forEach(node=>{const item=document.createElement("span");item.textContent=node.textContent.trim();meta.append(item);});
 const sourceStatus=card.querySelector(".case-status"),badge=card.querySelector(".case-badge");
-status.textContent=sourceStatus?.textContent.trim()||(badge?"Status materiału: "+badge.textContent.trim()+". Status nie przesądza odpowiedzialności osobistej.":"Status źródłowy nie został określony w karcie.");
+const evidenceLabels={do_weryfikacji:"materiał do weryfikacji",zebrano_linki:"zebrano odnośniki — dokumenty wymagają ponownej analizy",dokumenty_pobrane:"dokumenty pobrane — analiza w toku",dane_zweryfikowane:"dane zweryfikowane",karta_opracowana:"karta opracowana",wymaga_aktualizacji:"wymaga aktualizacji"};
+const evidenceLabel=evidenceLabels[record.evidenceStatus]||"status opracowania nieokreślony";
+status.textContent=(sourceStatus?.textContent.trim()||(badge?"Status źródłowy: "+badge.textContent.trim()+".":"Status źródłowy nie został określony."))+" Postęp pracy z materiałem: "+evidenceLabel+".";
 const detail=card.querySelector(".case-detail");
 stages.replaceChildren();
 if(detail){
@@ -108,9 +113,7 @@ stages.append(fallback);
 card.querySelectorAll(":scope > p, :scope > .case-links").forEach(node=>stages.append(node.cloneNode(true)));
 }
 if(!stages.childNodes.length){const empty=document.createElement("div");empty.className="case-empty";empty.textContent="W bibliotece nie ma jeszcze przypisanych szczegółowych materiałów do tej sprawy.";stages.append(empty);}
-})
-.catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na bibliotekę spraw. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);})
-.finally(()=>clearTimeout(timeout));
+}).catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na dane sprawy. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);}).finally(()=>clearTimeout(timeout));
 })();
-</script><script src="assets/case-visuals.js?v=1.0.0" defer></script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
+<script src="assets/case-visuals.js?v=1.0.0" defer></script><script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
 </body></html>
