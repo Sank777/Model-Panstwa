@@ -2,7 +2,7 @@
 (() => {
   "use strict";
   const visuals = Object.freeze({
-    cyber: ["assets/cases/cyber.svg", "Cyberbezpieczeństwo usług kluczowych — ilustracja poglądowa"],
+    cyber: ["assets/cases/cyber-infrastructure-hero.webp", "Ilustracja poglądowa infrastruktury energetycznej i cyberbezpieczeństwa — obraz wygenerowany, nie dokumentacja zdarzenia"],
     flood: ["assets/cases/flood.svg", "Reakcja państwa na powódź — ilustracja poglądowa"],
     it: ["assets/cases/it.svg", "Publiczne systemy IT — ilustracja poglądowa"],
     odra: ["assets/cases/odra.svg", "Kryzys ekologiczny na Odrze — ilustracja poglądowa"],
