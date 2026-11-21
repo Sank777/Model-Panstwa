@@ -23,6 +23,15 @@ let topicsWithSources = 0;
 for (const topic of data.nikTopics) {
   assert.ok(topic.id && topic.title && evidence.has(topic.evidenceStatus), "Invalid NIK topic");
   if (topic.sources?.length) topicsWithSources++;
+  if (topic.id !== "NIK-TOPIC-12") {
+    assert.equal(topic.analysisBlocks?.length, 3, "Expected three analytical blocks for " + topic.id);
+    assert.deepEqual(topic.analysisBlocks.map(block => block.id), ["nik-description","connections-tested","system-lesson"], "Unexpected analytical block order for " + topic.id);
+    for (const block of topic.analysisBlocks) {
+      assert.ok(block.title && block.lead && Array.isArray(block.points) && block.points.length >= 3, "Incomplete analytical block for " + topic.id);
+      assert.ok(block.points.every(point => typeof point === "string" && point.trim().length > 20), "Analytical point is too short for " + topic.id);
+    }
+    assert.ok(topic.imagePlan?.scene && topic.imagePlan?.caption && topic.imagePlan?.status === "plan_bez_grafiki", "Missing illustration plan or unintended image status for " + topic.id);
+  }
   for (const source of topic.sources || []) {
     assert.ok(/^https:\/\//i.test(source.url), "Only HTTPS topic sources are allowed: " + source.url);
     assert.ok(source.label && source.type, "Topic source label/type missing for " + topic.id);
