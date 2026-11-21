@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071a30">
+<meta name="description" content="Jedenaście analiz materiałów NIK oraz osobny temat PSP/OSP — panel Systemu Widzenia Sprawy Leona.">
+<title>11 analiz NIK + PSP/OSP · Centrum Jawności</title>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
+<link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
+<link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<link rel="stylesheet" href="assets/centrum-visual-system.css?v=1.0.1">
+<style>
+:root{color-scheme:dark;--nd-bg:#061426;--nd-panel:#0c2038;--nd-panel2:#102b49;--nd-line:rgba(143,190,229,.38);--nd-text:#f3f7ff;--nd-muted:#c1d1e2;--nd-blue:#37b9ee;--nd-green:#8dd6ad}
+body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 48%,#04101f 100%);color:var(--nd-text);font:15px/1.55 system-ui,sans-serif}
+.nd-wrap{width:min(1500px,calc(100% - 24px));margin:16px auto 42px}
+.nd-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin:12px 0}
+.nd-top h1{font-size:clamp(1.45rem,3vw,2rem);margin:0}
+.nd-top p{margin:.2rem 0;color:var(--nd-muted)}
+.nd-count{padding:.35rem .7rem;border:1px solid var(--nd-line);border-radius:99px;color:#bfe9ff;font-weight:800}
+.nd-layout{display:grid;grid-template-columns:minmax(245px,290px) minmax(0,1fr);gap:14px;align-items:start}
+.nd-side,.nd-main,.nd-gallery{min-width:0;border:1px solid var(--nd-line);border-radius:16px;background:linear-gradient(145deg,rgba(16,43,73,.98),rgba(7,26,47,.99));box-shadow:0 10px 28px #0005}
+.nd-side{padding:12px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.nd-side h2{font-size:1.05rem;margin:.15rem 0 .3rem}.nd-side>p{color:var(--nd-muted);font-size:.8rem;margin:.2rem 0 .8rem}
+.nd-list{display:grid;gap:7px}
+.nd-topic{display:grid;grid-template-columns:30px 58px minmax(0,1fr);align-items:center;gap:8px;width:100%;padding:7px;text-align:left;border:1px solid var(--nd-line);border-radius:10px;background:#081d33;color:var(--nd-text);cursor:pointer}
+.nd-topic:hover,.nd-topic[aria-current=true]{border-color:#38b9ee;background:linear-gradient(110deg,#075c91,#0d3154);box-shadow:0 0 0 1px #37b9ee55}
+.nd-topic .num{display:grid;place-items:center;width:27px;height:27px;border:1px solid #8ac9ee;border-radius:50%;font-weight:800;font-size:.78rem}
+.nd-topic img{width:58px;height:42px;object-fit:cover;border-radius:6px;border:1px solid #4a7698;background:#071a2e}
+.nd-topic strong{font-size:.78rem;line-height:1.25;display:block}
+.nd-topic small{display:block;color:#b9d2e7;font-size:.66rem;margin-top:2px}
+.nd-separator{margin:.8rem 0 .45rem;padding:.4rem .5rem;border-left:3px solid #d7b65e;background:#2d2a20;border-radius:0 8px 8px 0;color:#f6e7b8;font-size:.75rem;font-weight:800}
+.nd-topic.nd-psp{border-color:#b49b58}
+.nd-main{padding:12px}
+.nd-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.9fr);gap:14px;align-items:stretch;padding:14px;border:1px solid var(--nd-line);border-radius:13px;background:linear-gradient(115deg,#0b2947,#081b31 75%,#061426)}
+.nd-kicker{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.nd-pill{display:inline-flex;padding:4px 9px;border:1px solid #559cc8;border-radius:99px;color:#c5efff;background:#0b3556;font-size:.7rem;font-weight:850}
+.nd-id{color:#b5d2e9;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+.nd-hero h2{font-size:clamp(1.4rem,3vw,2.3rem);line-height:1.12;margin:.55rem 0}
+.nd-hero p{color:#d1dfed;margin:.35rem 0}
+.nd-hero img{width:100%;height:100%;min-height:190px;max-height:290px;aspect-ratio:16/9;object-fit:cover;border:1px solid #4e8ab5;border-radius:10px;background:#071a2e}
+.nd-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.nd-meta span{padding:4px 7px;border:1px solid var(--nd-line);border-radius:7px;color:#d8e7f4;background:#ffffff09;font-size:.7rem}
+.nd-status{margin:10px 0;padding:10px 12px;border-left:4px solid #d8b65d;border-radius:0 10px 10px 0;background:#2c281d;color:#f2e7c5;font-size:.82rem}
+.nd-status strong{color:#fff3c8}
+.nd-block{margin:10px 0;border:1px solid var(--nd-line);border-radius:12px;overflow:hidden;background:linear-gradient(145deg,#102b49,#091d34)}
+.nd-block h3{margin:0;padding:9px 12px;background:linear-gradient(90deg,#104b75,#102d4b);border-bottom:1px solid var(--nd-line);font-size:1rem}
+.nd-block-body{padding:11px 13px;color:var(--nd-muted)}
+.nd-block-body p{margin:.1rem 0 .5rem}.nd-block-body ul{margin:.3rem 0;padding-left:1.25rem}.nd-block-body li{margin:.25rem 0}
+.nd-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.nd-fact{padding:10px;border:1px solid var(--nd-line);border-radius:9px;background:#071a2e;color:#dce8f4;font-size:.82rem}
+.nd-sources{display:flex;gap:8px;flex-wrap:wrap}.nd-sources a{display:inline-flex;padding:8px 10px;border:1px solid #4d8db9;border-radius:8px;color:#bde9ff;text-decoration:none;font-size:.78rem;font-weight:750}
+.nd-sources a:hover{background:#0d3b5d}
+.nd-gallery{margin-top:14px;padding:12px}
+.nd-gallery h2{font-size:1.05rem;margin:.1rem 0}.nd-gallery>p{font-size:.78rem;color:var(--nd-muted);margin:.2rem 0 .7rem}
+.nd-gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.nd-gallery button{min-width:0;padding:5px;border:1px solid var(--nd-line);border-radius:9px;background:#081d33;color:var(--nd-text);cursor:pointer;text-align:center}
+.nd-gallery button[aria-current=true]{border-color:#36b9ee;box-shadow:0 0 0 1px #36b9ee55}
+.nd-gallery img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:#071a2e}
+.nd-gallery span{display:block;font-size:.68rem;line-height:1.2;padding:4px 1px 1px}
+.nd-caption{font-size:.68rem;color:#a9c0d5;margin-top:7px}
+.nd-error{padding:1rem;border:1px solid #a77b52;border-radius:10px;color:#ffe6c8;background:#30251c}
+.nd-back{color:#bde9ff;text-decoration:none;font-size:.82rem}
+@media(max-width:900px){.nd-layout{grid-template-columns:minmax(0,1fr)}.nd-side{position:static;max-height:none}.nd-list{grid-template-columns:repeat(2,minmax(0,1fr))}.nd-topic{grid-template-columns:25px 48px minmax(0,1fr)}.nd-topic img{width:48px;height:38px}.nd-hero{grid-template-columns:minmax(0,1fr)}.nd-hero img{max-height:240px}.nd-gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:520px){.nd-wrap{width:calc(100% - 16px);margin:8px auto 26px}.nd-main{padding:8px}.nd-side{padding:9px}.nd-list{grid-template-columns:minmax(0,1fr)}.nd-topic{grid-template-columns:28px 54px minmax(0,1fr)}.nd-topic img{width:54px;height:40px}.nd-facts{grid-template-columns:minmax(0,1fr)}.nd-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nd-hero{padding:10px}}
+@media(prefers-reduced-motion:reduce){.nd-topic,.nd-gallery button{scroll-behavior:auto;transition:none}}
+</style>
+</head>
+<body data-page-shell="homepage-v1" data-center-visual="v1">
+<header class="site-header">
+<a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>Centrum Jawności</small></span></a>
+<div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum jawności">⌕</a><a href="biblioteka-spraw.html" aria-label="Biblioteka spraw">▤</a><button type="button" id="themeToggle" aria-label="Zmień motyw">◐</button></div>
+</header>
+<div class="navigation-band"><nav class="top-navigation" aria-label="Nawigacja główna">
+<a href="index.html"><span>⌂</span> Strona główna</a><a class="active" href="biblioteka-spraw.html"><span>▤</span> Sprawy i karty</a><a href="biblioteka-spraw.html#archiwum-nik"><span>▣</span> Raporty NIK</a><a href="studium-inwestycji.html"><span>▥</span> Analizy</a>
+</nav></div>
+<main class="nd-wrap">
+<div class="nd-top"><div><a class="nd-back" href="biblioteka-spraw.html">← Powrót do biblioteki spraw</a><h1>Analizy NIK · 11 tematów + PSP/OSP</h1><p>Jedenaście tematów opartych na materiałach NIK oraz jeden odrębny obszar rozpoznawczy PSP/OSP.</p></div><span class="nd-count">12 tematów</span></div>
+<div id="nd-app" class="nd-layout" aria-live="polite">
+<aside class="nd-side"><h2>11 przykładów — analiza NIK</h2><p>Wybierz temat. Po prawej zobaczysz źródła, kontekst, zależności i wnioski.</p><div id="nd-list" class="nd-list"></div><div class="nd-separator">12 · OSOBNY TEMAT — PSP/OSP</div><div id="nd-psp"></div></aside>
+<section class="nd-main" id="nd-detail"><p>Ładowanie danych biblioteki…</p></section>
+</div>
+<section class="nd-gallery"><h2>Ilustracje 11 analiz NIK</h2><p>Ilustracje poglądowe do poszczególnych tematów. Nie są dokumentami źródłowymi ani fotografiami zdarzeń.</p><div id="nd-gallery-grid" class="nd-gallery-grid"></div><div class="nd-caption">Materiały graficzne służą objaśnieniu obszaru analizy. Każdy wniosek merytoryczny wymaga odrębnego źródła.</div></section>
+</main>
+<footer class="dashboard-footer"><span>Model Państwa · Centrum Jawności</span><span class="footer-motto">System Widzenia Sprawy · 12 tematów roboczych</span></footer>
+<script>
+(() => {
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const make=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
+const localImage=(topic)=>topic.imagePlan&&/^assets\/cases\/[a-z0-9/_-]+\.svg$/i.test(topic.imagePlan.src||"")?topic.imagePlan.src:(topic.id==="NIK-001"?"assets/cases/cyber-infrastructure-hero.webp":null);
+const safeUrl=(url)=>{try{const u=new URL(url);return u.protocol==="https:"?u.href:null}catch{return null}};
+const statusName={do_weryfikacji:"Do weryfikacji",zebrano_linki:"Zebrano linki — trwa analiza",dokumenty_pobrane:"Dokumenty pobrane",dane_zweryfikowane:"Dane zweryfikowane",karta_opracowana:"Karta opracowana",wymaga_aktualizacji:"Wymaga aktualizacji"};
+let topics=[],active="";
+function topicImage(t){if(t.id==="NIK-001")return "assets/cases/cyber-infrastructure-hero.webp";return localImage(t)||"assets/cases/cyber.svg"}
+function choose(id){active=id;const t=topics.find(x=>x.id===id);if(!t)return;renderDetail(t);document.querySelectorAll("[data-topic-id]").forEach(b=>b.setAttribute("aria-current",b.dataset.topicId===id?"true":"false"));history.replaceState(null,"",location.pathname+"?topic="+encodeURIComponent(id));}
+function renderList(){
+ const list=$("#nd-list"),psp=$("#nd-psp"),gallery=$("#nd-gallery-grid");
+ topics.filter(t=>t.id.startsWith("NIK-")).forEach((t,i)=>{
+  const b=make("button","nd-topic");b.type="button";b.dataset.topicId=t.id;
+  const n=make("span","num",String(i+1));const img=make("img");img.src=topicImage(t);img.alt="";img.width=116;img.height=80;img.loading="lazy";img.decoding="async";
+  const label=make("span");label.append(make("strong","",t.title),make("small","",t.id));b.append(n,img,label);b.addEventListener("click",()=>choose(t.id));list.append(b);
+  const g=make("button");g.type="button";g.dataset.topicId=t.id;const gi=make("img");gi.src=topicImage(t);gi.alt="";gi.width=180;gi.height=102;gi.loading="lazy";gi.decoding="async";g.append(gi,make("span","",String(i+1)+". "+t.title));g.addEventListener("click",()=>{choose(t.id);$("#nd-detail").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});});gallery.append(g);
+ });
+ const p=topics.find(t=>t.id==="PSP-OSP-001");
+ if(p){const b=make("button","nd-topic nd-psp");b.type="button";b.dataset.topicId=p.id;const n=make("span","num","12");const img=make("img");img.src="assets/psp-ev.svg";img.alt="";img.width=116;img.height=80;img.loading="lazy";const label=make("span");label.append(make("strong","",p.title),make("small","","ODRĘBNY OBSZAR ROZPOZNAWCZY"));b.append(n,img,label);b.addEventListener("click",()=>choose(p.id));psp.append(b);}
+}
+function renderDetail(t){
+ const root=$("#nd-detail");root.replaceChildren();
+ const isPsp=t.id==="PSP-OSP-001";
+ const hero=make("section","nd-hero"),copy=make("div"),k=make("div","nd-kicker");
+ k.append(make("span","nd-pill",isPsp?"TEMAT ROZPOZNAWCZY · FILAR 4":"CENTRUM JAWNOŚCI · KARTA ANALIZY"),make("span","nd-id",t.id));copy.append(k,make("h2","",t.title),make("p","",t.summary||""));
+ const img=make("img");img.src=isPsp?"assets/psp-ev.svg":topicImage(t);img.alt=isPsp?"Ilustracja poglądowa: rozpoznanie pojazdu elektrycznego przez PSP/OSP":(t.imagePlan?.alt||"Ilustracja poglądowa tematu analizy");img.width=960;img.height=540;img.loading="eager";img.fetchPriority="high";img.decoding="async";
+ hero.append(copy,img);root.append(hero);
+ const status=make("div","nd-status");status.append(make("strong","",isPsp?"Status tematu: ":"Status opracowania: "),document.createTextNode(isPsp?"Odrębny temat PSP/OSP — nie jest zaliczany do 11 analiz materiałów NIK.":(statusName[t.evidenceStatus]||"Status do uzupełnienia")+". Materiały źródłowe i wnioski należy rozpatrywać w granicach wskazanych dokumentów."));root.append(status);
+ if(isPsp){
+  const b=make("section","nd-block");b.append(make("h3","","Zakres rozpoznania"));const body=make("div","nd-block-body");body.append(make("p","","Temat obejmuje gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami fotowoltaicznymi. Zakres roboczy: wyposażenie, szkolenie, organizacja wsparcia, procedury i zdolność jednostek."));const row=make("div","nd-facts");[["Pojazdy elektryczne","Rozpoznanie zagrożeń i bezpieczne działania ratownicze."],["Instalacje PV","Identyfikacja instalacji i zasady bezpiecznej pracy."],["Ochrona ratownika","Wyposażenie, procedury i ograniczanie ryzyka." ]].forEach(([a,c])=>{const f=make("div","nd-fact");f.append(make("strong","",a),make("p","",c));row.append(f)});body.append(row);b.append(body);root.append(b);
+  const imgs=make("section","nd-block");imgs.append(make("h3","","Trzy obszary ilustracyjne"));const ib=make("div","nd-block-body");const rr=make("div","nd-facts");[["assets/psp-ev.svg","Pojazdy elektryczne"],["assets/psp-pv.svg","Instalacje fotowoltaiczne"],["assets/psp-ochrona.svg","Ochrona ratownika"]].forEach(([src,alt])=>{const f=make("div","nd-fact");const im=make("img");im.src=src;im.alt="Ilustracja poglądowa: "+alt;im.width=600;im.height=340;im.loading="lazy";im.style.cssText="width:100%;aspect-ratio:16/9;object-fit:contain";f.append(im,make("strong","",alt));rr.append(f)});ib.append(rr,make("p","","Źródła i pełna karta analityczna wymagają osobnego uzupełnienia. Nie przypisujemy temu tematowi ustaleń NIK bez wskazania konkretnego raportu."));imgs.append(ib);root.append(imgs);return;
+ }
+ if(t.scope?.length){const meta=make("div","nd-meta");t.scope.forEach(x=>meta.append(make("span","",x)));copy.append(meta)}
+ if(t.preliminaryNote){const note=make("section","nd-block");note.append(make("h3","","Zakres i ograniczenia materiału"));note.append(make("div","nd-block-body"," "+t.preliminaryNote+" "+(t.noteStatus||"")));root.append(note)}
+ if(t.preliminaryFacts?.length){const block=make("section","nd-block");block.append(make("h3","","Informacje wstępne do sprawdzenia w źródłach"));const body=make("div","nd-block-body");const grid=make("div","nd-facts");t.preliminaryFacts.forEach(f=>grid.append(make("div","nd-fact",f.text+(f.scope?" ("+f.scope+")":""))));body.append(grid);block.append(body);root.append(block)}
+ (t.analysisBlocks||[]).forEach(x=>{const block=make("section","nd-block");block.append(make("h3","",x.title));const body=make("div","nd-block-body");if(x.lead)body.append(make("p","",x.lead));const ul=make("ul");(x.points||[]).forEach(p=>ul.append(make("li","",p)));body.append(ul);block.append(body);root.append(block)});
+ if(t.imagePlan?.caption)root.append(make("p","nd-caption",t.imagePlan.caption));
+ const src=make("section","nd-block");src.append(make("h3","","Materiały źródłowe"));const sb=make("div","nd-block-body"),links=make("div","nd-sources");(t.sources||[]).forEach(s=>{const u=safeUrl(s.url);if(!u)return;const a=make("a","",s.label||"Otwórz źródło");a.href=u;a.target="_blank";a.rel="noopener noreferrer";links.append(a)});if(!links.childElementCount)sb.append(make("p","","Brak podłączonych źródeł w rejestrze — temat wymaga uzupełnienia."));else sb.append(links);src.append(sb);root.append(src);
+}
+async function init(){
+ try{const response=await fetch("assets/cases/index.json?v=20261121", {credentials:"same-origin",cache:"force-cache"});if(!response.ok)throw new Error("Nie udało się pobrać rejestru tematów.");const data=await response.json();topics=Array.isArray(data.nikTopics)?data.nikTopics:[];if(topics.filter(t=>t.id.startsWith("NIK-")).length!==11||!topics.some(t=>t.id==="PSP-OSP-001"))throw new Error("Rejestr tematów nie zawiera oczekiwanego zestawu 11 + 1.");renderList();const requested=new URLSearchParams(location.search).get("topic");choose(topics.some(t=>t.id===requested)?requested:"NIK-001");
+ }catch(error){$("#nd-detail").replaceChildren(make("p","nd-error","Nie udało się uruchomić panelu: "+error.message));}
+}
+init();
+})();
+</script>
+<script src="assets/site.js?v=20261117-header-login1" defer></script>
+</body></html>
