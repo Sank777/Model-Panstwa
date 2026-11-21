@@ -33,7 +33,7 @@ for (const topic of data.nikTopics) {
     assert.ok(topic.imagePlan?.scene && topic.imagePlan?.caption && topic.imagePlan?.status === "svg_dodany", "Missing illustration asset for " + topic.id);
     assert.ok(/^assets\/cases\/illustrations\/[a-z0-9-]+\.svg$/.test(topic.imagePlan.src || ""), "Invalid local illustration path for " + topic.id);
     const svg = await readFile(new URL("../" + topic.imagePlan.src, import.meta.url), "utf8");
-    assert.ok(svg.startsWith("<svg ") && !/<script|<foreignObject|https?:\/\//i.test(svg), "Unsafe or invalid SVG for " + topic.id);
+    assert.ok(svg.startsWith("<svg ") && !/<script|<foreignObject|(?:href|xlink:href)\s*=\s*["']https?:/i.test(svg), "Unsafe or invalid SVG for " + topic.id);
   }
   for (const source of topic.sources || []) {
     assert.ok(/^https:\/\//i.test(source.url), "Only HTTPS topic sources are allowed: " + source.url);
