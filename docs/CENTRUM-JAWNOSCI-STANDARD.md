@@ -85,6 +85,20 @@ Lista 11 tematów i PSP/OSP jest zestawem powiązanym ze ścieżką zgłoszeń o
 9. Publikacja i zapis wersji.
 10. Aktualizacja wyłącznie przez dopisywanie nowych, datowanych informacji.
 
-## 9. Granice automatyzacji
+## 9. Dane i wspólny rejestr
+
+Metadane spraw, identyfikatory, statusy pracy ze źródłami, zakresy i odnośniki źródłowe zapisujemy w jednym rejestrze: `assets/cases/index.json`. Biblioteka, karta szczegółowa i wyszukiwarka mają korzystać z tych samych rekordów. Nie wolno tworzyć rozbieżnych kopii tytułów, statusów ani list źródeł.
+
+Rejestr nie zastępuje dokumentów źródłowych. Status „zebrano_linki” oznacza tylko zapisane odnośniki, a nie ponowną analizę raportu. Szczegółowe sekcje karty są przenoszone do ustrukturyzowanych danych dopiero po weryfikacji dokumentów; dotychczasowy HTML pozostaje warstwą zgodności do czasu testu porównawczego.
+
+Pełny kontrakt danych, statusy materiałów i reguły migracji opisuje `docs/CENTRUM-JAWNOSCI-DANE-I-GRAFIKI.md`.
+
+## 10. Szybkie grafiki
+
+ImageGen jest narzędziem wbudowanym, a nie wtyczką wymagającą instalacji. Obraz źródłowy przechodzi przez optymalizację przed publikacją. Do strony trafiają lokalne warianty WebP (640 px i 1280 px), z usuniętymi zbędnymi metadanymi, rozsądną kompresją i kontrolą rozmiaru. Kafelki używają `loading=lazy`, `decoding=async`, `srcset` i `sizes`; główny obraz może otrzymać `fetchpriority=high` i preload tylko wtedy, gdy jest widoczny na pierwszym ekranie. Nie ładujemy atlasów sprite'ów dla indywidualnych kart.
+
+Docelowy limit pliku: około 90 KB dla wariantu 640 px i 220 KB dla 1280 px; jakość kodowania startowo 78, z kontrolą czytelności. Wszystkie zasoby są lokalne, bez zewnętrznych trackerów i bibliotek.
+
+## 11. Granice automatyzacji
 
 Leon może porządkować dokumenty, porównywać liczby, odtwarzać chronologię i wskazywać luki lub pytania. Nie może samodzielnie rozstrzygać winy, potwierdzać zarzutów ani przedstawiać hipotez jako ustaleń organu. Decyzje o publikacji i ocenie wymagają kontroli człowieka.
