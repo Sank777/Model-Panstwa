@@ -88,7 +88,8 @@
         src = URL.createObjectURL(segment.blob);
         objectURLs.add(src);
       }
-      let image = slot.querySelector(":scope > .leon-visual-runtime-image");
+      const isImageSlot = slot.tagName === "IMG";
+      let image = isImageSlot ? slot : slot.querySelector(":scope > .leon-visual-runtime-image");
       if (!image) {
         image = document.createElement("img");
         image.className = "leon-visual-runtime-image";
@@ -113,6 +114,10 @@
 
   function schedule(slot) {
     if (slot.dataset.leonVisualState) return;
+    if (!slot.dataset.leonVisualTracked) {
+      slot.dataset.leonVisualTracked = "true";
+      state.slots++;
+    }
     if (observer) observer.observe(slot);
     else render(slot).catch(() => {});
   }
