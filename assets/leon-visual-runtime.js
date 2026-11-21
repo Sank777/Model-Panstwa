@@ -136,8 +136,7 @@
   function start() {
     if (state.started) return;
     state.started = true;
-    const slots = document.querySelectorAll("[data-leon-visual-src]");
-    state.slots = slots.length;
+    // schedule() rejestruje każdy slot dokładnie raz; nie ustawiamy tu wstępnego licznika.
     if ("IntersectionObserver" in window) {
       observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
