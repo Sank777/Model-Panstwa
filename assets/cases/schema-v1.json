@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Centrum Jawności — rejestr spraw",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "updatedAt",
+    "cases",
+    "nikTopics",
+    "imageDelivery"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/case"
+      }
+    },
+    "educationalScenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/case"
+      }
+    },
+    "nikTopics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "evidenceStatus"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "visual": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidenceStatus": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "imageDelivery": {
+      "type": "object",
+      "required": [
+        "preferredFormat",
+        "variants",
+        "quality",
+        "localOnly"
+      ],
+      "properties": {
+        "preferredFormat": {
+          "const": "webp"
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "quality": {
+          "type": "integer"
+        },
+        "localOnly": {
+          "const": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "case": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "category",
+        "status",
+        "evidenceStatus",
+        "summary",
+        "sources",
+        "sections"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "evidenceStatus": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "url",
+              "type"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "visual": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sections": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}
