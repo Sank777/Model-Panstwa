@@ -248,52 +248,129 @@
       "id": "NIK-TOPIC-01",
       "title": "Cyberbezpieczeństwo usług kluczowych",
       "visual": "cyber",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Energia, woda i transport; obowiązki operatorów, nadzór, monitoring incydentów i reakcja na alerty.",
       "sources": [
         {
           "label": "NIK: Transport, dostawy energii i wody pitnej niewystarczająco zabezpieczone przed cyberatakami",
           "url": "https://www.nik.gov.pl/aktualnosci/bezpieczenstwo-narodowe/transport-dostawy-energii-i-wody-pitnej-niewystarczajaco-zabezpieczone-przed-cyberatakami.html",
-          "type": "komunikat_NIK"
+          "type": "komunikat_NIK",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Karta kontroli NIK P/25/083 – Cyberbezpieczeństwo wybranych usług kluczowych",
+          "url": "https://www.nik.gov.pl/kontrole/P/25/083/",
+          "type": "karta_kontroli",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Komunikat NIK z 27.08.2026 opisuje kontrolę ośmiu operatorów usług kluczowych z lat 2021–2025; to trop do pozyskania pełnej informacji o wynikach i wystąpień pokontrolnych.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Kontrolą objęto osiem podmiotów świadczących usługi kluczowe w sektorach transportu, dostaw energii i zaopatrzenia w wodę pitną.",
+          "kind": "finding",
+          "sourceId": "nik-cyber-2026",
+          "scope": "Kontrola NIK; okres 1.01.2021–16.02.2026"
+        },
+        {
+          "text": "NIK podała, że żaden z ośmiu skontrolowanych operatorów nie zapewnił systemom usługi kluczowej odporności na działania naruszające poufność, integralność, dostępność i autentyczność danych.",
+          "kind": "finding",
+          "sourceId": "nik-cyber-2026",
+          "scope": "Ośmiu operatorów objętych kontrolą"
+        },
+        {
+          "text": "Sześciu operatorów systematycznie ignorowało krytyczne alerty z systemów monitorowania i zabezpieczeń.",
+          "kind": "finding",
+          "sourceId": "nik-cyber-2026",
+          "scope": "Sześciu z ośmiu operatorów"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-02",
       "title": "Reakcja państwa na powódź",
       "visual": "flood",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Reakcja szczebla centralnego, wojewódzkiego, powiatowego i gminnego, zmiany prawne i odbudowa.",
       "sources": [
         {
           "label": "NIK: Zarządzanie kryzysowe w czasie powodzi – do poprawy",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
-          "type": "wyniki_kontroli"
+          "type": "wyniki_kontroli",
+          "sourceId": "nik-flood-2026",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Komunikat NIK z 31.08.2026 dotyczy kontroli działań podmiotów na szczeblu centralnym, wojewódzkim, powiatowym i gminnym w latach 2024–2025; pełny raport i załączniki do pobrania.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Kontrola dotyczyła działań podmiotów publicznych w latach 2024–2025 na szczeblu centralnym, wojewódzkim, powiatowym i gminnym.",
+          "kind": "finding",
+          "sourceId": "nik-flood-2026",
+          "scope": "Powódź z września 2024 r.; woj. dolnośląskie i opolskie"
+        },
+        {
+          "text": "NIK wskazała nieprawidłowości na każdym szczeblu zarządzania kryzysowego, jednocześnie oceniając prawidłowo pomoc finansową udzielaną poszkodowanym.",
+          "kind": "finding",
+          "sourceId": "nik-flood-2026",
+          "scope": "Wyniki komunikatu NIK; szczegóły wymagają weryfikacji w pełnym raporcie"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-03",
       "title": "Publiczne systemy IT, które nie działały",
       "visual": "it",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Umowy, wymagania, zmiany, odbiory, płatności, prawa do oprogramowania i bezpieczeństwo informacji.",
       "sources": [
         {
           "label": "NIK: Środki publiczne na systemy IT, które nie działały",
           "url": "https://www.nik.gov.pl/aktualnosci/finanse-i-sprawy-publiczne/srodki-publiczne-na-systemy-it-ktore-nie-dzialaly-nik-skontrolowala-lubelskie-uczelnie.html",
-          "type": "komunikat_NIK"
+          "type": "komunikat_NIK",
+          "sourceId": "nik-it-2026",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Karta kontroli NIK I/25/001/DLL",
+          "url": "https://www.nik.gov.pl/kontrole/I/25/001/DLL/",
+          "type": "karta_kontroli",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Wystąpienie pokontrolne – Politechnika Lubelska (PDF)",
+          "url": "https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz%2Cdll~i_25_001_202603141348521773492532~id1~01%2Ctyp%2Ckj.pdf",
+          "type": "wystapienie_pokontrolne",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Wystąpienie pokontrolne – Uniwersytet Medyczny w Lublinie (PDF)",
+          "url": "https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz%2Cdll~i_25_001_202603141348521773492532~id0~01%2Ctyp%2Ckj.pdf",
+          "type": "wystapienie_pokontrolne",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Komunikat NIK z 12.06.2026 opisuje dwa publiczne lubelskie uniwersytety; wskazuje m.in. system za 15 mln zł, który nie został wdrożony. Pełne ustalenia i status wniosków trzeba przepisać z raportu.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Zintegrowany System Informatyczny Uniwersytetu Medycznego w Lublinie kosztował 15,9 mln zł i nie został uruchomiony do zakończenia czynności kontrolnych w październiku 2025 r., mimo odbioru końcowego we wrześniu 2024 r.",
+          "kind": "finding",
+          "sourceId": "nik-it-2026",
+          "scope": "Jeden system w jednej z dwóch kontrolowanych uczelni"
+        },
+        {
+          "text": "NIK skierowała 14 wniosków pokontrolnych: siedem zrealizowano, a siedem pozostawało w trakcie realizacji według komunikatu z czerwca 2026 r.",
+          "kind": "finding",
+          "sourceId": "nik-it-2026",
+          "scope": "Dwie kontrolowane uczelnie; status na dzień publikacji komunikatu"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-04",
@@ -305,7 +382,8 @@
         {
           "label": "NIK: Kryzys ekologiczny na Odrze – spóźnione działania podmiotów publicznych",
           "url": "https://www.nik.gov.pl/kontrola-panstwowa/02/kryzys-ekologiczny-na-odrze-spoznione-dzialania-podmiotow-publicznych.html",
-          "type": "analiza_NIK"
+          "type": "analiza_NIK",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Analiza NIK dotyczy reakcji podmiotów publicznych na katastrofę ekologiczną w 2022 r.; należy oddzielić ustalenia organu od badań naukowych i późniejszych ocen.",
@@ -322,7 +400,8 @@
         {
           "label": "NIK: Analiza wykonania budżetu państwa",
           "url": "https://www.nik.gov.pl/kontrole/analiza-budzetu-panstwa/",
-          "type": "archiwum_analiz"
+          "type": "archiwum_analiz",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Oficjalna strona zbiera coroczne analizy wykonania budżetu państwa oraz kontrole cząstkowe. Każda karta musi wskazać konkretny rok i tom, nie mieszać różnych roczników.",
@@ -339,7 +418,8 @@
         {
           "label": "NIK: Kontrola wyborów korespondencyjnych Prezydenta RP",
           "url": "https://www.nik.gov.pl/kontrola-panstwowa-2021/05/kontrola-wyborow-korespondencyjnych-prezydenta-rp.html",
-          "type": "analiza_NIK"
+          "type": "analiza_NIK",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Materiał NIK omawia kontrolę przygotowań do wyborów korespondencyjnych w 2020 r.; wymaga odtworzenia chronologii decyzji, podstaw prawnych, kosztów i późniejszych rozstrzygnięć.",
@@ -350,93 +430,186 @@
       "id": "NIK-TOPIC-07",
       "title": "Gospodarka odpadami i recykling",
       "visual": "waste",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór.",
       "sources": [
         {
           "label": "NIK: Gospodarowanie odpadami – brak rzetelnych danych",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/gospodarowanie-odpadami.html",
-          "type": "wyniki_kontroli"
+          "type": "wyniki_kontroli",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Pełna informacja o wynikach kontroli P/23/039 (PDF, 116 stron)",
+          "url": "https://www.nik.gov.pl/plik/id,30506,vp,33560.pdf",
+          "type": "raport",
+          "sourceId": "nik-waste-2024",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Wyniki kontroli NIK wskazują m.in. problemy z funkcjonalnością BDO i wiarygodnością danych o odpadach; kwoty i okresy należy przepisać z pełnej informacji pokontrolnej.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "W 2023 r. według danych GUS przytoczonych w raporcie do odzysku przekazano 47,5% odpadów, w tym do recyklingu 15,8%.",
+          "kind": "finding",
+          "sourceId": "nik-waste-2024",
+          "scope": "Dane krajowe za 2023 r.; wartości cytowane w raporcie NIK"
+        },
+        {
+          "text": "Kontrola obejmowała Ministerstwo Klimatu i Środowiska, sześć urzędów marszałkowskich, 16 urzędów gmin, trzy związki gminne, NFOŚiGW i pięć WFOŚiGW.",
+          "kind": "finding",
+          "sourceId": "nik-waste-2024",
+          "scope": "Zakres podmiotowy kontroli P/23/039"
+        },
+        {
+          "text": "NIK wskazała, że BDO nie zapewniała narzędzi wystarczających do rzetelnego monitorowania rynku odpadów i poziomów recyklingu.",
+          "kind": "finding",
+          "sourceId": "nik-waste-2024",
+          "scope": "Ocena systemu w okresie objętym kontrolą"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-08",
       "title": "Zamawianie świadczeń zdrowotnych w szpitalach",
       "visual": "health",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Umowy, braki kadrowe, nadzór nad usługami, bezpieczeństwo pacjentów i środki.",
       "sources": [
         {
           "label": "NIK: Funkcjonowanie szpitali klinicznych",
           "url": "https://www.nik.gov.pl/aktualnosci/sprawy-spoleczne/nik-o-funkcjonowaniu-szpitali-klinicznych.html",
-          "type": "komunikat_NIK"
+          "type": "komunikat_NIK",
+          "sourceId": "nik-hospitals-2026",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Komunikat NIK z 25.06.2026 obejmuje 10 szpitali klinicznych; opisuje zamówienia na świadczenia i kontrakty personelu, ale także organizację pracy i bezpieczeństwo pacjentów.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Kontrola objęła dziesięć szpitali klinicznych; NIK podała, że w pięciu z nich prawidłowo stosowano procedury zamówień na świadczenia, a w pozostałych pięciu wystąpiły nieprawidłowości.",
+          "kind": "finding",
+          "sourceId": "nik-hospitals-2026",
+          "scope": "Dziesięć szpitali objętych kontrolą; komunikat z 25.06.2026"
+        },
+        {
+          "text": "NIK wskazała problemy z brakiem lub nierzetelnym przeprowadzaniem konkursów ofert, niekompletną dokumentacją i dokumentowaniem realizacji umów.",
+          "kind": "finding",
+          "sourceId": "nik-hospitals-2026",
+          "scope": "Ustalenia komunikatu; szczegóły do sprawdzenia w wystąpieniach pokontrolnych"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-09",
       "title": "Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
       "visual": "schools",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Rola samorządów i dyrektorów, organizacja szkół, wsparcie uczniów i wykonanie wniosków.",
       "sources": [
         {
           "label": "NIK: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
           "url": "https://www.nik.gov.pl/aktualnosci/nadzor-nad-szkolami-publicznymi-zachodniopomorskie.html",
-          "type": "komunikat_NIK"
+          "type": "komunikat_NIK",
+          "sourceId": "nik-schools-2024",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Kontrola dotyczy trzech miast: Szczecina, Koszalina i Świnoujścia; obejmuje m.in. arkusze organizacyjne, wynagrodzenia, wyniki egzaminów i wsparcie uczniów ze specjalnymi potrzebami.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Kontrola objęła trzy miasta: Szczecin, Koszalin i Świnoujście.",
+          "kind": "finding",
+          "sourceId": "nik-schools-2024",
+          "scope": "Nadzór nad szkołami publicznymi; publikacja 4.09.2024"
+        },
+        {
+          "text": "NIK wskazała m.in. nierzetelną weryfikację arkuszy organizacyjnych, nieprawidłowości dotyczące wynagrodzeń i brak analizy pogarszających się wyników egzaminów.",
+          "kind": "finding",
+          "sourceId": "nik-schools-2024",
+          "scope": "Ustalenia komunikatu NIK"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-10",
       "title": "Rządowy Fundusz Rozwoju Mieszkalnictwa",
       "visual": "housing",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Przepływ środków, rola ministrów i KZN, wnioski gmin, SIM i efekty mieszkaniowe.",
       "sources": [
         {
           "label": "NIK: Działanie Rządowego Funduszu Rozwoju Mieszkalnictwa – prawne uwarunkowania SIM",
           "url": "https://www.nik.gov.pl/kontrola-panstwowa-2026/02/dzialanie-rzadowego-funduszu-rozwoju-mieszkalnictwa-prawne-uwarunkowania-dzialalnosci-spolek-typu-sim.html",
-          "type": "analiza_NIK"
+          "type": "analiza_NIK",
+          "sourceId": "nik-rfrm-2026",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Artykuł NIK z 2026 r. omawia kompleksową kontrolę RFRM i SIM; podaje 30 skontrolowanych jednostek, w tym 28 z nieprawidłowościami. Należy pozyskać raport główny i sprawdzić status zaleceń.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Artykuł NIK z 2026 r. opisujący kompleksową kontrolę RFRM podał, że w 28 z 30 skontrolowanych jednostek ujawniono działania nielegalne, niegospodarne, niecelowe lub nierzetelne.",
+          "kind": "finding",
+          "sourceId": "nik-rfrm-2026",
+          "scope": "30 jednostek; dokładny zakres i klasyfikację trzeba przepisać z pełnego dokumentu"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-11",
       "title": "Miejsca schronienia i budowle ochronne",
       "visual": "shelter",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "dokumenty_pobrane",
       "summary": "Stan infrastruktury, odpowiedzialność za utrzymanie, ewidencja obiektów i gotowość ochrony ludności.",
       "sources": [
         {
           "label": "NIK: W schronie się nie schronisz",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/budowle-ochronne-miejsca-ukrycia.html",
-          "type": "wyniki_kontroli"
+          "type": "wyniki_kontroli",
+          "sourceId": "nik-shelters-2024",
+          "lastChecked": "2026-11-21"
+        },
+        {
+          "label": "Pełna informacja o wynikach kontroli P/23/061 (PDF)",
+          "url": "https://www.nik.gov.pl/plik/id,28928,vp,31760.pdf",
+          "type": "raport",
+          "lastChecked": "2026-11-21"
         }
       ],
       "preliminaryNote": "Wyniki kontroli dotyczą budowli ochronnych i miejsc ukrycia; komunikat wskazuje 32 skontrolowane gminy. Dane z inwentaryzacji PSP i ocena techniczna obiektów muszą być rozdzielone.",
-      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
+      "lastSourceCheck": "2026-11-21",
+      "preliminaryFacts": [
+        {
+          "text": "Kontrola objęła 32 gminy; sześć z nich nie zapewniło mieszkańcom żadnego miejsca schronienia.",
+          "kind": "finding",
+          "sourceId": "nik-shelters-2024",
+          "scope": "Kontrola dotycząca budowli ochronnych i miejsc ukrycia; wyniki opublikowane w marcu 2024 r."
+        },
+        {
+          "text": "NIK podała, że 68% oglądanych schronów i ponad połowa ukryć nie spełniały wymaganych wówczas warunków technicznych.",
+          "kind": "finding",
+          "sourceId": "nik-shelters-2024",
+          "scope": "Wynik historycznej kontroli; nie opisuje automatycznie stanu obecnego"
+        }
+      ]
     },
     {
       "id": "NIK-TOPIC-12",
       "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
       "visual": "psp-ev",
       "evidenceStatus": "do_weryfikacji",
-      "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek."
+      "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek.",
+      "sources": []
     }
   ],
   "imageDelivery": {
