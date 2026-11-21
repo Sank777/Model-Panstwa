@@ -248,78 +248,188 @@
       "id": "NIK-TOPIC-01",
       "title": "Cyberbezpieczeństwo usług kluczowych",
       "visual": "cyber",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Energia, woda i transport; obowiązki operatorów, nadzór, monitoring incydentów i reakcja na alerty."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Energia, woda i transport; obowiązki operatorów, nadzór, monitoring incydentów i reakcja na alerty.",
+      "sources": [
+        {
+          "label": "NIK: Transport, dostawy energii i wody pitnej niewystarczająco zabezpieczone przed cyberatakami",
+          "url": "https://www.nik.gov.pl/aktualnosci/bezpieczenstwo-narodowe/transport-dostawy-energii-i-wody-pitnej-niewystarczajaco-zabezpieczone-przed-cyberatakami.html",
+          "type": "komunikat_NIK"
+        }
+      ],
+      "preliminaryNote": "Komunikat NIK z 27.08.2026 opisuje kontrolę ośmiu operatorów usług kluczowych z lat 2021–2025; to trop do pozyskania pełnej informacji o wynikach i wystąpień pokontrolnych.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-02",
       "title": "Reakcja państwa na powódź",
       "visual": "flood",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Reakcja szczebla centralnego, wojewódzkiego, powiatowego i gminnego, zmiany prawne i odbudowa."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Reakcja szczebla centralnego, wojewódzkiego, powiatowego i gminnego, zmiany prawne i odbudowa.",
+      "sources": [
+        {
+          "label": "NIK: Zarządzanie kryzysowe w czasie powodzi – do poprawy",
+          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
+          "type": "wyniki_kontroli"
+        }
+      ],
+      "preliminaryNote": "Komunikat NIK z 31.08.2026 dotyczy kontroli działań podmiotów na szczeblu centralnym, wojewódzkim, powiatowym i gminnym w latach 2024–2025; pełny raport i załączniki do pobrania.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-03",
       "title": "Publiczne systemy IT, które nie działały",
       "visual": "it",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Umowy, wymagania, zmiany, odbiory, płatności, prawa do oprogramowania i bezpieczeństwo informacji."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Umowy, wymagania, zmiany, odbiory, płatności, prawa do oprogramowania i bezpieczeństwo informacji.",
+      "sources": [
+        {
+          "label": "NIK: Środki publiczne na systemy IT, które nie działały",
+          "url": "https://www.nik.gov.pl/aktualnosci/finanse-i-sprawy-publiczne/srodki-publiczne-na-systemy-it-ktore-nie-dzialaly-nik-skontrolowala-lubelskie-uczelnie.html",
+          "type": "komunikat_NIK"
+        }
+      ],
+      "preliminaryNote": "Komunikat NIK z 12.06.2026 opisuje dwa publiczne lubelskie uniwersytety; wskazuje m.in. system za 15 mln zł, który nie został wdrożony. Pełne ustalenia i status wniosków trzeba przepisać z raportu.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-04",
       "title": "Kryzys ekologiczny na Odrze",
       "visual": "odra",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Monitoring wód, przepływ informacji, współpraca instytucji, ostrzeganie i wcześniejsze sygnały."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Monitoring wód, przepływ informacji, współpraca instytucji, ostrzeganie i wcześniejsze sygnały.",
+      "sources": [
+        {
+          "label": "NIK: Kryzys ekologiczny na Odrze – spóźnione działania podmiotów publicznych",
+          "url": "https://www.nik.gov.pl/kontrola-panstwowa/02/kryzys-ekologiczny-na-odrze-spoznione-dzialania-podmiotow-publicznych.html",
+          "type": "analiza_NIK"
+        }
+      ],
+      "preliminaryNote": "Analiza NIK dotyczy reakcji podmiotów publicznych na katastrofę ekologiczną w 2022 r.; należy oddzielić ustalenia organu od badań naukowych i późniejszych ocen.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-05",
       "title": "Wykonanie budżetu państwa",
       "visual": "budget",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Dochody, wydatki, rezerwy, fundusze poza budżetem, dług i sprawozdawczość."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Dochody, wydatki, rezerwy, fundusze poza budżetem, dług i sprawozdawczość.",
+      "sources": [
+        {
+          "label": "NIK: Analiza wykonania budżetu państwa",
+          "url": "https://www.nik.gov.pl/kontrole/analiza-budzetu-panstwa/",
+          "type": "archiwum_analiz"
+        }
+      ],
+      "preliminaryNote": "Oficjalna strona zbiera coroczne analizy wykonania budżetu państwa oraz kontrole cząstkowe. Każda karta musi wskazać konkretny rok i tom, nie mieszać różnych roczników.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-06",
       "title": "Przygotowanie wyborów korespondencyjnych",
       "visual": "election",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Kompetencje organów, podstawy prawne, decyzje, koszty i późniejsze rozstrzygnięcia."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Kompetencje organów, podstawy prawne, decyzje, koszty i późniejsze rozstrzygnięcia.",
+      "sources": [
+        {
+          "label": "NIK: Kontrola wyborów korespondencyjnych Prezydenta RP",
+          "url": "https://www.nik.gov.pl/kontrola-panstwowa-2021/05/kontrola-wyborow-korespondencyjnych-prezydenta-rp.html",
+          "type": "analiza_NIK"
+        }
+      ],
+      "preliminaryNote": "Materiał NIK omawia kontrolę przygotowań do wyborów korespondencyjnych w 2020 r.; wymaga odtworzenia chronologii decyzji, podstaw prawnych, kosztów i późniejszych rozstrzygnięć.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-07",
       "title": "Gospodarka odpadami i recykling",
       "visual": "waste",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór.",
+      "sources": [
+        {
+          "label": "NIK: Gospodarowanie odpadami – brak rzetelnych danych",
+          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/gospodarowanie-odpadami.html",
+          "type": "wyniki_kontroli"
+        }
+      ],
+      "preliminaryNote": "Wyniki kontroli NIK wskazują m.in. problemy z funkcjonalnością BDO i wiarygodnością danych o odpadach; kwoty i okresy należy przepisać z pełnej informacji pokontrolnej.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-08",
       "title": "Zamawianie świadczeń zdrowotnych w szpitalach",
       "visual": "health",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Umowy, braki kadrowe, nadzór nad usługami, bezpieczeństwo pacjentów i środki."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Umowy, braki kadrowe, nadzór nad usługami, bezpieczeństwo pacjentów i środki.",
+      "sources": [
+        {
+          "label": "NIK: Funkcjonowanie szpitali klinicznych",
+          "url": "https://www.nik.gov.pl/aktualnosci/sprawy-spoleczne/nik-o-funkcjonowaniu-szpitali-klinicznych.html",
+          "type": "komunikat_NIK"
+        }
+      ],
+      "preliminaryNote": "Komunikat NIK z 25.06.2026 obejmuje 10 szpitali klinicznych; opisuje zamówienia na świadczenia i kontrakty personelu, ale także organizację pracy i bezpieczeństwo pacjentów.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-09",
       "title": "Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
       "visual": "schools",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Rola samorządów i dyrektorów, organizacja szkół, wsparcie uczniów i wykonanie wniosków."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Rola samorządów i dyrektorów, organizacja szkół, wsparcie uczniów i wykonanie wniosków.",
+      "sources": [
+        {
+          "label": "NIK: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
+          "url": "https://www.nik.gov.pl/aktualnosci/nadzor-nad-szkolami-publicznymi-zachodniopomorskie.html",
+          "type": "komunikat_NIK"
+        }
+      ],
+      "preliminaryNote": "Kontrola dotyczy trzech miast: Szczecina, Koszalina i Świnoujścia; obejmuje m.in. arkusze organizacyjne, wynagrodzenia, wyniki egzaminów i wsparcie uczniów ze specjalnymi potrzebami.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-10",
       "title": "Rządowy Fundusz Rozwoju Mieszkalnictwa",
       "visual": "housing",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Przepływ środków, rola ministrów i KZN, wnioski gmin, SIM i efekty mieszkaniowe."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Przepływ środków, rola ministrów i KZN, wnioski gmin, SIM i efekty mieszkaniowe.",
+      "sources": [
+        {
+          "label": "NIK: Działanie Rządowego Funduszu Rozwoju Mieszkalnictwa – prawne uwarunkowania SIM",
+          "url": "https://www.nik.gov.pl/kontrola-panstwowa-2026/02/dzialanie-rzadowego-funduszu-rozwoju-mieszkalnictwa-prawne-uwarunkowania-dzialalnosci-spolek-typu-sim.html",
+          "type": "analiza_NIK"
+        }
+      ],
+      "preliminaryNote": "Artykuł NIK z 2026 r. omawia kompleksową kontrolę RFRM i SIM; podaje 30 skontrolowanych jednostek, w tym 28 z nieprawidłowościami. Należy pozyskać raport główny i sprawdzić status zaleceń.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-11",
       "title": "Miejsca schronienia i budowle ochronne",
       "visual": "shelter",
-      "evidenceStatus": "do_weryfikacji",
-      "summary": "Stan infrastruktury, odpowiedzialność za utrzymanie, ewidencja obiektów i gotowość ochrony ludności."
+      "evidenceStatus": "zebrano_linki",
+      "summary": "Stan infrastruktury, odpowiedzialność za utrzymanie, ewidencja obiektów i gotowość ochrony ludności.",
+      "sources": [
+        {
+          "label": "NIK: W schronie się nie schronisz",
+          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/budowle-ochronne-miejsca-ukrycia.html",
+          "type": "wyniki_kontroli"
+        }
+      ],
+      "preliminaryNote": "Wyniki kontroli dotyczą budowli ochronnych i miejsc ukrycia; komunikat wskazuje 32 skontrolowane gminy. Dane z inwentaryzacji PSP i ocena techniczna obiektów muszą być rozdzielone.",
+      "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
+      "lastSourceCheck": "2026-11-21"
     },
     {
       "id": "NIK-TOPIC-12",
