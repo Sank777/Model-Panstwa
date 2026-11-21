@@ -336,14 +336,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/01-cyberbezpieczenstwo.svg",
+        "alt": "Schemat poglądowy: Cyberbezpieczeństwo usług kluczowych — Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu."
       }
     },
     {
@@ -420,14 +422,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/02-powodz.svg",
+        "alt": "Schemat poglądowy: Reakcja państwa na powódź — Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca."
       }
     },
     {
@@ -515,14 +519,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/03-systemy-it.svg",
+        "alt": "Schemat poglądowy: Publiczne systemy IT, które nie działały — Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy."
       }
     },
     {
@@ -577,14 +583,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/04-odra.svg",
+        "alt": "Schemat poglądowy: Kryzys ekologiczny na Odrze — Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen."
       }
     },
     {
@@ -639,14 +647,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/05-budzet.svg",
+        "alt": "Schemat poglądowy: Wykonanie budżetu państwa — Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości."
       }
     },
     {
@@ -701,14 +711,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/06-wybory.svg",
+        "alt": "Schemat poglądowy: Przygotowanie wyborów korespondencyjnych — Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli."
       }
     },
     {
@@ -790,14 +802,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/07-odpady.svg",
+        "alt": "Schemat poglądowy: Gospodarka odpadami i recykling — Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas."
       }
     },
     {
@@ -867,14 +881,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/08-zdrowie.svg",
+        "alt": "Schemat poglądowy: Zamawianie świadczeń zdrowotnych w szpitalach — Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych."
       }
     },
     {
@@ -944,14 +960,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/09-szkoly.svg",
+        "alt": "Schemat poglądowy: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim — Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych."
       }
     },
     {
@@ -1015,14 +1033,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/10-mieszkalnictwo.svg",
+        "alt": "Schemat poglądowy: Rządowy Fundusz Rozwoju Mieszkalnictwa — Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów."
       }
     },
     {
@@ -1098,14 +1118,16 @@
         }
       ],
       "imagePlan": {
-        "status": "plan_bez_grafiki",
+        "status": "svg_dodany",
         "scene": "Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu.",
         "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
         "constraints": [
           "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
-        ]
+        ],
+        "src": "assets/cases/illustrations/11-schronienia.svg",
+        "alt": "Schemat poglądowy: Miejsca schronienia i budowle ochronne — Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu."
       }
     },
     {
