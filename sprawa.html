@@ -129,58 +129,7 @@ const fallback=document.createElement("div");fallback.className="case-empty";fal
 stages.append(fallback);
 card.querySelectorAll(":scope > p, :scope > .case-links").forEach(node=>stages.append(node.cloneNode(true)));
 }
-if(id==="SWS-PL-008"){
-const topicNodes=[...stages.querySelectorAll(".nik-topic-card")];
-topicNodes.forEach((node,index)=>{
-const topic=registry.nikTopics?.find(item=>item.id==="NIK-TOPIC-"+String(index+1).padStart(2,"0"));
-if(!topic)return;
-const panel=document.createElement("section");panel.className="case-topic-research";
-const heading=document.createElement("h4");heading.textContent="Postęp opracowania: "+(evidenceLabels[topic.evidenceStatus]||"do weryfikacji");panel.append(heading);
-if(topic.preliminaryFacts?.length){
-const list=document.createElement("ul");
-topic.preliminaryFacts.forEach(fact=>{
-const item=document.createElement("li");item.textContent=fact.text;
-const source=(topic.sources||[]).find(entry=>entry.sourceId===fact.sourceId);
-if(source){const link=document.createElement("a");link.href=source.url;link.textContent=" Źródło: "+source.label;link.target="_blank";link.rel="noopener noreferrer";item.append(link);}
-if(fact.scope){const scope=document.createElement("small");scope.textContent="Zakres: "+fact.scope;item.append(scope);}
-list.append(item);
-});
-panel.append(list);
-}else{
-const note=document.createElement("p");note.textContent=topic.noteStatus||"Zebrano wstępne odnośniki. Pełny raport i dane wymagają pobrania oraz analizy.";panel.append(note);
-}
-if(topic.analysisBlocks?.length){
-topic.analysisBlocks.forEach(block=>{
-const details=document.createElement("details");details.className="case-topic-analysis";
-const summary=document.createElement("summary");summary.textContent=block.title;details.append(summary);
-if(block.lead){const lead=document.createElement("p");lead.className="case-topic-lead";lead.textContent=block.lead;details.append(lead);}
-if(block.points?.length){const points=document.createElement("ul");block.points.forEach(text=>{const item=document.createElement("li");item.textContent=text;points.append(item);});details.append(points);}
-panel.append(details);
-});
-}
-if(topic.imagePlan){
-const visual=document.createElement("section");visual.className="case-image-plan";
-const visualTitle=document.createElement("h4");visualTitle.textContent=topic.imagePlan.status==="svg_dodany"?"Ilustracja analityczna":"Plan ilustracji do tej sprawy";visual.append(visualTitle);
-if(topic.imagePlan.src){
-const image=document.createElement("img");image.src=topic.imagePlan.src;image.alt=topic.imagePlan.alt||topic.title;image.loading="lazy";image.decoding="async";image.width=1200;image.height=675;image.className="case-topic-illustration";visual.append(image);
-}
-const scene=document.createElement("p");scene.textContent=topic.imagePlan.scene;visual.append(scene);
-const caption=document.createElement("p");caption.className="case-image-caption";caption.textContent=topic.imagePlan.caption;visual.append(caption);
-if(topic.imagePlan.constraints?.length){const rules=document.createElement("ul");topic.imagePlan.constraints.forEach(text=>{const item=document.createElement("li");item.textContent=text;rules.append(item);});visual.append(rules);}
-panel.append(visual);
-}
-if(topic.sources?.length){
-const links=document.createElement("div");links.className="case-links";
-topic.sources.forEach(source=>{
-const already=[...node.querySelectorAll("a[href]")].some(link=>link.href===source.url);
-if(already)return;
-const link=document.createElement("a");link.href=source.url;link.textContent=source.label;link.target="_blank";link.rel="noopener noreferrer";links.append(link);
-});
-if(links.childNodes.length)panel.append(links);
-}
-node.append(panel);
-});
-}
+// Przykłady NIK mają osobne identyfikatory NIK-001–NIK-011 i własny szablon nik-sprawa.html.
 if(!stages.childNodes.length){const empty=document.createElement("div");empty.className="case-empty";empty.textContent="W bibliotece nie ma jeszcze przypisanych szczegółowych materiałów do tej sprawy.";stages.append(empty);}
 }).catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na dane sprawy. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);}).finally(()=>clearTimeout(timeout));
 })();
