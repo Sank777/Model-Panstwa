@@ -1,0 +1,77 @@
+/* Centrum Jawności — spójny, ciemny system kart v1.0
+   Ograniczony do stron oznaczonych data-center-visual; nie ingeruje w formularze ani logikę. */
+body[data-center-visual="v1"]{
+  --cv-bg:#061426;--cv-panel:#0c2038;--cv-panel-2:#102b49;--cv-line:rgba(143,190,229,.34);
+  --cv-text:#f3f7ff;--cv-muted:#c1d1e2;--cv-blue:#37b9ee;--cv-green:#8dd6ad;
+  background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 48%,#04101f 100%)!important;
+  color:var(--cv-text)!important;color-scheme:dark;
+}
+body[data-center-visual="v1"] :is(main,.shared-page-content,.nik-wrap){color:var(--cv-text)!important}
+body[data-center-visual="v1"] :is(.jaw-hero,.lib-hero,.nik-hero){
+  color:var(--cv-text)!important;border:1px solid var(--cv-line)!important;
+  background:radial-gradient(circle at 88% 12%,rgba(28,116,157,.32),transparent 36%),linear-gradient(125deg,#0b2947,#081b31 72%,#061426)!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.28)!important;
+}
+body[data-center-visual="v1"] :is(.jaw-hero h1,.lib-hero h1,.nik-hero h1,.jaw-hero h2,.lib-hero h2){color:#f7fbff!important}
+body[data-center-visual="v1"] :is(.jaw-hero p,.lib-hero p,.nik-hero p){color:#d1dfed!important}
+body[data-center-visual="v1"] :is(.jaw-panel,.jaw-card,.jaw-stat,.jaw-note,.lib-panel,.lib-stat,.case-card,.nik-sidebox,.nik-bottom-gallery,.nik-section,.nik-proposals,.nik-topic-card){
+  color:var(--cv-text)!important;background:linear-gradient(145deg,rgba(16,43,73,.98),rgba(7,26,47,.99))!important;
+  border:1px solid var(--cv-line)!important;box-shadow:0 8px 22px rgba(0,0,0,.22)!important;
+}
+body[data-center-visual="v1"] :is(.jaw-card h2,.jaw-card h3,.jaw-panel h2,.lib-panel h2,.case-card h2,.case-card h3,.nik-section h2,.nik-section h3,.nik-topic-card h2){color:#f4f8ff!important}
+body[data-center-visual="v1"] :is(.jaw-card p,.jaw-panel p,.case-card p,.case-detail,.nik-section p,.nik-section li,.nik-topic-card p){color:var(--cv-muted)!important}
+body[data-center-visual="v1"] :is(.jaw-muted,.lib-kicker,.case-id,.case-meta,.case-section-note,.nik-small){color:#c3d5e7!important}
+body[data-center-visual="v1"] :is(.jaw-note,.lib-principle,.case-status,.nik-disclaimer){
+  background:rgba(6,20,38,.72)!important;color:#e8f2fb!important;border-color:#d5b75f!important;
+}
+body[data-center-visual="v1"] :is(.jaw-tag,.case-badge,.nik-id,.nik-source-tag){
+  color:#bcecff!important;border-color:#579bc5!important;background:#0b3556!important;
+}
+body[data-center-visual="v1"] :is(.jaw-btn,.case-links a,.nik-section a){
+  color:#fff!important;text-decoration:none!important;
+}
+body[data-center-visual="v1"] .jaw-btn{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;max-width:100%!important;min-height:46px!important;
+  padding:.72rem 1rem!important;line-height:1.3!important;text-align:center!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  border:1px solid #55a9d9!important;border-radius:11px!important;
+  background:linear-gradient(120deg,#12649a,#1689b7)!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.2)!important;
+}
+body[data-center-visual="v1"] .jaw-btn:hover{filter:brightness(1.12)}
+body[data-center-visual="v1"] :is(.jaw-grid,.lib-grid,.nik-proposals-grid)>*{min-width:0;max-width:100%}
+body[data-center-visual="v1"] :is(.jaw-search,.lib-controls){min-width:0}
+body[data-center-visual="v1"] :is(.jaw-search input,.lib-controls input,.lib-controls select){
+  min-width:0;max-width:100%;background:#071a2e!important;color:#f3f7ff!important;
+  border:1px solid #577b9c!important;border-radius:10px!important;
+}
+body[data-center-visual="v1"] :is(.jaw-search input,.lib-controls input)::placeholder{color:#a9bfd4!important;opacity:1}
+body[data-center-visual="v1"] .navigation-band{background:linear-gradient(100deg,#051324,#0b2947,#051324)!important}
+body[data-center-visual="v1"] .navigation-band .top-navigation{display:flex!important;flex-flow:row nowrap!important;justify-content:flex-start!important;gap:.35rem!important;overflow-x:auto!important}
+body[data-center-visual="v1"] .navigation-band .top-navigation a{flex:0 0 auto!important;min-width:max-content!important;color:#eaf4fc!important;background:transparent!important;border:0!important;box-shadow:none!important;white-space:nowrap!important}
+body[data-center-visual="v1"] .navigation-band .top-navigation a.active{color:#fff!important}
+body[data-center-visual="v1"] :is(.case-topic-visual,.nik-hero-image,.nik-gallery-image){display:block;max-width:100%;height:auto;object-fit:cover;background:#071a2e;border:1px solid var(--cv-line)}
+body[data-center-visual="v1"] :is(.case-topic-visual,.nik-gallery-image){aspect-ratio:16/9}
+body[data-center-visual="v1"] .nik-hero-image{width:100%;height:100%;min-height:180px;max-height:340px;aspect-ratio:16/9}
+body[data-center-visual="v1"] .case-links{display:flex;flex-wrap:wrap;gap:.65rem}
+body[data-center-visual="v1"] .case-links a{color:#9bdcff!important;overflow-wrap:anywhere}
+body[data-center-visual="v1"] :is(.jaw-hero,.lib-hero,.nik-hero,.jaw-panel,.lib-panel,.nik-section,.nik-sidebox){border-radius:16px!important}
+@media(max-width:760px){
+ body[data-center-visual="v1"] :is(.jaw-hero,.lib-hero,.nik-hero){padding:clamp(1rem,4vw,1.35rem)!important}
+ body[data-center-visual="v1"] :is(.jaw-grid,.jaw-stats,.lib-stats){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body[data-center-visual="v1"] .lib-grid{grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .jaw-layout{grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .jaw-case{grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .jaw-btn{max-width:100%!important}
+ body[data-center-visual="v1"] .nik-layout{grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .nik-side{order:-1}
+ body[data-center-visual="v1"] .nik-nav{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:430px){
+ body[data-center-visual="v1"] :is(.jaw-grid,.jaw-stats,.lib-stats){grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .nik-nav{grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .jaw-search{display:grid!important;grid-template-columns:minmax(0,1fr)!important}
+ body[data-center-visual="v1"] .jaw-search .jaw-btn{width:100%!important}
+}
+@media(prefers-reduced-motion:reduce){body[data-center-visual="v1"] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
