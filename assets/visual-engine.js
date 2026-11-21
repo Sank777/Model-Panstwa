@@ -154,16 +154,41 @@
     }).catch(error=>renderFallback(tile,recipe,error));
     state.pending.add(task);return task.finally(()=>state.pending.delete(task));
   }
+  function renderCaseVisual(host){
+    const key=host.dataset.caseVisual;
+    const recipe=key&&ROM&&ROM.cases&&ROM.cases[key];
+    if(!recipe){host.dataset.visualState="fallback";return Promise.resolve();}
+    if(["rendered","loading"].includes(host.dataset.visualState))return Promise.resolve();
+    host.dataset.visualState="loading";
+    const task=load(recipe.asset).then(async source=>{
+      const segments=await getSegment(recipe.asset,recipe,source);
+      const segment=segments[recipe.spriteIndex];
+      if(!segment||!segment.blob||segment.width<=0||segment.height<=0)throw new Error("case-segment-validation-failed:"+key);
+      let layer=directChild(host,"visual-engine-case-image");
+      if(!layer){layer=document.createElement("img");layer.className="visual-engine-case-image";layer.decoding="async";layer.loading="lazy";layer.draggable=false;layer.alt=recipe.alt||"Ilustracja tematyczna sprawy";host.appendChild(layer);}
+      const imageSource=blobURL(recipe.asset+"|case-grid|"+recipe.spriteIndex+"|"+JSON.stringify({x:segment.x,y:segment.y,width:segment.width,height:segment.height}),segment.blob);
+      setImageFit(layer,recipe);
+      await setImageSource(layer,imageSource);
+      host.dataset.visualAsset=recipe.asset;host.dataset.visualSegment=String(recipe.spriteIndex);
+      host.dataset.visualValidation="passed";host.dataset.visualState="rendered";
+      host.classList.add("case-visual-ready");
+    }).catch(error=>{
+      host.dataset.visualState="fallback";host.dataset.visualValidation="failed";
+      host.classList.add("case-visual-fallback");record("case-"+key,error);
+    });
+    state.pending.add(task);return task.finally(()=>state.pending.delete(task));
+  }
   function scan(){
     state.lastCheck=Date.now();
     const hero=document.querySelector(".hero-banner");
     if(hero&& !["loaded","loading","fallback"].includes(hero.dataset.visualState))renderHero();
     document.querySelectorAll(".pillar-tile").forEach(tile=>{if(!["rendered","loaded","loading","fallback"].includes(tile.dataset.visualState))renderTile(tile);});
+    document.querySelectorAll(".case-visual[data-case-visual]").forEach(host=>{if(!["rendered","loading"].includes(host.dataset.visualState))renderCaseVisual(host);});
   }
   function getStatus(){
     const tiles=Array.from(document.querySelectorAll(".pillar-tile"));
     return Object.freeze({version:VERSION,rom:ROM?ROM.version:"missing",segmenter:window.LeonVisualSegmenter?window.LeonVisualSegmenter.version:"missing",
-      running:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded"||x.dataset.visualState==="rendered").length,validated:tiles.filter(x=>x.dataset.visualValidation==="passed").length,rendered:tiles.filter(x=>x.dataset.visualState==="rendered").length,fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},
+      running:state.started,hero:state.hero,tiles:{total:tiles.length,loaded:tiles.filter(x=>x.dataset.visualState==="loaded"||x.dataset.visualState==="rendered").length,validated:tiles.filter(x=>x.dataset.visualValidation==="passed").length,rendered:tiles.filter(x=>x.dataset.visualState==="rendered").length,fallback:tiles.filter(x=>x.dataset.visualState==="fallback").length},cases:{total:document.querySelectorAll(".case-visual[data-case-visual]").length,rendered:document.querySelectorAll(".case-visual[data-visual-state=rendered]").length,fallback:document.querySelectorAll(".case-visual[data-visual-state=fallback]").length},
       pending:state.pending.size,errors:state.errors.slice(),lastCheck:state.lastCheck?new Date(state.lastCheck).toISOString():null,renderer:"universal-local-single-grid-regions"});
   }
   async function retryFailed(){
@@ -179,7 +204,7 @@
     scan();
     if(window.MutationObserver){observer=new MutationObserver(records=>{
       if(document.hidden)return;
-      const added=records.some(record=>Array.from(record.addedNodes).some(node=>node.nodeType===1&&(node.matches?.(".pillar-tile,.hero-banner")||node.querySelector?.(".pillar-tile,.hero-banner"))));
+      const added=records.some(record=>Array.from(record.addedNodes).some(node=>node.nodeType===1&&(node.matches?.(".pillar-tile,.hero-banner,.case-visual[data-case-visual]")||node.querySelector?.(".pillar-tile,.hero-banner,.case-visual[data-case-visual]"))));
       if(added)scan();
     });observer.observe(document.querySelector(".dashboard-home")||document.body,{childList:true,subtree:true});}
     watchdog=window.setInterval(()=>{if(!document.hidden)scan();},30000);
