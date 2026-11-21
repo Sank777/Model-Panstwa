@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Robocza karta analityczna gotowości PSP do zdarzeń z udziałem pojazdów elektrycznych i instalacji fotowoltaicznych.">
+<title>Gotowość PSP · Karta sprawy · Centrum Jawności</title>
+<link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
+<link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
+<link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<style>
+:root{--psp-accent:#7cc99b;--psp-warn:#d8b86a}
+body{margin:0;color:var(--mp-text);font:16px/1.6 system-ui,sans-serif}
+.psp-wrap{width:min(1120px,calc(100% - 2rem));margin:1.2rem auto 3rem}
+.psp-hero,.psp-panel{border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface);padding:clamp(1rem,3vw,1.5rem);margin:1rem 0}
+.psp-hero{background:radial-gradient(circle at 88% 12%,#285b49 0,transparent 38%),linear-gradient(125deg,#102e2a,#10233c);color:#f5fff8}
+.psp-kicker{font-size:.75rem;letter-spacing:.12em;font-weight:850;color:#a8e3be}
+.psp-hero h1{font-size:clamp(1.8rem,4.5vw,3rem);line-height:1.08;margin:.5rem 0}
+.psp-hero p{max-width:850px;color:#d9e8df}
+.psp-warning{border-left:4px solid var(--psp-warn);padding:.8rem 1rem;border-radius:0 10px 10px 0;background:#ffffff0d}
+.psp-meta,.psp-grid,.psp-levels,.psp-kpis{display:grid;gap:.75rem}
+.psp-meta{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}
+.psp-meta div,.psp-card,.psp-kpi{padding:.85rem;border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2);min-width:0}
+.psp-meta small,.psp-kpi small{display:block;color:var(--mp-muted)}
+.psp-meta strong{display:block}
+.psp-levels{grid-template-columns:repeat(3,minmax(0,1fr))}
+.psp-levels button,.psp-event,.psp-map-node{font:inherit;color:inherit;cursor:pointer}
+.psp-levels button{border:1px solid var(--mp-border);border-radius:10px;background:var(--mp-surface2);padding:.7rem;text-align:left}
+.psp-levels button[aria-pressed=true],.psp-event[aria-pressed=true]{border-color:var(--psp-accent);outline:2px solid #7cc99b55}
+.psp-levels button b{display:block}
+.psp-muted{color:var(--mp-muted)}
+.psp-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.psp-kpi strong{font-size:1.45rem;display:block}
+.psp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.psp-timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.5rem;margin:1rem 0}
+.psp-event{min-width:0;border:1px solid var(--mp-border);border-radius:10px;background:var(--mp-surface2);padding:.7rem;text-align:left}
+.psp-event span{display:block;color:var(--mp-muted);font-size:.75rem}
+.psp-event b{display:block;font-size:.9rem}
+.psp-detail{min-height:88px;padding:1rem;border:1px solid var(--mp-border);border-radius:10px;background:var(--mp-surface2)}
+.psp-map{width:100%;height:auto;display:block;max-height:360px}
+.psp-map-node rect{fill:var(--mp-surface2);stroke:var(--mp-border);stroke-width:1.5}
+.psp-map-node text{fill:var(--mp-text);font:600 13px system-ui}
+.psp-map-node:focus rect,.psp-map-node.active rect{stroke:var(--psp-accent);stroke-width:3}
+.psp-map-node{cursor:pointer;outline:none}
+.psp-map-line{stroke:var(--mp-muted);stroke-width:1.6;stroke-dasharray:5 5;opacity:.65}
+.psp-list{padding-left:1.2rem}.psp-list li{margin:.35rem 0}
+.psp-table-wrap{overflow-x:auto}
+.psp-table{width:100%;border-collapse:collapse;min-width:650px}
+.psp-table th,.psp-table td{padding:.7rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--mp-border)}
+.psp-table th{color:var(--mp-muted)}
+.psp-chip{display:inline-block;border:1px solid var(--mp-border);border-radius:99px;padding:.12rem .55rem;font-size:.75rem}
+.psp-question{border:1px solid var(--mp-border);border-radius:10px;margin:.5rem 0;background:var(--mp-surface2)}
+.psp-question summary{cursor:pointer;padding:.75rem 1rem;font-weight:750}
+.psp-question div{padding:0 1rem 1rem;color:var(--mp-muted)}
+.psp-back{color:var(--mp-accent);font-weight:750}
+@media(max-width:760px){.psp-meta,.psp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.psp-grid,.psp-levels{grid-template-columns:1fr}.psp-timeline{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.psp-meta,.psp-kpis{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body data-page-shell="homepage-v1">
+<header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
+<main class="psp-wrap">
+<a class="psp-back" href="centrum-jawnosci.html">← Centrum Jawności</a>
+<section class="psp-hero">
+<span class="psp-kicker">CENTRUM JAWNOŚCI · KARTA ANALITYCZNA · FILAR 4</span>
+<h1>Gotowość PSP do zdarzeń z udziałem samochodów elektrycznych i instalacji fotowoltaicznych</h1>
+<p>Przykładowa karta pokazująca, jak z jednego dokumentu publicznego zbudować obraz przygotowania państwa: sprzęt, wyszkolenie, procedury, rozmieszczenie zasobów, finansowanie i obszary wymagające wzmocnienia.</p>
+<div class="psp-warning"><strong>Stan karty: oczekuje na dokument źródłowy.</strong><br>Nie podano tu żadnych liczb, dat, ocen ani braków jako ustalonych faktów. Interaktywna oś i mapa pokazują strukturę analizy, a nie potwierdzone zdarzenia lub lokalizacje. Po otrzymaniu PDF-u każdy element zostanie uzupełniony cytatem, numerem strony i statusem weryfikacji.</div>
+<div class="psp-meta"><div><small>Temat</small><strong>Ratownictwo i nowe technologie</strong></div><div><small>Główny obszar</small><strong>Państwowa Straż Pożarna</strong></div><div><small>Powiązane filary</small><strong>4 · 6 · 7 · 10</strong></div></div>
+</section>
+<section class="psp-panel">
+<h2>Wybierz poziom czytania</h2>
+<p class="psp-muted">Ta sama sprawa, różna głębokość. Zmiana poziomu pokazuje odpowiednią część karty.</p>
+<div class="psp-levels" role="group" aria-label="Poziom szczegółowości">
+<button type="button" data-level="quick" aria-pressed="true"><b>1. Szybki obraz</b><span class="psp-muted">Najważniejsze w minutę</span></button>
+<button type="button" data-level="detail" aria-pressed="false"><b>2. Analiza</b><span class="psp-muted">Mechanizmy i zależności</span></button>
+<button type="button" data-level="sources" aria-pressed="false"><b>3. Dokumenty</b><span class="psp-muted">Źródła, strony, cytaty</span></button>
+</div>
+<div id="level-quick" class="psp-detail" style="margin-top:.75rem"><strong>O co chodzi?</strong><p>Sprawdzamy, czy jednostki ratownicze mają odpowiednie wyposażenie, procedury i kompetencje do działań przy pożarach pojazdów elektrycznych oraz instalacji PV. Odpowiedź musi wynikać z dokumentu i danych uzupełniających, a nie z założeń.</p></div>
+<div id="level-detail" class="psp-detail" hidden style="margin-top:.75rem"><strong>Co analizujemy?</strong><p>Łańcuch przygotowania: rozpoznanie ryzyka → standardy i szkolenia → zakupy i utrzymanie sprzętu → rozmieszczenie zasobów → ćwiczenia → działania w realnych zdarzeniach → wnioski i finansowanie.</p></div>
+<div id="level-sources" class="psp-detail" hidden style="margin-top:.75rem"><strong>Warstwa źródłowa</strong><p>PDF nie został jeszcze dołączony do tej karty. Po jego otrzymaniu dodamy bezpośrednie odnośniki, numery stron, daty dokumentów, dosłowne krótkie cytaty i oznaczenie, czy dana informacja jest ustaleniem, deklaracją czy rekomendacją.</p></div>
+</section>
+<section class="psp-panel">
+<h2>Najważniejsze obszary oceny</h2>
+<div class="psp-kpis">
+<div class="psp-kpi"><strong>01</strong><small>Sprzęt i wyposażenie</small></div>
+<div class="psp-kpi"><strong>02</strong><small>Szkolenia i kompetencje</small></div>
+<div class="psp-kpi"><strong>03</strong><small>Procedury i ćwiczenia</small></div>
+<div class="psp-kpi"><strong>04</strong><small>Rozmieszczenie zasobów</small></div>
+</div>
+<p class="psp-muted">To kategorie analizy, nie wyniki kontroli. Wskaźniki ilościowe pojawią się dopiero po potwierdzeniu danych źródłowych.</p>
+</section>
+<section class="psp-panel">
+<h2>Interaktywna oś przygotowania</h2>
+<p class="psp-muted">Kliknij etap. Oś porządkuje cykl budowania zdolności; nie przedstawia jeszcze dat historycznych.</p>
+<div class="psp-timeline" role="group" aria-label="Etapy przygotowania PSP">
+<button class="psp-event" type="button" data-event="0" aria-pressed="true"><span>Etap 1</span><b>Rozpoznanie ryzyka</b></button>
+<button class="psp-event" type="button" data-event="1" aria-pressed="false"><span>Etap 2</span><b>Standardy i szkolenia</b></button>
+<button class="psp-event" type="button" data-event="2" aria-pressed="false"><span>Etap 3</span><b>Sprzęt i finansowanie</b></button>
+<button class="psp-event" type="button" data-event="3" aria-pressed="false"><span>Etap 4</span><b>Ćwiczenia i gotowość</b></button>
+<button class="psp-event" type="button" data-event="4" aria-pressed="false"><span>Etap 5</span><b>Wnioski i poprawa</b></button>
+</div>
+<div class="psp-detail" id="eventDetail" aria-live="polite"><strong>Rozpoznanie ryzyka</strong><p>Jakie zagrożenia zidentyfikowano, na jakiej podstawie i czy rozróżniono specyfikę pojazdów elektrycznych oraz instalacji PV?</p></div>
+</section>
+<section class="psp-panel">
+<h2>Mapa zależności instytucjonalnych</h2>
+<p class="psp-muted">Schemat koncepcyjny. Kliknij element, aby zobaczyć, jaką rolę należy sprawdzić w dokumentach. Nie oznacza to potwierdzenia konkretnego przepływu decyzji.</p>
+<svg class="psp-map" viewBox="0 0 760 330" role="group" aria-label="Schemat zależności: administracja centralna, komenda główna PSP, komendy wojewódzkie, jednostki ratownicze, szkolenia i samorządy">
+<path class="psp-map-line" d="M380 55 L380 105 M380 145 L180 205 M380 145 L580 205 M180 245 L380 285 M580 245 L380 285"/>
+<g class="psp-map-node active" tabindex="0" role="button" aria-label="Administracja centralna" data-node="0"><rect x="275" y="12" width="210" height="44" rx="10"/><text x="380" y="39" text-anchor="middle">Administracja centralna</text></g>
+<g class="psp-map-node" tabindex="0" role="button" aria-label="Komenda Główna PSP" data-node="1"><rect x="275" y="105" width="210" height="44" rx="10"/><text x="380" y="132" text-anchor="middle">Komenda Główna PSP</text></g>
+<g class="psp-map-node" tabindex="0" role="button" aria-label="Komendy wojewódzkie" data-node="2"><rect x="70" y="205" width="220" height="44" rx="10"/><text x="180" y="232" text-anchor="middle">Komendy wojewódzkie</text></g>
+<g class="psp-map-node" tabindex="0" role="button" aria-label="Jednostki ratownicze" data-node="3"><rect x="470" y="205" width="220" height="44" rx="10"/><text x="580" y="232" text-anchor="middle">Jednostki ratownicze</text></g>
+<g class="psp-map-node" tabindex="0" role="button" aria-label="Szkolenia i samorządy" data-node="4"><rect x="275" y="285" width="210" height="40" rx="10"/><text x="380" y="310" text-anchor="middle">Szkolenia i samorządy</text></g>
+</svg>
+<div class="psp-detail" id="nodeDetail" aria-live="polite"><strong>Administracja centralna</strong><p>Sprawdzamy podstawy prawne, strategię, finansowanie, standardy i nadzór. Konkretny zakres odpowiedzialności potwierdzimy na podstawie źródeł.</p></div>
+</section>
+<section class="psp-panel">
+<h2>Rejestr informacji do pozyskania</h2>
+<p class="psp-muted">To lista pytań badawczych. Status „do sprawdzenia” nie oznacza, że danej rzeczy brakuje.</p>
+<div class="psp-table-wrap"><table class="psp-table"><thead><tr><th>Obszar</th><th>Co ustalić</th><th>Status</th></tr></thead><tbody>
+<tr><td>Sprzęt</td><td>Rodzaj, liczba, stan techniczny, lokalizacja, dostępność i koszty utrzymania</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+<tr><td>Szkolenia</td><td>Liczba przeszkolonych osób, zakres, częstotliwość, aktualizacja wiedzy</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+<tr><td>Procedury</td><td>Aktualne wytyczne, różnice dla PV i pojazdów elektrycznych, praktyczne ćwiczenia</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+<tr><td>Gotowość terytorialna</td><td>Pokrycie obszaru, czas dotarcia, dostęp do specjalistycznego sprzętu</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+<tr><td>Finanse</td><td>Plan, wydatki, źródła finansowania, zakupy, braki i koszty cyklu życia</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+<tr><td>Wnioski</td><td>Rekomendacje, odpowiedzialni, terminy, wykonanie i kontrola rezultatów</td><td><span class="psp-chip">Do sprawdzenia</span></td></tr>
+</tbody></table></div>
+</section>
+<section class="psp-panel">
+<h2>Karta odpowiedzi instytucji</h2>
+<div class="psp-grid">
+<article class="psp-card"><h3>Pytanie</h3><p>Jakie wyposażenie jest dostępne w jednostkach i według jakiego standardu określono jego potrzebną ilość?</p><span class="psp-chip">Pytanie robocze · niewysłane</span></article>
+<article class="psp-card"><h3>Odpowiedź</h3><p class="psp-muted">Oczekuje na dokument lub odpowiedź instytucji. Nie zakładamy, że odpowiedź została udzielona.</p></article>
+<article class="psp-card"><h3>Ocena kompletności</h3><p class="psp-muted">Sprawdzimy, czy odpowiedź zawiera liczby, datę stanu danych, zakres terytorialny, metodologię i dokument potwierdzający.</p></article>
+<article class="psp-card"><h3>Co dalej?</h3><p class="psp-muted">W razie luk dopiszemy precyzyjne pytanie uzupełniające, właściwy organ i termin odpowiedzi. Karta nie wysyła zapytań automatycznie.</p></article>
+</div>
+</section>
+<section class="psp-panel">
+<h2>Zdolność państwa – gdzie inwestycje mogą mieć największy sens?</h2>
+<p>Nie zakładamy z góry, że brakuje wszystkiego. Najpierw porównujemy ryzyko, istniejące zasoby, pokrycie terytorialne i skuteczność działań. Dopiero potem wskazujemy priorytety.</p>
+<div class="psp-grid">
+<article class="psp-card"><h3>Sprzęt</h3><p>Uzupełnienie wyposażenia tam, gdzie potwierdzono lukę; standaryzacja, serwis i dostępność części.</p></article>
+<article class="psp-card"><h3>Ludzie</h3><p>Szkolenia praktyczne, instruktorzy, ćwiczenia między jednostkami i regularne odświeżanie kompetencji.</p></article>
+<article class="psp-card"><h3>Rozmieszczenie</h3><p>Analiza dojazdu i zasięgu zasobów; współdzielenie sprzętu, jeśli zakup w każdej jednostce nie jest uzasadniony.</p></article>
+<article class="psp-card"><h3>Utrzymanie i kontrola</h3><p>Budżet na przeglądy, gotowość sprzętu, mierniki skuteczności i kontrola realizacji zaleceń.</p></article>
+</div>
+<div class="psp-warning" style="margin-top:1rem"><strong>Wniosek systemowy:</strong> zdolność państwa to nie sama liczba zakupionych urządzeń. To połączenie ludzi, sprzętu, procedur, logistyki, finansowania, współpracy i uczenia się po zdarzeniach.</div>
+</section>
+<section class="psp-panel">
+<h2>Pytania, na które karta ma odpowiedzieć</h2>
+<details class="psp-question"><summary>Czy PSP ma właściwy sprzęt?</summary><div>Jaki dokładnie, w jakiej liczbie, w jakim stanie, gdzie rozmieszczony i czy jest dostępny przez całą dobę?</div></details>
+<details class="psp-question"><summary>Czy strażacy są przygotowani praktycznie?</summary><div>Jakie szkolenia przeszli, kiedy, w jakim zakresie i czy ćwiczenia odwzorowują rzeczywiste warunki?</div></details>
+<details class="psp-question"><summary>Czy system jest równomiernie przygotowany w całym kraju?</summary><div>Gdzie są zasoby, jakie obszary obsługują, jakie są czasy dotarcia i jak wygląda wsparcie między jednostkami?</div></details>
+<details class="psp-question"><summary>Co należy dofinansować w pierwszej kolejności?</summary><div>Wskazanie priorytetu wymaga potwierdzonej luki, oceny ryzyka, kosztu i przewidywanego efektu. Sama lista życzeń nie wystarczy.</div></details>
+<details class="psp-question"><summary>Czy wcześniejsze zalecenia zostały wykonane?</summary><div>Porównamy zalecenia z terminami, budżetem, dowodami realizacji i późniejszymi kontrolami.</div></details>
+</section>
+<section class="psp-panel">
+<h2>Dokumenty i historia aktualizacji</h2>
+<p class="psp-muted">Źródło główne: PDF wskazany w rozmowie – jeszcze niezałączony do karty. Po otrzymaniu pliku zostanie tu podpięty oryginał oraz indeks stron i wyciągniętych danych.</p>
+<ul class="psp-list"><li>Dokument główny: oczekuje na plik.</li><li>Źródła uzupełniające: do ustalenia na podstawie treści PDF-u.</li><li>Data opracowania i aktualizacji: zostanie zapisana po analizie dokumentu.</li></ul>
+</section>
+</main>
+<footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Karta robocza · bez niezweryfikowanych danych</span></footer>
+<script>
+(()=>{"use strict";
+const levelButtons=[...document.querySelectorAll("[data-level]")];
+levelButtons.forEach(button=>button.addEventListener("click",()=>{levelButtons.forEach(b=>b.setAttribute("aria-pressed",String(b===button)));["quick","detail","sources"].forEach(level=>{document.getElementById("level-"+level).hidden=level!==button.dataset.level;});}));
+const eventData=[
+["Rozpoznanie ryzyka","Jakie zagrożenia zidentyfikowano, na jakiej podstawie i czy rozróżniono specyfikę pojazdów elektrycznych oraz instalacji PV?"],
+["Standardy i szkolenia","Jakie wytyczne obowiązują, kto odpowiada za szkolenia, ilu ratowników objęto programem i jak sprawdzana jest praktyczna wiedza?"],
+["Sprzęt i finansowanie","Jakie wyposażenie kupiono, gdzie je rozmieszczono, kto finansował zakupy i jaki jest koszt utrzymania?"],
+["Ćwiczenia i gotowość","Czy ćwiczenia sprawdzają procedury w praktyce, współpracę jednostek, dostępność sprzętu i czas reakcji?"],
+["Wnioski i poprawa","Jakie zalecenia wydano, kto je realizuje, w jakim terminie i jak potwierdzono poprawę gotowości?"]
+];
+const events=[...document.querySelectorAll("[data-event]")],eventDetail=document.getElementById("eventDetail");
+events.forEach(button=>button.addEventListener("click",()=>{events.forEach(b=>b.setAttribute("aria-pressed",String(b===button)));const [title,desc]=eventData[Number(button.dataset.event)];eventDetail.replaceChildren();const h=document.createElement("strong");h.textContent=title;const p=document.createElement("p");p.textContent=desc;eventDetail.append(h,p);}));
+const nodeData=[
+["Administracja centralna","Do sprawdzenia: ramy prawne, strategia, finansowanie, standardy krajowe i nadzór."],
+["Komenda Główna PSP","Do sprawdzenia: wytyczne operacyjne, planowanie zasobów, szkolenia, sprawozdawczość i koordynacja."],
+["Komendy wojewódzkie","Do sprawdzenia: regionalne rozmieszczenie sprzętu, wsparcie jednostek i rozpoznane potrzeby."],
+["Jednostki ratownicze","Do sprawdzenia: rzeczywiste wyposażenie, stan techniczny, obsada, gotowość i doświadczenia z działań."],
+["Szkolenia i samorządy","Do sprawdzenia: ośrodki szkolenia, ćwiczenia, finansowanie lokalne i współpraca z innymi służbami."]
+];
+const nodes=[...document.querySelectorAll("[data-node]")],nodeDetail=document.getElementById("nodeDetail");
+function activateNode(node){nodes.forEach(n=>n.classList.toggle("active",n===node));const [title,desc]=nodeData[Number(node.dataset.node)];nodeDetail.replaceChildren();const h=document.createElement("strong");h.textContent=title;const p=document.createElement("p");p.textContent=desc;nodeDetail.append(h,p);}
+nodes.forEach(node=>{node.addEventListener("click",()=>activateNode(node));node.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activateNode(node);}});});
+})();
+</script>
+<script src="assets/site.js?v=20261117-header-login1" defer></script>
+<script src="assets/visual-rom.js?v=1.8.0" defer></script>
+<script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
+<script src="assets/visual-engine.js?v=7.3.4" defer></script>
+</body></html>
