@@ -43,6 +43,7 @@
 .case-image-plan h4{margin:.1rem 0 .45rem;color:var(--mp-accent)}
 .case-image-plan p,.case-image-plan li{font-size:.88rem;line-height:1.5}
 .case-image-caption{color:var(--mp-muted);font-style:italic}
+.case-topic-illustration{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border:1px solid var(--mp-border);border-radius:9px;background:#07182b;margin:.5rem 0}
 
 </style></head><body data-page-shell="homepage-v1">
 <header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
@@ -159,7 +160,10 @@ panel.append(details);
 }
 if(topic.imagePlan){
 const visual=document.createElement("section");visual.className="case-image-plan";
-const visualTitle=document.createElement("h4");visualTitle.textContent="Plan ilustracji do tej sprawy";visual.append(visualTitle);
+const visualTitle=document.createElement("h4");visualTitle.textContent=topic.imagePlan.status==="svg_dodany"?"Ilustracja analityczna":"Plan ilustracji do tej sprawy";visual.append(visualTitle);
+if(topic.imagePlan.src){
+const image=document.createElement("img");image.src=topic.imagePlan.src;image.alt=topic.imagePlan.alt||topic.title;image.loading="lazy";image.decoding="async";image.width=1200;image.height=675;image.className="case-topic-illustration";visual.append(image);
+}
 const scene=document.createElement("p");scene.textContent=topic.imagePlan.scene;visual.append(scene);
 const caption=document.createElement("p");caption.className="case-image-caption";caption.textContent=topic.imagePlan.caption;visual.append(caption);
 if(topic.imagePlan.constraints?.length){const rules=document.createElement("ul");topic.imagePlan.constraints.forEach(text=>{const item=document.createElement("li");item.textContent=text;rules.append(item);});visual.append(rules);}
