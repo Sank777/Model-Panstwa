@@ -245,7 +245,7 @@
   ],
   "nikTopics": [
     {
-      "id": "NIK-TOPIC-01",
+      "id": "NIK-001",
       "title": "Cyberbezpieczeństwo usług kluczowych",
       "visual": "cyber",
       "evidenceStatus": "zebrano_linki",
@@ -300,10 +300,56 @@
           "sourceId": "nik-cyber-2026",
           "scope": "Sześciu z ośmiu operatorów"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od obowiązków operatora do odporności usługi",
+          "points": [
+            "Odtworzyć zakres kontroli ośmiu operatorów i sektory objęte badaniem: transport, dostawy energii i woda pitna.",
+            "Rozdzielić cztery cechy bezpieczeństwa informacji: poufność, integralność, dostępność i autentyczność.",
+            "Sprawdzić, jak operatorzy identyfikowali ryzyko, monitorowali systemy, reagowali na alerty i dokumentowali incydenty.",
+            "Wskazać różnicę między wykryciem zagrożenia, reakcją techniczną, zgłoszeniem incydentu i przywróceniem usługi."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Operator usługi → system IT/OT → dostawca technologii → monitoring i alerty → procedura reagowania → regulator i administracja.",
+            "Czy alert miał właściciela, termin reakcji, eskalację i potwierdzenie zamknięcia?",
+            "Czy ciągłość działania była testowana, a kopie zapasowe i procedury odtworzeniowe sprawdzane w praktyce?",
+            "Nie utożsamiamy podatności, alertu ani zaniedbania proceduralnego z dowodem udanego ataku."
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Bezpieczeństwo usługi mierzy się zdolnością do wykrycia, ograniczenia i odtworzenia działania, a nie samym posiadaniem polityki bezpieczeństwa.",
+            "Każdy krytyczny alert powinien mieć przypisaną odpowiedzialność, czas reakcji, eskalację i ślad audytowy.",
+            "Wnioski dla filaru 4: odporność infrastruktury, ćwiczenia, nadzór nad operatorami i kontrola realizacji zaleceń."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/01-cyberbezpieczenstwo.svg",
+        "alt": "Schemat poglądowy: Cyberbezpieczeństwo usług kluczowych — Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu."
+      }
     },
     {
-      "id": "NIK-TOPIC-02",
+      "id": "NIK-002",
       "title": "Reakcja państwa na powódź",
       "visual": "flood",
       "evidenceStatus": "zebrano_linki",
@@ -340,10 +386,56 @@
           "sourceId": "nik-flood-2026",
           "scope": "Wyniki komunikatu NIK; szczegóły wymagają weryfikacji w pełnym raporcie"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Łańcuch decyzji i pomocy na czterech szczeblach",
+          "points": [
+            "Odtworzyć chronologię powodzi z września 2024 r. oraz działania w latach 2024–2025 w województwach dolnośląskim i opolskim.",
+            "Rozdzielić zadania szczebla centralnego, wojewódzkiego, powiatowego i gminnego.",
+            "Oddzielić ocenę zarządzania kryzysowego od oceny pomocy finansowej dla poszkodowanych — komunikat NIK wskazał nieprawidłowości na szczeblach zarządzania, a pomoc finansową ocenił prawidłowo.",
+            "Ustalić, które decyzje, ostrzeżenia, zasoby i informacje były dostępne w danym momencie, a czego nie można było jeszcze wiedzieć."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Prognozy i ostrzeżenia → centrum zarządzania kryzysowego → wojewoda → samorządy → służby ratownicze → mieszkańcy.",
+            "Przepływ informacji między szczeblami i czas od sygnału do decyzji.",
+            "Dostępność sprzętu, ludzi, transportu, miejsc ewakuacji i pomocy dla mieszkańców.",
+            "Czy po zdarzeniu zebrano dane, rozliczono pomoc i wdrożono wnioski?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Skuteczność kryzysowa zależy od przygotowania przed zdarzeniem, jasnego podziału kompetencji i wspólnego obrazu sytuacji.",
+            "Oceniając instytucje, trzeba uwzględniać warunki, zasoby i informacje dostępne w chwili podejmowania decyzji.",
+            "Wnioski dla filaru 4 i 7: ćwiczenia między szczeblami, rezerwy zasobów, komunikacja kryzysowa i przegląd działań po kryzysie."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/02-powodz.svg",
+        "alt": "Schemat poglądowy: Reakcja państwa na powódź — Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca."
+      }
     },
     {
-      "id": "NIK-TOPIC-03",
+      "id": "NIK-003",
       "title": "Publiczne systemy IT, które nie działały",
       "visual": "it",
       "evidenceStatus": "zebrano_linki",
@@ -391,10 +483,56 @@
           "sourceId": "nik-it-2026",
           "scope": "Dwie kontrolowane uczelnie; status na dzień publikacji komunikatu"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od zamówienia do użytecznego systemu",
+          "points": [
+            "Odtworzyć potrzebę zamawiającego, opis przedmiotu zamówienia, kryteria odbioru i harmonogram.",
+            "Porównać deklarowany zakres umowy z tym, co faktycznie dostarczono, odebrano i uruchomiono.",
+            "W przypadku systemu Uniwersytetu Medycznego w Lublinie uwzględnić komunikowaną przez NIK wartość 15,9 mln zł, odbiór we wrześniu 2024 r. i brak uruchomienia do końca czynności kontrolnych w październiku 2025 r.",
+            "Prześledzić 14 wniosków pokontrolnych i ich status podany przez NIK w czerwcu 2026 r.: siedem zrealizowanych i siedem w toku."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Użytkownik i potrzeba → analiza wymagań → zamówienie → wykonawca → testy → odbiór → uruchomienie → utrzymanie.",
+            "Kto potwierdza, że system spełnia wymagania użytkowników, a nie tylko że dostawca przekazał produkt?",
+            "Czy płatności, odbiory częściowe i końcowe są powiązane z mierzalnymi rezultatami?",
+            "Kto posiada kod, dokumentację, prawa do modyfikacji i plan wyjścia od dostawcy?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Odbiór formalny nie jest równoznaczny z działającą usługą.",
+            "Umowa IT powinna zawierać testy akceptacyjne, mierzalne kryteria użyteczności, odpowiedzialność za wady i plan utrzymania.",
+            "Wnioski dla filaru 1, 2 i 10: zarządzanie projektami IT, jawność etapów, płatności za sprawdzony rezultat i kontrola korzyści po wdrożeniu."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/03-systemy-it.svg",
+        "alt": "Schemat poglądowy: Publiczne systemy IT, które nie działały — Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy."
+      }
     },
     {
-      "id": "NIK-TOPIC-04",
+      "id": "NIK-004",
       "title": "Kryzys ekologiczny na Odrze",
       "visual": "odra",
       "evidenceStatus": "zebrano_linki",
@@ -409,10 +547,56 @@
       ],
       "preliminaryNote": "Analiza NIK dotyczy reakcji podmiotów publicznych na katastrofę ekologiczną w 2022 r.; należy oddzielić ustalenia organu od badań naukowych i późniejszych ocen.",
       "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "lastSourceCheck": "2026-11-21",
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od pierwszych sygnałów do skoordynowanej reakcji",
+          "points": [
+            "Ułożyć chronologię sygnałów o pogorszeniu stanu rzeki, pobierania próbek, wyników badań, komunikatów i decyzji instytucji w 2022 r.",
+            "Rozdzielić działania monitorujące, środowiskowe, sanitarne, administracyjne i informacyjne.",
+            "Zestawić moment uzyskania informacji z momentem jej przekazania innym instytucjom i opinii publicznej.",
+            "Oddzielić ustalenia i ocenę NIK od wyników badań naukowych dotyczących przyczyn katastrofy."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Monitoring wód → laboratoria → inspekcje → administracja rządowa i samorządowa → służby → komunikacja publiczna.",
+            "Czy wyniki badań były porównywalne, szybko przekazywane i dostępne dla podmiotów podejmujących decyzje?",
+            "Czy istniał próg alarmowy i jasna procedura uruchomienia działań?",
+            "Gdzie wystąpiły opóźnienia, luki kompetencyjne lub rozbieżności danych — i czy dokumenty pozwalają je potwierdzić?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "W kryzysie środowiskowym liczy się nie tylko pomiar, ale czas obiegu informacji i zdolność do wspólnej reakcji.",
+            "System powinien łączyć monitoring, laboratoria, instytucje i komunikację z mieszkańcami, zachowując jawność niepewności.",
+            "Wnioski dla filaru 4, 7 i 8: wczesne ostrzeganie, wspólne standardy danych, procedury eskalacji i rzetelna komunikacja."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/04-odra.svg",
+        "alt": "Schemat poglądowy: Kryzys ekologiczny na Odrze — Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen."
+      }
     },
     {
-      "id": "NIK-TOPIC-05",
+      "id": "NIK-005",
       "title": "Wykonanie budżetu państwa",
       "visual": "budget",
       "evidenceStatus": "zebrano_linki",
@@ -427,10 +611,56 @@
       ],
       "preliminaryNote": "Oficjalna strona zbiera coroczne analizy wykonania budżetu państwa oraz kontrole cząstkowe. Każda karta musi wskazać konkretny rok i tom, nie mieszać różnych roczników.",
       "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "lastSourceCheck": "2026-11-21",
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od planu budżetowego do rzeczywistego wydatku",
+          "points": [
+            "Wybrać konkretny rok budżetowy i tom analizy NIK — nie łączyć danych z różnych lat.",
+            "Porównać plan po zmianach z wykonaniem dochodów, wydatków, deficytu i źródeł finansowania.",
+            "Prześledzić rezerwy, fundusze i przepływy poza głównymi częściami budżetu, wskazując podstawę prawną i sposób ujęcia.",
+            "Oddzielić przesunięcia dopuszczone prawem od nieprawidłowości stwierdzonych przez NIK."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Ustawa budżetowa → plany dysponentów → zmiany planu → zobowiązania → płatności → sprawozdawczość → kontrola.",
+            "Czy obywatel może odtworzyć, kto zdecydował o wydatku, z jakiego źródła pochodziły środki i jaki był rezultat?",
+            "Jak wydatki wieloletnie i fundusze celowe wpływają na pełny obraz finansów publicznych?",
+            "Czy wskaźniki wykonania pokazują rezultat usługi publicznej, czy tylko fakt wydania pieniędzy?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Jawność budżetu wymaga możliwości prześledzenia całej drogi pieniędzy, a nie tylko odczytania jednej sumy.",
+            "Porównywać trzeba plan, zmiany, wykonanie, zobowiązania i efekt publiczny w tym samym zakresie czasowym.",
+            "Wnioski dla filaru 1 i 10: czytelny portal finansów, wspólne identyfikatory wydatków, porównywalne dane i kontrola rezultatów."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/05-budzet.svg",
+        "alt": "Schemat poglądowy: Wykonanie budżetu państwa — Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości."
+      }
     },
     {
-      "id": "NIK-TOPIC-06",
+      "id": "NIK-006",
       "title": "Przygotowanie wyborów korespondencyjnych",
       "visual": "election",
       "evidenceStatus": "zebrano_linki",
@@ -445,10 +675,56 @@
       ],
       "preliminaryNote": "Materiał NIK omawia kontrolę przygotowań do wyborów korespondencyjnych w 2020 r.; wymaga odtworzenia chronologii decyzji, podstaw prawnych, kosztów i późniejszych rozstrzygnięć.",
       "noteStatus": "wstępny trop na podstawie publicznego materiału NIK; pełny dokument i załączniki wymagają pobrania oraz analizy",
-      "lastSourceCheck": "2026-11-21"
+      "lastSourceCheck": "2026-11-21",
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Chronologia decyzji, kompetencji i kosztów",
+          "points": [
+            "Ułożyć chronologię przygotowań do wyborów prezydenckich w 2020 r., wskazując daty decyzji, podstawy prawne i organy uczestniczące.",
+            "Rozdzielić kompetencje organów wyborczych, administracji rządowej, samorządów i podmiotów realizujących zadania.",
+            "Zidentyfikować wydatki i zobowiązania publiczne oraz dokumenty potwierdzające ich wysokość i podstawę.",
+            "Uwzględnić późniejsze rozstrzygnięcia i stanowiska stron; nie zastępować nimi ustaleń kontroli."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Podstawa prawna → decyzja → zlecenie zadania → przygotowanie operacyjne → zakup i logistyka → rozliczenie → kontrola.",
+            "Czy kompetencje i odpowiedzialność były jednoznaczne na każdym etapie?",
+            "Czy przed poniesieniem kosztów istniała wykonalna podstawa prawna i gotowy model realizacji?",
+            "Jak dokumentowano zmianę decyzji, anulowanie działań, przekazanie materiałów i rozliczenie kosztów?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "W sytuacji nadzwyczajnej presja czasu nie znosi wymogu jasnej podstawy prawnej, kompetencji i kontroli wydatków.",
+            "Duże przedsięwzięcie publiczne powinno mieć bramki decyzyjne: legalność, gotowość operacyjna, koszt i możliwość zatrzymania projektu.",
+            "Wnioski dla filaru 1, 3 i 7: kontrola legalności przed zobowiązaniem, rejestr decyzji i analiza ryzyka."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/06-wybory.svg",
+        "alt": "Schemat poglądowy: Przygotowanie wyborów korespondencyjnych — Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli."
+      }
     },
     {
-      "id": "NIK-TOPIC-07",
+      "id": "NIK-007",
       "title": "Gospodarka odpadami i recykling",
       "visual": "waste",
       "evidenceStatus": "dokumenty_pobrane",
@@ -490,10 +766,56 @@
           "sourceId": "nik-waste-2024",
           "scope": "Ocena systemu w okresie objętym kontrolą"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od danych o odpadach do rzeczywistego odzysku",
+          "points": [
+            "Odtworzyć drogę odpadu: wytworzenie, odbiór, transport, instalacja, przetworzenie i raportowanie.",
+            "Sprawdzić, jakie dane zbiera BDO, kto je wprowadza, kto weryfikuje i gdzie występują luki lub niespójności.",
+            "Oddzielić poziomy odzysku, recyklingu i unieszkodliwiania oraz sprawdzić definicje i okresy użyte w raporcie.",
+            "Zweryfikować liczby i zakresy bezpośrednio w raporcie P/23/039 oraz danych źródłowych; nie przenosić wskaźników na inne lata."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Mieszkaniec i producent → gmina → odbiorca → instalacja → ewidencja BDO → sprawozdawczość → nadzór.",
+            "Czy ilości przekazane przez jeden podmiot zgadzają się z ilościami przyjętymi i przetworzonymi przez następny?",
+            "Czy gmina może zweryfikować rzeczywisty sposób zagospodarowania odpadów, a nie tylko odebrać fakturę?",
+            "Jak system identyfikuje rozbieżności, korekty i brakujące dane?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Bez wiarygodnych, porównywalnych danych nie da się rzetelnie ocenić skuteczności polityki odpadowej.",
+            "Rejestr powinien umożliwiać uzgodnienie danych między kolejnymi uczestnikami łańcucha i kontrolę końcowego efektu.",
+            "Wnioski dla filaru 2, 8 i 10: jakość danych, odpowiedzialność za wpisy i mierzenie rzeczywistego recyklingu."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/07-odpady.svg",
+        "alt": "Schemat poglądowy: Gospodarka odpadami i recykling — Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas."
+      }
     },
     {
-      "id": "NIK-TOPIC-08",
+      "id": "NIK-008",
       "title": "Zamawianie świadczeń zdrowotnych w szpitalach",
       "visual": "health",
       "evidenceStatus": "zebrano_linki",
@@ -523,10 +845,56 @@
           "sourceId": "nik-hospitals-2026",
           "scope": "Ustalenia komunikatu; szczegóły do sprawdzenia w wystąpieniach pokontrolnych"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od potrzeby pacjenta do umowy i wykonania świadczenia",
+          "points": [
+            "Przedstawić zakres kontroli dziesięciu jednostek i sprawdzić w raporcie, które procedury były prawidłowe, a gdzie NIK wskazała nieprawidłowości.",
+            "Odtworzyć planowanie potrzeb, wybór trybu, konkurs lub postępowanie, zawarcie umowy i rozliczanie świadczeń.",
+            "Rozdzielić dokumentację postępowania od faktycznej dostępności, jakości i terminowości świadczeń.",
+            "Uwzględnić ograniczenia kadrowe, finansowe i organizacyjne szpitali — nie zakładać, że każda różnica oznacza nadużycie."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Potrzeby pacjentów → plan zakupów → procedura wyboru → umowa → personel i zasoby → wykonanie → rozliczenie → kontrola.",
+            "Czy kryteria wyboru i uzasadnienia decyzji były udokumentowane i porównywalne?",
+            "Czy zakontraktowane świadczenia były rzeczywiście dostępne i rozliczane zgodnie z umową?",
+            "Jak szpital równoważy ciągłość leczenia, dostępność personelu i ograniczony budżet?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Kontrola zamówień zdrowotnych musi łączyć legalność procedury z realnym dostępem pacjenta do świadczenia.",
+            "Wskaźniki powinny pokazywać nie tylko wartość umów, ale też wykonanie, dostępność i skutki dla pacjentów.",
+            "Wnioski dla filaru 1, 6 i 10: jawne kryteria, kontrola realizacji umów i analiza skutków dla usług publicznych."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/08-zdrowie.svg",
+        "alt": "Schemat poglądowy: Zamawianie świadczeń zdrowotnych w szpitalach — Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych."
+      }
     },
     {
-      "id": "NIK-TOPIC-09",
+      "id": "NIK-009",
       "title": "Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim",
       "visual": "schools",
       "evidenceStatus": "zebrano_linki",
@@ -556,10 +924,56 @@
           "sourceId": "nik-schools-2024",
           "scope": "Ustalenia komunikatu NIK"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od arkusza organizacyjnego do jakości nadzoru",
+          "points": [
+            "Wskazać trzy kontrolowane miasta w województwie zachodniopomorskim i zakres sprawdzanych obowiązków organów prowadzących.",
+            "Prześledzić zatwierdzanie arkuszy organizacyjnych, zatrudnienie, wynagrodzenia i organizację pracy szkół.",
+            "Oddzielić formalną zgodność dokumentów od analizy wyników egzaminów, wsparcia uczniów i warunków nauczania.",
+            "Porównać praktyki miast, uwzględniając różnice demograficzne, wielkość szkół i dostępność kadr."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Miasto jako organ prowadzący → dyrektor → arkusz organizacyjny → zatrudnienie i budżet → zajęcia → wyniki i wsparcie uczniów.",
+            "Czy decyzje kadrowe i organizacyjne odpowiadają rzeczywistym potrzebom uczniów?",
+            "Jak samorząd monitoruje wykonanie zaleceń i reaguje na powtarzające się problemy?",
+            "Czy dane o kosztach, zatrudnieniu i efektach edukacyjnych są porównywalne między szkołami?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Nadzór nad szkołą nie kończy się na zatwierdzeniu arkusza — powinien sprawdzać, czy zasoby przekładają się na dostępność i jakość edukacji.",
+            "Porównania wymagają kontekstu: liczby uczniów, potrzeb, lokalnych warunków i struktury szkół.",
+            "Wnioski dla filaru 6 i 7: mierzenie efektów edukacji, jawne decyzje organizacyjne i wsparcie szkół o szczególnych potrzebach."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/09-szkoly.svg",
+        "alt": "Schemat poglądowy: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim — Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych."
+      }
     },
     {
-      "id": "NIK-TOPIC-10",
+      "id": "NIK-010",
       "title": "Rządowy Fundusz Rozwoju Mieszkalnictwa",
       "visual": "housing",
       "evidenceStatus": "zebrano_linki",
@@ -583,10 +997,56 @@
           "sourceId": "nik-rfrm-2026",
           "scope": "30 jednostek; dokładny zakres i klasyfikację trzeba przepisać z pełnego dokumentu"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od wniosku i finansowania do gotowego mieszkania",
+          "points": [
+            "Odtworzyć zasady przyznawania środków, role instytucji i obowiązki jednostek korzystających z funduszu.",
+            "Prześledzić drogę od wniosku i oceny projektu przez przekazanie środków, realizację inwestycji, rozliczenie i osiągnięcie celu mieszkaniowego.",
+            "Zweryfikować w pełnym raporcie zakres kontroli 30 jednostek i znaczenie informacji o nieprawidłowościach w 28 z nich.",
+            "Rozróżnić błąd formalny, opóźnienie, nieosiągnięcie celu i nieprawidłowe wykorzystanie środków — to różne kategorie."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Potrzeba mieszkaniowa → wniosek → ocena → decyzja o wsparciu → spółka/JST → inwestycja → rozliczenie → mieszkanie dostępne dla mieszkańca.",
+            "Czy kryteria oceny i kolejność decyzji były jawne i stosowane jednakowo?",
+            "Czy postęp finansowy odpowiada postępowi rzeczowemu i liczbie mieszkań?",
+            "Kto monitoruje terminy, zmiany kosztów, ryzyka wykonawcy i końcową dostępność lokali?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Sukces programu mieszkaniowego trzeba mierzyć mieszkaniami faktycznie oddanymi i dostępnymi, a nie samą kwotą przekazanych środków.",
+            "Potrzebne są publiczne etapy realizacji, porównanie kosztów i terminów oraz kontrola osiągnięcia celu.",
+            "Wnioski dla filaru 2, 9 i 10: przejrzystość finansowania, mierniki efektu społecznego i kontrola inwestycji."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/10-mieszkalnictwo.svg",
+        "alt": "Schemat poglądowy: Rządowy Fundusz Rozwoju Mieszkalnictwa — Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów."
+      }
     },
     {
-      "id": "NIK-TOPIC-11",
+      "id": "NIK-011",
       "title": "Miejsca schronienia i budowle ochronne",
       "visual": "shelter",
       "evidenceStatus": "zebrano_linki",
@@ -622,10 +1082,56 @@
           "sourceId": "nik-shelters-2024",
           "scope": "Wynik historycznej kontroli; nie opisuje automatycznie stanu obecnego"
         }
-      ]
+      ],
+      "analysisBlocks": [
+        {
+          "id": "nik-description",
+          "title": "Co wynika z materiału NIK?",
+          "lead": "Od ewidencji obiektów do realnej gotowości ochronnej",
+          "points": [
+            "Odtworzyć zakres kontroli 32 gmin i sprawdzić definicje: schron, ukrycie i miejsce doraźnego schronienia.",
+            "Zweryfikować w raporcie informację o gminach bez miejsc schronienia oraz odsetkach obiektów niespełniających ówczesnych wymagań technicznych.",
+            "Rozdzielić liczbę obiektów w ewidencji od ich faktycznej dostępności, stanu technicznego, pojemności i czasu przygotowania.",
+            "Uwzględnić datę kontroli i obowiązujące wtedy przepisy; nie oceniać historycznych obiektów według późniejszych wymagań bez wyjaśnienia."
+          ]
+        },
+        {
+          "id": "connections-tested",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Mapa zależności do sprawdzenia w dokumentach",
+          "points": [
+            "Ewidencja obiektów → właściciel i zarządca → ekspertyza techniczna → finansowanie → prace dostosowawcze → oznakowanie → utrzymanie i ćwiczenia.",
+            "Czy gmina wie, ile osób realnie może przyjąć każdy obiekt i w jakim czasie?",
+            "Czy mieszkańcy znają lokalizacje, drogi dojścia i zasady zachowania?",
+            "Kto odpowiada za przeglądy, wyposażenie, dostępność i aktualizację ewidencji?"
+          ]
+        },
+        {
+          "id": "system-lesson",
+          "title": "Najważniejsza lekcja dla Modelu Państwa",
+          "lead": "Wnioski robocze — do oceny po pełnej analizie źródeł",
+          "points": [
+            "Samo wskazanie budynku jako miejsca schronienia nie tworzy zdolności ochronnej — potrzebne są stan techniczny, dostępność, pojemność i procedury.",
+            "Planowanie powinno uwzględniać priorytety, koszty, liczbę mieszkańców i możliwość etapowego dostosowania obiektów.",
+            "Wnioski dla filaru 4 i 7: jawna mapa zdolności ochronnych, wieloletni program poprawy i regularne ćwiczenia."
+          ]
+        }
+      ],
+      "imagePlan": {
+        "status": "svg_dodany",
+        "scene": "Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu.",
+        "caption": "Ilustracja poglądowa — rekonstrukcja edukacyjna, nie fotografia dokumentacyjna.",
+        "constraints": [
+          "Nie przedstawiać nieudokumentowanych zdarzeń jako faktów.",
+          "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
+          "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
+        ],
+        "src": "assets/cases/illustrations/11-schronienia.svg",
+        "alt": "Schemat poglądowy: Miejsca schronienia i budowle ochronne — Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu."
+      }
     },
     {
-      "id": "NIK-TOPIC-12",
+      "id": "PSP-OSP-001",
       "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
       "visual": "psp-ev",
       "evidenceStatus": "zebrano_linki",

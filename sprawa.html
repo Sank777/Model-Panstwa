@@ -34,6 +34,16 @@
 .case-topic-research li{margin:.45rem 0;line-height:1.5}
 .case-topic-research li small{display:block;color:var(--mp-muted);font-size:.76rem}
 .case-topic-research a{overflow-wrap:anywhere}
+.case-topic-analysis{margin:.65rem 0;border:1px solid var(--mp-border);border-radius:9px;background:var(--mp-surface2);overflow:hidden}
+.case-topic-analysis summary{cursor:pointer;padding:.7rem .8rem;font-weight:800;color:var(--mp-text)}
+.case-topic-analysis>p,.case-topic-analysis>ul{margin:.35rem .8rem .75rem;line-height:1.55}
+.case-topic-analysis li{margin:.35rem 0}
+.case-topic-lead{color:var(--mp-muted);font-size:.88rem}
+.case-image-plan{margin-top:.8rem;padding:.8rem;border:1px dashed var(--mp-border);border-radius:10px}
+.case-image-plan h4{margin:.1rem 0 .45rem;color:var(--mp-accent)}
+.case-image-plan p,.case-image-plan li{font-size:.88rem;line-height:1.5}
+.case-image-caption{color:var(--mp-muted);font-style:italic}
+.case-topic-illustration{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border:1px solid var(--mp-border);border-radius:9px;background:#07182b;margin:.5rem 0}
 
 </style></head><body data-page-shell="homepage-v1">
 <header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
@@ -119,38 +129,7 @@ const fallback=document.createElement("div");fallback.className="case-empty";fal
 stages.append(fallback);
 card.querySelectorAll(":scope > p, :scope > .case-links").forEach(node=>stages.append(node.cloneNode(true)));
 }
-if(id==="SWS-PL-008"){
-const topicNodes=[...stages.querySelectorAll(".nik-topic-card")];
-topicNodes.forEach((node,index)=>{
-const topic=registry.nikTopics?.find(item=>item.id==="NIK-TOPIC-"+String(index+1).padStart(2,"0"));
-if(!topic)return;
-const panel=document.createElement("section");panel.className="case-topic-research";
-const heading=document.createElement("h4");heading.textContent="Postęp opracowania: "+(evidenceLabels[topic.evidenceStatus]||"do weryfikacji");panel.append(heading);
-if(topic.preliminaryFacts?.length){
-const list=document.createElement("ul");
-topic.preliminaryFacts.forEach(fact=>{
-const item=document.createElement("li");item.textContent=fact.text;
-const source=(topic.sources||[]).find(entry=>entry.sourceId===fact.sourceId);
-if(source){const link=document.createElement("a");link.href=source.url;link.textContent=" Źródło: "+source.label;link.target="_blank";link.rel="noopener noreferrer";item.append(link);}
-if(fact.scope){const scope=document.createElement("small");scope.textContent="Zakres: "+fact.scope;item.append(scope);}
-list.append(item);
-});
-panel.append(list);
-}else{
-const note=document.createElement("p");note.textContent=topic.noteStatus||"Zebrano wstępne odnośniki. Pełny raport i dane wymagają pobrania oraz analizy.";panel.append(note);
-}
-if(topic.sources?.length){
-const links=document.createElement("div");links.className="case-links";
-topic.sources.forEach(source=>{
-const already=[...node.querySelectorAll("a[href]")].some(link=>link.href===source.url);
-if(already)return;
-const link=document.createElement("a");link.href=source.url;link.textContent=source.label;link.target="_blank";link.rel="noopener noreferrer";links.append(link);
-});
-if(links.childNodes.length)panel.append(links);
-}
-node.append(panel);
-});
-}
+// Przykłady NIK mają osobne identyfikatory NIK-001–NIK-011 i własny szablon nik-sprawa.html.
 if(!stages.childNodes.length){const empty=document.createElement("div");empty.className="case-empty";empty.textContent="W bibliotece nie ma jeszcze przypisanych szczegółowych materiałów do tej sprawy.";stages.append(empty);}
 }).catch(error=>{const message=error.name==="AbortError"?"Przekroczono czas oczekiwania na dane sprawy. Odśwież stronę i spróbuj ponownie.":error.message||"Nieznany błąd pobierania.";fail("Nie udało się otworzyć karty",message);}).finally(()=>clearTimeout(timeout));
 })();

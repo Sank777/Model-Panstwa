@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+ <title id="title">Kryzys ekologiczny na Odrze</title><desc id="desc">Monitoring środowiska i obieg informacji między instytucjami. Pobór próbek → Laboratorium → Wymiana danych → Ostrzeżenie.</desc>
+ <defs><linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07182b"/><stop offset="1" stop-color="#0b3552"/></linearGradient><radialGradient id="glow3"><stop stop-color="#58d3c4" stop-opacity=".2"/><stop offset="1" stop-color="#58d3c4" stop-opacity="0"/></radialGradient></defs>
+ <rect width="1200" height="675" rx="28" fill="url(#bg3)"/><circle cx="1010" cy="100" r="280" fill="url(#glow3)"/>
+ <path d="M0 210 H1200" stroke="#2a5778" stroke-width="2"/>
+ <text x="58" y="82" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#f4f8ff">Kryzys ekologiczny na Odrze</text>
+ <text x="58" y="132" font-family="Arial,sans-serif" font-size="21" fill="#b9d0e5">Monitoring środowiska i obieg informacji między instytucjami</text>
+ <rect x="58" y="174" width="1084" height="54" rx="13" fill="#102b45" stroke="#315c7a"/>
+ <circle cx="88" cy="201" r="8" fill="#58d3c4"/><text x="112" y="209" font-family="Arial,sans-serif" font-size="18" fill="#dcecff">Czas reakcji • jakość danych • współpraca</text>
+ <text x="58" y="263" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#58d3c4">ŁAŃCUCH ODPOWIEDZIALNOŚCI I PUNKTÓW KONTROLI</text>
+ <path d="M298 363 H330 l-10 -8 m10 8 l-10 8" fill="none" stroke="#58d3c4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M582 363 H614 l-10 -8 m10 8 l-10 8" fill="none" stroke="#58d3c4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M866 363 H898 l-10 -8 m10 8 l-10 8" fill="none" stroke="#58d3c4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(58,286)">
+ <rect width="232" height="154" rx="18" fill="#102c48" stroke="#58d3c4" stroke-width="2"/>
+ <circle cx="116" cy="45" r="27" fill="#58d3c4" opacity=".18" stroke="#58d3c4" stroke-width="2"/>
+ <text x="116" y="53" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#58d3c4" text-anchor="middle">01</text>
+ <text x="116" y="105" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#f1f7ff" text-anchor="middle">Pobór próbek</text>
+ <text x="116" y="130" font-family="Arial,sans-serif" font-size="12" fill="#a9c4dd" text-anchor="middle">wejście</text>
+ </g><g transform="translate(342,286)">
+ <rect width="232" height="154" rx="18" fill="#102c48" stroke="#58d3c4" stroke-width="2"/>
+ <circle cx="116" cy="45" r="27" fill="#58d3c4" opacity=".18" stroke="#58d3c4" stroke-width="2"/>
+ <text x="116" y="53" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#58d3c4" text-anchor="middle">02</text>
+ <text x="116" y="105" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#f1f7ff" text-anchor="middle">Laboratorium</text>
+ <text x="116" y="130" font-family="Arial,sans-serif" font-size="12" fill="#a9c4dd" text-anchor="middle">odpowiedzialność</text>
+ </g><g transform="translate(626,286)">
+ <rect width="232" height="154" rx="18" fill="#102c48" stroke="#58d3c4" stroke-width="2"/>
+ <circle cx="116" cy="45" r="27" fill="#58d3c4" opacity=".18" stroke="#58d3c4" stroke-width="2"/>
+ <text x="116" y="53" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#58d3c4" text-anchor="middle">03</text>
+ <text x="116" y="105" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#f1f7ff" text-anchor="middle">Wymiana danych</text>
+ <text x="116" y="130" font-family="Arial,sans-serif" font-size="12" fill="#a9c4dd" text-anchor="middle">weryfikacja</text>
+ </g><g transform="translate(910,286)">
+ <rect width="232" height="154" rx="18" fill="#102c48" stroke="#58d3c4" stroke-width="2"/>
+ <circle cx="116" cy="45" r="27" fill="#58d3c4" opacity=".18" stroke="#58d3c4" stroke-width="2"/>
+ <text x="116" y="53" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#58d3c4" text-anchor="middle">04</text>
+ <text x="116" y="105" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#f1f7ff" text-anchor="middle">Ostrzeżenie</text>
+ <text x="116" y="130" font-family="Arial,sans-serif" font-size="12" fill="#a9c4dd" text-anchor="middle">rezultat</text>
+ </g>
+ <rect x="58" y="500" width="1084" height="104" rx="18" fill="#0b2239" stroke="#315c7a"/>
+ <text x="86" y="542" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#58d3c4">PYTANIE KONTROLNE</text>
+ <text x="86" y="576" font-family="Arial,sans-serif" font-size="17" fill="#e2edf7">Czy dane są spójne na każdym etapie procesu?</text>
+ <text x="58" y="642" font-family="Arial,sans-serif" font-size="13" fill="#83a6c2">CENTRUM JAWNOŚCI • ILUSTRACJA POGLĄDOWA • NIE ZASTĘPUJE DOKUMENTÓW ŹRÓDŁOWYCH</text>
+ </svg>
