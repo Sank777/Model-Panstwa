@@ -22,10 +22,12 @@
     if (!item || host.querySelector(":scope > .case-topic-visual, :scope > .case-hero-visual")) return;
     const img = document.createElement("img");
     img.className = hero ? "case-hero-visual" : "case-topic-visual";
-    img.src = item[0];
-    img.alt = item[1];
+    img.src = typeof item === "string" ? item : item.src;
+    img.alt = typeof item === "string" ? item[1] : item.alt;
     img.width = 960;
     img.height = 540;
+    img.sizes = hero ? "(max-width: 900px) 100vw, 1100px" : "(max-width: 700px) 100vw, 50vw";
+    if (typeof item === "object" && item.srcset) img.srcset = item.srcset;
     img.loading = hero ? "eager" : "lazy";
     img.decoding = "async";
     img.fetchPriority = hero ? "high" : "auto";
