@@ -75,3 +75,30 @@ body[data-center-visual="v1"] :is(.jaw-hero,.lib-hero,.nik-hero,.jaw-panel,.lib-
  body[data-center-visual="v1"] .jaw-search .jaw-btn{width:100%!important}
 }
 @media(prefers-reduced-motion:reduce){body[data-center-visual="v1"] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+
+/* Audyt kontrastu v1.0.1 — wszystkie sekcje, nie tylko karty o prefiksie jaw. */
+body[data-center-visual="v1"] :is(h1,h2,h3,h4,h5,h6,.hero-title,.section-title,.panel-title){
+  color:#f4f8ff!important;
+}
+body[data-center-visual="v1"] :is(p,li,dd,dt,label,summary,figcaption,blockquote,.description,.lead,.muted){
+  color:#c9d9e8!important;
+}
+body[data-center-visual="v1"] :is(.panel,.card,.notice,.section,.content-card,.info-card,.step-card,.feature-card){
+  color:#f3f7ff!important;
+  background:linear-gradient(145deg,#102b49,#091d34)!important;
+  border-color:rgba(143,190,229,.34)!important;
+}
+body[data-center-visual="v1"] :is(.panel,.card,.notice,.section,.content-card,.info-card,.step-card,.feature-card) :is(h1,h2,h3,h4,h5,h6,strong,b){
+  color:#f5f9ff!important;
+}
+body[data-center-visual="v1"] :is(.panel,.card,.notice,.section,.content-card,.info-card,.step-card,.feature-card) :is(p,li,small,summary,label,span:not(.icon)){
+  color:#c9d9e8!important;
+}
+body[data-center-visual="v1"] a:not(.jaw-btn):not(.top-navigation a){color:#9bdcff!important}
+body[data-center-visual="v1"] :is(input,select,textarea,button){
+  color:#f4f8ff;
+}
+body[data-center-visual="v1"] :is(input,select,textarea){
+  background:#071a2e!important;border-color:#577b9c!important;
+}
