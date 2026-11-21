@@ -15,7 +15,7 @@
   let observer = null;
 
   function safeAsset(path) {
-    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g)$/i.test(path) ||
+    if (typeof path !== "string" || !/^[a-z0-9_/-]+\.(?:webp|png|jpe?g|svg)$/i.test(path) ||
         path.split("/").some(part => !part || part === "." || part === "..")) {
       throw new Error("asset-path-rejected");
     }
@@ -88,7 +88,8 @@
         src = URL.createObjectURL(segment.blob);
         objectURLs.add(src);
       }
-      let image = slot.querySelector(":scope > .leon-visual-runtime-image");
+      const isImageSlot = slot.tagName === "IMG";
+      let image = isImageSlot ? slot : slot.querySelector(":scope > .leon-visual-runtime-image");
       if (!image) {
         image = document.createElement("img");
         image.className = "leon-visual-runtime-image";
@@ -113,6 +114,10 @@
 
   function schedule(slot) {
     if (slot.dataset.leonVisualState) return;
+    if (!slot.dataset.leonVisualTracked) {
+      slot.dataset.leonVisualTracked = "true";
+      state.slots++;
+    }
     if (observer) observer.observe(slot);
     else render(slot).catch(() => {});
   }
@@ -131,8 +136,7 @@
   function start() {
     if (state.started) return;
     state.started = true;
-    const slots = document.querySelectorAll("[data-leon-visual-src]");
-    state.slots = slots.length;
+    // schedule() rejestruje każdy slot dokładnie raz; nie ustawiamy tu wstępnego licznika.
     if ("IntersectionObserver" in window) {
       observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
