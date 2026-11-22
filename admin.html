@@ -314,7 +314,8 @@ async function verify(){
   if(access.is_main_admin||access.modules.includes("case_history"))await loadCases();
  }catch(e){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(e.message);}
 }
-$("theme").addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
+const themeToggle=document.getElementById("themeToggle");
+if(themeToggle)themeToggle.addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
 $("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}await verify();});
 $("logout").addEventListener("click",async()=>{await db.auth.signOut();selectedCase="";await verify();});
 
