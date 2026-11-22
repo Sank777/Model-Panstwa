@@ -1,0 +1,51 @@
+/* Centrum Jawności — warstwa wizualna makiety NIK v1.0
+   Zakres ograniczony do #nik-visual-workspace; bez ingerencji w pozostałe moduły. */
+#nik-visual-workspace{--nik-bg:#061426;--nik-panel:#0b2038;--nik-panel2:#102b49;--nik-line:rgba(105,184,239,.38);--nik-cyan:#55c9ff;--nik-text:#f3f8ff;--nik-muted:#c0d2e5;color:var(--nik-text);margin:1.2rem 0 1.6rem;padding:clamp(.8rem,2vw,1.35rem);border:1px solid var(--nik-line);border-radius:20px;background:radial-gradient(ellipse at 80% 0%,rgba(28,116,176,.2),transparent 42%),linear-gradient(145deg,#071a30,#061426 65%,#081c32);box-shadow:0 18px 44px #0006,inset 0 1px #ffffff12}
+#nik-visual-workspace *{box-sizing:border-box}
+#nik-visual-workspace .nv-heading{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
+#nik-visual-workspace .nv-kicker{color:#82d7ff;font-size:.72rem;font-weight:850;letter-spacing:.14em}
+#nik-visual-workspace h2,#nik-visual-workspace h3,#nik-visual-workspace h4{color:#f5f9ff}
+#nik-visual-workspace .nv-heading h2{margin:.2rem 0;font-size:clamp(1.35rem,2.6vw,2rem)}
+#nik-visual-workspace .nv-heading p{margin:0;color:var(--nik-muted);font-size:.88rem}
+#nik-visual-workspace .nv-layout{display:grid;grid-template-columns:minmax(245px,.78fr) minmax(0,1.75fr);gap:1rem;align-items:stretch}
+#nik-visual-workspace .nv-list,#nik-visual-workspace .nv-detail{min-width:0;border:1px solid var(--nik-line);border-radius:15px;background:linear-gradient(150deg,rgba(16,43,73,.96),rgba(7,25,45,.98));box-shadow:0 8px 24px #0004}
+#nik-visual-workspace .nv-list{padding:.75rem;display:flex;flex-direction:column;gap:.55rem}
+#nik-visual-workspace .nv-list-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.2rem .2rem .45rem;color:#d8eaff;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+#nik-visual-workspace .nv-count{color:#9edfff;font-variant-numeric:tabular-nums}
+#nik-visual-workspace .nv-topic{display:grid;grid-template-columns:74px minmax(0,1fr);gap:.7rem;align-items:center;width:100%;min-width:0;padding:.55rem;text-align:left;color:var(--nik-text);border:1px solid transparent;border-radius:11px;background:#ffffff08;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
+#nik-visual-workspace .nv-topic:hover{border-color:#68caff88;background:#ffffff10}
+#nik-visual-workspace .nv-topic[aria-pressed=true]{border-color:#59c8ff;background:linear-gradient(100deg,#14517a99,#0d315099);box-shadow:inset 3px 0 #5acbff,0 0 18px #2eafff20}
+#nik-visual-workspace .nv-topic img{display:block;width:74px;height:54px;object-fit:cover;border:1px solid #80bde477;border-radius:7px;background:#061426}
+#nik-visual-workspace .nv-topic strong{display:block;font-size:.84rem;line-height:1.25;color:#f5f9ff}
+#nik-visual-workspace .nv-topic small{display:block;margin-top:.25rem;color:#a9c4dc;font-size:.69rem}
+#nik-visual-workspace .nv-detail{padding:clamp(.9rem,2vw,1.35rem);display:flex;flex-direction:column;gap:.85rem}
+#nik-visual-workspace .nv-detail-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.72fr);gap:1rem;align-items:start}
+#nik-visual-workspace .nv-detail h3{margin:.3rem 0 .5rem;font-size:clamp(1.15rem,2vw,1.65rem);line-height:1.2}
+#nik-visual-workspace .nv-summary{margin:0;color:#c8d9e9;line-height:1.55;font-size:.91rem}
+#nik-visual-workspace .nv-hero-image{display:block;width:100%;aspect-ratio:16/10;max-height:190px;object-fit:cover;border:1px solid #75bde577;border-radius:11px;background:#061426}
+#nik-visual-workspace .nv-meta{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.7rem}
+#nik-visual-workspace .nv-meta span{display:inline-flex;padding:.22rem .5rem;border:1px solid #5b91b8;border-radius:99px;color:#bfeaff;background:#082947;font-size:.68rem;font-weight:750}
+#nik-visual-workspace .nv-analysis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.65rem}
+#nik-visual-workspace .nv-block{min-width:0;padding:.8rem;border:1px solid #4c83aa88;border-radius:11px;background:linear-gradient(145deg,#0d2945,#091d33)}
+#nik-visual-workspace .nv-block h4{margin:0 0 .35rem;font-size:.88rem;line-height:1.3}
+#nik-visual-workspace .nv-block .nv-lead{margin:0 0 .55rem;color:#83d4ff;font-size:.73rem;font-weight:750}
+#nik-visual-workspace .nv-block ul{margin:0;padding-left:1.1rem;color:#c7d8e8;font-size:.78rem;line-height:1.48}
+#nik-visual-workspace .nv-block li+li{margin-top:.35rem}
+#nik-visual-workspace .nv-sources{padding:.7rem .8rem;border:1px solid #5a8db277;border-radius:10px;background:#061a2d}
+#nik-visual-workspace .nv-sources strong{display:block;margin-bottom:.35rem;color:#dff4ff;font-size:.75rem}
+#nik-visual-workspace .nv-source-links{display:flex;gap:.45rem .8rem;flex-wrap:wrap}
+#nik-visual-workspace .nv-source-links a{color:#8edaff;font-size:.75rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+#nik-visual-workspace .nv-gallery{margin-top:1rem;padding:.85rem;border:1px solid var(--nik-line);border-radius:15px;background:#071a2dcc}
+#nik-visual-workspace .nv-gallery-head{display:flex;justify-content:space-between;gap:.7rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.65rem}
+#nik-visual-workspace .nv-gallery-head h3{margin:0;font-size:.98rem}
+#nik-visual-workspace .nv-gallery-head p{margin:0;color:#a9c4dc;font-size:.75rem}
+#nik-visual-workspace .nv-gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.55rem}
+#nik-visual-workspace .nv-gallery-item{min-width:0;padding:.35rem;border:1px solid #4b80a677;border-radius:9px;background:#0c2742;color:#eaf5ff;text-align:left;cursor:pointer}
+#nik-visual-workspace .nv-gallery-item[aria-pressed=true]{border-color:#5bcaff;box-shadow:0 0 0 1px #5bcaff55}
+#nik-visual-workspace .nv-gallery-item img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:5px;background:#061426}
+#nik-visual-workspace .nv-gallery-item span{display:block;padding:.35rem .1rem .1rem;font-size:.7rem;font-weight:750;line-height:1.2}
+#nik-visual-workspace .nv-error{padding:1rem;border:1px dashed #8bb4d4;border-radius:10px;color:#d9e9f7;background:#0a2037}
+@media(max-width:1000px){#nik-visual-workspace .nv-layout{grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr)}#nik-visual-workspace .nv-analysis{grid-template-columns:1fr}#nik-visual-workspace .nv-block{padding:.75rem}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:700px){#nik-visual-workspace .nv-layout{grid-template-columns:minmax(0,1fr)}#nik-visual-workspace .nv-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}#nik-visual-workspace .nv-list-head{grid-column:1/-1}#nik-visual-workspace .nv-topic{grid-template-columns:58px minmax(0,1fr);gap:.5rem;padding:.42rem}#nik-visual-workspace .nv-topic img{width:58px;height:46px}#nik-visual-workspace .nv-topic strong{font-size:.75rem}#nik-visual-workspace .nv-detail-top{grid-template-columns:1fr}#nik-visual-workspace .nv-hero-image{max-height:210px}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:420px){#nik-visual-workspace .nv-list{grid-template-columns:1fr}#nik-visual-workspace .nv-topic{grid-template-columns:68px minmax(0,1fr)}#nik-visual-workspace .nv-topic img{width:68px;height:48px}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#nik-visual-workspace *{transition:none!important}}
