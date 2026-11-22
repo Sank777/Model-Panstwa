@@ -35,7 +35,7 @@
     node.height = 400;
     return node;
   };
-  const list = root.querySelector("[data-nv-list]");
+  const list = root.querySelector("[data-nv-items]");
   const detail = root.querySelector("[data-nv-detail]");
   const gallery = root.querySelector("[data-nv-gallery]");
   const count = root.querySelector("[data-nv-count]");
@@ -93,10 +93,9 @@
     if (topic.lastSourceCheck) meta.append(make("span", "", "Weryfikacja źródeł: " + topic.lastSourceCheck));
     intro.append(meta);
     top.append(intro);
-    top.append(image(topic.id, "Ilustracja: " + topic.title).classList.add("nv-hero-image") || intro.lastChild);
-    // Dodajemy obraz jawnie, bez HTML wstrzykiwanego z danych.
-    const hero = top.lastChild;
-    if (hero && hero.tagName === "IMG") hero.className = "nv-hero-image";
+    const hero = image(topic.id, "Ilustracja: " + topic.title);
+    hero.className = "nv-hero-image";
+    top.append(hero);
     detail.append(top);
 
     const blocks = make("div", "nv-analysis");
