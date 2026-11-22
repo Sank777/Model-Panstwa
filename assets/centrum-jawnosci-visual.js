@@ -1,63 +1,60 @@
-/* Centrum Jawności — interaktywny przegląd 11 tematów NIK.
-   Dane pochodzą z assets/cases/index.json; tekst trafia do DOM przez textContent. */
+/* Centrum Jawności — jednolity widok 11 tematów NIK.
+   Dane i ilustracje są pobierane z rejestru assets/cases/index.json. */
 (() => {
   "use strict";
   const root = document.getElementById("nik-visual-workspace");
   if (!root) return;
 
-  const imageById = {
-    "NIK-001":"01-cyberbezpieczenstwo.svg",
-    "NIK-002":"02-powodz.svg",
-    "NIK-003":"03-systemy-it.svg",
-    "NIK-004":"04-odra.svg",
-    "NIK-005":"05-budzet.svg",
-    "NIK-006":"06-wybory.svg",
-    "NIK-007":"07-odpady.svg",
-    "NIK-008":"08-zdrowie.svg",
-    "NIK-009":"09-szkoly.svg",
-    "NIK-010":"10-mieszkalnictwo.svg",
-    "NIK-011":"11-schronienia.svg"
-  };
-  const imagePath = id => "assets/cases/illustrations/nik/" + imageById[id];
   const make = (tag, className, value) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
-    if (value !== undefined) node.textContent = value;
+    if (value !== undefined && value !== null) node.textContent = String(value);
     return node;
   };
-  const image = (id, alt) => {
-    const node = document.createElement("img");
-    node.src = imagePath(id);
-    node.alt = alt;
-    node.loading = "lazy";
-    node.decoding = "async";
-    node.width = 640;
-    node.height = 400;
-    return node;
+  const safeImagePath = topic => {
+    const src = topic.imagePlan && topic.imagePlan.src;
+    return typeof src === "string" &&
+      /^assets\/cases\/illustrations\/nik\/[a-z0-9-]+\.svg$/i.test(src)
+      ? src : null;
   };
   const list = root.querySelector("[data-nv-items]");
   const detail = root.querySelector("[data-nv-detail]");
   const count = root.querySelector("[data-nv-count]");
 
+  function addSection(parent, title, className) {
+    const section = make("section", className || "nv-section");
+    section.append(make("h4", "", title));
+    parent.append(section);
+    return section;
+  }
+
   function renderTopics(topics) {
     list.replaceChildren();
     count.textContent = String(topics.length).padStart(2, "0") + " tematów";
     topics.forEach((topic, index) => {
-      const card = document.createElement("button");
+      const card = make("button", "nv-topic");
       card.type = "button";
-      card.className = "nv-topic";
       card.dataset.topicId = topic.id;
       card.setAttribute("aria-pressed", index === 0 ? "true" : "false");
-      card.append(image(topic.id, ""));
+      const path = safeImagePath(topic);
+      if (path) {
+        const thumb = make("img");
+        thumb.src = path;
+        thumb.alt = "";
+        thumb.loading = "lazy";
+        thumb.decoding = "async";
+        card.append(thumb);
+      } else {
+        card.append(make("span", "nv-topic-placeholder", "NIK"));
+      }
       const copy = make("span");
       copy.append(make("strong", "", topic.title));
       copy.append(make("small", "", topic.id + " · " + (topic.evidenceStatus || "status niepodany")));
       card.append(copy);
       card.addEventListener("click", () => selectTopic(topic.id, topics));
       list.append(card);
-
     });
-    selectTopic(topics[0].id, topics);
+    if (topics.length) selectTopic(topics[0].id, topics);
   }
 
   function selectTopic(id, topics) {
@@ -68,8 +65,8 @@
     });
     detail.replaceChildren();
 
-    const top = make("div", "nv-detail-top");
-    const intro = make("div");
+    const top = make("header", "nv-detail-top");
+    const intro = make("div", "nv-intro");
     intro.append(make("span", "nv-kicker", topic.id + " · TEMAT KONTROLNY"));
     intro.append(make("h3", "", topic.title));
     intro.append(make("p", "nv-summary", topic.summary || "Brak opisu w rejestrze."));
@@ -79,10 +76,39 @@
     if (topic.lastSourceCheck) meta.append(make("span", "", "Weryfikacja źródeł: " + topic.lastSourceCheck));
     intro.append(meta);
     top.append(intro);
-    const hero = image(topic.id, "Ilustracja: " + topic.title);
-    hero.className = "nv-hero-image";
-    top.append(hero);
+
+    const path = safeImagePath(topic);
+    if (path) {
+      const hero = make("img", "nv-hero-image");
+      hero.src = path;
+      hero.alt = (topic.imagePlan && topic.imagePlan.alt) || ("Ilustracja poglądowa: " + topic.title);
+      hero.loading = "lazy";
+      hero.decoding = "async";
+      top.append(hero);
+      if (topic.imagePlan && topic.imagePlan.caption) {
+        top.append(make("p", "nv-image-caption", topic.imagePlan.caption));
+      }
+    } else {
+      top.append(make("div", "nv-image-placeholder", "Brak przypisanej ilustracji"));
+    }
     detail.append(top);
+
+    const evidence = addSection(detail, "Ustalenia i zakres materiału", "nv-evidence-section");
+    if (topic.preliminaryNote) evidence.append(make("p", "nv-preliminary-note", topic.preliminaryNote));
+    const facts = Array.isArray(topic.preliminaryFacts) ? topic.preliminaryFacts : [];
+    if (facts.length) {
+      const factList = make("ul", "nv-facts");
+      facts.forEach(fact => {
+        const item = make("li", "nv-fact");
+        item.append(make("span", "nv-fact-text", fact.text || ""));
+        if (fact.scope) item.append(make("small", "nv-fact-scope", fact.scope));
+        factList.append(item);
+      });
+      evidence.append(factList);
+    } else {
+      evidence.append(make("p", "nv-no-facts", "W rejestrze nie ma jeszcze wyodrębnionych ustaleń. To miejsce pozostaje oznaczone jako wymagające dalszej weryfikacji."));
+    }
+    if (topic.noteStatus) evidence.append(make("p", "nv-note-status", topic.noteStatus));
 
     const blocks = make("div", "nv-analysis");
     (topic.analysisBlocks || []).slice(0, 3).forEach(block => {
@@ -96,20 +122,18 @@
     });
     detail.append(blocks);
 
-    const sources = make("div", "nv-sources");
-    sources.append(make("strong", "", "Źródła przypisane do tematu"));
+    const sources = addSection(detail, "Źródła przypisane do tematu", "nv-sources");
     const links = make("div", "nv-source-links");
     (topic.sources || []).forEach(source => {
       if (!source.url || !/^https:\/\//i.test(source.url)) return;
-      const a = make("a", "", source.label || "Otwórz źródło");
-      a.href = source.url;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      links.append(a);
+      const link = make("a", "", source.label || "Otwórz źródło");
+      link.href = source.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      links.append(link);
     });
-    if (!links.childElementCount) links.append(make("span", "", "Brak odnośników w rejestrze."));
+    if (!links.childElementCount) links.append(make("span", "nv-no-sources", "Brak odnośników w rejestrze."));
     sources.append(links);
-    detail.append(sources);
   }
 
   fetch("assets/cases/index.json", { credentials: "same-origin" })
@@ -119,7 +143,7 @@
     })
     .then(data => {
       const topics = (Array.isArray(data.nikTopics) ? data.nikTopics : [])
-        .filter(topic => /^NIK-0(?:0[1-9]|1[01])$/.test(topic.id) && imageById[topic.id])
+        .filter(topic => /^NIK-0(?:0[1-9]|1[01])$/.test(topic.id))
         .sort((a, b) => a.id.localeCompare(b.id, "en"));
       if (topics.length !== 11) throw new Error("Rejestr nie zawiera kompletu 11 tematów NIK.");
       renderTopics(topics);
