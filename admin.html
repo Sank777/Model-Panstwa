@@ -78,7 +78,7 @@
 <div class="grid">
 <label class="row">Nazwa pliku / klucz grafiki<input id="directAssetKey" maxlength="100" pattern="[A-Za-z0-9][A-Za-z0-9._-]{2,100}" placeholder="psp-ev-hero-01" required></label>
 <label class="row">Tytuł grafiki<input id="directAssetTitle" maxlength="160" placeholder="PSP — nowoczesny system reagowania" required></label>
-<label class="row">Wybierz plik (JPEG, PNG lub WebP; maks. 8 MB)<input id="directAssetFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" required></label>
+<label class="row">Wybierz plik (JPEG, PNG lub WebP; maks. 8 MB; konwersja automatyczna)<input id="directAssetFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" required></label>
 </div>
 <button id="directUploadButton" type="button">Prześlij zaakceptowaną grafikę</button>
 <div id="directUploadStatus" class="status" role="status" aria-live="polite">Plik trafi do prywatnej biblioteki jako wersja robocza.</div>
@@ -289,11 +289,27 @@ async function loadVisualLibrary(){
 $("visualLibraryRefresh").addEventListener("click",loadVisualLibrary);
 
 
-async function directUploadRequest(body, file, ticket){
+async function convertVisualToWebp(file){
+ const image=new Image(),url=URL.createObjectURL(file);
+ try{
+  await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error("Nie można odczytać wybranego obrazu"));image.src=url;});
+  const width=image.naturalWidth,height=image.naturalHeight;
+  if(!width||!height||width*height>40000000)throw new Error("Obraz ma nieprawidłowe lub zbyt duże wymiary.");
+  const scale=Math.min(1,2560/width,2560/height),w=Math.max(1,Math.round(width*scale)),h=Math.max(1,Math.round(height*scale));
+  const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext("2d",{alpha:false});if(!ctx)throw new Error("Przeglądarka nie udostępniła konwertera obrazu.");
+  ctx.drawImage(image,0,0,w,h);
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/webp",0.82));
+  if(!blob||blob.type!=="image/webp")throw new Error("Ta przeglądarka nie obsługuje zapisu WebP. Otwórz panel w Safari lub Chrome.");
+  if(blob.size<16||blob.size>8*1024*1024)throw new Error("Po konwersji plik WebP przekracza limit 8 MB.");
+  return {blob,width:w,height:h};
+ }finally{URL.revokeObjectURL(url);}
+}
+async function directUploadRequest(body, file, ticket, pillarId, dimensions){
  const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");
  const headers={apikey:KEY,Authorization:"Bearer "+session.access_token};
  if(body){headers["Content-Type"]="application/json";const response=await fetch(DIRECT_UPLOAD_API,{method:"POST",headers,body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się przygotować przesyłania");return data;}
- const form=new FormData();form.append("file",file,file.name);
+ const form=new FormData();form.append("file",file,"visual.webp");form.append("pillar_id",String(pillarId));form.append("width",String(dimensions.width));form.append("height",String(dimensions.height));
  const response=await fetch(DIRECT_UPLOAD_API,{method:"POST",headers:{...headers,"x-visual-upload-ticket":ticket},body:form});
  const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się przesłać pliku");return data;
 }
@@ -322,9 +338,11 @@ $("directUploadButton").addEventListener("click",async()=>{
  if(file.size<1||file.size>8*1024*1024){box.textContent="Plik musi mieć maksymalnie 8 MB.";return;}
  button.disabled=true;box.textContent="Przygotowuję jednorazowy, bezpieczny bilet…";
  try{
+  box.textContent="Optymalizuję grafikę do WebP…";
+  const converted=await convertVisualToWebp(file);
   const ticket=await directUploadRequest({action:"issue_ticket",asset_key:key,title});
-  box.textContent="Przesyłam plik i przygotowuję WebP…";
-  const result=await directUploadRequest(null,file,ticket.ticket);
+  box.textContent="Przesyłam zoptymalizowaną grafikę…";
+  const result=await directUploadRequest(null,converted.blob,ticket.ticket,$("visualPillar").value,converted);
   box.textContent="Gotowe. Grafika zapisana jako prywatna wersja robocza · "+Math.round(result.bytes/1024)+" KB · SHA-256 "+result.sha256.slice(0,16)+"…";
   $("directAssetFile").value="";await refreshDirectVisualLibrary();
  }catch(e){box.textContent="Nie udało się przesłać grafiki: "+e.message;}
