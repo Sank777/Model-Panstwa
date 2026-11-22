@@ -60,6 +60,19 @@
 @media(max-width:760px){.tender-lifecycle{grid-template-columns:1fr}}
 
 </style><link rel="stylesheet" href="assets/centrum-visual-system.css?v=1.0.0">
+<style>
+.tender-stage{cursor:pointer}
+.tender-stage>summary{list-style:none;cursor:pointer}
+.tender-stage>summary::-webkit-details-marker{display:none}
+.tender-stage>summary:after{content:"＋";float:right;color:#a9d9ff;font-weight:800}
+.tender-stage[open]>summary:after{content:"−"}
+.tender-lifecycle{gap:.45rem;margin:.6rem 0 .9rem}
+.tender-lifecycle-intro{font-size:.78rem}
+.tender-stage-head{margin:0}
+.tender-stage-head small{font-size:.68rem}
+.tender-stage[open]{grid-column:1/-1}
+@media(max-width:760px){.tender-stage[open]{grid-column:auto}}
+</style>
 </head><body data-page-shell="homepage-v1" data-center-visual="v1">
 <header class="site-header"><a class="brand" href="index.html" aria-label="Model Państwa — strona główna"><span class="brand-eagle" aria-hidden="true">🦅</span><span><strong>Model Państwa</strong><small>System Rozwoju Polski</small></span></a><div class="header-tools"><a href="centrum-jawnosci.html" aria-label="Centrum Jawności">▤</a><a href="admin.html" aria-label="Panel użytkownika">♙</a></div></header>
 <main class="live-wrap"><a class="live-back" href="centrum-jawnosci.html">← Centrum Jawności</a>
@@ -139,16 +152,3 @@
 </main><footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Analiza bieżąca · projekt modułu</span></footer>
 <script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
 </body></html>
-<style>
-.tender-stage{cursor:pointer}
-.tender-stage>summary{list-style:none;cursor:pointer}
-.tender-stage>summary::-webkit-details-marker{display:none}
-.tender-stage>summary:after{content:"＋";float:right;color:#a9d9ff;font-weight:800}
-.tender-stage[open]>summary:after{content:"−"}
-.tender-lifecycle{gap:.45rem;margin:.6rem 0 .9rem}
-.tender-lifecycle-intro{font-size:.78rem}
-.tender-stage-head{margin:0}
-.tender-stage-head small{font-size:.68rem}
-.tender-stage[open]{grid-column:1/-1}
-@media(max-width:760px){.tender-stage[open]{grid-column:auto}}
-</style>
