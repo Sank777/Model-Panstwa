@@ -1,7 +1,7 @@
 /* Leon Visual Engine 7.3.4 — atlas-first, fallback-only labels. */
 (() => {
   "use strict";
-  const VERSION="7.3.4";
+  const VERSION="7.4.0";
   if (window.__LEON_VISUAL_ENGINE_INSTANCE__) return;
   window.__LEON_VISUAL_ENGINE_INSTANCE__=VERSION;
   const script=document.currentScript;
@@ -142,12 +142,7 @@
       }
       setImageFit(layer,recipe);
       await setImageSource(layer,imageSource);
-      // Atlas tiles already contain their typography and icon. Remove generated
-      // HTML labels after a successful render so stale CSS/cache cannot double them.
-      const generatedCopy=directChild(tile,"tile-copy");
-      const generatedIcon=directChild(tile,"tile-icon");
-      if(generatedCopy)generatedCopy.remove();
-      if(generatedIcon)generatedIcon.remove();
+      // Keep accessible HTML labels above the independent SVG artwork.
       tile.dataset.visualValidation="passed";
       tile.dataset.visualAsset=recipe.asset;
       tile.classList.remove("visual-tile-fallback","visual-image-error");tile.classList.add("visual-image-ready");tile.dataset.visualState="rendered";
