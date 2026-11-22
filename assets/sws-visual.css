@@ -33,3 +33,23 @@
 @media(max-width:760px){.sws-layout{grid-template-columns:minmax(0,1fr)}.sws-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}.sws-topic{grid-template-columns:52px minmax(0,1fr);padding:.45rem}.sws-topic-id{font-size:.62rem;min-height:42px}}
 @media(max-width:430px){.sws-list{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.sws-workspace *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Rozwinięta karta SWS — wspólny podział treści jak w analizach NIK. */
+.sws-detail .sws-analysis-block{margin:.85rem 0;padding:.85rem .95rem;border:1px solid #426d8d;border-radius:11px;background:linear-gradient(145deg,#0d2945,#091d33);color:#dce9f5}
+.sws-detail .sws-analysis-block>h3{margin:0 0 .55rem;color:#8edaff;font-size:.72rem;letter-spacing:.09em;font-weight:850}
+.sws-detail .sws-analysis-block .sws-source-heading{margin:.15rem 0 .45rem;color:#f5f9ff;font-size:.98rem;letter-spacing:0;font-weight:800}
+.sws-detail .sws-analysis-block p{font-size:.84rem;line-height:1.55}
+.sws-detail .sws-analysis-block ul{padding-left:1.2rem;margin:.45rem 0}
+.sws-detail .sws-analysis-block li{margin:.32rem 0;color:#dce9f5;font-size:.83rem;line-height:1.5}
+.sws-detail .sws-analysis-block strong{color:#fff}
+.sws-detail .case-detail>.case-links{padding-top:.7rem;border-top:1px solid #426d8d}
+.sws-detail .case-top{margin-bottom:.65rem}
+.sws-detail .case-card h2{margin:.25rem 0 .5rem}
+.sws-detail .case-status{margin:.7rem 0}
+.sws-detail .case-meta{margin:.55rem 0}
+.sws-detail .case-open-link{display:inline-flex;margin-top:.8rem;padding:.55rem .8rem;border:1px solid #426d8d;border-radius:8px;text-decoration:none}
+.sws-detail .nik-proposals{padding:.85rem;border:1px solid #426d8d;border-radius:11px;background:#061a2d}
+.sws-detail .nik-proposals-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+.sws-detail .nik-topic-card{min-width:0;padding:.65rem;border:1px solid #426d8d;border-radius:9px;background:#0b2944}
+.sws-detail .nik-topic-card h2{font-size:.9rem}
+@media(max-width:560px){.sws-detail .nik-proposals-grid{grid-template-columns:1fr}}
