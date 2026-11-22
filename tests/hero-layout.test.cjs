@@ -37,7 +37,8 @@ test("pillar tiles render without frames, shadows, or overlay accents", () => {
   assert.match(css, /\.pillar-tile:before,\.pillar-tile:after\{display:none!important;content:none!important/);
 });
 
-test("successful atlas render removes duplicate generated tile labels", () => {
-  assert.match(engine, /const generatedCopy=directChild\(tile,"tile-copy"\);[\s\S]*?if\(generatedCopy\)generatedCopy\.remove\(\);[\s\S]*?if\(generatedIcon\)generatedIcon\.remove\(\);/);
-  assert.match(engine, /const VERSION="7\.3\.4";/);
+test("successful standalone SVG render keeps accessible tile labels", () => {
+  assert.match(engine, /Keep accessible HTML labels above the independent SVG artwork/);
+  assert.doesNotMatch(engine, /generatedCopy\)generatedCopy\.remove/);
+  assert.match(engine, /const VERSION="7\.4\.0";/);
 });
