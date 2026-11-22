@@ -27,7 +27,7 @@ Status: architecture and first validation layer under implementation. This docum
 
 `generated -> accepted -> upload-ticket-issued -> uploaded(draft) -> validated -> assigned -> deployment-tested -> published -> archived`
 
-A rejection moves the candidate to `rejected`; it never mutates an existing published version. The Gateway only creates a draft catalog row. Publication must be a distinct trusted operation after owner approval and successful page checks.
+A rejection moves the candidate to `rejected`; it never mutates an existing published version. The Gateway writes the object to the private `visual-drafts` bucket and creates a `draft` catalog row. Publication must be a distinct trusted operation after owner approval and successful page checks; draft objects are never exposed as public URLs.
 
 ## Naming and storage
 

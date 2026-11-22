@@ -69,7 +69,7 @@ Deno.serve(async (req: Request) => {
   if (ticketError || !record) return reply({ error: "Upload ticket invalid, expired or already used" }, 401);
 
   const { width, height } = dimensions(bytes);
-  const { error: uploadError } = await admin.storage.from("visual-assets").upload(record.object_path, bytes, {
+  const { error: uploadError } = await admin.storage.from("visual-drafts").upload(record.object_path, bytes, {
     contentType: "image/webp",
     cacheControl: "31536000",
     upsert: false,
@@ -82,6 +82,7 @@ Deno.serve(async (req: Request) => {
     asset_key: record.asset_key,
     title: record.title,
     object_path: record.object_path,
+    bucket: "visual-drafts",
     mime_type: "image/webp",
     byte_size: bytes.byteLength,
     width,
@@ -93,7 +94,7 @@ Deno.serve(async (req: Request) => {
   });
 
   if (registryError) {
-    await admin.storage.from("visual-assets").remove([record.object_path]);
+    await admin.storage.from("visual-drafts").remove([record.object_path]);
     return reply({ error: "Registry write failed; uploaded object rolled back" }, 503);
   }
 
