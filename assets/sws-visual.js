@@ -48,6 +48,8 @@
     clone.querySelectorAll("details").forEach(node=>node.open=true);
     const body=clone.querySelector(".case-detail");
     if(body){
+      const sourceLinks=body.querySelector(":scope > .case-links");
+      if(sourceLinks)sourceLinks.remove();
       const headings=[...body.querySelectorAll(":scope > h3")];
       headings.forEach((heading,index)=>{
         const section=document.createElement("section");
@@ -69,7 +71,6 @@
         }
         heading.replaceWith(section);
       });
-      const sourceLinks=body.querySelector(":scope > .case-links");
       if(sourceLinks){
         const sourceSection=document.createElement("section");
         sourceSection.className="sws-analysis-block sws-sources";
