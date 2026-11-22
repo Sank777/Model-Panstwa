@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#071a30">
-<meta name="description" content="Jedenaście analiz materiałów NIK oraz osobny temat PSP/OSP — panel Systemu Widzenia Sprawy Leona.">
-<title>11 analiz NIK + PSP/OSP · Centrum Jawności</title>
+<meta name="description" content="Jedenaście analiz materiałów NIK — panel Systemu Widzenia Sprawy Leona.">
+<title>11 analiz NIK · Centrum Jawności</title>
 <link rel="stylesheet" href="assets/site.css?v=20261115-master-template">
 <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
 <link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
@@ -133,7 +133,7 @@ function renderDetail(t){
  const src=make("section","nd-block");src.append(make("h3","","Materiały źródłowe"));const sb=make("div","nd-block-body"),links=make("div","nd-sources");(t.sources||[]).forEach(s=>{const u=safeUrl(s.url);if(!u)return;const a=make("a","",s.label||"Otwórz źródło");a.href=u;a.target="_blank";a.rel="noopener noreferrer";links.append(a)});if(!links.childElementCount)sb.append(make("p","","Brak podłączonych źródeł w rejestrze — temat wymaga uzupełnienia."));else sb.append(links);src.append(sb);root.append(src);
 }
 async function init(){
- try{const response=await fetch("assets/cases/index.json?v=20261122-illustrations1", {credentials:"same-origin",cache:"no-store"});if(!response.ok)throw new Error("Nie udało się pobrać rejestru tematów.");const data=await response.json();topics=Array.isArray(data.nikTopics)?data.nikTopics:[];if(topics.filter(t=>t.id.startsWith("NIK-")).length!==11||!topics.some(t=>t.id==="PSP-OSP-001"))throw new Error("Rejestr tematów nie zawiera oczekiwanego zestawu 11 + 1.");renderList();const requested=new URLSearchParams(location.search).get("topic");choose(topics.some(t=>t.id===requested)?requested:"NIK-001");
+ try{const response=await fetch("assets/cases/index.json?v=20261122-illustrations1", {credentials:"same-origin",cache:"no-store"});if(!response.ok)throw new Error("Nie udało się pobrać rejestru tematów.");const data=await response.json();topics=(Array.isArray(data.nikTopics)?data.nikTopics:[]).filter(t=>t.id.startsWith("NIK-"));if(topics.filter(t=>t.id.startsWith("NIK-")).length!==11)throw new Error("Rejestr tematów nie zawiera kompletu 11 analiz NIK.");renderList();const requested=new URLSearchParams(location.search).get("topic");choose(topics.some(t=>t.id===requested)?requested:"NIK-001");
  }catch(error){$("#nd-detail").replaceChildren(make("p","nd-error","Nie udało się uruchomić panelu: "+error.message));}
 }
 init();

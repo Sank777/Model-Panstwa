@@ -327,6 +327,60 @@
       ],
       "visual": null,
       "sections": []
+    },
+    {
+      "id": "SWS-PL-009",
+      "slug": "case-sws-pl-009",
+      "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
+      "category": "bezpieczenstwo_ratownictwo",
+      "institution": "PSP / OSP",
+      "status": "temat_rozpoznawczy",
+      "evidenceStatus": "do_weryfikacji",
+      "summary": "Analiza wyposażenia, szkoleń, procedur, rozmieszczenia zasobów, współpracy i finansowania gotowości ratowniczej.",
+      "scope": [
+        "Bezpieczeństwo i ratownictwo",
+        "Filar 4 · 6 · 7 · 10",
+        "Pojazdy elektryczne i instalacje PV"
+      ],
+      "sources": [],
+      "preliminaryNote": "Karta ma charakter rozpoznawczy. Pełny dokument źródłowy nie został jeszcze dołączony; nie należy przedstawiać pytań badawczych jako potwierdzonych braków.",
+      "noteStatus": "oczekuje na dokument źródłowy",
+      "lastSourceCheck": "2026-11-22",
+      "preliminaryFacts": [],
+      "analysisBlocks": [
+        {
+          "id": "psp-capacity",
+          "title": "Jakie zdolności należy sprawdzić?",
+          "lead": "Od wyposażenia do gotowości operacyjnej",
+          "points": [
+            "Ustalić wyposażenie jednostek, jego stan, dostępność, rozmieszczenie i koszty utrzymania.",
+            "Sprawdzić szkolenia, kompetencje, ćwiczenia oraz aktualność procedur.",
+            "Odtworzyć podział odpowiedzialności i współpracę między jednostkami PSP, OSP i administracją."
+          ]
+        },
+        {
+          "id": "psp-coverage",
+          "title": "Jakie zależności analizujemy?",
+          "lead": "Łańcuch gotowości ratowniczej",
+          "points": [
+            "Rozpoznanie ryzyka → standardy → szkolenia → sprzęt → rozmieszczenie → działania → wnioski i poprawa.",
+            "Zweryfikować, czy dane obejmują cały kraj, wskazują datę i metodologię oraz pozwalają porównać jednostki.",
+            "Rozdzielić formalne posiadanie sprzętu od jego sprawności, dostępności i gotowości do użycia."
+          ]
+        },
+        {
+          "id": "psp-lessons",
+          "title": "Pytania kontrolne i lekcje",
+          "lead": "Wnioski dopiero po pozyskaniu dokumentów",
+          "points": [
+            "Jakie standardy wyposażenia i szkoleń obowiązują w badanym okresie?",
+            "Czy istnieją wyniki ćwiczeń, analiz zdarzeń, kontroli lub audytów?",
+            "Jakie potwierdzone luki wymagają inwestycji, a które można rozwiązać organizacyjnie?"
+          ]
+        }
+      ],
+      "visual": null,
+      "sections": []
     }
   ],
   "educationalScenarios": [
