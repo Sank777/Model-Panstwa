@@ -40,6 +40,19 @@
 #filar-10 .f10-footer{font-size:.72rem;color:#a9c4d9;margin-top:.7rem}
 @media(max-width:760px){#filar-10 .f10-grid{grid-template-columns:1fr}#filar-10 .f10-cats{max-height:300px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}#filar-10 .f10-cat{grid-template-columns:28px 1fr;padding:.45rem}#filar-10 .f10-num{width:26px;height:26px}}
 </style>
+<style id="f10-source-directory">
+#filar-10 .f10-sources{margin:.85rem 0;padding:.9rem;border:1px solid #416b8b;border-radius:12px;background:#0a2037}
+#filar-10 .f10-sources h4{margin:.1rem 0 .35rem;color:#fff;font-size:1rem}
+#filar-10 .f10-sources-intro{font-size:.82rem;color:#c4d9e9;margin:.25rem 0 .75rem}
+#filar-10 .f10-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+#filar-10 .f10-source{display:flex;flex-direction:column;gap:.3rem;padding:.7rem;border:1px solid #345d7d;border-radius:9px;background:#102d49;color:#edf6ff;text-decoration:none}
+#filar-10 .f10-source:hover{border-color:#8de6ff;background:#153a5b}
+#filar-10 .f10-source strong{font-size:.84rem;color:#fff}
+#filar-10 .f10-source span{font-size:.75rem;line-height:1.45;color:#c3d8e8}
+#filar-10 .f10-source em{font-size:.65rem;font-style:normal;font-weight:850;letter-spacing:.06em;color:#8de0fa}
+#filar-10 .f10-source-note{font-size:.73rem;color:#c2d5e4;margin:.65rem 0 0}
+@media(max-width:680px){#filar-10 .f10-source-grid{grid-template-columns:1fr}}
+</style>
 </head><body data-page-shell="homepage-v1">
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Model Państwa — strona główna">
@@ -86,6 +99,23 @@
 <div class="f10-topline"><span class="f10-kicker">FILAR 10 · MONITOR PUBLICZNYCH PIENIĘDZY</span><span class="f10-count">11 OBSZARÓW · REJESTR RZECZYWISTYCH SPRAW</span></div>
 <h3 id="f10-monitor-title">Monitor zamówień i przetargów</h3>
 <p>Wybierz jedną z 11 kategorii. Zobaczysz konkretne postępowania, udokumentowane zdarzenia i dokumenty, które można dalej sprawdzać. Nie utożsamiamy unieważnienia, sporu ani przerwy w pracach z dowodem nieprawidłowości.</p>
+<section class="f10-sources" aria-labelledby="f10-sources-title">
+<h4 id="f10-sources-title">Źródła pierwotne i rejestry do weryfikacji</h4>
+<p class="f10-sources-intro">To są źródła instytucji prowadzących rejestry lub publikujących dokumenty. Linki otwierają właściwe systemy, a nie kopie informacji w serwisach pośredniczących.</p>
+<div class="f10-source-grid">
+<a class="f10-source" href="https://ezamowienia.gov.pl/pl/integracja/" target="_blank" rel="noopener noreferrer"><em>API OFICJALNE · POLSKA</em><strong>Platforma e-Zamówienia — dokumentacja integracji</strong><span>Opis interfejsów do ogłoszeń BZP, planów postępowań, statystyk i repozytorium zdarzeń OCDS.</span></a>
+<a class="f10-source" href="https://dev.ezamowienia.gov.pl/mo-board/api/v1/notice" target="_blank" rel="noopener noreferrer"><em>PUBLICZNY PUNKT API</em><strong>API ogłoszeń BZP</strong><span>Oficjalny adres API do odczytu ogłoszeń krajowych. Limit od 6.10.2026: 30 zapytań/min z jednego IP; odpowiedź 403 po przekroczeniu limitu.</span></a>
+<a class="f10-source" href="https://docs.ted.europa.eu/api/latest/search.html" target="_blank" rel="noopener noreferrer"><em>API PUBLICZNE · UNIA EUROPEJSKA</em><strong>TED Search API — dokumentacja</strong><span>Wyszukiwanie opublikowanych ogłoszeń unijnych, pobieranie danych i dokumentów XML. Wyszukiwanie opublikowanych ogłoszeń nie wymaga klucza API.</span></a>
+<a class="f10-source" href="https://data.ted.europa.eu/" target="_blank" rel="noopener noreferrer"><em>OTWARTE DANE · UNIA EUROPEJSKA</em><strong>TED Open Data Service</strong><span>Zasób danych zamówień UE do analiz i ponownego wykorzystania; uzupełnia wyszukiwarkę ogłoszeń TED.</span></a>
+<a class="f10-source" href="https://rejestrumow.gov.pl/" target="_blank" rel="noopener noreferrer"><em>REJESTR PUBLICZNY · POLSKA</em><strong>Centralny Rejestr Umów JSFP</strong><span>Publiczne wyszukiwanie udostępnionych informacji o umowach jednostek sektora finansów publicznych. Zakres obowiązku obejmuje umowy zawarte od 1 lipca 2026 r.</span></a>
+<a class="f10-source" href="https://www.gov.pl/web/finanse/udostepnienie-api-do-systemu-centralny-rejestr-umow-jsfp" target="_blank" rel="noopener noreferrer"><em>API · DOSTĘP INTEGRACYJNY</em><strong>CRU JSFP — dokumentacja API</strong><span>API pozwala wyszukiwać streszczenia i pobierać szczegóły umów. Wymaga autoryzacji X-API-KEY; klucza nie umieszczamy w kodzie publicznej strony.</span></a>
+<a class="f10-source" href="https://orzeczenia.uzp.gov.pl/Home/Search" target="_blank" rel="noopener noreferrer"><em>ORZECZNICTWO · KIO</em><strong>Wyszukiwarka orzeczeń UZP/KIO</strong><span>Wyroki i postanowienia KIO oraz orzeczenia sądowe; można wyszukiwać po sygnaturze, dacie, zamawiającym i wyniku.</span></a>
+<a class="f10-source" href="https://bip.nik.gov.pl/kontrole/wyniki-kontroli-nik/" target="_blank" rel="noopener noreferrer"><em>KONTROLA PAŃSTWOWA</em><strong>NIK — wyszukiwarka wyników kontroli</strong><span>Wystąpienia i wyniki kontroli, jednostki kontrolowane, numery kontroli i dokumenty pokontrolne.</span></a>
+<a class="f10-source" href="https://bip.nik.gov.pl/zamowienia-publiczne" target="_blank" rel="noopener noreferrer"><em>BIULETYN INFORMACJI PUBLICZNEJ</em><strong>NIK — własne zamówienia i plany</strong><span>Przykłady rzeczywistych postępowań, planów, zapytań ofertowych i zakończonych zamówień publikowanych przez NIK.</span></a>
+<a class="f10-source" href="https://www.gov.pl/web/uzp/orzecznictwo-kio2" target="_blank" rel="noopener noreferrer"><em>URZĄD ZAMÓWIEŃ PUBLICZNYCH</em><strong>UZP — informacje o orzecznictwie i procedurze KIO</strong><span>Oficjalne komunikaty i zasady dostępu do orzeczeń; od 30.09.2025 r. właściwym źródłem aktualnych orzeczeń jest wyszukiwarka.</span></a>
+</div>
+<p class="f10-source-note"><strong>Ważne:</strong> podłączenie źródła oznacza dostęp do jego oficjalnej wyszukiwarki lub interfejsu. Nie wszystkie rejestry udostępniają anonimowe API ani dane o wykonaniu umowy. Niektóre dane trzeba pozyskać z BIP zamawiającego, dokumentów odbioru, aneksów lub protokołów. Samo dodanie źródła nie oznacza jeszcze automatycznego pobierania i synchronizacji.</p>
+</section>
 <div class="f10-grid"><nav class="f10-cats" id="f10-categories" aria-label="11 kategorii zamówień publicznych"></nav><section class="f10-detail" id="f10-detail" aria-live="polite"><p>Wybierz kategorię po lewej.</p></section></div>
 <div class="f10-rule"><strong>Zasada dowodowa:</strong> status opisuje wyłącznie zdarzenie potwierdzone w źródle. Rozróżniamy postępowanie, umowę i spór/odwołanie. Jeśli nie mamy aktualnego dokumentu, nie oznaczamy sprawy jako „w toku” ani „wstrzymanej”.</div>
 <div class="f10-footer">Stan rozpoznania: 22.11.2026. Rejestr pilotażowy — aktualizacja statusów wymaga ponownego sprawdzenia źródła pierwotnego.</div>
