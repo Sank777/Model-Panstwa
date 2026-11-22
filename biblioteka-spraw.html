@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0">
 <link rel="stylesheet" href="assets/visual-engine-layout.css?v=7.3.4">
 <link rel="stylesheet" href="assets/case-visuals.css?v=1.0.0">
-<link rel="stylesheet" href="assets/sws-visual.css?v=1.0.0">
+<link rel="stylesheet" href="assets/sws-visual.css?v=1.0.1">
 <style>
 :root{--lib-bg:#081b30;--lib-panel:#102a45;--lib-panel2:#153550;--lib-line:rgba(163,198,230,.24);--lib-text:#f4f8fc;--lib-muted:#c4d2e1;--lib-accent:#8dd6ad}
 body{margin:0;background:var(--lib-bg);color:var(--lib-text);font:16px/1.6 system-ui,sans-serif}
@@ -88,39 +88,6 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
     <h1>Biblioteka spraw publicznych</h1>
     <p>Rzeczywiste, publicznie udokumentowane kontrole i przykłady dobrych praktyk. Każdą sprawę pokazujemy przez źródła, chronologię, kontekst, stanowiska i granice tego, co można z niej wywnioskować.</p>
     <div class="lib-principle"><strong>Najpierw zrozumieć. Potem ocenić. Na końcu wyciągnąć wnioski.</strong><br>Nie wydajemy wyroków. Odtwarzamy sprawy i uczymy się, jak działa państwo.</div>
-  </section>
-  <section class="lib-panel" id="archiwum-nik">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
-      <div>
-        <span class="lib-kicker">ZEWNĘTRZNE ŹRÓDŁO PIERWOTNE</span>
-        <h2 style="margin:.2rem 0">Przeszukaj archiwum kontroli NIK</h2>
-        <p style="color:var(--lib-muted);margin:.2rem 0;max-width:780px">Otwórz oficjalną wyszukiwarkę NIK. Możesz filtrować wyniki według okresu publikacji, działu kontroli, jednostki kontrolującej i kontrolowanej, numeru kontroli, tytułu oraz rodzaju dokumentu.</p>
-      </div>
-      <a href="https://bip.nik.gov.pl/kontrole/wyniki-kontroli-nik/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:.8rem 1rem;border-radius:10px;background:#a8e3be;color:#092033;font-weight:850;text-decoration:none;white-space:nowrap">Otwórz wyszukiwarkę NIK ↗</a>
-    </div>
-    <div class="lib-principle" style="border-left-color:#8db9df;background:#ffffff0a">
-      <strong>Jak szukać rzetelnie?</strong><br>
-      Zacznij od szerokiego hasła i zakresu lat. Następnie zawęź wyniki działem lub jednostką. Otwórz kartę kontroli, raport główny, wystąpienia pokontrolne i odpowiedzi jednostek, jeśli zostały opublikowane. Sam komunikat prasowy nie zastępuje pełnego raportu.
-    </div>
-  </section>
-
-  <section class="lib-stats" aria-label="Podsumowanie biblioteki">
-    <div class="lib-stat"><strong id="totalCount">9</strong><span>kart w bibliotece</span></div>
-    <div class="lib-stat"><strong>7</strong><span>obszarów jawności</span></div>
-    <div class="lib-stat"><strong>8</strong><span>materiałów źródłowych</span></div>
-    <div class="lib-stat"><strong>1</strong><span>scenariusz fikcyjny</span></div>
-  </section>
-  <section class="lib-panel">
-    <h2>Jak działa System Widzenia Sprawy?</h2>
-    <p style="color:var(--lib-muted);margin:.25rem 0 .8rem">Każdy przypadek przechodzi przez ten sam szkielet, ale dobór kontroli zależy od rodzaju sprawy.</p>
-    <div class="lib-steps">
-      <div class="lib-step"><b>1 · Sygnał</b>Co zwróciło uwagę?</div>
-      <div class="lib-step"><b>2 · Kontekst</b>Jakie były warunki?</div>
-      <div class="lib-step"><b>3 · Źródła</b>Co potwierdzają dokumenty?</div>
-      <div class="lib-step"><b>4 · Wyjaśnienia</b>Jak odpowiadają strony?</div>
-      <div class="lib-step"><b>5 · Weryfikacja</b>Co ustalił właściwy organ?</div>
-      <div class="lib-step"><b>6 · Pamięć</b>Co dopisujemy do historii?</div>
-    </div>
   </section>
   <section class="lib-panel">
     <div style="display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap">
@@ -339,6 +306,41 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
     <p style="color:var(--lib-muted)">Każdy nowy dokument lub wyjaśnienie dopisujemy jako kolejny wpis. Nie nadpisujemy wcześniejszych ustaleń. Rozróżniamy datę zdarzenia, datę dokumentu, datę publikacji i datę pozyskania informacji. Korekty są widoczne razem z przyczyną i odnośnikiem do poprzedniej wersji.</p>
     <div class="lib-note"><strong>Ważne:</strong> status „ustalenia organu” oznacza, że istnieje oficjalny materiał kontrolny. Nie jest automatycznie równoznaczny z wyrokiem sądu, ustaleniem przestępstwa ani osobistą winą konkretnej osoby. Przy każdej sprawie należy osobno aktualizować odpowiedzi zainteresowanych stron, zastrzeżenia, odwołania i wykonanie zaleceń.</div>
   </section>
+
+  <section class="lib-panel" id="archiwum-nik">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>
+        <span class="lib-kicker">ZEWNĘTRZNE ŹRÓDŁO PIERWOTNE</span>
+        <h2 style="margin:.2rem 0">Przeszukaj archiwum kontroli NIK</h2>
+        <p style="color:var(--lib-muted);margin:.2rem 0;max-width:780px">Otwórz oficjalną wyszukiwarkę NIK. Możesz filtrować wyniki według okresu publikacji, działu kontroli, jednostki kontrolującej i kontrolowanej, numeru kontroli, tytułu oraz rodzaju dokumentu.</p>
+      </div>
+      <a href="https://bip.nik.gov.pl/kontrole/wyniki-kontroli-nik/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:.8rem 1rem;border-radius:10px;background:#a8e3be;color:#092033;font-weight:850;text-decoration:none;white-space:nowrap">Otwórz wyszukiwarkę NIK ↗</a>
+    </div>
+    <div class="lib-principle" style="border-left-color:#8db9df;background:#ffffff0a">
+      <strong>Jak szukać rzetelnie?</strong><br>
+      Zacznij od szerokiego hasła i zakresu lat. Następnie zawęź wyniki działem lub jednostką. Otwórz kartę kontroli, raport główny, wystąpienia pokontrolne i odpowiedzi jednostek, jeśli zostały opublikowane. Sam komunikat prasowy nie zastępuje pełnego raportu.
+    </div>
+  </section>
+
+  <section class="lib-stats" aria-label="Podsumowanie biblioteki">
+    <div class="lib-stat"><strong id="totalCount">9</strong><span>kart w bibliotece</span></div>
+    <div class="lib-stat"><strong>7</strong><span>obszarów jawności</span></div>
+    <div class="lib-stat"><strong>8</strong><span>materiałów źródłowych</span></div>
+    <div class="lib-stat"><strong>1</strong><span>scenariusz fikcyjny</span></div>
+  </section>
+  <section class="lib-panel">
+    <h2>Jak działa System Widzenia Sprawy?</h2>
+    <p style="color:var(--lib-muted);margin:.25rem 0 .8rem">Każdy przypadek przechodzi przez ten sam szkielet, ale dobór kontroli zależy od rodzaju sprawy.</p>
+    <div class="lib-steps">
+      <div class="lib-step"><b>1 · Sygnał</b>Co zwróciło uwagę?</div>
+      <div class="lib-step"><b>2 · Kontekst</b>Jakie były warunki?</div>
+      <div class="lib-step"><b>3 · Źródła</b>Co potwierdzają dokumenty?</div>
+      <div class="lib-step"><b>4 · Wyjaśnienia</b>Jak odpowiadają strony?</div>
+      <div class="lib-step"><b>5 · Weryfikacja</b>Co ustalił właściwy organ?</div>
+      <div class="lib-step"><b>6 · Pamięć</b>Co dopisujemy do historii?</div>
+    </div>
+  </section>
+  
   <div class="lib-footer"><span>Model Państwa · Rozdział IX – Jawność Państwa</span><span>Biblioteka testowa SWS · aktualizacja strony: 21.11.2026</span><a href="centrum-jawnosci.html">← Powrót do Centrum Jawności</a></div>
 </main>
 <script>
@@ -402,6 +404,6 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
 <script src="assets/visual-engine.js?v=7.3.4" defer></script>
 <script src="assets/case-visuals.js?v=1.1.0" defer></script>
-<script src="assets/sws-visual.js?v=1.0.0" defer></script>
+<script src="assets/sws-visual.js?v=1.0.1" defer></script>
 </body>
 </html>
