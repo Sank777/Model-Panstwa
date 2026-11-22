@@ -32,6 +32,21 @@
     const small=document.createElement("small");small.textContent=status;
     copy.append(strong,small);button.append(code,copy);
     const item={id,card,button,nikList:null};
+    if(id==="SWS-PL-008"){
+      const panel=document.createElement("div");
+      panel.className="sws-nik-sublist";
+      panel.hidden=true;
+      panel.setAttribute("aria-label","11 przykładów z analiz NIK");
+      const heading=document.createElement("strong");
+      heading.className="sws-nik-sublist-title";
+      heading.textContent="11 przykładów z analiz NIK";
+      const loading=document.createElement("p");
+      loading.className="sws-nik-loading";
+      loading.textContent="Wczytywanie listy analiz…";
+      panel.append(heading,loading);
+      button.insertAdjacentElement("afterend",panel);
+      item.nikList=panel;
+    }
     button.addEventListener("click",()=>{
       select(id);
       if(id==="SWS-PL-008")toggleNikList(item);
@@ -50,10 +65,9 @@
 
   function renderNikList(topics){
     const item=items.find(x=>x.id==="SWS-PL-008");
-    if(!item)return;
-    const panel=document.createElement("div");
-    panel.className="sws-nik-sublist";
-    panel.hidden=true;
+    if(!item?.nikList)return;
+    const panel=item.nikList;
+    panel.replaceChildren();
     const heading=document.createElement("strong");
     heading.className="sws-nik-sublist-title";
     heading.textContent="11 przykładów z analiz NIK";
@@ -70,8 +84,6 @@
       link.append(number,title);
       panel.append(link);
     });
-    item.button.insertAdjacentElement("afterend",panel);
-    item.nikList=panel;
   }
 
   fetch("assets/cases/index.json",{credentials:"same-origin"})
@@ -91,12 +103,11 @@
     .catch(()=>{
       const item=items.find(x=>x.id==="SWS-PL-008");
       if(!item)return;
-      const panel=document.createElement("p");
-      panel.className="sws-empty sws-nik-sublist";
-      panel.hidden=true;
-      panel.textContent="Nie udało się wczytać 11 przykładów. Spróbuj ponownie później.";
-      item.button.insertAdjacentElement("afterend",panel);
-      item.nikList=panel;
+      item.nikList.replaceChildren();
+      const message=document.createElement("p");
+      message.className="sws-empty";
+      message.textContent="Nie udało się wczytać 11 przykładów. Odśwież stronę i spróbuj ponownie.";
+      item.nikList.append(message);
     });
 
   function select(id){
