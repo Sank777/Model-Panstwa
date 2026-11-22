@@ -29,6 +29,8 @@ describe("Leon visual importer — security and storage contract", () => {
     assert.ok(src.includes('from("visual-drafts")'));
     assert.match(src, /status:\s*"draft"/);
     assert.ok(src.includes("remove([objectPath])"));
+    assert.ok(src.includes("record.object_path"));
+    assert.ok(src.includes("Import ticket contains an invalid storage path"));
   });
   it("rejects duplicate asset keys", () => {
     assert.match(src, /reply\(\{\s*error:\s*"Asset key already exists"\s*\},\s*409\)/);
