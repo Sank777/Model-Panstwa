@@ -4,6 +4,8 @@ on:
     paths:
       - "assets/visual-segmenter.js"
       - "assets/visual-rom.js"
+      - "assets/visual-registry.json"
+      - "scripts/build-visual-assets.mjs"
       - "assets/visual-engine.js"
       - "assets/visual-engine-layout.css"
       - "assets/leon-visual-runtime.js"
@@ -29,4 +31,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: node scripts/build-visual-assets.mjs --check
       - run: node --test tests/*.test.cjs
