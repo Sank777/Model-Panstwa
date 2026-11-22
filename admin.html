@@ -75,6 +75,15 @@
 </select></label>
 <label class="row">Dodatkowa uwaga do sceny (opcjonalnie)<input id="visualDetail" maxlength="500" placeholder="Nie zmieniaj stałego stylu; doprecyzuj tylko temat sceny"></label>
 </div>
+<div class="grid">
+<label class="row">Nazwa pliku / klucz grafiki<input id="directAssetKey" maxlength="100" pattern="[A-Za-z0-9][A-Za-z0-9._-]{2,100}" placeholder="psp-ev-hero-01" required></label>
+<label class="row">Tytuł grafiki<input id="directAssetTitle" maxlength="160" placeholder="PSP — nowoczesny system reagowania" required></label>
+<label class="row">Wybierz plik (JPEG, PNG lub WebP; maks. 8 MB)<input id="directAssetFile" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" required></label>
+</div>
+<button id="directUploadButton" type="button">Prześlij zaakceptowaną grafikę</button>
+<div id="directUploadStatus" class="status" role="status" aria-live="polite">Plik trafi do prywatnej biblioteki jako wersja robocza.</div>
+<div class="row"><h3>Bezpośrednio przesłane grafiki</h3><button id="directUploadRefresh" type="button">Odśwież listę</button></div>
+<div id="directUploadLibrary" class="grid"></div>
 <button id="visualGenerate" type="button">Wygeneruj wersję roboczą</button>
 <div id="visualStatus" class="status" role="status" aria-live="polite">Silnik oczekuje na konfigurację serwerową.</div>
 <div id="visualPreviewWrap" class="tile hidden">
@@ -164,6 +173,7 @@ const $=id=>document.getElementById(id);
 const CASE_API=URL+"/functions/v1/admin-case-records";
 const ACCESS_API=URL+"/functions/v1/admin-access-management";
 const VISUAL_API=URL+"/functions/v1/generate-visual";
+const DIRECT_UPLOAD_API=URL+"/functions/v1/leon-direct-visual-upload";
 let accessState={is_main_admin:false,modules:[]};
 let selectedCase="";
 function status(s){$("status").textContent=s;}
@@ -277,6 +287,50 @@ async function loadVisualLibrary(){
  }catch(e){statusBox.textContent="Nie udało się pobrać biblioteki: "+e.message;}
 }
 $("visualLibraryRefresh").addEventListener("click",loadVisualLibrary);
+
+
+async function directUploadRequest(body, file, ticket){
+ const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");
+ const headers={apikey:KEY,Authorization:"Bearer "+session.access_token};
+ if(body){headers["Content-Type"]="application/json";const response=await fetch(DIRECT_UPLOAD_API,{method:"POST",headers,body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się przygotować przesyłania");return data;}
+ const form=new FormData();form.append("file",file,file.name);
+ const response=await fetch(DIRECT_UPLOAD_API,{method:"POST",headers:{...headers,"x-visual-upload-ticket":ticket},body:form});
+ const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się przesłać pliku");return data;
+}
+async function refreshDirectVisualLibrary(){
+ const root=$("directUploadLibrary"),box=$("directUploadStatus");root.replaceChildren();box.textContent="Pobieram prywatne wersje robocze…";
+ try{
+  const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");
+  const response=await fetch(DIRECT_UPLOAD_API,{method:"POST",headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json"},body:JSON.stringify({action:"list_drafts"})});
+  const data=await response.json();if(!response.ok)throw new Error(data.error||"Nie udało się pobrać biblioteki");
+  if(!data.assets?.length){box.textContent="Brak grafik przesłanych bezpośrednio.";return;}
+  box.textContent="Prywatne wersje robocze: "+data.assets.length;
+  for(const asset of data.assets){
+   const card=document.createElement("article");card.className="tile";
+   const img=document.createElement("img");img.src=asset.preview_url;img.alt=asset.title;img.loading="lazy";img.decoding="async";img.style.cssText="width:100%;height:auto;max-height:300px;object-fit:contain;border-radius:8px";card.appendChild(img);
+   const title=document.createElement("strong");title.textContent=asset.title;card.appendChild(title);
+   const meta=document.createElement("p");meta.className="muted small";meta.textContent=asset.asset_key+" · "+Math.round(asset.byte_size/1024)+" KB · "+asset.mime_type+" · SHA-256 "+asset.sha256.slice(0,12)+"…";card.appendChild(meta);
+   const state=document.createElement("p");state.className="status";state.textContent="Wersja robocza — nieopublikowana";card.appendChild(state);root.appendChild(card);
+  }
+ }catch(e){box.textContent="Błąd biblioteki: "+e.message;}
+}
+$("directUploadButton").addEventListener("click",async()=>{
+ const button=$("directUploadButton"),box=$("directUploadStatus"),file=$("directAssetFile").files[0];
+ if(!file){box.textContent="Wybierz plik graficzny.";return;}
+ const key=$("directAssetKey").value.trim(),title=$("directAssetTitle").value.trim();
+ if(!/^[A-Za-z0-9][A-Za-z0-9._-]{2,100}$/.test(key)||!title||title.length>160){box.textContent="Uzupełnij poprawny klucz i tytuł grafiki.";return;}
+ if(file.size<1||file.size>8*1024*1024){box.textContent="Plik musi mieć maksymalnie 8 MB.";return;}
+ button.disabled=true;box.textContent="Przygotowuję jednorazowy, bezpieczny bilet…";
+ try{
+  const ticket=await directUploadRequest({action:"issue_ticket",asset_key:key,title});
+  box.textContent="Przesyłam plik i przygotowuję WebP…";
+  const result=await directUploadRequest(null,file,ticket.ticket);
+  box.textContent="Gotowe. Grafika zapisana jako prywatna wersja robocza · "+Math.round(result.bytes/1024)+" KB · SHA-256 "+result.sha256.slice(0,16)+"…";
+  $("directAssetFile").value="";await refreshDirectVisualLibrary();
+ }catch(e){box.textContent="Nie udało się przesłać grafiki: "+e.message;}
+ finally{button.disabled=false;}
+});
+$("directUploadRefresh").addEventListener("click",refreshDirectVisualLibrary);
 
 async function generateVisual(){
  const button=$("visualGenerate"),statusBox=$("visualStatus"),wrap=$("visualPreviewWrap");

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sank777.github.io/Model-Panstwa/assets/visual-library/manifest.schema.json",
+  "title": "Leon Visual Library Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "assets",
+    "placements"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{3,80}$"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      },
+      "uniqueItems": true
+    },
+    "placements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/placement"
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "title",
+        "version",
+        "status",
+        "storagePath",
+        "mimeType",
+        "sha256",
+        "alt"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^VIS-[0-9]{6,}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved",
+            "published",
+            "archived"
+          ]
+        },
+        "storagePath": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9/_-]*\\.webp$"
+        },
+        "mimeType": {
+          "const": "image/webp"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8192
+        },
+        "alt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "source": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    },
+    "placement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "page",
+        "slot"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^VIS-[0-9]{6,}$"
+        },
+        "page": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9/_-]*\\.html$"
+        },
+        "slot": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{1,63}$"
+        },
+        "loading": {
+          "enum": [
+            "eager",
+            "lazy"
+          ]
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain"
+          ]
+        },
+        "focalPoint": {
+          "type": "string",
+          "maxLength": 80
+        }
+      }
+    }
+  }
+}
