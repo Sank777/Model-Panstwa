@@ -46,6 +46,27 @@
     clone.classList.add("sws-selected-card");
     clone.querySelectorAll("[id]").forEach(node=>node.removeAttribute("id"));
     clone.querySelectorAll("details").forEach(node=>node.open=true);
+    const body=clone.querySelector(".case-detail");
+    if(body){
+      const headings=[...body.querySelectorAll(":scope > h3")];
+      headings.forEach((heading,index)=>{
+        const section=document.createElement("section");
+        section.className="sws-analysis-block";
+        const title=document.createElement("h3");
+        const labels=["USTALENIA I MATERIAŁY","POWIĄZANIA I PRZEBIEG SPRAWY","GRANICE WNIOSKÓW I LEKCJE"];
+        title.textContent=labels[Math.min(index,2)];
+        const sourceHeading=heading.cloneNode(true);
+        sourceHeading.className="sws-source-heading";
+        section.append(title,sourceHeading);
+        let node=heading.nextSibling;
+        while(node && !(node.nodeType===1 && node.tagName==="H3")){
+          const next=node.nextSibling;
+          section.append(node);
+          node=next;
+        }
+        heading.replaceWith(section);
+      });
+    }
     const nested=clone.querySelector(".nik-proposals");
     if(nested){
       nested.remove();
