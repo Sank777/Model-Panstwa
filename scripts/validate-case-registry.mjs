@@ -32,15 +32,26 @@ for (const topic of data.nikTopics) {
       assert.ok(block.title && block.lead && Array.isArray(block.points) && block.points.length >= 3, "Incomplete analytical block for " + topic.id);
       assert.ok(block.points.every(point => typeof point === "string" && point.trim().length > 20), "Analytical point is too short for " + topic.id);
     }
-    assert.ok(topic.imagePlan?.scene && topic.imagePlan?.caption && topic.imagePlan?.status === "svg_dodany", "Missing illustration asset for " + topic.id);
-    assert.ok(/^assets\/cases\/illustrations\/[a-z0-9-]+\.svg$/.test(topic.imagePlan.src || ""), "Invalid local illustration path for " + topic.id);
-    const svg = await readFile(new URL("../" + topic.imagePlan.src, import.meta.url), "utf8");
-    assert.ok(svg.startsWith("<svg ") && !/<script|<foreignObject|(?:href|xlink:href)\s*=\s*["']https?:/i.test(svg), "Unsafe or invalid SVG for " + topic.id);
+    const imagePath = topic.imagePlan?.src || "";
+    const isSvg = topic.imagePlan?.status === "svg_dodany" && /^assets\/cases\/illustrations\/[a-z0-9-]+\.svg$/.test(imagePath);
+    const isWebp = topic.imagePlan?.status === "webp_dodany" && /^assets\/cases\/illustrations\/[a-z0-9-]+\.webp$/.test(imagePath);
+    assert.ok(topic.imagePlan?.scene && topic.imagePlan?.caption && (isSvg || isWebp), "Missing or mismatched local illustration asset for " + topic.id);
+    assert.ok(typeof topic.imagePlan.alt === "string" && topic.imagePlan.alt.trim().length > 0 && topic.imagePlan.alt.length <= 160, "Illustration alt text must be concise for " + topic.id);
+    const image = await readFile(new URL("../" + imagePath, import.meta.url));
+    if (isSvg) {
+      const svg = image.toString("utf8");
+      assert.ok(svg.startsWith("<svg ") && !/<script|<foreignObject|(?:href|xlink:href)\s*=\s*["']https?:/i.test(svg), "Unsafe or invalid SVG for " + topic.id);
+    } else {
+      assert.ok(image.length >= 12 && image.subarray(0, 4).toString("ascii") === "RIFF" && image.subarray(8, 12).toString("ascii") === "WEBP", "Invalid WebP asset for " + topic.id);
+    }
   }
   for (const source of topic.sources || []) {
     assert.ok(/^https:\/\//i.test(source.url), "Only HTTPS topic sources are allowed: " + source.url);
     assert.ok(source.label && source.type, "Topic source label/type missing for " + topic.id);
   }
+  const sourceUrls = (topic.sources || []).map(source => source.url);
+  assert.equal(new Set(sourceUrls).size, sourceUrls.length, "Duplicate source URL for " + topic.id);
+  if (topic.evidenceStatus === "zebrano_linki") assert.ok(sourceUrls.length > 0, "Status zebrano_linki requires at least one source for " + topic.id);
 }
 assert.equal(topicsWithSources, 11, "Expected source leads for the eleven citizen/NIK topics; PSP remains separately marked for research");
 assert.equal(data.imageDelivery.preferredFormat, "webp");

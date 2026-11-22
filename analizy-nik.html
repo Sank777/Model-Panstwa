@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
 <link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
 <link rel="stylesheet" href="assets/centrum-visual-system.css?v=1.0.1">
+<link rel="stylesheet" href="assets/leon-visual-runtime.css?v=1.0.2">
 <style>
 :root{color-scheme:dark;--nd-bg:#061426;--nd-panel:#0c2038;--nd-panel2:#102b49;--nd-line:rgba(143,190,229,.38);--nd-text:#f3f7ff;--nd-muted:#c1d1e2;--nd-blue:#37b9ee;--nd-green:#8dd6ad}
 body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 48%,#04101f 100%);color:var(--nd-text);font:15px/1.55 system-ui,sans-serif}
@@ -76,9 +77,9 @@ body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 
 </nav></div>
 <main class="nd-wrap">
 <div class="nd-top"><div><a class="nd-back" href="biblioteka-spraw.html">← Powrót do biblioteki spraw</a><h1>Analizy NIK · 11 tematów + PSP/OSP</h1><p>Jedenaście tematów opartych na materiałach NIK oraz jeden odrębny obszar rozpoznawczy PSP/OSP.</p></div><span class="nd-count">12 tematów</span></div>
-<div id="nd-app" class="nd-layout" aria-live="polite">
+<div id="nd-app" class="nd-layout">
 <aside class="nd-side"><h2>11 przykładów — analiza NIK</h2><p>Wybierz temat. Po prawej zobaczysz źródła, kontekst, zależności i wnioski.</p><div id="nd-list" class="nd-list"></div><div class="nd-separator">12 · OSOBNY TEMAT — PSP/OSP</div><div id="nd-psp"></div></aside>
-<section class="nd-main" id="nd-detail"><p>Ładowanie danych biblioteki…</p></section>
+<section class="nd-main" id="nd-detail" aria-live="polite"><p>Ładowanie danych biblioteki…</p></section>
 </div>
 <section class="nd-gallery"><h2>Ilustracje 11 analiz NIK</h2><p>Ilustracje poglądowe do poszczególnych tematów. Nie są dokumentami źródłowymi ani fotografiami zdarzeń.</p><div id="nd-gallery-grid" class="nd-gallery-grid"></div><div class="nd-caption">Materiały graficzne służą objaśnieniu obszaru analizy. Każdy wniosek merytoryczny wymaga odrębnego źródła.</div></section>
 </main>
@@ -88,34 +89,41 @@ body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
 const make=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
-const localImage=(topic)=>topic.imagePlan&&/^assets\/cases\/[a-z0-9/_-]+\.svg$/i.test(topic.imagePlan.src||"")?topic.imagePlan.src:(topic.id==="NIK-001"?"assets/cases/cyber-infrastructure-hero.webp":null);
+const localImage=(topic)=>topic.imagePlan&&/^assets\/cases\/[a-z0-9/_-]+\.(?:svg|webp)$/i.test(topic.imagePlan.src||"")?topic.imagePlan.src:null;
 const safeUrl=(url)=>{try{const u=new URL(url);return u.protocol==="https:"?u.href:null}catch{return null}};
 const statusName={do_weryfikacji:"Do weryfikacji",zebrano_linki:"Zebrano linki — trwa analiza",dokumenty_pobrane:"Dokumenty pobrane",dane_zweryfikowane:"Dane zweryfikowane",karta_opracowana:"Karta opracowana",wymaga_aktualizacji:"Wymaga aktualizacji"};
 let topics=[],active="";
-function topicImage(t){if(t.id==="NIK-001")return "assets/cases/cyber-infrastructure-hero.webp";return localImage(t)||"assets/cases/cyber.svg"}
+function topicImage(t){return localImage(t)||"assets/cases/cyber.svg"}
+function activateVisual(image,path,priority=false){
+ const asset=typeof path==="string"&&path.startsWith("assets/")?path.slice(7):"";
+ if(!asset){image.src=path;return}
+ image.dataset.leonVisualSrc=asset;image.dataset.leonVisualMode="single";
+ if(priority){image.loading="eager";image.fetchPriority="high"}else{image.loading="lazy";image.decoding="async"}
+ if(window.LeonVisualRuntime)window.LeonVisualRuntime.scan(image.parentElement||image);else image.src=path;
+}
 function choose(id){active=id;const t=topics.find(x=>x.id===id);if(!t)return;renderDetail(t);document.querySelectorAll("[data-topic-id]").forEach(b=>b.setAttribute("aria-current",b.dataset.topicId===id?"true":"false"));history.replaceState(null,"",location.pathname+"?topic="+encodeURIComponent(id));}
 function renderList(){
  const list=$("#nd-list"),psp=$("#nd-psp"),gallery=$("#nd-gallery-grid");
  topics.filter(t=>t.id.startsWith("NIK-")).forEach((t,i)=>{
   const b=make("button","nd-topic");b.type="button";b.dataset.topicId=t.id;
-  const n=make("span","num",String(i+1));const img=make("img");img.src=topicImage(t);img.alt="";img.width=116;img.height=80;img.loading="lazy";img.decoding="async";
+  const n=make("span","num",String(i+1));const img=make("img");img.alt="";img.width=116;img.height=80;activateVisual(img,topicImage(t));
   const label=make("span");label.append(make("strong","",t.title),make("small","",t.id));b.append(n,img,label);b.addEventListener("click",()=>choose(t.id));list.append(b);
-  const g=make("button");g.type="button";g.dataset.topicId=t.id;const gi=make("img");gi.src=topicImage(t);gi.alt="";gi.width=180;gi.height=102;gi.loading="lazy";gi.decoding="async";g.append(gi,make("span","",String(i+1)+". "+t.title));g.addEventListener("click",()=>{choose(t.id);$("#nd-detail").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});});gallery.append(g);
+  const g=make("button");g.type="button";g.dataset.topicId=t.id;const gi=make("img");gi.alt="";gi.width=180;gi.height=102;activateVisual(gi,topicImage(t));g.append(gi,make("span","",String(i+1)+". "+t.title));g.addEventListener("click",()=>{choose(t.id);$("#nd-detail").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});});gallery.append(g);
  });
  const p=topics.find(t=>t.id==="PSP-OSP-001");
- if(p){const b=make("button","nd-topic nd-psp");b.type="button";b.dataset.topicId=p.id;const n=make("span","num","12");const img=make("img");img.src="assets/psp-ev.svg";img.alt="";img.width=116;img.height=80;img.loading="lazy";const label=make("span");label.append(make("strong","",p.title),make("small","","ODRĘBNY OBSZAR ROZPOZNAWCZY"));b.append(n,img,label);b.addEventListener("click",()=>choose(p.id));psp.append(b);}
+ if(p){const b=make("button","nd-topic nd-psp");b.type="button";b.dataset.topicId=p.id;const n=make("span","num","12");const img=make("img");img.alt="";img.width=116;img.height=80;activateVisual(img,"assets/psp-ev.svg");const label=make("span");label.append(make("strong","",p.title),make("small","","ODRĘBNY OBSZAR ROZPOZNAWCZY"));b.append(n,img,label);b.addEventListener("click",()=>choose(p.id));psp.append(b);}
 }
 function renderDetail(t){
  const root=$("#nd-detail");root.replaceChildren();
  const isPsp=t.id==="PSP-OSP-001";
  const hero=make("section","nd-hero"),copy=make("div"),k=make("div","nd-kicker");
  k.append(make("span","nd-pill",isPsp?"TEMAT ROZPOZNAWCZY · FILAR 4":"CENTRUM JAWNOŚCI · KARTA ANALIZY"),make("span","nd-id",t.id));copy.append(k,make("h2","",t.title),make("p","",t.summary||""));
- const img=make("img");img.src=isPsp?"assets/psp-ev.svg":topicImage(t);img.alt=isPsp?"Ilustracja poglądowa: rozpoznanie pojazdu elektrycznego przez PSP/OSP":(t.imagePlan?.alt||"Ilustracja poglądowa tematu analizy");img.width=960;img.height=540;img.loading="eager";img.fetchPriority="high";img.decoding="async";
+ const img=make("img");img.alt=isPsp?"Ilustracja poglądowa: rozpoznanie pojazdu elektrycznego przez PSP/OSP":(t.imagePlan?.alt||"Ilustracja poglądowa tematu analizy");img.width=960;img.height=540;activateVisual(img,isPsp?"assets/psp-ev.svg":topicImage(t),true);
  hero.append(copy,img);root.append(hero);
  const status=make("div","nd-status");status.append(make("strong","",isPsp?"Status tematu: ":"Status opracowania: "),document.createTextNode(isPsp?"Odrębny temat PSP/OSP — nie jest zaliczany do 11 analiz materiałów NIK.":(statusName[t.evidenceStatus]||"Status do uzupełnienia")+". Materiały źródłowe i wnioski należy rozpatrywać w granicach wskazanych dokumentów."));root.append(status);
  if(isPsp){
   const b=make("section","nd-block");b.append(make("h3","","Zakres rozpoznania"));const body=make("div","nd-block-body");body.append(make("p","","Temat obejmuje gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami fotowoltaicznymi. Zakres roboczy: wyposażenie, szkolenie, organizacja wsparcia, procedury i zdolność jednostek."));const row=make("div","nd-facts");[["Pojazdy elektryczne","Rozpoznanie zagrożeń i bezpieczne działania ratownicze."],["Instalacje PV","Identyfikacja instalacji i zasady bezpiecznej pracy."],["Ochrona ratownika","Wyposażenie, procedury i ograniczanie ryzyka." ]].forEach(([a,c])=>{const f=make("div","nd-fact");f.append(make("strong","",a),make("p","",c));row.append(f)});body.append(row);b.append(body);root.append(b);
-  const imgs=make("section","nd-block");imgs.append(make("h3","","Trzy obszary ilustracyjne"));const ib=make("div","nd-block-body");const rr=make("div","nd-facts");[["assets/psp-ev.svg","Pojazdy elektryczne"],["assets/psp-pv.svg","Instalacje fotowoltaiczne"],["assets/psp-ochrona.svg","Ochrona ratownika"]].forEach(([src,alt])=>{const f=make("div","nd-fact");const im=make("img");im.src=src;im.alt="Ilustracja poglądowa: "+alt;im.width=600;im.height=340;im.loading="lazy";im.style.cssText="width:100%;aspect-ratio:16/9;object-fit:contain";f.append(im,make("strong","",alt));rr.append(f)});ib.append(rr,make("p","","Źródła i pełna karta analityczna wymagają osobnego uzupełnienia. Nie przypisujemy temu tematowi ustaleń NIK bez wskazania konkretnego raportu."));imgs.append(ib);root.append(imgs);return;
+  const imgs=make("section","nd-block");imgs.append(make("h3","","Trzy obszary ilustracyjne"));const ib=make("div","nd-block-body");const rr=make("div","nd-facts");[["assets/psp-ev.svg","Pojazdy elektryczne"],["assets/psp-pv.svg","Instalacje fotowoltaiczne"],["assets/psp-ochrona.svg","Ochrona ratownika"]].forEach(([src,alt])=>{const f=make("div","nd-fact");const im=make("img");im.alt="Ilustracja poglądowa: "+alt;im.width=600;im.height=340;activateVisual(im,src);im.style.cssText="width:100%;aspect-ratio:16/9;object-fit:contain";f.append(im,make("strong","",alt));rr.append(f)});ib.append(rr,make("p","","Źródła i pełna karta analityczna wymagają osobnego uzupełnienia. Nie przypisujemy temu tematowi ustaleń NIK bez wskazania konkretnego raportu."));imgs.append(ib);root.append(imgs);return;
  }
  if(t.scope?.length){const meta=make("div","nd-meta");t.scope.forEach(x=>meta.append(make("span","",x)));copy.append(meta)}
  if(t.preliminaryNote){const note=make("section","nd-block");note.append(make("h3","","Zakres i ograniczenia materiału"));note.append(make("div","nd-block-body"," "+t.preliminaryNote+" "+(t.noteStatus||"")));root.append(note)}
@@ -125,11 +133,12 @@ function renderDetail(t){
  const src=make("section","nd-block");src.append(make("h3","","Materiały źródłowe"));const sb=make("div","nd-block-body"),links=make("div","nd-sources");(t.sources||[]).forEach(s=>{const u=safeUrl(s.url);if(!u)return;const a=make("a","",s.label||"Otwórz źródło");a.href=u;a.target="_blank";a.rel="noopener noreferrer";links.append(a)});if(!links.childElementCount)sb.append(make("p","","Brak podłączonych źródeł w rejestrze — temat wymaga uzupełnienia."));else sb.append(links);src.append(sb);root.append(src);
 }
 async function init(){
- try{const response=await fetch("assets/cases/index.json?v=20261121", {credentials:"same-origin",cache:"force-cache"});if(!response.ok)throw new Error("Nie udało się pobrać rejestru tematów.");const data=await response.json();topics=Array.isArray(data.nikTopics)?data.nikTopics:[];if(topics.filter(t=>t.id.startsWith("NIK-")).length!==11||!topics.some(t=>t.id==="PSP-OSP-001"))throw new Error("Rejestr tematów nie zawiera oczekiwanego zestawu 11 + 1.");renderList();const requested=new URLSearchParams(location.search).get("topic");choose(topics.some(t=>t.id===requested)?requested:"NIK-001");
+ try{const response=await fetch("assets/cases/index.json?v=20261122", {credentials:"same-origin",cache:"force-cache"});if(!response.ok)throw new Error("Nie udało się pobrać rejestru tematów.");const data=await response.json();topics=Array.isArray(data.nikTopics)?data.nikTopics:[];if(topics.filter(t=>t.id.startsWith("NIK-")).length!==11||!topics.some(t=>t.id==="PSP-OSP-001"))throw new Error("Rejestr tematów nie zawiera oczekiwanego zestawu 11 + 1.");renderList();const requested=new URLSearchParams(location.search).get("topic");choose(topics.some(t=>t.id===requested)?requested:"NIK-001");
  }catch(error){$("#nd-detail").replaceChildren(make("p","nd-error","Nie udało się uruchomić panelu: "+error.message));}
 }
 init();
 })();
 </script>
 <script src="assets/site.js?v=20261117-header-login1" defer></script>
+<script src="assets/leon-visual-runtime.js?v=1.0.2" defer></script>
 </body></html>

@@ -264,13 +264,6 @@
           "lastChecked": "2026-11-21"
         },
         {
-          "label": "Karta kontroli NIK P/25/083 – Cyberbezpieczeństwo wybranych usług kluczowych",
-          "url": "https://www.nik.gov.pl/kontrole/P/25/083/",
-          "type": "karta_kontroli",
-          "sourceId": "nik-cyber-control",
-          "lastChecked": "2026-11-21"
-        },
-        {
           "label": "Komunikat NIK z wynikami kontroli",
           "url": "https://www.nik.gov.pl/aktualnosci/transport-dostawy-energii-i-wody-pitnej-niewystarczajaco-zabezpieczone-przed-cyberatakami.html",
           "type": "komunikat_NIK",
@@ -345,7 +338,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/01-cyberbezpieczenstwo.svg",
-        "alt": "Schemat poglądowy: Cyberbezpieczeństwo usług kluczowych — Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu."
+        "alt": "Schemat cyberbezpieczeństwa usług kluczowych: operator, system IT/OT, alert i ciągłość działania."
       }
     },
     {
@@ -357,13 +350,6 @@
       "sources": [
         {
           "label": "NIK: Zarządzanie kryzysowe w czasie powodzi – do poprawy",
-          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
-          "type": "wyniki_kontroli",
-          "sourceId": "nik-flood-2026",
-          "lastChecked": "2026-11-21"
-        },
-        {
-          "label": "Szczegółowe wyniki kontroli zarządzania kryzysowego podczas powodzi",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
           "type": "wyniki_kontroli",
           "sourceId": "nik-flood-2026",
@@ -431,7 +417,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/02-powodz.svg",
-        "alt": "Schemat poglądowy: Reakcja państwa na powódź — Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca."
+        "alt": "Schemat reakcji na powódź: przepływ ostrzeżeń, decyzji i pomocy między szczeblami państwa."
       }
     },
     {
@@ -528,7 +514,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/03-systemy-it.svg",
-        "alt": "Schemat poglądowy: Publiczne systemy IT, które nie działały — Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy."
+        "alt": "Schemat zamówienia systemu IT: potrzeba, wymagania, testy, odbiór i uruchomienie."
       }
     },
     {
@@ -592,7 +578,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/04-odra.svg",
-        "alt": "Schemat poglądowy: Kryzys ekologiczny na Odrze — Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen."
+        "alt": "Schemat monitoringu Odry: pobór próbek, laboratorium, wymiana danych i ostrzeganie."
       }
     },
     {
@@ -656,7 +642,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/05-budzet.svg",
-        "alt": "Schemat poglądowy: Wykonanie budżetu państwa — Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości."
+        "alt": "Schemat wykonania budżetu: plan, dysponent, wydatki i fundusze, efekt oraz kontrola."
       }
     },
     {
@@ -720,7 +706,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/06-wybory.svg",
-        "alt": "Schemat poglądowy: Przygotowanie wyborów korespondencyjnych — Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli."
+        "alt": "Schemat przygotowania wyborów korespondencyjnych: podstawa prawna, decyzja, przygotowanie i rozliczenie."
       }
     },
     {
@@ -731,28 +717,41 @@
       "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór.",
       "sources": [
         {
-          "label": "NIK: Gospodarowanie odpadami – brak rzetelnych danych",
+          "label": "Komunikat NIK z 25.03.2025 – Porażka w gospodarowaniu odpadami",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/gospodarowanie-odpadami.html",
           "type": "wyniki_kontroli",
-          "lastChecked": "2026-11-21"
+          "lastChecked": "2026-11-22",
+          "sourceId": "nik-waste-press-2025"
         },
         {
           "label": "Pełna informacja o wynikach kontroli P/23/039 (PDF, 116 stron)",
           "url": "https://www.nik.gov.pl/plik/id,30506,vp,33560.pdf",
           "type": "raport",
           "sourceId": "nik-waste-2024",
-          "lastChecked": "2026-11-21"
+          "lastChecked": "2026-11-22"
         }
       ],
-      "preliminaryNote": "Wyniki kontroli NIK wskazują m.in. problemy z funkcjonalnością BDO i wiarygodnością danych o odpadach; kwoty i okresy należy przepisać z pełnej informacji pokontrolnej.",
+      "preliminaryNote": "W dwóch oficjalnych materiałach NIK znaleziono różne wartości wskaźników za 2023 r. Komunikat z 25.03.2025 podaje 47,6% odzysku i 15,9% recyklingu, natomiast pełna informacja o wynikach kontroli P/23/039 (KSI.430.7.2024) podaje 47,5% i 15,8%. Do czasu wyjaśnienia różnicy każdą wartość należy cytować wraz z nazwą dokumentu.",
       "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
-      "lastSourceCheck": "2026-11-21",
+      "lastSourceCheck": "2026-11-22",
       "preliminaryFacts": [
         {
-          "text": "W 2023 r. według danych GUS przytoczonych w raporcie do odzysku przekazano 47,5% odpadów, w tym do recyklingu 15,8%.",
+          "text": "Komunikat NIK z 25.03.2025 podaje, że w 2023 r. do odzysku przekazano 47,6% odpadów, w tym 15,9% do recyklingu.",
+          "kind": "finding",
+          "sourceId": "nik-waste-press-2025",
+          "scope": "Komunikat NIK z 25.03.2025; dane krajowe za 2023 r."
+        },
+        {
+          "text": "Pełna informacja o wynikach kontroli P/23/039 (KSI.430.7.2024) podaje dla 2023 r. 47,5% odzysku i 15,8% recyklingu.",
           "kind": "finding",
           "sourceId": "nik-waste-2024",
-          "scope": "Dane krajowe za 2023 r.; wartości cytowane w raporcie NIK"
+          "scope": "Raport NIK; ocena ogólna, dane krajowe za 2023 r."
+        },
+        {
+          "text": "Między tymi dwoma materiałami NIK występuje różnica 0,1 punktu procentowego w obu wskaźnikach. Nie należy łączyć wartości ani przypisywać komunikatowi danych z raportu bez wskazania źródła.",
+          "kind": "discrepancy",
+          "sourceId": "nik-waste-press-2025",
+          "scope": "Rozbieżność między komunikatem prasowym a pełnym raportem NIK"
         },
         {
           "text": "Kontrola obejmowała Ministerstwo Klimatu i Środowiska, sześć urzędów marszałkowskich, 16 urzędów gmin, trzy związki gminne, NFOŚiGW i pięć WFOŚiGW.",
@@ -811,7 +810,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/07-odpady.svg",
-        "alt": "Schemat poglądowy: Gospodarka odpadami i recykling — Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas."
+        "alt": "Schemat gospodarowania odpadami: wytworzenie, odbiór, transport, instalacja i ewidencja."
       }
     },
     {
@@ -890,7 +889,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/08-zdrowie.svg",
-        "alt": "Schemat poglądowy: Zamawianie świadczeń zdrowotnych w szpitalach — Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych."
+        "alt": "Schemat zamawiania świadczeń zdrowotnych: potrzeby, wybór, umowa, personel i wykonanie."
       }
     },
     {
@@ -969,7 +968,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/09-szkoly.svg",
-        "alt": "Schemat poglądowy: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim — Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych."
+        "alt": "Schemat nadzoru nad szkołą: potrzeby uczniów, arkusz organizacyjny, kadry, zajęcia i efekty."
       }
     },
     {
@@ -1042,7 +1041,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/10-mieszkalnictwo.svg",
-        "alt": "Schemat poglądowy: Rządowy Fundusz Rozwoju Mieszkalnictwa — Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów."
+        "alt": "Schemat finansowania mieszkań: wniosek, ocena, wsparcie, budowa i gotowy lokal."
       }
     },
     {
@@ -1127,14 +1126,14 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/11-schronienia.svg",
-        "alt": "Schemat poglądowy: Miejsca schronienia i budowle ochronne — Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu."
+        "alt": "Schemat gotowości ochronnej: ewidencja obiektu, ocena techniczna, dostosowanie, utrzymanie i ćwiczenia."
       }
     },
     {
       "id": "PSP-OSP-001",
       "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
       "visual": "psp-ev",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "do_weryfikacji",
       "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek.",
       "sources": []
     }
