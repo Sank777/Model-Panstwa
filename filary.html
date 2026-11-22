@@ -112,6 +112,13 @@
 <div class="f10-topline"><span class="f10-kicker">FILAR 10 · MONITOR PUBLICZNYCH PIENIĘDZY</span><span class="f10-count">11 OBSZARÓW · REJESTR RZECZYWISTYCH SPRAW</span></div>
 <h3 id="f10-monitor-title">Monitor zamówień i przetargów</h3>
 <p>Wybierz jedną z 11 kategorii. Zobaczysz konkretne postępowania, udokumentowane zdarzenia i dokumenty, które można dalej sprawdzać. Nie utożsamiamy unieważnienia, sporu ani przerwy w pracach z dowodem nieprawidłowości.</p>
+<section class="f10-live" id="f10-live-bzp" aria-labelledby="f10-bzp-title">
+<h4 id="f10-bzp-title">Wyszukiwanie krajowe — BZP (bez klucza)</h4>
+<p>Odczyt bezpośrednio z publicznego API e-Zamówień. Pobieramy ostatnie ogłoszenia o zamówieniu i ogłoszenia o wynikach z ostatnich 14 dni. Dwa zapytania na kliknięcie, daleko poniżej limitu 30/min.</p>
+<div class="f10-live-actions"><button type="button" id="f10-bzp-load">Pobierz ogłoszenia BZP</button><a class="f10-live-link" href="https://ezamowienia.gov.pl/pl/integracja/" target="_blank" rel="noopener noreferrer">Dokumentacja API BZP ↗</a></div>
+<div class="f10-live-state" id="f10-bzp-state" role="status">Dane są pobierane na żądanie, bez konta i bez klucza.</div>
+<div class="f10-live-results" id="f10-bzp-results"></div>
+</section>
 <section class="f10-live" id="f10-live-ted" aria-labelledby="f10-live-title">
 <h4 id="f10-live-title">Wyszukiwanie na żywo — TED (bez klucza)</h4>
 <p>Bezpośrednie zapytanie do oficjalnego API Unii Europejskiej. Pobieramy najnowsze opublikowane ogłoszenia dotyczące Polski. To nie jest próbka ani ręcznie wpisana lista.</p>
@@ -140,6 +147,42 @@
 <div class="f10-rule"><strong>Zasada dowodowa:</strong> status opisuje wyłącznie zdarzenie potwierdzone w źródle. Rozróżniamy postępowanie, umowę i spór/odwołanie. Jeśli nie mamy aktualnego dokumentu, nie oznaczamy sprawy jako „w toku” ani „wstrzymanej”.</div>
 <div class="f10-footer">Stan rozpoznania: 22.11.2026. Rejestr pilotażowy — aktualizacja statusów wymaga ponownego sprawdzenia źródła pierwotnego.</div>
 </section>
+<script id="f10-keyless-bzp-script">
+(()=>{"use strict";
+const button=document.getElementById("f10-bzp-load"),state=document.getElementById("f10-bzp-state"),out=document.getElementById("f10-bzp-results");
+if(!button||!state||!out)return;
+const clean=v=>String(v??"").replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+function rowsOf(data){if(Array.isArray(data))return data;for(const k of ["items","content","results","notices","data","dataList","result"])if(Array.isArray(data?.[k]))return data[k];return []}
+function get(o,...keys){for(const k of keys)if(o?.[k]!==undefined&&o[k]!==null&&o[k]!=="")return String(o[k]);return ""}
+button.addEventListener("click",async()=>{
+ button.disabled=true;out.replaceChildren();state.textContent="Pobieram dane z publicznego API BZP…";
+ try{
+ const to=new Date(),from=new Date(to.getTime()-14*86400000),fmt=d=>d.toISOString().slice(0,10);
+ const types=["ContractNotice","TenderResultNotice"],all=[];
+ for(const type of types){
+  const u=new URL("https://ezamowienia.gov.pl/mo-board/api/v1/Board/Search");
+  u.search=new URLSearchParams({NoticeType:type,PublicationDateFrom:fmt(from),PublicationDateTo:fmt(to),PageSize:"10",PageNumber:"1"}).toString();
+  const response=await fetch(u.toString(),{headers:{"Accept":"application/json"}});
+  if(!response.ok)throw new Error("BZP "+type+" zwróciło HTTP "+response.status);
+  const data=await response.json();all.push(...rowsOf(data).map(x=>({...x,__noticeType:type})));
+ }
+ if(!all.length){state.textContent="API odpowiedziało, ale nie rozpoznano listy rekordów. Nie pokazuję pustych ani domyślonych danych; sprawdź oficjalną wyszukiwarkę e-Zamówień.";return}
+ all.slice(0,20).forEach(row=>{
+  const title=get(row,"orderObject","OrderObject","noticeTitle","title","subject")||"Ogłoszenie — szczegóły w źródle";
+  const number=get(row,"noticeNumber","NoticeNumber","publicationNumber");
+  const buyer=get(row,"organizationName","OrganizationName","buyerName","contractingAuthorityName");
+  const date=get(row,"publicationDate","PublicationDate");
+  const type=row.__noticeType==="TenderResultNotice"?"WYNIK POSTĘPOWANIA":"OGŁOSZENIE O ZAMÓWIENIU";
+  const card=document.createElement("article");card.className="f10-live-result";
+  card.innerHTML="<strong>"+clean(title)+"</strong><span>"+type+(number?" · "+clean(number):"")+(buyer?" · "+clean(buyer):"")+(date?" · "+clean(date):"")+"</span>";
+  out.append(card);
+ });
+ state.textContent="Pobrano "+all.length+" rekordów z BZP (maks. 10 z każdego rodzaju, ostatnie 14 dni). Ostatnie pobranie: "+new Date().toLocaleString("pl-PL")+".";
+ }catch(error){state.textContent="Nie udało się pobrać BZP bezpośrednio z przeglądarki: "+error.message+". Możliwa blokada CORS lub zmiana API. Oficjalne API jest publiczne i bez klucza; nie obchodzimy limitów ani autoryzacji."}
+ finally{button.disabled=false}
+});
+})();
+</script>
 <script id="f10-keyless-ted-script">
 (()=>{"use strict";
 const button=document.getElementById("f10-ted-load"),state=document.getElementById("f10-ted-state"),out=document.getElementById("f10-ted-results");
