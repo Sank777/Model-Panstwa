@@ -345,7 +345,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/01-cyberbezpieczenstwo.svg",
-        "alt": "Schemat poglądowy: Cyberbezpieczeństwo usług kluczowych — Rozdzielnia energetyczna z wyraźnie pokazanym jednym szafowym punktem sterowania; na ekranie operatora widoczny alert i schemat reakcji. Bez przedstawiania realnych procedur włamania, kodu ani prawdziwego obiektu."
+        "alt": "Schemat cyberbezpieczeństwa usług kluczowych: operator, system IT/OT, alert i ciągłość działania."
       }
     },
     {
@@ -431,7 +431,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/02-powodz.svg",
-        "alt": "Schemat poglądowy: Reakcja państwa na powódź — Mapa zalewowa doliny rzecznej z kilkoma punktami dowodzenia i drogami ewakuacji; osobny, czytelny łańcuch przepływu ostrzeżenia od prognozy do mieszkańca."
+        "alt": "Schemat reakcji na powódź: przepływ ostrzeżeń, decyzji i pomocy między szczeblami państwa."
       }
     },
     {
@@ -528,7 +528,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/03-systemy-it.svg",
-        "alt": "Schemat poglądowy: Publiczne systemy IT, które nie działały — Jedna sala komputerowa z niedziałającym ekranem systemu, obok prosty diagram: wymagania → umowa → test → odbiór → uruchomienie. Bez fikcyjnych logotypów uczelni i bez sugerowania konkretnej firmy."
+        "alt": "Schemat zamówienia systemu IT: potrzeba, wymagania, testy, odbiór i uruchomienie."
       }
     },
     {
@@ -592,7 +592,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/04-odra.svg",
-        "alt": "Schemat poglądowy: Kryzys ekologiczny na Odrze — Rzeka z punktem poboru próbek, mobilnym laboratorium i trzema instytucjami przekazującymi wyniki na wspólną tablicę sytuacyjną; bez dramatycznych, niepotwierdzonych scen."
+        "alt": "Schemat monitoringu Odry: pobór próbek, laboratorium, wymiana danych i ostrzeganie."
       }
     },
     {
@@ -656,7 +656,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/05-budzet.svg",
-        "alt": "Schemat poglądowy: Wykonanie budżetu państwa — Prosty, czytelny przepływ pieniędzy publicznych od budżetu przez dysponenta i fundusz do konkretnej usługi; duże kwoty jako osobne, neutralne etykiety bez wymyślonych wartości."
+        "alt": "Schemat wykonania budżetu: plan, dysponent, wydatki i fundusze, efekt oraz kontrola."
       }
     },
     {
@@ -720,7 +720,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/06-wybory.svg",
-        "alt": "Schemat poglądowy: Przygotowanie wyborów korespondencyjnych — Stół operacyjny z dokumentami, kalendarzem decyzji, urną i zaplombowanymi pakietami; neutralna rekonstrukcja procesu, bez wizerunków polityków i partyjnych symboli."
+        "alt": "Schemat przygotowania wyborów korespondencyjnych: podstawa prawna, decyzja, przygotowanie i rozliczenie."
       }
     },
     {
@@ -811,7 +811,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/07-odpady.svg",
-        "alt": "Schemat poglądowy: Gospodarka odpadami i recykling — Przekrój łańcucha gospodarowania odpadami: pojemnik, samochód, sortownia, instalacja recyklingu i rejestr danych; wyraźnie pokaż, w którym miejscu sprawdzana jest zgodność mas."
+        "alt": "Schemat gospodarowania odpadami: wytworzenie, odbiór, transport, instalacja i ewidencja."
       }
     },
     {
@@ -890,7 +890,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/08-zdrowie.svg",
-        "alt": "Schemat poglądowy: Zamawianie świadczeń zdrowotnych w szpitalach — Szpitalny punkt planowania świadczeń: lekarz, harmonogram, dokumentacja postępowania i tablica dostępności; bez wizerunków pacjentów i danych medycznych."
+        "alt": "Schemat zamawiania świadczeń zdrowotnych: potrzeby, wybór, umowa, personel i wykonanie."
       }
     },
     {
@@ -969,7 +969,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/09-szkoly.svg",
-        "alt": "Schemat poglądowy: Nadzór miast nad szkołami publicznymi w woj. zachodniopomorskim — Dyrektor i przedstawiciel samorządu analizują arkusz organizacyjny przy planie szkoły; obok proste zestawienie kadry, zajęć i wsparcia uczniów bez danych osobowych."
+        "alt": "Schemat nadzoru nad szkołą: potrzeby uczniów, arkusz organizacyjny, kadry, zajęcia i efekty."
       }
     },
     {
@@ -1042,7 +1042,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/10-mieszkalnictwo.svg",
-        "alt": "Schemat poglądowy: Rządowy Fundusz Rozwoju Mieszkalnictwa — Przekrój osiedla mieszkaniowego z czytelną osią: wniosek → finansowanie → budowa → odbiór → lokal dostępny; bez fikcyjnych logotypów i konkretnych adresów."
+        "alt": "Schemat finansowania mieszkań: wniosek, ocena, wsparcie, budowa i gotowy lokal."
       }
     },
     {
@@ -1127,7 +1127,7 @@
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
         "src": "assets/cases/illustrations/11-schronienia.svg",
-        "alt": "Schemat poglądowy: Miejsca schronienia i budowle ochronne — Przekrój typowego obiektu ochronnego z oznaczonym wejściem, wentylacją, wyjściem awaryjnym i tablicą ewidencyjną; ilustracja techniczna, nie plan konkretnego schronu."
+        "alt": "Schemat gotowości ochronnej: ewidencja obiektu, ocena techniczna, dostosowanie, utrzymanie i ćwiczenia."
       }
     },
     {
