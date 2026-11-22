@@ -138,6 +138,16 @@ main{width:min(1200px,calc(100% - 2rem));margin:1.2rem auto 3rem}
       </select>
     </div>
     <h2 id="sprawy-zakonczone" class="case-section-title">Sprawy z opublikowanymi ustaleniami i zakończonymi kontrolami</h2><p class="case-section-note">Poniższe karty opierają się na wskazanych raportach NIK lub RIO. Zakończenie kontroli nie oznacza automatycznie wykonania wszystkich zaleceń — ten status opisujemy osobno.</p>
+    <section class="sws-workspace" id="sws-workspace" aria-label="Sprawy do sprawdzenia — System Widzenia Sprawy">
+      <div class="sws-heading">
+        <div><span class="sws-kicker">SYSTEM WIDZENIA SPRAWY · SWS</span><h2>Sprawy do sprawdzenia</h2><p>Wybierz sprawę po lewej. Po prawej otworzy się jej karta z opisem, statusem, materiałem analitycznym i źródłami.</p></div>
+        <span class="sws-count" data-sws-count>8 spraw</span>
+      </div>
+      <div class="sws-layout">
+        <nav class="sws-list" aria-label="Lista spraw SWS" data-sws-list></nav>
+        <article class="sws-detail" data-sws-detail aria-live="polite"><p class="sws-loading">Wybierz sprawę z listy.</p></article>
+      </div>
+    </section>
     <div class="lib-grid" id="caseGrid">
       <article id="case-sws-pl-001" class="case-card" data-type="inwestycje" data-status="ustalenia" data-search="mosty inwestycje drogi dokumentacja odbiory nadzór techniczny NIK P/25/016 2026">
         <div class="case-top"><span class="case-id">SWS-PL-001 · P/25/016</span><span class="case-badge">Ustalenia NIK</span></div>
