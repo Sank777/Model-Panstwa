@@ -293,14 +293,29 @@ async function generateVisual(){
 $("visualGenerate").addEventListener("click",generateVisual);
 
 async function verify(){
- const {data:{session}}=await db.auth.getSession();
- if(!session){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status("Zaloguj się kontem administratora.");return;}
+ let session=null;
+ try{
+  const result=await db.auth.getSession();
+  if(result.error)throw result.error;
+  session=result.data?.session||null;
+ }catch(e){
+  $("hub").classList.add("hidden");$("login").classList.remove("hidden");
+  status("Nie udało się odczytać sesji: "+(e.message||"błąd Supabase Auth"));return;
+ }
+ if(!session){
+  $("hub").classList.add("hidden");$("login").classList.remove("hidden");
+  status("Brak aktywnej sesji. Zaloguj się kontem administratora.");return;
+ }
+ $("login").classList.add("hidden");
+ status("Sesja aktywna. Potwierdzam uprawnienia administratora…");
  try{
   const res=await fetch(ACCESS_API,{headers:{apikey:KEY,Authorization:"Bearer "+session.access_token}});
-  const access=await res.json();
-  if(!res.ok)throw new Error(access.error||"Brak uprawnień administratora.");
+  const raw=await res.text();let access={};
+  try{access=raw?JSON.parse(raw):{};}catch{throw new Error("Serwer uprawnień zwrócił nieczytelną odpowiedź (HTTP "+res.status+").");}
+  if(!res.ok)throw new Error((access.error||"Serwer odmówił dostępu.")+" (HTTP "+res.status+").");
+  if(!access||typeof access.is_main_admin!=="boolean"||!Array.isArray(access.modules))throw new Error("Nieprawidłowy format odpowiedzi serwera uprawnień.");
   accessState=access;
-  $("login").classList.add("hidden");$("hub").classList.remove("hidden");
+  $("hub").classList.remove("hidden");
   $("accessDesk").classList.toggle("hidden",!access.is_main_admin);
   $("visualDesk").classList.toggle("hidden",!access.is_main_admin);
   const hubTiles=[...$("hub").querySelectorAll(":scope > .grid > .tile")];
@@ -309,14 +324,17 @@ async function verify(){
   const cards=[...$("hub").querySelectorAll(".tile")];
   const reportsCard=cards.find(x=>x.textContent.includes("Zgłoszenia obywatelskie"));
   if(reportsCard)reportsCard.classList.toggle("hidden",!access.is_main_admin&&!access.modules.includes("reports"));
-  status(access.is_main_admin?"Dostęp administratora głównego potwierdzony.":"Dostęp administratora modułowego potwierdzony.");
+  status(access.is_main_admin?"Sesja aktywna · dostęp administratora głównego potwierdzony.":"Sesja aktywna · dostęp administratora modułowego potwierdzony.");
   if(access.is_main_admin)await loadAccessUsers(access.users||[]);
   if(access.is_main_admin||access.modules.includes("case_history"))await loadCases();
- }catch(e){$("hub").classList.add("hidden");$("login").classList.remove("hidden");status(e.message);}
+ }catch(e){
+  $("hub").classList.add("hidden");
+  status("SESJA JEST AKTYWNA, ALE NIE POTWIERDZONO UPRAWNIEŃ: "+(e.message||"nieznany błąd")+". Nie musisz ponownie wpisywać hasła.");
+ }
 }
 const themeToggle=document.getElementById("themeToggle");
 if(themeToggle)themeToggle.addEventListener("click",()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==="light"?"dark":"light";});
-$("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Sprawdzam logowanie…");const {error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Logowanie nie powiodło się. Sprawdź dane.");return;}await verify();});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();status("Weryfikuję dane logowania w Supabase Auth…");const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){status("Supabase Auth odrzucił logowanie: "+(error.message||"błąd uwierzytelnienia")+" · kod: "+(error.code||"brak"));return;}if(!data?.session){status("Supabase przyjął żądanie, ale nie zwrócił aktywnej sesji. Sprawdź ustawienia potwierdzania konta.");return;}status("Dane przyjęte. Sesja utworzona. Sprawdzam rolę administratora…");await verify();});
 $("logout").addEventListener("click",async()=>{await db.auth.signOut();selectedCase="";await verify();});
 
 async function accessRequest(options={}){const {data:{session}}=await db.auth.getSession();if(!session)throw new Error("Sesja wygasła");const r=await fetch(ACCESS_API,{...options,headers:{apikey:KEY,Authorization:"Bearer "+session.access_token,"Content-Type":"application/json"}});const d=await r.json();if(!r.ok)throw new Error(d.error||"Błąd uprawnień");return d;}
