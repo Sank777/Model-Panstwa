@@ -18,34 +18,34 @@
 .live-back{color:var(--mp-accent);font-weight:750}
  
 /* Monitor zamówień — dwupanelowa biblioteka typów postępowań */
-.tender-lab{margin:1.2rem 0 1.5rem;padding:clamp(1rem,2.5vw,1.5rem);border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface)}
+.tender-lab{margin:.65rem 0 1rem;padding:.8rem;border:1px solid var(--mp-border);border-radius:16px;background:var(--mp-surface)}
 .tender-lab-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
 .tender-lab-head p{max-width:760px;color:var(--mp-muted);margin:.3rem 0}
-.tender-lab-grid{display:grid;grid-template-columns:minmax(245px,.78fr) minmax(0,1.6fr);gap:1rem;align-items:start}
-.tender-types{display:flex;flex-direction:column;gap:.4rem;max-height:740px;overflow:auto;padding:.35rem;border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2)}
-.tender-type{display:grid;grid-template-columns:34px minmax(0,1fr);gap:.65rem;align-items:center;text-align:left;padding:.7rem;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--mp-text);cursor:pointer;font:inherit;line-height:1.3}
+.tender-lab-grid{display:grid;grid-template-columns:minmax(215px,.7fr) minmax(0,1.9fr);gap:.65rem;align-items:start}
+.tender-types{display:flex;flex-direction:column;gap:.4rem;max-height:72vh;overflow:auto;padding:.35rem;border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2)}
+.tender-type{display:grid;grid-template-columns:30px minmax(0,1fr);gap:.45rem;align-items:center;text-align:left;padding:.48rem;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--mp-text);cursor:pointer;font:inherit;line-height:1.3}
 .tender-type:hover,.tender-type:focus-visible{border-color:var(--mp-accent);outline:none}
 .tender-type[aria-pressed="true"]{background:var(--mp-surface);border-color:var(--mp-accent);box-shadow:inset 3px 0 var(--mp-accent)}
 .tender-type-num{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:#163c5b;color:#c4e7ff;font-size:.78rem;font-weight:850}
-.tender-detail{min-height:430px;padding:clamp(1rem,2vw,1.4rem);border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2)}
-.tender-detail h3{margin:.25rem 0 .65rem;font-size:clamp(1.2rem,2.3vw,1.65rem)}
-.tender-detail p{color:var(--mp-muted)}
+.tender-detail{min-height:0;padding:.8rem;border:1px solid var(--mp-border);border-radius:12px;background:var(--mp-surface2)}
+.tender-detail h3{margin:.25rem 0 .65rem;font-size:1.2rem}
+.tender-detail p{color:var(--mp-muted);font-size:.83rem;line-height:1.5}.tender-detail h4{font-size:.88rem;margin:.75rem 0 .35rem}
 .tender-detail h4{margin:1.15rem 0 .45rem}
-.tender-institutions{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.55rem}
-.tender-institution{padding:.75rem;border:1px solid var(--mp-border);border-radius:9px;background:var(--mp-surface)}
-.tender-institution strong{display:block;margin-bottom:.25rem}
+.tender-institutions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem}
+.tender-institution{padding:.55rem;border:1px solid var(--mp-border);border-radius:9px;background:var(--mp-surface)}
+.tender-institution strong{display:block;margin-bottom:.2rem;font-size:.82rem}.tender-institution span{font-size:.78rem;line-height:1.45}
 .tender-links{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
 .tender-links a{color:var(--mp-accent);font-weight:700}
 .tender-note{padding:.8rem 1rem;margin-top:.9rem;border-left:4px solid #d6b45c;border-radius:0 9px 9px 0;background:var(--mp-surface)}
 .tender-tag{display:inline-block;margin:.15rem .25rem .15rem 0;padding:.2rem .5rem;border-radius:20px;background:#173e5d;color:#d8efff;font-size:.74rem;font-weight:750}
 .tender-mobile-hint{display:none;color:var(--mp-muted);font-size:.85rem}
-@media(max-width:760px){.tender-lab-grid{grid-template-columns:1fr}.tender-types{max-height:330px}.tender-detail{min-height:0}.tender-mobile-hint{display:block}}
+@media(max-width:760px){.tender-lab-grid{grid-template-columns:1fr}.tender-types{max-height:38vh}.tender-detail{min-height:0}.tender-mobile-hint{display:block}}
 
 
 /* Rozszerzony monitor cyklu życia zamówień */
 .tender-lifecycle-intro{color:#b9cce0;font-size:.9rem;margin:.4rem 0 1rem}
 .tender-lifecycle{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0 1.3rem}
-.tender-stage{border:1px solid #456b89;border-radius:12px;padding:.85rem;background:rgba(8,25,44,.72);min-width:0}
+.tender-stage{border:1px solid #456b89;border-radius:10px;padding:.6rem;background:rgba(8,25,44,.72);min-width:0}
 .tender-stage-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}
 .tender-stage-status{font-size:.72rem;font-weight:800;letter-spacing:.05em;border:1px solid currentColor;border-radius:99px;padding:.25rem .55rem}
 .tender-stage-planned .tender-stage-status{color:#9bd5ff}
@@ -53,10 +53,10 @@
 .tender-stage-done .tender-stage-status{color:#b9c6ff}
 .tender-stage-paused .tender-stage-status{color:#ffc58c}
 .tender-stage-head small{color:#a9bfd3;font-size:.72rem}
-.tender-stage h5{font-size:1rem;margin:.35rem 0 .5rem;color:#f1f7ff}
-.tender-stage p{font-size:.84rem;line-height:1.55;color:#cfdeeb;margin:.4rem 0}
+.tender-stage h5{font-size:.88rem;margin:.25rem 0 .35rem;color:#f1f7ff}
+ .tender-stage p{font-size:.76rem;line-height:1.45;color:#cfdeeb;margin:.4rem 0}
 .tender-stage-example{padding:.55rem .65rem;background:rgba(255,255,255,.045);border-radius:8px}
-.tender-stage-evidence{font-size:.78rem!important;color:#a9c4da!important}
+.tender-stage-evidence{font-size:.72rem!important;color:#a9c4da!important}
 @media(max-width:760px){.tender-lifecycle{grid-template-columns:1fr}}
 
 </style><link rel="stylesheet" href="assets/centrum-visual-system.css?v=1.0.0">
@@ -130,7 +130,7 @@
  function show(i){
   const r=rows[i];
   [...list.querySelectorAll("button")].forEach((b,n)=>b.setAttribute("aria-pressed",String(n===i)));
-  detail.innerHTML='<span class="tender-tag">TYP TESTOWY '+String(i+1).padStart(2,"0")+' / 11</span><h3>'+esc(r.name)+'</h3><p>'+esc(r.desc)+'</p><h4>Cykl życia zamówienia — cztery statusy</h4><p class="tender-lifecycle-intro">Każdy rodzaj zamówienia może przejść przez te etapy. Status dotyczy konkretnego postępowania lub umowy, a nie całej kategorii.</p><div class="tender-lifecycle">'+r.lifecycle.map(x=>'<article class="tender-stage tender-stage-'+x.key+'"><div class="tender-stage-head"><span class="tender-stage-status">'+esc(x.status)+'</span><small>'+esc(x.phase)+'</small></div><h5>'+esc(x.title)+'</h5><p>'+esc(x.description)+'</p><p class="tender-stage-example"><strong>Przykład modelowy:</strong> '+esc(x.example.replace(/^Przykład modelowy:\s*/,""))+'</p><p class="tender-stage-evidence"><strong>Dokumenty:</strong> '+esc(x.evidence)+'</p></article>').join("")+'</div><h4>Dokumenty do sprawdzenia w tej kategorii</h4><p>'+esc(r.docs)+'</p><h4>Instytucje i zakres ich kompetencji</h4><div class="tender-institutions">'+r.institutions.map(x=>'<div class="tender-institution"><strong>'+esc(x[0])+'</strong><span>'+esc(x[1])+'</span></div>').join("")+'</div><h4>Materiały źródłowe i punkty odniesienia</h4><div class="tender-links">'+r.links.map(x=>'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">'+esc(x[0])+' ↗</a>').join("")+'</div><p class="tender-note"><strong>Reguła dowodowa:</strong> status postępowania potwierdzamy numerem ogłoszenia, dokumentem zamawiającego, umową, protokołem, aneksem albo decyzją. Przykłady powyżej są wyłącznie modelowe — nie są rzeczywistymi zamówieniami ani informacją o konkretnych wykonawcach.</p>';
+  detail.innerHTML='<span class="tender-tag">TYP TESTOWY '+String(i+1).padStart(2,"0")+' / 11</span><h3>'+esc(r.name)+'</h3><p>'+esc(r.desc)+'</p><h4>Cykl życia zamówienia — cztery statusy</h4><p class="tender-lifecycle-intro">Każdy rodzaj zamówienia może przejść przez te etapy. Status dotyczy konkretnego postępowania lub umowy, a nie całej kategorii.</p><div class="tender-lifecycle">'+r.lifecycle.map(x=>'<details class="tender-stage tender-stage-'+x.key+'"><summary class="tender-stage-head"><span class="tender-stage-status">'+esc(x.status)+'</span><small>'+esc(x.phase)+'</small></summary><h5>'+esc(x.title)+'</h5><p>'+esc(x.description)+'</p><p class="tender-stage-example"><strong>Przykład modelowy:</strong> '+esc(x.example.replace(/^Przykład modelowy:\s*/,""))+'</p><p class="tender-stage-evidence"><strong>Dokumenty:</strong> '+esc(x.evidence)+'</p></details>').join("")+'</div><h4>Dokumenty do sprawdzenia w tej kategorii</h4><p>'+esc(r.docs)+'</p><h4>Instytucje i zakres ich kompetencji</h4><div class="tender-institutions">'+r.institutions.map(x=>'<div class="tender-institution"><strong>'+esc(x[0])+'</strong><span>'+esc(x[1])+'</span></div>').join("")+'</div><h4>Materiały źródłowe i punkty odniesienia</h4><div class="tender-links">'+r.links.map(x=>'<a href="'+esc(x[1])+'" target="_blank" rel="noopener noreferrer">'+esc(x[0])+' ↗</a>').join("")+'</div><p class="tender-note"><strong>Reguła dowodowa:</strong> status postępowania potwierdzamy numerem ogłoszenia, dokumentem zamawiającego, umową, protokołem, aneksem albo decyzją. Przykłady powyżej są wyłącznie modelowe — nie są rzeczywistymi zamówieniami ani informacją o konkretnych wykonawcach.</p>';
  }
  rows.forEach((r,i)=>{const b=document.createElement("button");b.type="button";b.className="tender-type";b.setAttribute("aria-pressed","false");b.innerHTML='<span class="tender-type-num">'+String(i+1).padStart(2,"0")+'</span><span>'+esc(r.name)+'</span>';b.addEventListener("click",()=>show(i));list.append(b);});
  show(0);
@@ -139,3 +139,16 @@
 </main><footer class="dashboard-footer"><span>Model Państwa – Centrum Jawności</span><span class="footer-status">Analiza bieżąca · projekt modułu</span></footer>
 <script src="assets/site.js?v=20261117-header-login1" defer></script><script src="assets/visual-rom.js?v=1.8.0" defer></script><script src="assets/visual-segmenter.js?v=2.1.0" defer></script><script src="assets/visual-engine.js?v=7.3.4" defer></script>
 </body></html>
+<style>
+.tender-stage{cursor:pointer}
+.tender-stage>summary{list-style:none;cursor:pointer}
+.tender-stage>summary::-webkit-details-marker{display:none}
+.tender-stage>summary:after{content:"＋";float:right;color:#a9d9ff;font-weight:800}
+.tender-stage[open]>summary:after{content:"−"}
+.tender-lifecycle{gap:.45rem;margin:.6rem 0 .9rem}
+.tender-lifecycle-intro{font-size:.78rem}
+.tender-stage-head{margin:0}
+.tender-stage-head small{font-size:.68rem}
+.tender-stage[open]{grid-column:1/-1}
+@media(max-width:760px){.tender-stage[open]{grid-column:auto}}
+</style>
