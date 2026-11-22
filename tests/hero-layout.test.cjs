@@ -27,7 +27,7 @@ test("mobile hero applies a separate, slightly smaller vertical crop", () => {
 test("hero keeps the original repository asset, title overlay, and versioned stylesheet", () => {
   assert.match(rom, /asset:"menu\/leon-hero\.webp"/);
   assert.match(html, /<section class="hero-banner"[^>]*>[\s\S]*?<div class="hero-copy">/);
-  assert.match(html, /visual-engine-layout\.css\?v=7\.4\.0/);
+  assert.match(html, /visual-engine-layout\.css\?v=7\.3\.4/);
 });
 
 
@@ -37,8 +37,7 @@ test("pillar tiles render without frames, shadows, or overlay accents", () => {
   assert.match(css, /\.pillar-tile:before,\.pillar-tile:after\{display:none!important;content:none!important/);
 });
 
-test("successful standalone SVG render keeps accessible tile labels", () => {
-  assert.match(engine, /Keep accessible HTML labels above the independent SVG artwork/);
-  assert.doesNotMatch(engine, /generatedCopy\)generatedCopy\.remove/);
-  assert.match(engine, /const VERSION="7\.4\.0";/);
+test("successful atlas render removes duplicate generated tile labels", () => {
+  assert.match(engine, /const generatedCopy=directChild\(tile,"tile-copy"\);[\s\S]*?if\(generatedCopy\)generatedCopy\.remove\(\);[\s\S]*?if\(generatedIcon\)generatedIcon\.remove\(\);/);
+  assert.match(engine, /const VERSION="7\.3\.4";/);
 });
