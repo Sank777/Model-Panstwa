@@ -1,0 +1,57 @@
+/* System Widzenia Sprawy — jednolity układ kart SWS, wzorowany na przeglądzie 11 tematów NIK. */
+.sws-workspace{--sws-bg:#061426;--sws-panel:#0b2038;--sws-panel2:#102b49;--sws-line:rgba(105,184,239,.38);--sws-text:#f3f8ff;--sws-muted:#c0d2e5;color:var(--sws-text);margin:1rem 0 1.5rem;padding:clamp(.8rem,2vw,1.3rem);border:1px solid var(--sws-line);border-radius:18px;background:radial-gradient(ellipse at 80% 0%,rgba(28,116,176,.2),transparent 42%),linear-gradient(145deg,#071a30,#061426 65%,#081c32);box-shadow:0 18px 44px #0005}
+.sws-workspace *{box-sizing:border-box}
+.sws-heading{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.sws-kicker{color:#82d7ff;font-size:.72rem;font-weight:850;letter-spacing:.14em}
+.sws-heading h2{margin:.2rem 0;font-size:clamp(1.35rem,2.6vw,2rem);color:#f5f9ff}
+.sws-heading p{margin:0;color:var(--sws-muted);font-size:.88rem}
+.sws-count{padding:.3rem .6rem;border:1px solid var(--sws-line);border-radius:99px;color:#9edfff;font-size:.75rem;font-weight:800;white-space:nowrap}
+.sws-layout{display:grid;grid-template-columns:minmax(245px,.78fr) minmax(0,1.75fr);gap:1rem;align-items:stretch}
+.sws-list,.sws-detail{min-width:0;border:1px solid var(--sws-line);border-radius:14px;background:linear-gradient(150deg,rgba(16,43,73,.96),rgba(7,25,45,.98));box-shadow:0 8px 24px #0004}
+.sws-list{padding:.7rem;display:flex;flex-direction:column;gap:.5rem}
+.sws-topic{display:grid;grid-template-columns:62px minmax(0,1fr);gap:.65rem;align-items:center;width:100%;min-width:0;padding:.6rem;text-align:left;color:var(--sws-text);border:1px solid transparent;border-radius:10px;background:#ffffff08;cursor:pointer}
+.sws-topic:hover{border-color:#68caff88;background:#ffffff10}
+.sws-topic[aria-pressed=true]{border-color:#59c8ff;background:linear-gradient(100deg,#14517a99,#0d315099);box-shadow:inset 3px 0 #5acbff,0 0 18px #2eafff20}
+.sws-topic[hidden]{display:none}
+.sws-topic-id{display:grid;place-items:center;min-height:46px;padding:.25rem;border:1px solid #6485a1;border-radius:8px;background:#061426;color:#9edfff;font-size:.68rem;font-weight:850;text-align:center}
+.sws-topic strong{display:block;font-size:.83rem;line-height:1.25;color:#f5f9ff}
+.sws-topic small{display:block;margin-top:.25rem;color:#a9c4dc;font-size:.68rem}
+.sws-detail{padding:clamp(.8rem,2vw,1.2rem);min-height:320px}
+.sws-detail>.case-card{border:0!important;border-radius:0!important;padding:0!important;background:transparent!important;box-shadow:none!important}
+.sws-detail>.case-card h2{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.25}
+.sws-detail>.case-card p{color:#c8d9e9}
+.sws-detail .case-status{background:#061a2d;color:#e2edf7;border:1px solid #426d8d;border-left:3px solid #8db9df}
+.sws-detail .case-meta span{background:#082947;color:#cfe5f5;border-color:#426d8d}
+.sws-detail .case-detail{color:#d9e5ef}
+.sws-detail .case-detail h3{color:#f5f9ff}
+.sws-detail .case-links a,.sws-detail .case-open-link{color:#8edaff!important}
+.sws-detail details[open]>summary{margin-bottom:.6rem}
+.sws-detail .nik-proposals{margin-top:1rem}
+.sws-detail .sws-nik-link{display:inline-flex;margin:.7rem 0;padding:.55rem .75rem;border:1px solid #426d8d;border-radius:8px;color:#8edaff;text-decoration:none;font-weight:750}
+.sws-loading{padding:1rem;color:var(--sws-muted)}
+#caseGrid.sws-source-hidden{display:none!important}
+@media(max-width:760px){.sws-layout{grid-template-columns:minmax(0,1fr)}.sws-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}.sws-topic{grid-template-columns:52px minmax(0,1fr);padding:.45rem}.sws-topic-id{font-size:.62rem;min-height:42px}}
+@media(max-width:430px){.sws-list{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.sws-workspace *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Rozwinięta karta SWS — wspólny podział treści jak w analizach NIK. */
+.sws-detail .sws-analysis-block{margin:.85rem 0;padding:.85rem .95rem;border:1px solid #426d8d;border-radius:11px;background:linear-gradient(145deg,#0d2945,#091d33);color:#dce9f5}
+.sws-detail .sws-analysis-block>h3{margin:0 0 .55rem;color:#8edaff;font-size:.72rem;letter-spacing:.09em;font-weight:850}
+.sws-detail .sws-analysis-block .sws-source-heading{margin:.15rem 0 .45rem;color:#f5f9ff;font-size:.98rem;letter-spacing:0;font-weight:800}
+.sws-detail .sws-analysis-block p{font-size:.84rem;line-height:1.55}
+.sws-detail .sws-analysis-block ul{padding-left:1.2rem;margin:.45rem 0}
+.sws-detail .sws-analysis-block li{margin:.32rem 0;color:#dce9f5;font-size:.83rem;line-height:1.5}
+.sws-detail .sws-analysis-block strong{color:#fff}
+.sws-detail .case-detail>.case-links{padding-top:.7rem;border-top:1px solid #426d8d}
+.sws-detail .case-top{margin-bottom:.65rem}
+.sws-detail .case-card h2{margin:.25rem 0 .5rem}
+.sws-detail .case-status{margin:.7rem 0}
+.sws-detail .case-meta{margin:.55rem 0}
+.sws-detail .case-open-link{display:inline-flex;margin-top:.8rem;padding:.55rem .8rem;border:1px solid #426d8d;border-radius:8px;text-decoration:none}
+.sws-detail .nik-proposals{padding:.85rem;border:1px solid #426d8d;border-radius:11px;background:#061a2d}
+.sws-detail .nik-proposals-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+.sws-detail .nik-topic-card{min-width:0;padding:.65rem;border:1px solid #426d8d;border-radius:9px;background:#0b2944}
+.sws-detail .nik-topic-card h2{font-size:.9rem}
+@media(max-width:560px){.sws-detail .nik-proposals-grid{grid-template-columns:1fr}}
+
+.sws-empty{margin:.5rem 0;padding:.8rem;border:1px dashed #6485a1;border-radius:9px;color:#c0d2e5;font-size:.82rem;line-height:1.5}
