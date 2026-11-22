@@ -53,8 +53,11 @@
         const section=document.createElement("section");
         section.className="sws-analysis-block";
         const title=document.createElement("h3");
-        const labels=["USTALENIA I MATERIAŁY","POWIĄZANIA I PRZEBIEG SPRAWY","GRANICE WNIOSKÓW","PYTANIA KONTROLNE I LEKCJE"];
-        title.textContent=labels[Math.min(index,3)];
+        const headingText=heading.textContent.trim().toLocaleLowerCase("pl");
+        if(/powiązan|przebieg|testujemy/.test(headingText)) title.textContent="POWIĄZANIA I PRZEBIEG SPRAWY";
+        else if(/granice|wywniosk|prawo do wyjaśnień|uwaga prawna|ograniczen/.test(headingText)) title.textContent="GRANICE WNIOSKÓW I WYJAŚNIENIA";
+        else if(/pytan|edukacyjn|lekcj|wniosek|co powinien/.test(headingText)) title.textContent="PYTANIA KONTROLNE I LEKCJE";
+        else title.textContent="USTALENIA I MATERIAŁY";
         const sourceHeading=heading.cloneNode(true);
         sourceHeading.className="sws-source-heading";
         section.append(title,sourceHeading);
