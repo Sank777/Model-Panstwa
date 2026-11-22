@@ -52,19 +52,11 @@ body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 
 .nd-fact{padding:10px;border:1px solid var(--nd-line);border-radius:9px;background:#071a2e;color:#dce8f4;font-size:.82rem}
 .nd-sources{display:flex;gap:8px;flex-wrap:wrap}.nd-sources a{display:inline-flex;padding:8px 10px;border:1px solid #4d8db9;border-radius:8px;color:#bde9ff;text-decoration:none;font-size:.78rem;font-weight:750}
 .nd-sources a:hover{background:#0d3b5d}
-.nd-gallery{margin-top:14px;padding:12px}
-.nd-gallery h2{font-size:1.05rem;margin:.1rem 0}.nd-gallery>p{font-size:.78rem;color:var(--nd-muted);margin:.2rem 0 .7rem}
-.nd-gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
-.nd-gallery button{min-width:0;padding:5px;border:1px solid var(--nd-line);border-radius:9px;background:#081d33;color:var(--nd-text);cursor:pointer;text-align:center}
-.nd-gallery button[aria-current=true]{border-color:#36b9ee;box-shadow:0 0 0 1px #36b9ee55}
-.nd-gallery img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:#071a2e}
-.nd-gallery span{display:block;font-size:.68rem;line-height:1.2;padding:4px 1px 1px}
-.nd-caption{font-size:.68rem;color:#a9c0d5;margin-top:7px}
 .nd-error{padding:1rem;border:1px solid #a77b52;border-radius:10px;color:#ffe6c8;background:#30251c}
 .nd-back{color:#bde9ff;text-decoration:none;font-size:.82rem}
-@media(max-width:900px){.nd-layout{grid-template-columns:minmax(0,1fr)}.nd-side{position:static;max-height:none}.nd-list{grid-template-columns:repeat(2,minmax(0,1fr))}.nd-topic{grid-template-columns:25px 48px minmax(0,1fr)}.nd-topic img{width:48px;height:38px}.nd-hero{grid-template-columns:minmax(0,1fr)}.nd-hero img{max-height:240px}.nd-gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:520px){.nd-wrap{width:calc(100% - 16px);margin:8px auto 26px}.nd-main{padding:8px}.nd-side{padding:9px}.nd-list{grid-template-columns:minmax(0,1fr)}.nd-topic{grid-template-columns:28px 54px minmax(0,1fr)}.nd-topic img{width:54px;height:40px}.nd-facts{grid-template-columns:minmax(0,1fr)}.nd-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nd-hero{padding:10px}}
-@media(prefers-reduced-motion:reduce){.nd-topic,.nd-gallery button{scroll-behavior:auto;transition:none}}
+@media(max-width:900px){.nd-layout{grid-template-columns:minmax(0,1fr)}.nd-side{position:static;max-height:none}.nd-list{grid-template-columns:repeat(2,minmax(0,1fr))}.nd-topic{grid-template-columns:25px 48px minmax(0,1fr)}.nd-topic img{width:48px;height:38px}.nd-hero{grid-template-columns:minmax(0,1fr)}.nd-hero img{max-height:240px}}
+@media(max-width:520px){.nd-wrap{width:calc(100% - 16px);margin:8px auto 26px}.nd-main{padding:8px}.nd-side{padding:9px}.nd-list{grid-template-columns:minmax(0,1fr)}.nd-topic{grid-template-columns:28px 54px minmax(0,1fr)}.nd-topic img{width:54px;height:40px}.nd-facts{grid-template-columns:minmax(0,1fr)}.nd-hero{padding:10px}}
+@media(prefers-reduced-motion:reduce){.nd-topic,}
 /* NIK: neutralne, dekoracyjne suwaki zamiast zdjęć */
 .nd-mini-sliders,.nd-slider-panel{display:flex;flex-direction:column;justify-content:center;gap:7px;padding:10px 12px;border:1px solid rgba(105,190,239,.42);border-radius:11px;background:radial-gradient(ellipse at 85% 0%,rgba(55,185,238,.19),transparent 60%),linear-gradient(145deg,#102f50,#071a30);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 8px 20px rgba(0,0,0,.18);overflow:hidden}
 .nd-mini-sliders{padding:6px 7px;gap:5px}
@@ -99,7 +91,6 @@ body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 
 <aside class="nd-side"><h2>11 przykładów — analiza NIK</h2><p>Wybierz temat. Po prawej zobaczysz źródła, kontekst, zależności i wnioski.</p><div id="nd-list" class="nd-list"></div><div class="nd-separator">12 · OSOBNY TEMAT — PSP/OSP</div><div id="nd-psp"></div></aside>
 <section class="nd-main" id="nd-detail" aria-live="polite"><p>Ładowanie danych biblioteki…</p></section>
 </div>
-<section class="nd-gallery"><h2>Ilustracje 11 analiz NIK</h2><p>Ilustracje poglądowe do poszczególnych tematów. Nie są dokumentami źródłowymi ani fotografiami zdarzeń.</p><div id="nd-gallery-grid" class="nd-gallery-grid"></div><div class="nd-caption">Materiały graficzne służą objaśnieniu obszaru analizy. Każdy wniosek merytoryczny wymaga odrębnego źródła.</div></section>
 </main>
 <footer class="dashboard-footer"><span>Model Państwa · Centrum Jawności</span><span class="footer-motto">System Widzenia Sprawy · 12 tematów roboczych</span></footer>
 <script>
