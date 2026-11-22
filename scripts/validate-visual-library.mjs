@@ -8,7 +8,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = path.join(ROOT, "assets/visual-library/manifest.json");
 const fail = (message) => { console.error("[Leon Visual Library] " + message); process.exitCode = 1; };
 const safePath = (value) => typeof value === "string"
-  && /^[a-z0-9][a-z0-9/_-]*\\.webp$/.test(value)
+  && /^[a-z0-9][a-z0-9/_-]*\.webp$/.test(value)
   && !value.split("/").some(part => part === "." || part === "..");
 
 try {
@@ -30,7 +30,7 @@ try {
   const placements = new Set();
   for (const placement of data.placements) {
     if (!assets.has(placement.assetId)) throw new Error("Placement references unknown asset: " + placement.assetId);
-    if (!/^[a-z0-9][a-z0-9/_-]*\\.html$/.test(placement.page) || placement.page.split("/").includes("..")) throw new Error("Unsafe page path.");
+    if (!/^[a-z0-9][a-z0-9/_-]*\.html$/.test(placement.page) || placement.page.split("/").includes("..")) throw new Error("Unsafe page path.");
     if (!/^[a-z0-9][a-z0-9-]{1,63}$/.test(placement.slot)) throw new Error("Invalid placement slot.");
     const key = placement.page + "::" + placement.slot;
     if (placements.has(key)) throw new Error("Duplicate page slot: " + key);
