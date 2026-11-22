@@ -27,7 +27,7 @@ test("mobile hero applies a separate, slightly smaller vertical crop", () => {
 test("hero keeps the original repository asset, title overlay, and versioned stylesheet", () => {
   assert.match(rom, /asset:"menu\/leon-hero\.webp"/);
   assert.match(html, /<section class="hero-banner"[^>]*>[\s\S]*?<div class="hero-copy">/);
-  assert.match(html, /visual-engine-layout\.css\?v=7\.3\.4/);
+  assert.match(html, /visual-engine-layout\.css\?v=7\.4\.0/);
 });
 
 
