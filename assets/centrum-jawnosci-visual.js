@@ -37,12 +37,10 @@
   };
   const list = root.querySelector("[data-nv-items]");
   const detail = root.querySelector("[data-nv-detail]");
-  const gallery = root.querySelector("[data-nv-gallery]");
   const count = root.querySelector("[data-nv-count]");
 
   function renderTopics(topics) {
     list.replaceChildren();
-    gallery.replaceChildren();
     count.textContent = String(topics.length).padStart(2, "0") + " tematów";
     topics.forEach((topic, index) => {
       const card = document.createElement("button");
@@ -58,18 +56,6 @@
       card.addEventListener("click", () => selectTopic(topic.id, topics));
       list.append(card);
 
-      const tile = document.createElement("button");
-      tile.type = "button";
-      tile.className = "nv-gallery-item";
-      tile.dataset.topicId = topic.id;
-      tile.setAttribute("aria-pressed", index === 0 ? "true" : "false");
-      tile.append(image(topic.id, ""));
-      tile.append(make("span", "", topic.id + " · " + topic.title));
-      tile.addEventListener("click", () => {
-        selectTopic(topic.id, topics);
-        root.querySelector(".nv-detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
-      });
-      gallery.append(tile);
     });
     selectTopic(topics[0].id, topics);
   }
@@ -141,7 +127,6 @@
     .catch(error => {
       list.replaceChildren(make("p", "nv-error", "Nie udało się wczytać tematów. " + error.message));
       detail.replaceChildren(make("p", "nv-error", "Treści analizy nie zostały zastąpione danymi przykładowymi."));
-      gallery.replaceChildren();
       count.textContent = "brak danych";
     });
 })();
