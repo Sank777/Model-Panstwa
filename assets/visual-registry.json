@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "id": "model-panstwa-visual-assets",
+  "version": "1.0.0",
+  "notes": "Jedno źródło prawdy dla zatwierdzonych grafik strony. Pliki źródłowe są zatwierdzane przez właściciela projektu przed dodaniem do repozytorium.",
+  "spriteGrid": {
+    "columns": 5,
+    "rows": 2,
+    "padding": 24,
+    "gapX": 16,
+    "gapY": 16
+  },
+  "hero": {
+    "id": "home-hero",
+    "asset": "menu/leon-hero.webp",
+    "mode": "single",
+    "focal": "center 50%",
+    "alt": "Panorama Polski z mapą i flagą"
+  },
+  "tiles": [
+    {
+      "id": "pillar-1",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 0,
+      "title": "Fundament państwa",
+      "subtitle": "Instytucje i zaufanie",
+      "icon": "▥",
+      "accent": "#fa3048"
+    },
+    {
+      "id": "pillar-2",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 1,
+      "title": "Gospodarka i rozwój",
+      "subtitle": "Inwestycje, przemysł, innowacje",
+      "icon": "▤",
+      "accent": "#159bff"
+    },
+    {
+      "id": "pillar-3",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 2,
+      "title": "System prawny",
+      "subtitle": "Proste i skuteczne prawo",
+      "icon": "⚖",
+      "accent": "#f5c747"
+    },
+    {
+      "id": "pillar-4",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 3,
+      "title": "Bezpieczeństwo",
+      "subtitle": "Odporność państwa i obywateli",
+      "icon": "⬡",
+      "accent": "#63d77e"
+    },
+    {
+      "id": "pillar-5",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 4,
+      "title": "System emerytalny",
+      "subtitle": "Stabilność i godne życie",
+      "icon": "♧",
+      "accent": "#c76bff"
+    },
+    {
+      "id": "pillar-6",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 5,
+      "title": "Kapitał ludzki",
+      "subtitle": "Edukacja, kompetencje, rozwój",
+      "icon": "◆",
+      "accent": "#27d4e8"
+    },
+    {
+      "id": "pillar-7",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 6,
+      "title": "Zarządzanie strategiczne",
+      "subtitle": "Długofalowa polityka państwa",
+      "icon": "⚙",
+      "accent": "#278cff"
+    },
+    {
+      "id": "pillar-8",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 7,
+      "title": "Odporność informacyjna",
+      "subtitle": "Świadome i bezpieczne społeczeństwo",
+      "icon": "⬡",
+      "accent": "#ed49b6"
+    },
+    {
+      "id": "pillar-9",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 8,
+      "title": "Demografia i stabilność",
+      "subtitle": "Rodzina, mieszkalnictwo, rozwój regionów",
+      "icon": "♧",
+      "accent": "#f08a43"
+    },
+    {
+      "id": "pillar-10",
+      "asset": "menu/leon-pillar-sprite.webp",
+      "mode": "grid",
+      "spriteIndex": 9,
+      "title": "System finansów państwa",
+      "subtitle": "Przejrzystość, efektywność, kontrola",
+      "icon": "▤",
+      "accent": "#20cda8"
+    }
+  ]
+}
