@@ -33,6 +33,6 @@ test("case visual styles are shared by the library and nested real-case page", (
   const library = fs.readFileSync(path.join(root, "biblioteka-spraw.html"), "utf8");
   const nested = fs.readFileSync(path.join(root, "sprawy/real-odr-001.html"), "utf8");
   assert.match(library, /case-visuals\.css\?v=1\.0\.0/);
-  assert.match(nested, /case-visuals\.css\?v=1\.0\.0/);
+  assert.match(nested, /case-visuals\.css\?v=1\.1\.0/);
   assert.match(nested, /\.\.\/assets\/case-visuals\.js/);
 });
