@@ -39,7 +39,7 @@ for (const topic of data.nikTopics) {
     assert.ok(typeof topic.imagePlan.alt === "string" && topic.imagePlan.alt.trim().length > 0 && topic.imagePlan.alt.length <= 160, "Illustration alt text must be concise for " + topic.id);
     const image = await readFile(new URL("../" + imagePath, import.meta.url));
     if (isSvg) {
-      const svg = image.toString("utf8");
+      const svg = image.toString("utf8").replace(/^<\\?xml[^>]*>\\s*/, "");
       assert.ok(svg.startsWith("<svg ") && !/<script|<foreignObject|(?:href|xlink:href)\s*=\s*["']https?:/i.test(svg), "Unsafe or invalid SVG for " + topic.id);
     } else {
       assert.ok(image.length >= 12 && image.subarray(0, 4).toString("ascii") === "RIFF" && image.subarray(8, 12).toString("ascii") === "WEBP", "Invalid WebP asset for " + topic.id);
