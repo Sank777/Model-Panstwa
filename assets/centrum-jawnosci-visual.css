@@ -11,6 +11,7 @@
 #nik-visual-workspace .nv-list,#nik-visual-workspace .nv-detail{min-width:0;border:1px solid var(--nik-line);border-radius:15px;background:linear-gradient(150deg,rgba(16,43,73,.96),rgba(7,25,45,.98));box-shadow:0 8px 24px #0004}
 #nik-visual-workspace .nv-list{padding:.75rem;display:flex;flex-direction:column;gap:.55rem}
 #nik-visual-workspace .nv-list-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.2rem .2rem .45rem;color:#d8eaff;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+#nik-visual-workspace [data-nv-items]{display:grid;gap:.55rem;min-width:0}
 #nik-visual-workspace .nv-count{color:#9edfff;font-variant-numeric:tabular-nums}
 #nik-visual-workspace .nv-topic{display:grid;grid-template-columns:74px minmax(0,1fr);gap:.7rem;align-items:center;width:100%;min-width:0;padding:.55rem;text-align:left;color:var(--nik-text);border:1px solid transparent;border-radius:11px;background:#ffffff08;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
 #nik-visual-workspace .nv-topic:hover{border-color:#68caff88;background:#ffffff10}
