@@ -11,7 +11,7 @@
   if(!cards.length)return;
 
   const items=cards.map(card=>{
-    const id=card.id.replace("case-","");
+    const id=card.querySelector(".case-id")?.textContent?.match(/SWS-PL-\d{3}/)?.[0]||card.id.replace("case-","");
     const title=card.querySelector("h2")?.textContent?.trim()||id;
     const status=card.querySelector(".case-badge")?.textContent?.trim()||"Status w karcie";
     const button=document.createElement("button");
