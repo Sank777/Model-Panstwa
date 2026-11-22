@@ -11,10 +11,12 @@ const reply = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
 function validWebp(bytes: Uint8Array) {
-  return bytes.length >= 16 &&
-    String.fromCharCode(...bytes.slice(0, 4)) === "RIFF" &&
-    String.fromCharCode(...bytes.slice(8, 12)) === "WEBP" &&
-    bytes.length <= MAX_BYTES;
+  if (bytes.length < 16 || bytes.length > MAX_BYTES) return false;
+  if (String.fromCharCode(...bytes.slice(0, 4)) !== "RIFF") return false;
+  if (String.fromCharCode(...bytes.slice(8, 12)) !== "WEBP") return false;
+  // RIFF stores the remaining container length as a little-endian uint32.
+  const declaredSize = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(4, true) + 8;
+  return declaredSize === bytes.byteLength;
 }
 
 function dimensions(bytes: Uint8Array) {
@@ -30,20 +32,25 @@ Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return reply({ error: "POST only" }, 405);
 
-  const ticket = req.headers.get("authorization")?.match(/^Bearer\\s+([A-Za-z0-9_-]{32,100})$/)?.[1];
+  // The ticket is a high-entropy opaque bearer value; whitespace is matched correctly.
+  const ticket = req.headers.get("authorization")?.match(/^Bearer\s+([A-Za-z0-9_-]{32,100})$/)?.[1];
   if (!ticket) return reply({ error: "Upload ticket required" }, 401);
 
-  const length = Number(req.headers.get("content-length") || "0");
-  if (!Number.isFinite(length) || length <= 0 || length > MAX_BYTES) {
+  const rawLength = req.headers.get("content-length");
+  if (!rawLength || !/^[0-9]+$/.test(rawLength)) return reply({ error: "Content-Length required" }, 411);
+  const length = Number(rawLength);
+  if (!Number.isSafeInteger(length) || length <= 0 || length > MAX_BYTES) {
     return reply({ error: "Invalid content length" }, 413);
   }
 
   const bytes = new Uint8Array(await req.arrayBuffer());
-  if (!validWebp(bytes)) return reply({ error: "Only valid WebP files up to 8 MB are accepted" }, 415);
+  if (bytes.byteLength !== length) return reply({ error: "Content length mismatch" }, 400);
+  if (!validWebp(bytes)) return reply({ error: "Only structurally valid WebP files up to 8 MB are accepted" }, 415);
 
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   const sha256 = Array.from(new Uint8Array(digest), v => v.toString(16).padStart(2, "0")).join("");
   const expected = req.headers.get("x-content-sha256");
+  if (expected && !/^[a-f0-9]{64}$/.test(expected)) return reply({ error: "Invalid SHA-256 header" }, 400);
   if (expected && expected !== sha256) return reply({ error: "SHA-256 mismatch" }, 422);
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
@@ -69,6 +76,8 @@ Deno.serve(async (req: Request) => {
   });
   if (uploadError) return reply({ error: "Storage upload failed" }, 503);
 
+  // Uploads enter the private review state. A separate publication step must run
+  // only after deployment checks and explicit owner approval.
   const { error: registryError } = await admin.from("visual_asset_catalog").insert({
     asset_key: record.asset_key,
     title: record.title,
@@ -78,9 +87,9 @@ Deno.serve(async (req: Request) => {
     width,
     height,
     sha256,
-    status: "published",
-    published_at: new Date().toISOString(),
-    metadata: { transport: "leon-visual-bridge", verification: "webp-signature+sha256" },
+    status: "draft",
+    published_at: null,
+    metadata: { transport: "leon-visual-bridge", verification: "riff-webp+sha256" },
   });
 
   if (registryError) {
@@ -88,15 +97,14 @@ Deno.serve(async (req: Request) => {
     return reply({ error: "Registry write failed; uploaded object rolled back" }, 503);
   }
 
-  const publicUrl = supabaseUrl + "/storage/v1/object/public/visual-assets/" +
-    record.object_path.split("/").map(encodeURIComponent).join("/");
   return reply({
     ok: true,
     asset_key: record.asset_key,
-    public_url: publicUrl,
+    status: "draft",
     bytes: bytes.byteLength,
     sha256,
     width,
     height,
+    next_step: "review-and-publish",
   }, 201);
 });

@@ -1,0 +1,33 @@
+name: Leon Visual System Checks
+on:
+  pull_request:
+    paths:
+      - "assets/visual-library/**"
+      - "scripts/validate-visual-library.mjs"
+      - "tests/visual-library.test.mjs"
+      - ".github/workflows/leon-visual-system-check.yml"
+  push:
+    branches: [main]
+    paths:
+      - "assets/visual-library/**"
+      - "scripts/validate-visual-library.mjs"
+      - "tests/visual-library.test.mjs"
+      - ".github/workflows/leon-visual-system-check.yml"
+permissions:
+  contents: read
+concurrency:
+  group: leon-visual-system-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate visual library manifest
+        run: node scripts/validate-visual-library.mjs
+      - name: Run visual library tests
+        run: node --test tests/visual-library.test.mjs
