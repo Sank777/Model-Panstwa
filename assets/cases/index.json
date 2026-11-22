@@ -335,25 +335,14 @@
       "category": "bezpieczenstwo_ratownictwo",
       "institution": "PSP / OSP",
       "status": "temat_rozpoznawczy",
-      "evidenceStatus": "oczekuje_na_dokument_zrodlowy",
+      "evidenceStatus": "do_weryfikacji",
       "summary": "Analiza wyposażenia, szkoleń, procedur, rozmieszczenia zasobów, współpracy i finansowania gotowości ratowniczej.",
       "scope": [
         "Bezpieczeństwo i ratownictwo",
         "Filar 4 · 6 · 7 · 10",
         "Pojazdy elektryczne i instalacje PV"
       ],
-      "sources": [
-        {
-          "label": "Rozszerzona karta analityczna PSP/OSP",
-          "url": "sprawa-psp-elektro.html",
-          "type": "karta_wewnętrzna"
-        },
-        {
-          "label": "Karta wyposażenia i gotowości",
-          "url": "psp-elektromobilnosc-wyposazenie.html",
-          "type": "karta_wewnętrzna"
-        }
-      ],
+      "sources": [],
       "preliminaryNote": "Karta ma charakter rozpoznawczy. Pełny dokument źródłowy nie został jeszcze dołączony; nie należy przedstawiać pytań badawczych jako potwierdzonych braków.",
       "noteStatus": "oczekuje na dokument źródłowy",
       "lastSourceCheck": "2026-11-22",
