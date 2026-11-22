@@ -264,13 +264,6 @@
           "lastChecked": "2026-11-21"
         },
         {
-          "label": "Karta kontroli NIK P/25/083 – Cyberbezpieczeństwo wybranych usług kluczowych",
-          "url": "https://www.nik.gov.pl/kontrole/P/25/083/",
-          "type": "karta_kontroli",
-          "sourceId": "nik-cyber-control",
-          "lastChecked": "2026-11-21"
-        },
-        {
           "label": "Komunikat NIK z wynikami kontroli",
           "url": "https://www.nik.gov.pl/aktualnosci/transport-dostawy-energii-i-wody-pitnej-niewystarczajaco-zabezpieczone-przed-cyberatakami.html",
           "type": "komunikat_NIK",
@@ -357,13 +350,6 @@
       "sources": [
         {
           "label": "NIK: Zarządzanie kryzysowe w czasie powodzi – do poprawy",
-          "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
-          "type": "wyniki_kontroli",
-          "sourceId": "nik-flood-2026",
-          "lastChecked": "2026-11-21"
-        },
-        {
-          "label": "Szczegółowe wyniki kontroli zarządzania kryzysowego podczas powodzi",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/zarzadzanie-kryzysowe-w-czasie-powodzi-do-poprawy.html",
           "type": "wyniki_kontroli",
           "sourceId": "nik-flood-2026",
@@ -1134,7 +1120,7 @@
       "id": "PSP-OSP-001",
       "title": "Gotowość PSP/OSP do zdarzeń z pojazdami elektrycznymi i instalacjami PV",
       "visual": "psp-ev",
-      "evidenceStatus": "zebrano_linki",
+      "evidenceStatus": "do_weryfikacji",
       "summary": "Osobna propozycja do rozpoznania: wyposażenie, szkolenie, organizacja wsparcia i gotowość jednostek.",
       "sources": []
     }
