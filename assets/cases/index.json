@@ -717,10 +717,11 @@
       "summary": "Dane BDO, odpowiedzialność producentów, poziomy recyklingu, zadania gmin i nadzór.",
       "sources": [
         {
-          "label": "NIK: Gospodarowanie odpadami – brak rzetelnych danych",
+          "label": "Komunikat NIK z 25.03.2025 – Porażka w gospodarowaniu odpadami",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/gospodarowanie-odpadami.html",
           "type": "wyniki_kontroli",
-          "lastChecked": "2026-11-21"
+          "lastChecked": "2026-11-21",
+          "sourceId": "nik-waste-press-2025"
         },
         {
           "label": "Pełna informacja o wynikach kontroli P/23/039 (PDF, 116 stron)",
@@ -730,15 +731,27 @@
           "lastChecked": "2026-11-21"
         }
       ],
-      "preliminaryNote": "Wyniki kontroli NIK wskazują m.in. problemy z funkcjonalnością BDO i wiarygodnością danych o odpadach; kwoty i okresy należy przepisać z pełnej informacji pokontrolnej.",
+      "preliminaryNote": "W dwóch oficjalnych materiałach NIK znaleziono różne wartości wskaźników za 2023 r. Komunikat z 25.03.2025 podaje 47,6% odzysku i 15,9% recyklingu, natomiast pełna informacja o wynikach kontroli P/23/039 (KSI.430.7.2024) podaje 47,5% i 15,8%. Do czasu wyjaśnienia różnicy każdą wartość należy cytować wraz z nazwą dokumentu.",
       "noteStatus": "wstępne ustalenia przepisane z publicznej informacji lub raportu NIK; wymaga kontroli pełnego zakresu, tabel i wystąpień",
-      "lastSourceCheck": "2026-11-21",
+      "lastSourceCheck": "2026-11-22",
       "preliminaryFacts": [
         {
-          "text": "W 2023 r. według danych GUS przytoczonych przez NIK do odzysku przekazano 47,6% odpadów, w tym do recyklingu 15,9%.",
+          "text": "Komunikat NIK z 25.03.2025 podaje, że w 2023 r. do odzysku przekazano 47,6% odpadów, w tym 15,9% do recyklingu.",
+          "kind": "finding",
+          "sourceId": "nik-waste-press-2025",
+          "scope": "Komunikat NIK z 25.03.2025; dane krajowe za 2023 r."
+        },
+        {
+          "text": "Pełna informacja o wynikach kontroli P/23/039 (KSI.430.7.2024) podaje dla 2023 r. 47,5% odzysku i 15,8% recyklingu.",
           "kind": "finding",
           "sourceId": "nik-waste-2024",
-          "scope": "Dane krajowe za 2023 r.; wartości cytowane w raporcie NIK"
+          "scope": "Raport NIK; ocena ogólna, dane krajowe za 2023 r."
+        },
+        {
+          "text": "Między tymi dwoma materiałami NIK występuje różnica 0,1 punktu procentowego w obu wskaźnikach. Nie należy łączyć wartości ani przypisywać komunikatowi danych z raportu bez wskazania źródła.",
+          "kind": "discrepancy",
+          "sourceId": "nik-waste-press-2025",
+          "scope": "Rozbieżność między komunikatem prasowym a pełnym raportem NIK"
         },
         {
           "text": "Kontrola obejmowała Ministerstwo Klimatu i Środowiska, sześć urzędów marszałkowskich, 16 urzędów gmin, trzy związki gminne, NFOŚiGW i pięć WFOŚiGW.",
