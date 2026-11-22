@@ -36,6 +36,7 @@ for (const topic of data.nikTopics) {
     const isSvg = topic.imagePlan?.status === "svg_dodany" && /^assets\/cases\/illustrations\/[a-z0-9-]+\.svg$/.test(imagePath);
     const isWebp = topic.imagePlan?.status === "webp_dodany" && /^assets\/cases\/illustrations\/[a-z0-9-]+\.webp$/.test(imagePath);
     assert.ok(topic.imagePlan?.scene && topic.imagePlan?.caption && (isSvg || isWebp), "Missing or mismatched local illustration asset for " + topic.id);
+    assert.ok(typeof topic.imagePlan.alt === "string" && topic.imagePlan.alt.trim().length > 0 && topic.imagePlan.alt.length <= 160, "Illustration alt text must be concise for " + topic.id);
     const image = await readFile(new URL("../" + imagePath, import.meta.url));
     if (isSvg) {
       const svg = image.toString("utf8");
@@ -48,6 +49,9 @@ for (const topic of data.nikTopics) {
     assert.ok(/^https:\/\//i.test(source.url), "Only HTTPS topic sources are allowed: " + source.url);
     assert.ok(source.label && source.type, "Topic source label/type missing for " + topic.id);
   }
+  const sourceUrls = (topic.sources || []).map(source => source.url);
+  assert.equal(new Set(sourceUrls).size, sourceUrls.length, "Duplicate source URL for " + topic.id);
+  if (topic.evidenceStatus === "zebrano_linki") assert.ok(sourceUrls.length > 0, "Status zebrano_linki requires at least one source for " + topic.id);
 }
 assert.equal(topicsWithSources, 11, "Expected source leads for the eleven citizen/NIK topics; PSP remains separately marked for research");
 assert.equal(data.imageDelivery.preferredFormat, "webp");
