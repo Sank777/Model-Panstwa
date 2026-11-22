@@ -35,6 +35,26 @@
           "label": "Karta kontroli P/25/016",
           "url": "https://www.nik.gov.pl/kontrole/P/25/016/",
           "type": "karta_kontroli"
+        },
+        {
+          "label": "GDDKiA – stan techniczny obiektów mostowych",
+          "url": "https://www.gov.pl/web/gddkia/stan-techniczny-obiektow-mostowych",
+          "type": "standard_zarzadcy"
+        },
+        {
+          "label": "GDDKiA – kontrole mostów na drogach krajowych",
+          "url": "https://www.gov.pl/web/gddkia/stan-obiektow-mostowych-na-drogach-krajowych-zarzadzanych-przez-gddkia",
+          "type": "standard_zarzadcy"
+        },
+        {
+          "label": "GUNB – kontrole stanu technicznego obiektów",
+          "url": "https://www.gov.pl/web/gunb/kontrole-stanu-technicznego-obiektow",
+          "type": "wytyczne_urzędowe"
+        },
+        {
+          "label": "GUNB – wyjaśnienia Prawa budowlanego",
+          "url": "https://www.gov.pl/web/gunb/wyjasnienia-przepisow-ustawy---prawo-budowlane",
+          "type": "wyjaśnienia_urzędowe"
         }
       ],
       "visual": null,
@@ -64,6 +84,21 @@
           "label": "Pełny raport PDF",
           "url": "https://www.nik.gov.pl/kontrole/wyniki-kontroli-nik/pobierz,kin~p_24_019_202408261448581724676538~01,typ,kk.pdf",
           "type": "raport"
+        },
+        {
+          "label": "BGK – Program Inwestycji Strategicznych",
+          "url": "https://www.bgk.pl/programy-i-fundusze/inwestycje/rzadowy-fundusz-polski-lad-program-inwestycji-strategicznych/",
+          "type": "dokumentacja_programu"
+        },
+        {
+          "label": "KPRM – zasady Programu Inwestycji Strategicznych",
+          "url": "https://www.gov.pl/web/premier/program-inwestycji-strategicznych",
+          "type": "zasady_programu"
+        },
+        {
+          "label": "KPRM – zmiany w Programie i uchwała nr 74/2024",
+          "url": "https://www.gov.pl/web/premier/program-inwestycji-strategicznych.",
+          "type": "akty_i_zmiany"
         }
       ],
       "visual": null,
@@ -88,6 +123,16 @@
           "label": "Raport RIO – pełny dokument",
           "url": "https://bip.kielce.rio.gov.pl/temp/zdjecia_art/4401/%C5%81ag%C3%B3w%202024.pdf",
           "type": "raport"
+        },
+        {
+          "label": "Senat – sprawozdanie RIO i wykonanie budżetów JST za 2024 r. (opis sytuacji Łagowa)",
+          "url": "https://www.senat.gov.pl/download/gfx/senat/pl/senatdruki/13728/druk/372.pdf",
+          "type": "sprawozdanie_innej_instytucji"
+        },
+        {
+          "label": "BIP RIO Kielce – raport o stanie gospodarki finansowej Łagowa",
+          "url": "https://bip.kielce.rio.gov.pl/kategorie/240-raporty-o-stanie-gospodarki-finansowej-jst/artykuly/651-raportu-o-stanie-gospodarki-finansowej-miasta-i-gminy-lagow",
+          "type": "dokument_źródłowy"
         }
       ],
       "visual": null,
@@ -112,6 +157,21 @@
           "label": "Wyniki kontroli NIK",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/dostep-do-informacji-publicznej-2023.html",
           "type": "wyniki_kontroli"
+        },
+        {
+          "label": "UODO – jakie dokumenty i przez jaki okres publikować w BIP?",
+          "url": "https://uodo.gov.pl/pl/677/4276",
+          "type": "stanowisko_urzędowe"
+        },
+        {
+          "label": "NSA – dostęp do informacji publicznej",
+          "url": "https://nww.nsa.gov.pl/bip/informacje-ogolne/2-informacje-ogolne/dostep-do-informacji-publicznej/",
+          "type": "informacja_sądu"
+        },
+        {
+          "label": "Ustawa o dostępie do informacji publicznej – ELI",
+          "url": "https://eli.gov.pl/eli/DU/2001/1198/ogl",
+          "type": "akt_prawny"
         }
       ],
       "visual": null,
@@ -136,6 +196,21 @@
           "label": "Materiał NIK",
           "url": "https://www.nik.gov.pl/nik-o-korupcji/nik-o-realizacji-zamowien-publicznych.html",
           "type": "material"
+        },
+        {
+          "label": "UZP – sprawozdanie z funkcjonowania systemu zamówień publicznych za 2024 r.",
+          "url": "https://www.gov.pl/web/uzp/sprawozdanie-prezesa-urzedu-zamowien-publicznych-z-funkcjonowania-systemu-zamowien-publicznych-w-2024-r",
+          "type": "sprawozdanie_urzędowe"
+        },
+        {
+          "label": "UZP – wskazówki do analizy potrzeb i wymagań",
+          "url": "https://www.gov.pl/web/uzp/wskazowki-dla-zamawiajacych-publicznych-do-opracowania-analizy-potrzeb-i-wymagan",
+          "type": "wytyczne_urzędowe"
+        },
+        {
+          "label": "UZP – pytania i odpowiedzi dotyczące Pzp",
+          "url": "https://www.gov.pl/web/uzp/pzp---pytania-i-odpowiedzi",
+          "type": "wyjaśnienia_urzędowe"
         }
       ],
       "visual": null,
@@ -165,6 +240,21 @@
           "label": "Omówienie NIK",
           "url": "https://www.nik.gov.pl/aktualnosci/nik-o-jawnosci-i-przejrzystosci-finansow-publicznych.html",
           "type": "komunikat"
+        },
+        {
+          "label": "Ministerstwo Finansów – szeregi czasowe finansów publicznych",
+          "url": "https://www.gov.pl/web/finanse/szeregi-czasowe--finanse-publiczne",
+          "type": "dane_publiczne"
+        },
+        {
+          "label": "Ministerstwo Finansów – sprawozdania operatywne miesięczne",
+          "url": "https://www.gov.pl/web/finanse/sprawozdania-operatywne-miesieczne",
+          "type": "sprawozdania_urzędowe"
+        },
+        {
+          "label": "Ustawa o finansach publicznych – jawność i przejrzystość (art. 33–34)",
+          "url": "https://api.sejm.gov.pl/eli/acts/DU/2023/1270/text.html",
+          "type": "akt_prawny"
         }
       ],
       "visual": null,
@@ -189,6 +279,21 @@
           "label": "Sprawozdanie NIK za 2018 r. (PDF)",
           "url": "https://www.nik.gov.pl/plik/id%2C20101%2Cvp%2C22721.pdf",
           "type": "raport"
+        },
+        {
+          "label": "UZP – wytyczne i dobre praktyki zamówień podprogowych (2025)",
+          "url": "https://www.gov.pl/web/uzp/wytyczne-i-dobre-praktyki-dotyczace-tzw-zamowien-podprogowych",
+          "type": "wytyczne_urzędowe"
+        },
+        {
+          "label": "UZP – zamówienia poniżej progu Pzp (2026)",
+          "url": "https://www.gov.pl/web/uzp/zamowienia-publiczne-bez-tajemnic--zamowienia-ponizej-progu-pzp",
+          "type": "wyjaśnienia_urzędowe"
+        },
+        {
+          "label": "UZP – sprawozdanie systemu zamówień publicznych za 2024 r.",
+          "url": "https://www.gov.pl/web/uzp/sprawozdanie-prezesa-urzedu-zamowien-publicznych-z-funkcjonowania-systemu-zamowien-publicznych-w-2024-r",
+          "type": "sprawozdanie_urzędowe"
         }
       ],
       "visual": null,
