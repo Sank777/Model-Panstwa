@@ -82,6 +82,11 @@
         .sort((a,b)=>a.id.localeCompare(b.id,"en"));
       if(nikTopics.length!==11)throw new Error("Rejestr nie zawiera kompletu 11 tematów.");
       renderNikList(nikTopics);
+      const selected=items.find(x=>x.button.getAttribute("aria-pressed")==="true");
+      if(selected?.id==="SWS-PL-008"){
+        selected.nikList.hidden=false;
+        selected.button.setAttribute("aria-expanded","true");
+      }
     })
     .catch(()=>{
       const item=items.find(x=>x.id==="SWS-PL-008");
@@ -97,7 +102,10 @@
   function select(id){
     const item=items.find(x=>x.id===id);
     if(!item)return;
-    items.forEach(x=>x.button.setAttribute("aria-pressed",x.id===id?"true":"false"));
+    items.forEach(x=>{
+      x.button.setAttribute("aria-pressed",x.id===id?"true":"false");
+      if(x.id!=="SWS-PL-008"&&x.nikList){x.nikList.hidden=true;x.button.setAttribute("aria-expanded","false");}
+    });
     detail.replaceChildren();
     const clone=item.card.cloneNode(true);
     clone.removeAttribute("id");
