@@ -36,17 +36,5 @@
 #nik-visual-workspace .nv-sources strong{display:block;margin-bottom:.35rem;color:#dff4ff;font-size:.75rem}
 #nik-visual-workspace .nv-source-links{display:flex;gap:.45rem .8rem;flex-wrap:wrap}
 #nik-visual-workspace .nv-source-links a{color:#8edaff;font-size:.75rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
-#nik-visual-workspace .nv-gallery{margin-top:1rem;padding:.85rem;border:1px solid var(--nik-line);border-radius:15px;background:#071a2dcc}
-#nik-visual-workspace .nv-gallery-head{display:flex;justify-content:space-between;gap:.7rem;align-items:baseline;flex-wrap:wrap;margin-bottom:.65rem}
-#nik-visual-workspace .nv-gallery-head h3{margin:0;font-size:.98rem}
-#nik-visual-workspace .nv-gallery-head p{margin:0;color:#a9c4dc;font-size:.75rem}
-#nik-visual-workspace .nv-gallery-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.55rem}
-#nik-visual-workspace .nv-gallery-item{min-width:0;padding:.35rem;border:1px solid #4b80a677;border-radius:9px;background:#0c2742;color:#eaf5ff;text-align:left;cursor:pointer}
-#nik-visual-workspace .nv-gallery-item[aria-pressed=true]{border-color:#5bcaff;box-shadow:0 0 0 1px #5bcaff55}
-#nik-visual-workspace .nv-gallery-item img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:5px;background:#061426}
-#nik-visual-workspace .nv-gallery-item span{display:block;padding:.35rem .1rem .1rem;font-size:.7rem;font-weight:750;line-height:1.2}
 #nik-visual-workspace .nv-error{padding:1rem;border:1px dashed #8bb4d4;border-radius:10px;color:#d9e9f7;background:#0a2037}
-@media(max-width:1000px){#nik-visual-workspace .nv-layout{grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr)}#nik-visual-workspace .nv-analysis{grid-template-columns:1fr}#nik-visual-workspace .nv-block{padding:.75rem}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:700px){#nik-visual-workspace .nv-layout{grid-template-columns:minmax(0,1fr)}#nik-visual-workspace .nv-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}#nik-visual-workspace .nv-list-head{grid-column:1/-1}#nik-visual-workspace .nv-topic{grid-template-columns:58px minmax(0,1fr);gap:.5rem;padding:.42rem}#nik-visual-workspace .nv-topic img{width:58px;height:46px}#nik-visual-workspace .nv-topic strong{font-size:.75rem}#nik-visual-workspace .nv-detail-top{grid-template-columns:1fr}#nik-visual-workspace .nv-hero-image{max-height:210px}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:420px){#nik-visual-workspace .nv-list{grid-template-columns:1fr}#nik-visual-workspace .nv-topic{grid-template-columns:68px minmax(0,1fr)}#nik-visual-workspace .nv-topic img{width:68px;height:48px}#nik-visual-workspace .nv-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){#nik-visual-workspace *{transition:none!important}}
