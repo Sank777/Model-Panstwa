@@ -53,8 +53,8 @@
         const section=document.createElement("section");
         section.className="sws-analysis-block";
         const title=document.createElement("h3");
-        const labels=["USTALENIA I MATERIAŁY","POWIĄZANIA I PRZEBIEG SPRAWY","GRANICE WNIOSKÓW I LEKCJE"];
-        title.textContent=labels[Math.min(index,2)];
+        const labels=["USTALENIA I MATERIAŁY","POWIĄZANIA I PRZEBIEG SPRAWY","GRANICE WNIOSKÓW","PYTANIA KONTROLNE I LEKCJE"];
+        title.textContent=labels[Math.min(index,3)];
         const sourceHeading=heading.cloneNode(true);
         sourceHeading.className="sws-source-heading";
         section.append(title,sourceHeading);
