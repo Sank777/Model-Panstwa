@@ -103,6 +103,22 @@
       if(ok)visible++;
     });
     count.textContent=visible+" / "+cards.length+" spraw";
+    let emptyMessage=list.querySelector(".sws-empty");
+    if(visible===0){
+      if(!emptyMessage){
+        emptyMessage=document.createElement("p");
+        emptyMessage.className="sws-empty";
+        emptyMessage.textContent="Nie znaleziono spraw SWS dla wybranych filtrów. Zmień hasło lub wyczyść filtry.";
+        list.append(emptyMessage);
+      }
+      detail.replaceChildren();
+      const notice=document.createElement("p");
+      notice.className="sws-empty";
+      notice.textContent="Brak spraw spełniających wybrane kryteria.";
+      detail.append(notice);
+      return;
+    }
+    if(emptyMessage)emptyMessage.remove();
     const selected=items.find(x=>x.button.getAttribute("aria-pressed")==="true");
     if(!selected||selected.button.hidden){
       const first=items.find(x=>!x.button.hidden);
