@@ -121,3 +121,11 @@
 .sws-nik-subtopic-number{min-height:24px;font-size:.63rem}
 .sws-nik-subtopic[aria-pressed="true"]{border-color:#6acaff;background:#14517a88}
 @media(max-width:760px){.sws-layout{grid-template-columns:minmax(0,1fr)}.sws-list{max-height:42vh;display:flex}.sws-topic{grid-template-columns:42px minmax(0,1fr)}.sws-detail{min-height:0}}
+
+/* Ilustracja i metadane tematu NIK w panelu szczegółów SWS. */
+.sws-nik-hero{display:grid;grid-template-columns:minmax(130px,.42fr) minmax(0,1fr);gap:.8rem;align-items:center;margin:.35rem 0 .8rem}
+.sws-nik-hero img{display:block;width:100%;max-height:150px;aspect-ratio:16/9;object-fit:cover;border:1px solid #426d8d;border-radius:9px;background:#071a2d}
+.sws-nik-hero h2{margin:.1rem 0 .4rem}
+.sws-nik-meta{margin:.2rem 0;color:#a9c4dc;font-size:.75rem}
+.sws-nik-hero+.sws-analysis-block{margin-top:.5rem}
+@media(max-width:560px){.sws-nik-hero{grid-template-columns:1fr}.sws-nik-hero img{max-height:170px}}
