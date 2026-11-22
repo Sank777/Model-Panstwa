@@ -86,29 +86,3 @@
 .pillar-tile:before,.pillar-tile:after{display:none!important;content:none!important}
 .pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:-9%!important;width:118%!important;height:118%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;transform:none!important;pointer-events:none!important}
 @media(prefers-reduced-motion:reduce){.hero-banner>.visual-engine-image img,.pillar-tile>.visual-engine-tile-image{transform:none!important}}
-
-/* LEON 7.4.0 — INDEPENDENT ARTWORK + CSS-FIRST FALLBACK
-   Each pillar owns a standalone SVG. CSS keeps artwork visible if JavaScript
-   or an image request fails, so the engine is never the sole image provider. */
-.hero-banner{background-image:url("menu/leon-hero.webp")!important;background-size:cover!important;background-position:50% 50%!important}
-.pillar-tile{background-color:#0b2038!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
-.pillar-tile.pillar-1{background-image:url("menu/leon-filar-01-fundament.svg")!important}
-.pillar-tile.pillar-2{background-image:url("menu/leon-filar-02-gospodarka.svg")!important}
-.pillar-tile.pillar-3{background-image:url("menu/leon-filar-03-prawo.svg")!important}
-.pillar-tile.pillar-4{background-image:url("menu/leon-filar-04-bezpieczenstwo.svg")!important}
-.pillar-tile.pillar-5{background-image:url("menu/leon-filar-05-emerytury.svg")!important}
-.pillar-tile.pillar-6{background-image:url("menu/leon-filar-06-kapital-ludzki.svg")!important}
-.pillar-tile.pillar-7{background-image:url("menu/leon-filar-07-strategia.svg")!important}
-.pillar-tile.pillar-8{background-image:url("menu/leon-filar-08-informacje.svg")!important}
-.pillar-tile.pillar-9{background-image:url("menu/leon-filar-09-demografia.svg")!important}
-.pillar-tile.pillar-10{background-image:url("menu/leon-filar-10-finanse.svg")!important}
-.pillar-tile>.tile-copy{display:flex!important;position:absolute!important;z-index:4!important;left:clamp(8px,1vw,13px)!important;right:clamp(8px,1vw,13px)!important;bottom:clamp(8px,.9vw,12px)!important;flex-direction:column!important;align-items:flex-start!important;gap:3px!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;color:#fff!important;text-shadow:0 1px 3px #000,0 0 8px #000!important;pointer-events:none!important}
-.pillar-tile>.tile-copy small{display:block!important;margin:0!important;font-size:clamp(9px,.66vw,11px)!important;line-height:1.2!important;font-weight:750!important;color:#d6e7f7!important}
-.pillar-tile>.tile-copy strong{display:block!important;font-size:clamp(12px,1.02vw,15px)!important;line-height:1.18!important;font-weight:800!important;overflow-wrap:break-word!important}
-.pillar-tile>.tile-copy em{display:block!important;margin:2px 0 0!important;font-size:clamp(9px,.72vw,11px)!important;line-height:1.22!important;color:#dce7f2!important;font-style:normal!important}
-.pillar-tile>.tile-icon{display:none!important}
-.pillar-tile>.visual-engine-tile-image{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;pointer-events:none!important;z-index:0!important}
-.hero-banner>.visual-engine-image{position:absolute!important;inset:0!important;overflow:hidden!important}
-.hero-banner>.visual-engine-image img{width:100%!important;height:130%!important;object-fit:cover!important;object-position:50% 0%!important}
-@media(max-width:700px){.hero-banner{aspect-ratio:3.55/1!important}.hero-banner>.visual-engine-image img{height:125%!important}}
-@media(prefers-reduced-motion:reduce){.hero-banner>.visual-engine-image img,.pillar-tile>.visual-engine-tile-image{transform:none!important}}
