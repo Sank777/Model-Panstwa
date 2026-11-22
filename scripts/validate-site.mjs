@@ -53,14 +53,14 @@ const layout = fs.readFileSync(path.join(root, "assets/visual-engine-layout.css"
 const tileCount = (index.match(/class=["'][^"']*pillar-tile\b/g) || []).length;
 if (tileCount !== 10) failures.push("Strona główna powinna zawierać 10 kafelków, znaleziono " + tileCount);
 else checks.push("Strona główna zawiera 10 kafelków");
-const dataBlock = rom.match(/const data = \[([\s\S]*?)\n  \];/);
-const romItems = dataBlock ? (dataBlock[1].match(/^\s*\["/gm) || []).length : 0;
-if (romItems !== 10) failures.push("ROM powinien zawierać 10 opisów filarów, znaleziono " + romItems);
-else checks.push("ROM zawiera 10 opisów filarów");
-for (const match of rom.matchAll(/asset:"([^"]+)"/g)) {
-  const asset = path.posix.join("assets", match[1]);
-  if (!exists(asset)) failures.push("ROM: brak grafiki " + asset);
-  else checks.push("ROM: " + asset);
+const visualRegistry = JSON.parse(fs.readFileSync(path.join(root, "assets/visual-registry.json"), "utf8"));
+const romItems = visualRegistry.tiles.length;
+if (romItems !== 10) failures.push("Rejestr grafik powinien zawierać 10 opisów filarów, znaleziono " + romItems);
+else checks.push("Rejestr grafik zawiera 10 opisów filarów");
+for (const assetName of new Set([visualRegistry.hero.asset, ...visualRegistry.tiles.map(tile => tile.asset)])) {
+  const asset = path.posix.join("assets", assetName);
+  if (!exists(asset)) failures.push("Rejestr grafik: brak pliku " + asset);
+  else checks.push("Rejestr grafik: " + asset);
 }
 if (!/dataset\.visualState\s*=\s*"rendered"/.test(engine) || !/dataset\.visualState\s*=\s*"fallback"/.test(engine)) {
   failures.push("Silnik nie raportuje stanów rendered/fallback");
