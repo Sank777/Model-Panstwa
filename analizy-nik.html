@@ -88,11 +88,11 @@ body{margin:0;background:radial-gradient(ellipse at 50% -18%,#17406a 0%,#081a30 
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
 const make=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
-const localImage=(topic)=>topic.imagePlan&&/^assets\/cases\/[a-z0-9/_-]+\.svg$/i.test(topic.imagePlan.src||"")?topic.imagePlan.src:(topic.id==="NIK-001"?"assets/cases/cyber-infrastructure-hero.webp":null);
+const localImage=(topic)=>topic.imagePlan&&/^assets\/cases\/[a-z0-9/_-]+\.(?:svg|webp)$/i.test(topic.imagePlan.src||"")?topic.imagePlan.src:null;
 const safeUrl=(url)=>{try{const u=new URL(url);return u.protocol==="https:"?u.href:null}catch{return null}};
 const statusName={do_weryfikacji:"Do weryfikacji",zebrano_linki:"Zebrano linki — trwa analiza",dokumenty_pobrane:"Dokumenty pobrane",dane_zweryfikowane:"Dane zweryfikowane",karta_opracowana:"Karta opracowana",wymaga_aktualizacji:"Wymaga aktualizacji"};
 let topics=[],active="";
-function topicImage(t){if(t.id==="NIK-001")return "assets/cases/cyber-infrastructure-hero.webp";return localImage(t)||"assets/cases/cyber.svg"}
+function topicImage(t){return localImage(t)||"assets/cases/cyber.svg"}
 function choose(id){active=id;const t=topics.find(x=>x.id===id);if(!t)return;renderDetail(t);document.querySelectorAll("[data-topic-id]").forEach(b=>b.setAttribute("aria-current",b.dataset.topicId===id?"true":"false"));history.replaceState(null,"",location.pathname+"?topic="+encodeURIComponent(id));}
 function renderList(){
  const list=$("#nd-list"),psp=$("#nd-psp"),gallery=$("#nd-gallery-grid");
