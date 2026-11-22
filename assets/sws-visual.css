@@ -53,3 +53,5 @@
 .sws-detail .nik-topic-card{min-width:0;padding:.65rem;border:1px solid #426d8d;border-radius:9px;background:#0b2944}
 .sws-detail .nik-topic-card h2{font-size:.9rem}
 @media(max-width:560px){.sws-detail .nik-proposals-grid{grid-template-columns:1fr}}
+
+.sws-empty{margin:.5rem 0;padding:.8rem;border:1px dashed #6485a1;border-radius:9px;color:#c0d2e5;font-size:.82rem;line-height:1.5}
