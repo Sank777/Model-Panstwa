@@ -26,13 +26,13 @@ test("local CSS artwork remains visible even if JavaScript cannot start", () => 
 });
 
 test("HTML labels remain available over standalone artwork", () => {
-  assert.doesNotMatch(css, /\.pillar-tile > \.tile-copy,\s*\.pillar-tile > \.tile-icon \{ display:none !important; \}/);
-  assert.match(engine, /function ensureTileCopy\(tile,recipe\)/);
+  assert.match(engine, /Keep accessible HTML labels above the independent SVG artwork/);
+  assert.doesNotMatch(engine, /generatedCopy\)generatedCopy\.remove/);
 });
 
 test("visual pages share the same engine version; admin loads layout only", () => {
-  for (const html of pages) assert.match(html, /visual-engine-layout\.css\?v=7\.3\.4/);
-  for (const page of pages.slice(0, 2)) assert.match(page, /visual-engine\.js\?v=7\.3\.4/);
+  for (const html of pages) assert.match(html, /visual-engine-layout\.css\?v=7\.4\.0/);
+  for (const page of pages.slice(0, 2)) assert.match(page, /visual-engine\.js\?v=7\.4\.0/);
   assert.doesNotMatch(pages[2], /visual-engine\.js/);
   assert.match(engine, /const VERSION="7\.4\.0";/);
 });
