@@ -41,7 +41,7 @@
 const id=new URLSearchParams(location.search).get("id")||"NIK-001";const $=s=>document.querySelector(s);
 const labels={do_weryfikacji:"Do weryfikacji",zebrano_linki:"Zebrano źródła — analiza w toku",dokumenty_pobrane:"Dokumenty pobrane — analiza w toku",dane_zweryfikowane:"Dane zweryfikowane",karta_opracowana:"Analiza opracowana",wymaga_aktualizacji:"Wymaga aktualizacji",nie_dotyczy:"Nie dotyczy"};
 const fillList=(selector,items)=>{const list=$(selector);list.replaceChildren();(items||[]).forEach(value=>{const li=document.createElement("li");li.textContent=value;list.append(li);});};
-fetch("assets/cases/index.json",{credentials:"same-origin"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}).then(data=>{
+fetch("assets/cases/index.json?v=20261122-illustrations1",{credentials:"same-origin",cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}).then(data=>{
 const topics=data.nikTopics.filter(t=>t.id.startsWith("NIK-"));const topic=topics.find(t=>t.id===id);if(!topic)throw Error("Nie znaleziono analizy "+id);
 const blocks=topic.analysisBlocks||[],desc=blocks.find(x=>x.id==="nik-description"),links=blocks.find(x=>x.id==="connections-tested"),lesson=blocks.find(x=>x.id==="system-lesson"),plan=topic.imagePlan||{};
 $("#topicId").textContent=topic.id;$("#crumbId").textContent=topic.id;$("#topicTitle").textContent=topic.title;$("#topicSummary").textContent=topic.summary||"";
