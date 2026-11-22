@@ -66,6 +66,15 @@
         }
         heading.replaceWith(section);
       });
+      const sourceLinks=body.querySelector(":scope > .case-links");
+      if(sourceLinks){
+        const sourceSection=document.createElement("section");
+        sourceSection.className="sws-analysis-block sws-sources";
+        const sourceTitle=document.createElement("h3");
+        sourceTitle.textContent="ŹRÓDŁA I DOKUMENTY";
+        sourceSection.append(sourceTitle,sourceLinks);
+        body.append(sourceSection);
+      }
     }
     const nested=clone.querySelector(".nik-proposals");
     if(nested){
