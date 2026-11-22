@@ -38,3 +38,35 @@
 #nik-visual-workspace .nv-source-links a{color:#8edaff;font-size:.75rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
 #nik-visual-workspace .nv-error{padding:1rem;border:1px dashed #8bb4d4;border-radius:10px;color:#d9e9f7;background:#0a2037}
 @media(prefers-reduced-motion:reduce){#nik-visual-workspace *{transition:none!important}}
+
+
+/* Jednolity szablon każdej z 11 kart NIK — opis, dowody, analiza i źródła. */
+#nik-visual-workspace .nv-detail-top{grid-template-columns:minmax(0,1fr) minmax(220px,.72fr);align-items:start}
+#nik-visual-workspace .nv-intro{min-width:0}
+#nik-visual-workspace .nv-image-caption{grid-column:2;margin:-.55rem 0 0;color:#a9c4dc;font-size:.7rem;line-height:1.4}
+#nik-visual-workspace .nv-evidence-section,
+#nik-visual-workspace .nv-sources{min-width:0;padding:.85rem 1rem;border:1px solid #4c83aa88;border-radius:11px;background:linear-gradient(145deg,#0d2945,#091d33)}
+#nik-visual-workspace .nv-evidence-section h4,
+#nik-visual-workspace .nv-sources h4{margin:0 0 .6rem;color:#f5f9ff;font-size:.9rem}
+#nik-visual-workspace .nv-preliminary-note{margin:0 0 .65rem;color:#d3e2ef;font-size:.82rem;line-height:1.5}
+#nik-visual-workspace .nv-facts{display:grid;gap:.5rem;margin:.5rem 0;padding:0;list-style:none}
+#nik-visual-workspace .nv-fact{padding:.65rem .75rem;border:1px solid #5b91b866;border-radius:9px;background:#061a2d;color:#dce9f5;font-size:.8rem;line-height:1.5}
+#nik-visual-workspace .nv-fact-scope{display:block;margin-top:.3rem;color:#8fc9e9;font-size:.7rem}
+#nik-visual-workspace .nv-no-facts{margin:.2rem 0;color:#c0d2e5;font-size:.8rem}
+#nik-visual-workspace .nv-note-status{margin:.65rem 0 0;padding:.6rem .7rem;border-left:3px solid #d6b45c;background:#172a3c;color:#e7dcbf;font-size:.74rem;line-height:1.45}
+#nik-visual-workspace .nv-analysis{align-items:stretch}
+#nik-visual-workspace .nv-block{height:100%}
+#nik-visual-workspace .nv-sources{background:#061a2d}
+#nik-visual-workspace .nv-sources h4{margin-bottom:.45rem}
+#nik-visual-workspace .nv-source-links{align-items:flex-start}
+#nik-visual-workspace .nv-source-links a{display:inline-flex;max-width:100%;padding:.35rem .5rem;border:1px solid #426d8d;border-radius:7px;background:#0b2944;text-decoration:none}
+#nik-visual-workspace .nv-source-links a:hover{border-color:#8edaff;background:#103858}
+#nik-visual-workspace .nv-topic-placeholder,
+#nik-visual-workspace .nv-image-placeholder{display:grid;place-items:center;border:1px dashed #6485a1;border-radius:8px;background:#061426;color:#a9c4dc;font-size:.72rem;font-weight:800}
+#nik-visual-workspace .nv-topic-placeholder{width:74px;height:54px}
+#nik-visual-workspace .nv-image-placeholder{min-height:150px}
+@media(max-width:760px){
+ #nik-visual-workspace .nv-detail-top{grid-template-columns:minmax(0,1fr)}
+ #nik-visual-workspace .nv-image-caption{grid-column:1;margin:-.55rem 0 0}
+ #nik-visual-workspace .nv-analysis{grid-template-columns:minmax(0,1fr)}
+}
