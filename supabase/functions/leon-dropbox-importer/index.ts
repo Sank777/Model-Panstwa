@@ -194,7 +194,11 @@ Deno.serve(async req => {
   }
 
   const sha256 = await digest(bytes);
-  const objectPath = `imports/${record.asset_key}/${sha256}.webp`;
+  // Use the exact path reserved by the one-time ticket; never derive a second path.
+  const objectPath = typeof record.object_path === "string" ? record.object_path : "";
+  if (!objectPath.startsWith(`imports/${record.asset_key}/`) || !objectPath.endsWith(".webp")) {
+    return reply({ error: "Import ticket contains an invalid storage path" }, 500);
+  }
   const { error: uploadError } = await admin.storage.from("visual-drafts").upload(objectPath, bytes, {
     contentType: "image/webp", cacheControl: "31536000", upsert: false
   });
