@@ -79,7 +79,7 @@ async function fetchDropbox(initial: URL): Promise<Uint8Array> {
     }
     if (!r.ok) throw new Error("upstream");
     const type = (r.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
-    if (type && type !== "image/webp" && type !== "application/octet-stream") {
+    if (type && type !== "image/webp" && type !== "image/jpeg" && type !== "image/png" && type !== "application/octet-stream") {
       await r.body?.cancel();
       throw new Error("content-type");
     }
@@ -175,7 +175,7 @@ Deno.serve(async req => {
     const reason = e instanceof Error ? e.message : "upstream";
     const status = reason === "too-large" ? 413 : reason === "content-type" ? 415 : 502;
     return reply({ error: reason === "too-large" ? "File exceeds 8 MB" :
-      reason === "content-type" ? "Dropbox response is not a WebP image" :
+      reason === "content-type" ? "Dropbox response is not a supported image" :
       "Dropbox download failed or returned an unsafe redirect" }, status);
   }
   const inputType = sourceImageType(bytes);
