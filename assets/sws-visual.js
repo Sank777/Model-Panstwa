@@ -7,7 +7,7 @@
   const list=root.querySelector("[data-sws-list]");
   const detail=root.querySelector("[data-sws-detail]");
   const count=root.querySelector("[data-sws-count]");
-  const cards=[...source.querySelectorAll('article[id^="case-sws-pl-"]')];
+  const cards=[...source.querySelectorAll("article.case-card")].filter(card=>/^SWS-PL-\d{3}/.test(card.querySelector(".case-id")?.textContent?.trim()||""));
   if(!cards.length)return;
 
   const items=cards.map(card=>{
