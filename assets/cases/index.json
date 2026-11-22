@@ -720,7 +720,7 @@
           "label": "Komunikat NIK z 25.03.2025 – Porażka w gospodarowaniu odpadami",
           "url": "https://www.nik.gov.pl/najnowsze-informacje-o-wynikach-kontroli/gospodarowanie-odpadami.html",
           "type": "wyniki_kontroli",
-          "lastChecked": "2026-11-21",
+          "lastChecked": "2026-11-22",
           "sourceId": "nik-waste-press-2025"
         },
         {
@@ -728,7 +728,7 @@
           "url": "https://www.nik.gov.pl/plik/id,30506,vp,33560.pdf",
           "type": "raport",
           "sourceId": "nik-waste-2024",
-          "lastChecked": "2026-11-21"
+          "lastChecked": "2026-11-22"
         }
       ],
       "preliminaryNote": "W dwóch oficjalnych materiałach NIK znaleziono różne wartości wskaźników za 2023 r. Komunikat z 25.03.2025 podaje 47,6% odzysku i 15,9% recyklingu, natomiast pełna informacja o wynikach kontroli P/23/039 (KSI.430.7.2024) podaje 47,5% i 15,8%. Do czasu wyjaśnienia różnicy każdą wartość należy cytować wraz z nazwą dokumentu.",
