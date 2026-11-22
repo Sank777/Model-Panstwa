@@ -46,6 +46,12 @@ async function readLimited(r: Response): Promise<Uint8Array> {
 }
 Deno.serve(async req => {
   if (req.method !== "POST") return reply({error:"POST only"},405);
+  const bridgeSecret = Deno.env.get("LEON_VISUAL_BRIDGE_SECRET");
+  const suppliedSecret = req.headers.get("x-leon-bridge-secret") || "";
+  if (!bridgeSecret || suppliedSecret.length !== bridgeSecret.length) return reply({error:"Bridge authentication unavailable"},503);
+  let secretDiff = 0;
+  for (let i = 0; i < bridgeSecret.length; i++) secretDiff |= bridgeSecret.charCodeAt(i) ^ suppliedSecret.charCodeAt(i);
+  if (secretDiff !== 0) return reply({error:"Unauthorized"},401);
   let body: Record<string,unknown>;
   try { body = await req.json(); } catch { return reply({error:"Invalid JSON"},400); }
   const url = safeDropboxUrl(body.download_url);
