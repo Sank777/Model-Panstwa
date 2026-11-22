@@ -337,7 +337,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/01-cyberbezpieczenstwo.svg",
+        "src": "assets/cases/illustrations/nik/01-cyberbezpieczenstwo.svg",
         "alt": "Schemat cyberbezpieczeństwa usług kluczowych: operator, system IT/OT, alert i ciągłość działania."
       }
     },
@@ -416,7 +416,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/02-powodz.svg",
+        "src": "assets/cases/illustrations/nik/02-powodz.svg",
         "alt": "Schemat reakcji na powódź: przepływ ostrzeżeń, decyzji i pomocy między szczeblami państwa."
       }
     },
@@ -513,7 +513,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/03-systemy-it.svg",
+        "src": "assets/cases/illustrations/nik/03-systemy-it.svg",
         "alt": "Schemat zamówienia systemu IT: potrzeba, wymagania, testy, odbiór i uruchomienie."
       }
     },
@@ -577,7 +577,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/04-odra.svg",
+        "src": "assets/cases/illustrations/nik/04-odra.svg",
         "alt": "Schemat monitoringu Odry: pobór próbek, laboratorium, wymiana danych i ostrzeganie."
       }
     },
@@ -641,7 +641,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/05-budzet.svg",
+        "src": "assets/cases/illustrations/nik/05-budzet.svg",
         "alt": "Schemat wykonania budżetu: plan, dysponent, wydatki i fundusze, efekt oraz kontrola."
       }
     },
@@ -705,7 +705,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/06-wybory.svg",
+        "src": "assets/cases/illustrations/nik/06-wybory.svg",
         "alt": "Schemat przygotowania wyborów korespondencyjnych: podstawa prawna, decyzja, przygotowanie i rozliczenie."
       }
     },
@@ -809,7 +809,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/07-odpady.svg",
+        "src": "assets/cases/illustrations/nik/07-odpady.svg",
         "alt": "Schemat gospodarowania odpadami: wytworzenie, odbiór, transport, instalacja i ewidencja."
       }
     },
@@ -888,7 +888,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/08-zdrowie.svg",
+        "src": "assets/cases/illustrations/nik/08-zdrowie.svg",
         "alt": "Schemat zamawiania świadczeń zdrowotnych: potrzeby, wybór, umowa, personel i wykonanie."
       }
     },
@@ -967,7 +967,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/09-szkoly.svg",
+        "src": "assets/cases/illustrations/nik/09-szkoly.svg",
         "alt": "Schemat nadzoru nad szkołą: potrzeby uczniów, arkusz organizacyjny, kadry, zajęcia i efekty."
       }
     },
@@ -1040,7 +1040,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/10-mieszkalnictwo.svg",
+        "src": "assets/cases/illustrations/nik/10-mieszkalnictwo.svg",
         "alt": "Schemat finansowania mieszkań: wniosek, ocena, wsparcie, budowa i gotowy lokal."
       }
     },
@@ -1125,7 +1125,7 @@
           "Nie pokazywać prawdziwych danych osobowych, logotypów ani identyfikowalnych osób.",
           "Grafika ma objaśniać proces i punkty kontroli, nie zastępować źródeł."
         ],
-        "src": "assets/cases/illustrations/11-schronienia.svg",
+        "src": "assets/cases/illustrations/nik/11-schronienia.svg",
         "alt": "Schemat gotowości ochronnej: ewidencja obiektu, ocena techniczna, dostosowanie, utrzymanie i ćwiczenia."
       }
     },
