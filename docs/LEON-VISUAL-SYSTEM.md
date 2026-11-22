@@ -95,3 +95,10 @@ A rejection moves the candidate to `rejected`; it never mutates an existing publ
 ## Acceptance criteria
 
 The system is not complete until a user can accept one generated image and, without downloading or copying files manually, see it in the correct live page after automated checks. The pipeline must prove the uploaded SHA-256, immutable storage path, catalog state, placement, deployment commit and live URL. A failed stage must leave the existing page unchanged.
+
+### Applied database hardening (2026-11-22)
+- Enabled RLS on `private.visual_upload_tickets`; the `anon` and `authenticated` roles have neither schema USAGE nor table privileges. `service_role` retains the server-side privileges used by the ticket-consumption RPC.
+- Confirmed `public.consume_visual_upload_ticket(text)` is SECURITY DEFINER with an empty search_path; EXECUTE is granted to service_role and postgres only.
+- Changed the visual catalog default to `draft` and added a lifecycle constraint: drafts must remain in the private `visual-drafts` bucket with no publication timestamp; published assets must be in `visual-assets` with a publication timestamp.
+- The live Edge Function is version 3. Its endpoint validates RIFF/WebP declared length, exact Content-Length and SHA-256, and stores objects in `visual-drafts` as `draft` records. It does not publish.
+- Supabase advisor still reports informational RLS-without-policy findings for private tables. For `visual_upload_tickets`, this is intentional defense-in-depth because all API client roles lack schema and table access; do not add broad policies.
