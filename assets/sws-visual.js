@@ -10,6 +10,7 @@
   const cards=[...source.querySelectorAll("article.case-card")].filter(card=>/^SWS-PL-\d{3}/.test(card.querySelector(".case-id")?.textContent?.trim()||""));
   if(!cards.length)return;
 
+  let nikTopics=[];
   const items=cards.map(card=>{
     const id=card.querySelector(".case-id")?.textContent?.match(/SWS-PL-\d{3}/)?.[0]||card.id.replace("case-","");
     const title=card.querySelector("h2")?.textContent?.trim()||id;
@@ -22,6 +23,7 @@
     button.dataset.status=card.dataset.status||"";
     button.dataset.search=(card.dataset.search||"")+" "+card.textContent;
     button.setAttribute("aria-pressed","false");
+    if(id==="SWS-PL-008")button.setAttribute("aria-expanded","false");
     const code=document.createElement("span");
     code.className="sws-topic-id";
     code.textContent=id.replace("SWS-PL-","");
@@ -29,16 +31,81 @@
     const strong=document.createElement("strong");strong.textContent=title;
     const small=document.createElement("small");small.textContent=status;
     copy.append(strong,small);button.append(code,copy);
-    button.addEventListener("click",()=>select(id));
+    const item={id,card,button,nikList:null};
+    button.addEventListener("click",()=>{
+      select(id);
+      if(id==="SWS-PL-008")toggleNikList(item);
+    });
     list.append(button);
-    return {id,card,button};
+    return item;
   });
   count.textContent=cards.length+" spraw";
+
+  function toggleNikList(item){
+    if(!item.nikList)return;
+    const opening=item.nikList.hidden;
+    item.nikList.hidden=!opening;
+    item.button.setAttribute("aria-expanded",opening?"true":"false");
+  }
+
+  function renderNikList(topics){
+    const item=items.find(x=>x.id==="SWS-PL-008");
+    if(!item)return;
+    const panel=document.createElement("div");
+    panel.className="sws-nik-sublist";
+    panel.hidden=true;
+    const heading=document.createElement("strong");
+    heading.className="sws-nik-sublist-title";
+    heading.textContent="11 przykładów z analiz NIK";
+    panel.append(heading);
+    topics.forEach((topic,index)=>{
+      const link=document.createElement("a");
+      link.className="sws-nik-subtopic";
+      link.href="analizy-nik.html?topic="+encodeURIComponent(topic.id);
+      const number=document.createElement("span");
+      number.className="sws-nik-subtopic-number";
+      number.textContent=String(index+1).padStart(2,"0");
+      const title=document.createElement("span");
+      title.textContent=topic.title||topic.id;
+      link.append(number,title);
+      panel.append(link);
+    });
+    item.button.insertAdjacentElement("afterend",panel);
+    item.nikList=panel;
+  }
+
+  fetch("assets/cases/index.json",{credentials:"same-origin"})
+    .then(response=>{if(!response.ok)throw new Error("Nie udało się pobrać rejestru NIK.");return response.json();})
+    .then(data=>{
+      nikTopics=(Array.isArray(data.nikTopics)?data.nikTopics:[])
+        .filter(topic=>/^NIK-0(?:0[1-9]|1[01])$/.test(topic.id))
+        .sort((a,b)=>a.id.localeCompare(b.id,"en"));
+      if(nikTopics.length!==11)throw new Error("Rejestr nie zawiera kompletu 11 tematów.");
+      renderNikList(nikTopics);
+      const selected=items.find(x=>x.button.getAttribute("aria-pressed")==="true");
+      if(selected?.id==="SWS-PL-008"){
+        selected.nikList.hidden=false;
+        selected.button.setAttribute("aria-expanded","true");
+      }
+    })
+    .catch(()=>{
+      const item=items.find(x=>x.id==="SWS-PL-008");
+      if(!item)return;
+      const panel=document.createElement("p");
+      panel.className="sws-empty sws-nik-sublist";
+      panel.hidden=true;
+      panel.textContent="Nie udało się wczytać 11 przykładów. Spróbuj ponownie później.";
+      item.button.insertAdjacentElement("afterend",panel);
+      item.nikList=panel;
+    });
 
   function select(id){
     const item=items.find(x=>x.id===id);
     if(!item)return;
-    items.forEach(x=>x.button.setAttribute("aria-pressed",x.id===id?"true":"false"));
+    items.forEach(x=>{
+      x.button.setAttribute("aria-pressed",x.id===id?"true":"false");
+      if(x.id!=="SWS-PL-008"&&x.nikList){x.nikList.hidden=true;x.button.setAttribute("aria-expanded","false");}
+    });
     detail.replaceChildren();
     const clone=item.card.cloneNode(true);
     clone.removeAttribute("id");
@@ -101,6 +168,7 @@
       const ok=(!q||item.button.dataset.search.toLocaleLowerCase("pl").includes(q))&&
         (!type||item.button.dataset.type===type)&&(!status||item.button.dataset.status===status);
       item.button.hidden=!ok;
+      if(item.nikList)item.nikList.hidden=!ok||item.nikList.hidden;
       if(ok)visible++;
     });
     count.textContent=visible+" / "+cards.length+" spraw";
