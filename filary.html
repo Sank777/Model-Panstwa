@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/site-theme-v1.css?v=1.0.1">
 <link rel="preload" as="image" href="assets/menu/leon-hero.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/site-shell.css?v=1.1.0">
+<link rel="stylesheet" href="assets/cru-trace.css?v=1.0.0">
 <link rel="stylesheet" href="assets/visual-engine.css?v=6.16.0">
 <link rel="stylesheet" href="assets/visual-engine-layout.css?v=7.3.4-restore1">
 <style id="filar10-procurement-monitor">
@@ -112,6 +113,13 @@
 <div class="f10-topline"><span class="f10-kicker">FILAR 10 · MONITOR PUBLICZNYCH PIENIĘDZY</span><span class="f10-count">11 OBSZARÓW · REJESTR RZECZYWISTYCH SPRAW</span></div>
 <h3 id="f10-monitor-title">Monitor zamówień i przetargów</h3>
 <p>Wybierz jedną z 11 kategorii. Zobaczysz konkretne postępowania, udokumentowane zdarzenia i dokumenty, które można dalej sprawdzać. Nie utożsamiamy unieważnienia, sporu ani przerwy w pracach z dowodem nieprawidłowości.</p>
+<section class="f10-cru" id="f10-cru-trace" aria-labelledby="f10-cru-title">
+<div class="f10-cru-head"><div><span class="f10-cru-kicker">NOWY MODUŁ · CRU JSFP</span><h4 id="f10-cru-title">Ślad finansowy umów</h4><p>Przykłady z publicznych wpisów CRU: kto zawarł umowę, z kim, czego dotyczyła, jaka wartość została ujawniona i co pozostaje nieustalone. To rejestr umów, nie rejestr nieprawidłowości.</p></div><span class="f10-cru-count" id="cru-count">Ładowanie…</span></div>
+<div class="f10-cru-tools"><label for="cru-query">Szukaj jednostki, kontrahenta lub przedmiotu</label><input id="cru-query" type="search" placeholder="np. koncert, Opera, jednostka…"><label for="cru-filter">Rodzaj informacji</label><select id="cru-filter"><option value="">Wszystkie wpisy</option><option value="known">Ujawniona wartość</option><option value="restricted">Dane wyłączone z jawności</option></select></div>
+<div class="f10-cru-list" id="cru-list" aria-live="polite"><p>Ładowanie rejestru przykładów…</p></div>
+<p class="f10-cru-caveat"><strong>Granica wnioskowania:</strong> wartość umowy nie jest automatycznie kwotą zapłaconą. Status „nieaktywna” nie potwierdza sam w sobie odbioru ani rozliczenia. Brak dokumentu w publicznym wpisie oznacza „niepozyskany”, a nie „nie istnieje”. Sam wpis CRU nie stanowi dowodu nieprawidłowości.</p>
+<div class="f10-cru-sources"><a href="https://rejestrumow.gov.pl/" target="_blank" rel="noopener noreferrer">Otwórz publiczny CRU JSFP ↗</a><a href="https://www.gov.pl/web/finanse/udostepnienie-api-do-systemu-centralny-rejestr-umow-jsfp" target="_blank" rel="noopener noreferrer">Dokumentacja API CRU JSFP ↗</a></div>
+</section>
 <section class="f10-live" id="f10-live-bzp" aria-labelledby="f10-bzp-title">
 <h4 id="f10-bzp-title">Wyszukiwanie krajowe — BZP (bez klucza)</h4>
 <p>Odczyt bezpośrednio z publicznego API e-Zamówień. Pobieramy ostatnie ogłoszenia o zamówieniu i ogłoszenia o wynikach z ostatnich 14 dni. Dwa zapytania na kliknięcie, daleko poniżej limitu 30/min.</p>
@@ -160,7 +168,7 @@ button.addEventListener("click",async()=>{
  const to=new Date(),from=new Date(to.getTime()-14*86400000),fmt=d=>d.toISOString().slice(0,10);
  const types=["ContractNotice","TenderResultNotice"],all=[];
  for(const type of types){
-  const u=new URL("https://ezamowienia.gov.pl/mo-board/api/v1/Board/Search");
+  const u=new URL("https://ezamowienia.gov.pl/mo-board/api/v1/notice");
   u.search=new URLSearchParams({NoticeType:type,PublicationDateFrom:fmt(from),PublicationDateTo:fmt(to),PageSize:"10",PageNumber:"1"}).toString();
   const response=await fetch(u.toString(),{headers:{"Accept":"application/json"}});
   if(!response.ok)throw new Error("BZP "+type+" zwróciło HTTP "+response.status);
