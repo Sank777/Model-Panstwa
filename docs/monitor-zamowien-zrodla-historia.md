@@ -31,7 +31,7 @@ Monitor ma prowadzić sprawę przez cały cykl wydatkowania środków publicznyc
 
 **Potwierdzone zasady:** odczyt opublikowanych ogłoszeń krajowych i statystyk przez API BZP nie wymaga przejścia procedury integracyjnej; usługa jest bezpłatna. Od 6 października 2026 r. obowiązuje limit 30 zapytań na minutę z jednego IP; przekroczenie powoduje HTTP 403. Oficjalna informacja o planowanej zmianie podaje maksymalny PageSize 100 (zamiast 500) oraz walidację parametrów; termin produkcyjny wskazany w komunikacie to 11 stycznia 2027 r.
 
-**Ważna uwaga techniczna do weryfikacji:** wcześniejszy prototyp w `filary.html` użył ścieżki `/mo-board/api/v1/Board/Search` i parametrów `NoticeType`, `PublicationDateFrom` itd. Oficjalna dokumentacja wskazuje natomiast `/mo-board/api/v1/notice`. Nie uznajemy więc prototypu BZP za potwierdzoną integrację, dopóki nie zostanie dostosowany do aktualnej instrukcji API i przetestowany na rzeczywistej odpowiedzi. Nie zakładamy, że CORS lub odpowiedź endpointu są poprawne.
+**Stan po poprawce 23.11.2026:** klient w `filary.html` został przełączony ze starej ścieżki `/mo-board/api/v1/Board/Search` na oficjalną `/mo-board/api/v1/notice`. Parametry i mapowanie odpowiedzi nadal wymagają rzeczywistego testu na produkcyjnym API; nie uznajemy integracji za działającą, dopóki nie zapiszemy odpowiedzi HTTP, schematu danych i testu widoku. Nie zakładamy, że CORS lub odpowiedź endpointu są poprawne.
 
 ### B. TED — unijne ogłoszenia o zamówieniach
 
@@ -108,8 +108,8 @@ Dla każdego postępowania trzeba sprawdzać także BIP zamawiającego i jego pl
 
 ## 6. Najbliższe zadania techniczne
 
-- [ ] Skorygować klienta BZP do oficjalnego `GET /mo-board/api/v1/notice` i parametrów z aktualnej instrukcji.
-- [ ] Wykonać rzeczywiste zapytanie testowe do BZP i zapisać przykładową odpowiedź bez danych wrażliwych.
+- [x] Skorygować adres klienta BZP do oficjalnego `GET /mo-board/api/v1/notice`.
+- [ ] Zweryfikować parametry i wykonać rzeczywiste zapytanie testowe do BZP; zapisać odpowiedź HTTP i przykładową odpowiedź bez danych wrażliwych.
 - [ ] Przetestować TED Search API z query i schematem odpowiedzi zgodnym z dokumentacją.
 - [ ] Dodać trwały rejestr zdarzeń w pliku danych (np. JSON), zawierający historię zmian statusu i daty weryfikacji.
 - [ ] Dodać cykliczne pobieranie i porównywanie nowych ogłoszeń bez przekraczania limitów.
@@ -118,3 +118,12 @@ Dla każdego postępowania trzeba sprawdzać także BIP zamawiającego i jego pl
 
 ---
 **Status prawdy:** ten dokument opisuje potwierdzone możliwości oficjalnych źródeł i aktualny stan implementacji. Nie jest dowodem, że każde źródło jest już automatycznie synchronizowane z monitorem.
+
+
+## 7. Zmiany 23 listopada 2026 r.
+
+- Dodano pilotażowy moduł „Ślad finansowy umów” w Filarze 10 i plik `assets/cru/contracts.json` z czterema rekordami CRU.
+- Dodano wyszukiwanie po treści i filtr rekordów z ujawnioną / nieujawnioną wartością.
+- Dodano jawne pola nieustalone; nie utożsamia się wartości umowy z płatnością.
+- Skorygowano ścieżkę BZP na `/mo-board/api/v1/notice`; test rzeczywistego połączenia pozostaje otwarty.
+- Usunięto z Centrum Jawności nieaktywny skrypt starego widoku NIK, który nie miał wymaganego kontenera `nik-visual-workspace`. Aktualny widok 11 tematów NIK i 9 kart SWS pozostaje oparty na `sws-visual.js`.

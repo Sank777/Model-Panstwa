@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Pilotażowe przykłady publicznych wpisów CRU JSFP. Dane opisują wpisy rejestrowe, nie potwierdzają zapłaty ani nieprawidłowości.",
+  "records": [
+    {
+      "id": "CRU-EX-001",
+      "uuid": "4a0dc9ff-0581-40d6-bf41-5ca5b7281b2b",
+      "contractNo": "136/2026",
+      "date": "2026-07-02",
+      "authority": "Łódzkie Centrum Wydarzeń",
+      "contractor": "Agencja Artystyczna MOKRE BUTY Paweł Hordejuk",
+      "subject": "Koncert zespołu Happysad podczas Łódź Summer Festival 2026 (24.07.2026)",
+      "amount": {
+        "value": 50000,
+        "currency": "PLN",
+        "basis": "wartość ujawniona w CRU; netto/brutto nieustalone"
+      },
+      "status": "nieaktywna",
+      "statusDate": "2026-08-26",
+      "statusNote": "Rejestr wskazuje status nieaktywny; sam status nie potwierdza kwoty wypłaconej ani odbioru.",
+      "recordUrl": "https://rejestrumow.gov.pl/umowa/4a0dc9ff-0581-40d6-bf41-5ca5b7281b2b",
+      "evidence": "publiczny wpis CRU",
+      "documents": [
+        {
+          "label": "Rekord umowy w CRU JSFP",
+          "url": "https://rejestrumow.gov.pl/umowa/4a0dc9ff-0581-40d6-bf41-5ca5b7281b2b"
+        }
+      ],
+      "unknowns": [
+        "Faktyczna kwota zapłacona i data płatności",
+        "Faktura lub rachunek oraz dokument rozliczenia",
+        "Protokół lub inny dokument potwierdzający wykonanie usługi"
+      ],
+      "reviewNote": "Dane wpisu rejestrowego zebrane w poprzednim raporcie; przed dalszą analizą ponownie otworzyć rekord źródłowy."
+    },
+    {
+      "id": "CRU-EX-002",
+      "uuid": "1a14a22a-ef99-4ca9-bb6f-7f03310cbf54",
+      "contractNo": "01/07/2026",
+      "date": "2026-07-09",
+      "authority": "Orkiestra Stołecznego-Królewskiego Miasta Krakowa „Sinfonietta Cracovia”",
+      "contractor": null,
+      "subject": "Wykonanie partii instrumentu trąbki podczas koncertu „Kolory Polski”",
+      "amount": {
+        "value": null,
+        "currency": "PLN",
+        "basis": "wartość wyłączona z jawności w rejestrze"
+      },
+      "status": "nieaktywna",
+      "statusDate": "2026-07-15",
+      "statusNote": "Wpis wskazuje wyłączenie danych kontrahenta i wartości oraz podstawę prawną podaną przez rejestr (art. 29a ustawy o organizowaniu i prowadzeniu działalności kulturalnej).",
+      "recordUrl": "https://rejestrumow.gov.pl/umowa/1a14a22a-ef99-4ca9-bb6f-7f03310cbf54",
+      "evidence": "publiczny wpis CRU",
+      "documents": [
+        {
+          "label": "Rekord umowy w CRU JSFP",
+          "url": "https://rejestrumow.gov.pl/umowa/1a14a22a-ef99-4ca9-bb6f-7f03310cbf54"
+        }
+      ],
+      "unknowns": [
+        "Dane kontrahenta wyłączone z jawności w tym wpisie",
+        "Wartość umowy wyłączona z jawności w tym wpisie",
+        "Kwota zapłacona i dokument rozliczenia",
+        "Dokument potwierdzający wykonanie usługi"
+      ],
+      "reviewNote": "Nie zamieniamy danych wyłączonych z jawności na zero ani na domniemane dane."
+    },
+    {
+      "id": "CRU-EX-003",
+      "uuid": "1704f3b9-cd3d-45d2-8317-0a2aa89f9a69",
+      "contractNo": null,
+      "date": "2026-09-03",
+      "authority": "Szyb Staszic w Tarnowskich Górach",
+      "contractor": "art studio oho – Adam Pyrek",
+      "subject": "Sprzęt oświetleniowy i nagłośnieniowy wraz z profesjonalną obsługą sceny na potrzeby spektakli 12.09.2026",
+      "amount": {
+        "value": 4500,
+        "currency": "PLN",
+        "basis": "netto; wartość brutto nieustalona"
+      },
+      "status": "nieaktywna",
+      "statusDate": "2026-09-13",
+      "statusNote": "Wpis zawiera informację „Umowa wykonana”. Nie oznacza to automatycznie potwierdzenia kwoty zapłaconej.",
+      "recordUrl": "https://rejestrumow.gov.pl/umowa/1704f3b9-cd3d-45d2-8317-0a2aa89f9a69",
+      "evidence": "publiczny wpis CRU",
+      "documents": [
+        {
+          "label": "Rekord umowy w CRU JSFP",
+          "url": "https://rejestrumow.gov.pl/umowa/1704f3b9-cd3d-45d2-8317-0a2aa89f9a69"
+        }
+      ],
+      "unknowns": [
+        "Numer umowy niepodany w odczytanym wpisie",
+        "Kwota brutto i faktycznie zapłacona",
+        "Faktura lub rachunek oraz protokół rozliczenia"
+      ],
+      "reviewNote": "Wartość netto jest wyświetlana jako netto; nie przeliczamy jej na brutto bez danych o podatku."
+    },
+    {
+      "id": "CRU-EX-004",
+      "uuid": "cdc9e19b-5650-43b9-a20a-12c706fe8880",
+      "contractNo": "70/2026",
+      "date": "2026-08-11",
+      "authority": "Gminny Ośrodek Kultury w Sanoku",
+      "contractor": "Adam Wojtowicz",
+      "subject": "Wykonanie partii instrumentalnej z Orkiestrą Dętą podczas imprezy „Dożynki Powiatowo-Gminne”",
+      "amount": {
+        "value": 221,
+        "currency": "PLN",
+        "basis": "wartość ujawniona w CRU; netto/brutto nieustalone"
+      },
+      "status": "nieaktywna",
+      "statusDate": "2026-08-24",
+      "statusNote": "Wpis zawiera informację „dzieło wykonano – umowa zrealizowana”. Nie jest to samo w sobie dowód zapłaty.",
+      "recordUrl": "https://rejestrumow.gov.pl/umowa/cdc9e19b-5650-43b9-a20a-12c706fe8880",
+      "evidence": "publiczny wpis CRU",
+      "documents": [
+        {
+          "label": "Rekord umowy w CRU JSFP",
+          "url": "https://rejestrumow.gov.pl/umowa/cdc9e19b-5650-43b9-a20a-12c706fe8880"
+        }
+      ],
+      "unknowns": [
+        "Faktyczna kwota i data płatności",
+        "Dokument księgowy potwierdzający rozliczenie"
+      ],
+      "reviewNote": "Wartość przedstawiona dokładnie jako kwota z wpisu; nie interpretujemy jej jako kwoty brutto ani netto."
+    }
+  ]
+}
