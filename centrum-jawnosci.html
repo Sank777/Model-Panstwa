@@ -156,7 +156,7 @@
 <script>
 (()=>{const q=document.getElementById('mechanismSearch'),g=document.getElementById('mechanismGroup'),tiles=[...document.querySelectorAll('#mechanismTiles .mechanism')];function filter(){const term=(q.value||'').trim().toLowerCase(),group=g.value;tiles.forEach(t=>{t.hidden=!!(group&&t.dataset.group!==group)||!!(term&&!((t.dataset.search||'')+' '+t.textContent).toLowerCase().includes(term))})}q.addEventListener('input',filter);g.addEventListener('change',filter)})();
 </script>
-<section class="jaw-section" id="sws-top-section" aria-label="Sprawy do sprawdzenia">
+<section class="jaw-section jaw-center-definition" id="centrum-metoda"><span class="jaw-tag">DEFINICJA I METODA CENTRUM JAWNOŚCI</span><h2>Centrum Jawności — od historii do rozwiązania</h2><p>Nie narzucamy gotowej oceny ani jednego sposobu myślenia. Wybieramy konkretną sprawę z historii, odtwarzamy ją punkt po punkcie na podstawie źródeł, oddzielamy ustalenia od pytań i wniosków, a następnie wspólnie szukamy możliwych rozwiązań. Mechanizmy są narzędziami pomocniczymi — nie zastępują analizy sprawy.</p><div class="jaw-center-flow"><article><b>1 · HISTORIA</b><p>Co się wydarzyło? Chronologia i uczestnicy.</p></article><article><b>2 · ŹRÓDŁA</b><p>Dokumenty, raporty, dane, status potwierdzenia.</p></article><article><b>3 · DRZEWKO</b><p>Przechodzimy etap po etapie, pytanie po pytaniu.</p></article><article><b>4 · RÓŻNE PERSPEKTYWY</b><p>Argumenty, kontrargumenty i możliwe wyjaśnienia.</p></article><article><b>5 · MECHANIZMY</b><p>Sprawdzamy, które schematy pomagają wyjaśnić problem.</p></article><article><b>6 · ROZWIĄZANIA</b><p>Tworzymy kilka możliwości, porównujemy i testujemy.</p></article></div><p class="jaw-note"><strong>Cel:</strong> nie „udowodnić naszą tezę”, tylko zrozumieć sprawę, znaleźć braki w wiedzy, rozwiać wątpliwości i wypracować możliwie skuteczne rozwiązania.</p></section>\n<section class="jaw-section" id="sws-top-section" aria-label="Sprawy do sprawdzenia">
 <section class="sws-workspace" id="sws-workspace" aria-label="Sprawy do sprawdzenia — System Widzenia Sprawy">
       <div class="sws-heading">
         <div><span class="sws-kicker">SYSTEM WIDZENIA SPRAWY · SWS</span><h2>Sprawy do sprawdzenia</h2><p>Wybierz sprawę po lewej. Po prawej otworzy się jej karta z opisem, statusem, materiałem analitycznym i źródłami.</p></div>
@@ -392,7 +392,7 @@
  <p>Historia spraw jest dopisywana, nie nadpisywana. Rozróżniamy datę zdarzenia, dokumentu i publikacji. Sprostowania oraz późniejsze wyjaśnienia powinny być widoczne obok wcześniejszych wpisów.</p>
 </section>
 
-</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
+<script>(()=>{const m=document.getElementById('jaw-mechanisms'),s=document.getElementById('sws-top-section');if(m&&s&&s.parentNode)s.insertAdjacentElement('afterend',m)})();</script>\n</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
 <script src="assets/visual-rom.js?v=1.0.0-pipeline" defer></script>
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
 <script src="assets/visual-engine.js?v=7.3.4-restore1" defer></script>
