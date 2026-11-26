@@ -52,7 +52,7 @@
 .panel{padding:.8rem;margin:.65rem 0}
 @media(max-width:760px){.jaw-hero{padding:.85rem}.jaw-section{margin:.5rem 0}}
 </style>
-</head><body data-page-shell="homepage-v1" data-center-visual="v1">
+<link rel="stylesheet" href="assets/centrum-investigation.css?v=1.0.0-audit-workbench">\n</head><body data-page-shell="homepage-v1" data-center-visual="v1">
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Model Państwa — strona główna">
     <span class="brand-eagle" aria-hidden="true">🦅</span>
@@ -156,7 +156,7 @@
 <script>
 (()=>{const q=document.getElementById('mechanismSearch'),g=document.getElementById('mechanismGroup'),tiles=[...document.querySelectorAll('#mechanismTiles .mechanism')];function filter(){const term=(q.value||'').trim().toLowerCase(),group=g.value;tiles.forEach(t=>{t.hidden=!!(group&&t.dataset.group!==group)||!!(term&&!((t.dataset.search||'')+' '+t.textContent).toLowerCase().includes(term))})}q.addEventListener('input',filter);g.addEventListener('change',filter)})();
 </script>
-<section class="jaw-section" id="sws-top-section" aria-label="Sprawy do sprawdzenia">
+<section class="jaw-section cj-definition" id="centrum-method"><span class="jaw-tag">JAK PRACUJE CENTRUM JAWNOŚCI</span><h2>Od konkretnej historii do sprawdzonego rozwiązania</h2><p>Nie narzucamy własnej oceny. Pracujemy na rzeczywistych sprawach: ustalamy, co wydarzyło się i co potwierdzają źródła; odtwarzamy chronologię; przechodzimy pytania i zależności; sprawdzamy mechanizmy; szukamy kontrargumentów; tworzymy i weryfikujemy rozwiązania.</p><div class="cj-method-grid"><div><b>1 · Historia</b><span>Konkretny przykład i zakres.</span></div><div><b>2 · Fakty i źródła</b><span>Ustalenia, sygnały, wnioski i braki danych.</span></div><div><b>3 · Drzewko sprawdzania</b><span>Dokumenty i pytania krok po kroku.</span></div><div><b>4 · Różne perspektywy</b><span>Argumenty i alternatywne wyjaśnienia.</span></div><div><b>5 · Mechanizmy</b><span>Narzędzia diagnostyczne, nie gotowe oskarżenia.</span></div><div><b>6 · Rozwiązanie</b><span>Warianty, test, odpowiedzialność i efekt.</span></div></div><p class="cj-rule"><strong>Zasada:</strong> brak informacji nie dowodzi braku działania; mechanizm nie potwierdza zdarzenia; ustalenie organu, nasza analiza i hipoteza mają odrębne statusy.</p></section><section class="jaw-section cj-workbench" id="centrum-workbench"><div class="cj-workbench-head"><div><span class="jaw-tag">CENTRUM · WARSZTAT ANALIZY</span><h2>11 tematów — drzewko pracy nad sprawą</h2><p>Wybierz historię, przechodź przez etapy i zapisuj wyniki. Warsztat korzysta z danych rejestru, a notatki zapisuje lokalnie w tej przeglądarce.</p></div><span id="cj-progress" class="cj-progress">Postęp: 0/11</span></div><div class="cj-case-tree" id="cj-case-tree">Ładowanie rejestru…</div><div class="cj-case-panel" id="cj-case-panel" aria-live="polite">Wybierz temat z drzewka.</div><p class="cj-local-note">Notatki nie są wysyłane na serwer. Nie zapisuj tu danych osobowych ani informacji wrażliwych.</p><p class="cj-save-status" aria-live="polite"></p></section>\n<section class="jaw-section" id="sws-top-section" aria-label="Sprawy do sprawdzenia">
 <section class="sws-workspace" id="sws-workspace" aria-label="Sprawy do sprawdzenia — System Widzenia Sprawy">
       <div class="sws-heading">
         <div><span class="sws-kicker">SYSTEM WIDZENIA SPRAWY · SWS</span><h2>Sprawy do sprawdzenia</h2><p>Wybierz sprawę po lewej. Po prawej otworzy się jej karta z opisem, statusem, materiałem analitycznym i źródłami.</p></div>
@@ -392,10 +392,10 @@
  <p>Historia spraw jest dopisywana, nie nadpisywana. Rozróżniamy datę zdarzenia, dokumentu i publikacji. Sprostowania oraz późniejsze wyjaśnienia powinny być widoczne obok wcześniejszych wpisów.</p>
 </section>
 
-</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
+<script>document.addEventListener('DOMContentLoaded',()=>{const m=document.getElementById('jaw-mechanisms'),s=document.getElementById('sws-top-section');if(m&&s)s.insertAdjacentElement('afterend',m)});</script>\n</main><footer style="text-align:center;padding:1.5rem;color:var(--mp-muted)">Centrum Jawności · rejestr publicznych ustaleń i dobrych praktyk.</footer><script src="assets/site.js?v=20261117-header-login1" defer></script>
 <script src="assets/visual-rom.js?v=1.0.0-pipeline" defer></script>
 <script src="assets/visual-segmenter.js?v=2.1.0" defer></script>
 <script src="assets/visual-engine.js?v=7.3.4-restore1" defer></script>
 
-<script src="assets/sws-visual.js?v=1.2.0-nik-tree-009" defer></script>
+<script src="assets/sws-visual.js?v=1.2.0-nik-tree-009" defer></script>\n<script src="assets/centrum-investigation.js?v=1.0.0-audit-workbench" defer></script>
 </body></html>
